@@ -1,11 +1,17 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Inter, Barlow_Condensed } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { Header } from '@/components/header'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const _inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const _barlowCondensed = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "800", "900"],
+  variable: "--font-barlow",
+});
 
 export const metadata: Metadata = {
   title: 'Santiago Varón - Desarrollo de Software',
@@ -37,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="bg-background">
-      <body className="font-sans antialiased">
+      <body className={`font-sans antialiased ${_inter.variable} ${_barlowCondensed.variable}`}>
         <Header />
         <main>{children}</main>
         {process.env.NODE_ENV === 'production' && <Analytics />}
