@@ -1,16 +1,15 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Inter, Barlow_Condensed } from 'next/font/google'
+import { Geist, Geist_Mono, Raleway } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { Header } from '@/components/header'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
-const _inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const _barlowCondensed = Barlow_Condensed({
+const _raleway = Raleway({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800", "900"],
-  variable: "--font-barlow",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-raleway",
 });
 
 export const metadata: Metadata = {
@@ -43,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="bg-background">
-      <body className={`font-sans antialiased ${_inter.variable} ${_barlowCondensed.variable}`}>
+      <body className={`font-sans antialiased ${_raleway.variable}`}>
         <Header />
         <main>{children}</main>
         {process.env.NODE_ENV === 'production' && <Analytics />}

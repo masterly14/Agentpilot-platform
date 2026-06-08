@@ -85,9 +85,9 @@
 }
 
 @theme inline {
-  --font-sans: 'Inter', 'Geist', 'Geist Fallback';
+  --font-sans: 'Raleway', 'Geist', 'Geist Fallback';
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
-  --font-display: 'Barlow Condensed', 'Geist', sans-serif;
+  --font-display: 'Raleway', sans-serif;
   --color-brand-blue: var(--brand-blue);
   --color-brand-blue-light: var(--brand-blue-light);
   --color-overlay-glass: var(--overlay-glass);

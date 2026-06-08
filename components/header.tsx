@@ -6,8 +6,8 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-6 md:px-10">
         <Link href="/" className="group flex items-center">
           <span
-            className="text-xl font-black uppercase tracking-widest text-foreground transition-opacity group-hover:opacity-70"
-            style={{ fontFamily: "var(--font-barlow, 'Barlow Condensed', sans-serif)", letterSpacing: "0.12em" }}
+            className="text-xl font-extrabold tracking-widest text-foreground transition-opacity group-hover:opacity-70"
+            style={{ fontFamily: "var(--font-raleway, 'Raleway', sans-serif)", letterSpacing: "0.18em" }}
           >
             Santiago Varón
           </span>

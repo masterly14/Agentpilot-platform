@@ -205,17 +205,17 @@ export function MultiStepForm() {
               className="flex max-w-2xl flex-col items-center text-center"
             >
               <h1
-                className="mb-4 text-4xl font-black uppercase leading-none tracking-tight text-foreground text-balance md:text-6xl"
-                style={{ fontFamily: "var(--font-barlow, 'Barlow Condensed', sans-serif)" }}
+                className="mb-4 text-4xl font-black leading-tight tracking-tight text-foreground text-balance md:text-6xl"
+                style={{ fontFamily: "var(--font-raleway, 'Raleway', sans-serif)" }}
               >
                 {"¿Tienes un proyecto de software que deseas desarrollar?"}
               </h1>
-              <p className="mb-10 text-base italic text-muted-foreground">
+              <p className="mb-10 text-base italic text-muted-foreground/70">
                 Cuéntame sobre tu idea
               </p>
               <button
                 onClick={handleNext}
-                className="group flex items-center gap-2 rounded-sm bg-primary px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-primary-foreground transition-all hover:bg-primary/90 hover:gap-3"
+                className="group flex items-center gap-2 rounded-sm bg-primary px-8 py-3.5 text-sm font-semibold tracking-widest text-primary-foreground transition-all hover:bg-primary/90 hover:gap-3"
               >
                 Comenzar
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -243,8 +243,8 @@ export function MultiStepForm() {
                 <StepBadge n={1} />
                 <div className="flex-1">
                   <h2
-                    className="mb-1 text-3xl font-black uppercase leading-tight tracking-tight text-foreground md:text-4xl"
-                    style={{ fontFamily: "var(--font-barlow, 'Barlow Condensed', sans-serif)" }}
+                    className="mb-1 text-3xl font-extrabold leading-tight tracking-tight text-foreground md:text-4xl"
+                    style={{ fontFamily: "var(--font-raleway, 'Raleway', sans-serif)" }}
                   >
                     {"¿Cuál es tu nombre completo?"}
                   </h2>
@@ -292,8 +292,8 @@ export function MultiStepForm() {
                 <StepBadge n={2} />
                 <div className="flex-1">
                   <h2
-                    className="mb-1 text-3xl font-black uppercase leading-tight tracking-tight text-foreground md:text-4xl"
-                    style={{ fontFamily: "var(--font-barlow, 'Barlow Condensed', sans-serif)" }}
+                    className="mb-1 text-3xl font-extrabold leading-tight tracking-tight text-foreground md:text-4xl"
+                    style={{ fontFamily: "var(--font-raleway, 'Raleway', sans-serif)" }}
                   >
                     {"¿Este proyecto es personal o para tu empresa?"}
                   </h2>
@@ -335,8 +335,8 @@ export function MultiStepForm() {
                 <StepBadge n={3} />
                 <div className="flex-1">
                   <h2
-                    className="mb-1 text-3xl font-black uppercase leading-tight tracking-tight text-foreground md:text-4xl"
-                    style={{ fontFamily: "var(--font-barlow, 'Barlow Condensed', sans-serif)" }}
+                    className="mb-1 text-3xl font-extrabold leading-tight tracking-tight text-foreground md:text-4xl"
+                    style={{ fontFamily: "var(--font-raleway, 'Raleway', sans-serif)" }}
                   >
                     {"¿Cuál es el nombre de la empresa?"}
                   </h2>
@@ -402,8 +402,8 @@ export function MultiStepForm() {
                 <StepBadge n={formData.projectType === "company" ? 4 : 3} />
                 <div className="flex-1">
                   <h2
-                    className="mb-1 text-3xl font-black uppercase leading-tight tracking-tight text-foreground md:text-4xl"
-                    style={{ fontFamily: "var(--font-barlow, 'Barlow Condensed', sans-serif)" }}
+                    className="mb-1 text-3xl font-extrabold leading-tight tracking-tight text-foreground md:text-4xl"
+                    style={{ fontFamily: "var(--font-raleway, 'Raleway', sans-serif)" }}
                   >
                     Describe tu proyecto de software.
                   </h2>
@@ -453,8 +453,8 @@ export function MultiStepForm() {
                 <Check className="h-8 w-8 text-primary" />
               </motion.div>
               <h1
-                className="mb-4 text-4xl font-black uppercase leading-none tracking-tight text-foreground md:text-6xl"
-                style={{ fontFamily: "var(--font-barlow, 'Barlow Condensed', sans-serif)" }}
+                className="mb-4 text-5xl font-black leading-none tracking-tight text-foreground md:text-7xl"
+                style={{ fontFamily: "var(--font-raleway, 'Raleway', sans-serif)" }}
               >
                 {"¡Gracias!"}
               </h1>
