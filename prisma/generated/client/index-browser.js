@@ -126,10 +126,15 @@ exports.Prisma.FormSubmissionScalarFieldEnum = {
   fullName: 'fullName',
   email: 'email',
   projectType: 'projectType',
+  projectStage: 'projectStage',
+  productType: 'productType',
+  businessProblem: 'businessProblem',
   companyName: 'companyName',
   companyWebsite: 'companyWebsite',
   companySocialMedia: 'companySocialMedia',
+  companySize: 'companySize',
   projectDescription: 'projectDescription',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -151,6 +156,43 @@ exports.Prisma.NullsOrder = {
 exports.ProjectType = exports.$Enums.ProjectType = {
   PERSONAL: 'PERSONAL',
   COMPANY: 'COMPANY'
+};
+
+exports.ProjectStage = exports.$Enums.ProjectStage = {
+  CONCEPT: 'CONCEPT',
+  PLAN: 'PLAN',
+  BUILT: 'BUILT'
+};
+
+exports.ProductType = exports.$Enums.ProductType = {
+  MOBILE: 'MOBILE',
+  WEB: 'WEB',
+  MARKETPLACE: 'MARKETPLACE',
+  SAAS: 'SAAS',
+  OTHER: 'OTHER'
+};
+
+exports.BusinessProblem = exports.$Enums.BusinessProblem = {
+  AUTOMATE: 'AUTOMATE',
+  CUSTOM: 'CUSTOM',
+  INTEGRATE: 'INTEGRATE',
+  MODERNIZE: 'MODERNIZE'
+};
+
+exports.CompanySize = exports.$Enums.CompanySize = {
+  SMALL: 'SMALL',
+  MEDIUM: 'MEDIUM',
+  LARGE: 'LARGE'
+};
+
+exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
+  NEW: 'NEW',
+  REVIEWING: 'REVIEWING',
+  CONTACTED: 'CONTACTED',
+  MEETING_SCHEDULED: 'MEETING_SCHEDULED',
+  PROPOSAL_SENT: 'PROPOSAL_SENT',
+  CLOSED_WON: 'CLOSED_WON',
+  CLOSED_LOST: 'CLOSED_LOST'
 };
 
 exports.Prisma.ModelName = {

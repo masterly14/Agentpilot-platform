@@ -259,10 +259,13 @@ export function MultiStepForm() {
                 className="mb-4 text-4xl font-black leading-tight tracking-tight text-foreground text-balance md:text-6xl"
                 style={{ fontFamily: "var(--font-raleway, 'Raleway', sans-serif)" }}
               >
-                {"¿Tienes un proyecto de software que deseas desarrollar?"}
+                {"¿Tienes un software en mente por desarrollar?"}
               </h1>
-              <p className="mb-10 text-base italic text-muted-foreground/70">
-                Cuéntame sobre tu idea
+              <p className="mb-3 max-w-xl text-lg font-medium leading-snug text-muted-foreground md:text-xl">
+                Infraestructura de IA, plataformas y desarrollos para empresas
+              </p>
+              <p className="mb-10 max-w-lg text-base leading-relaxed text-muted-foreground/80">
+                Cuéntame qué quieres construir y te respondo con los siguientes pasos.
               </p>
               <button
                 onClick={handleNext}
@@ -503,9 +506,9 @@ export function MultiStepForm() {
                   </h2>
                   <p className="mb-8 text-sm italic text-muted-foreground">Selecciona una opción</p>
                   <div className="space-y-3">
-                    <ChoiceButton letter="A" label="1 – 10 personas"  selected={formData.companySize === "1-10"}  onClick={() => selectAndAdvance("companySize", "1-10")} />
-                    <ChoiceButton letter="B" label="11 – 50 personas" selected={formData.companySize === "11-50"} onClick={() => selectAndAdvance("companySize", "11-50")} />
-                    <ChoiceButton letter="C" label="50+ personas"     selected={formData.companySize === "50+"}   onClick={() => selectAndAdvance("companySize", "50+")} />
+                    <ChoiceButton letter="A" label="1 – 10"  selected={formData.companySize === "1-10"}  onClick={() => selectAndAdvance("companySize", "1-10")} />
+                    <ChoiceButton letter="B" label="11 – 50" selected={formData.companySize === "11-50"} onClick={() => selectAndAdvance("companySize", "11-50")} />
+                    <ChoiceButton letter="C" label="50+"     selected={formData.companySize === "50+"}   onClick={() => selectAndAdvance("companySize", "50+")} />
                   </div>
                 </div>
               </div>

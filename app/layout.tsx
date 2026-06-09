@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Raleway } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { Header } from '@/components/header'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -14,7 +13,7 @@ const _raleway = Raleway({
 
 export const metadata: Metadata = {
   title: 'Santiago Varón - Desarrollo de Software',
-  description: 'Formulario de solicitud de proyectos de software',
+  description: 'Desarrollo de software a medida. Cuéntame tu proyecto y recibe una respuesta personalizada.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -43,8 +42,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="bg-background">
       <body className={`font-sans antialiased ${_raleway.variable}`}>
-        <Header />
-        <main>{children}</main>
+        {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

@@ -98,10 +98,15 @@ exports.Prisma.FormSubmissionScalarFieldEnum = {
   fullName: 'fullName',
   email: 'email',
   projectType: 'projectType',
+  projectStage: 'projectStage',
+  productType: 'productType',
+  businessProblem: 'businessProblem',
   companyName: 'companyName',
   companyWebsite: 'companyWebsite',
   companySocialMedia: 'companySocialMedia',
+  companySize: 'companySize',
   projectDescription: 'projectDescription',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -125,6 +130,43 @@ exports.ProjectType = exports.$Enums.ProjectType = {
   COMPANY: 'COMPANY'
 };
 
+exports.ProjectStage = exports.$Enums.ProjectStage = {
+  CONCEPT: 'CONCEPT',
+  PLAN: 'PLAN',
+  BUILT: 'BUILT'
+};
+
+exports.ProductType = exports.$Enums.ProductType = {
+  MOBILE: 'MOBILE',
+  WEB: 'WEB',
+  MARKETPLACE: 'MARKETPLACE',
+  SAAS: 'SAAS',
+  OTHER: 'OTHER'
+};
+
+exports.BusinessProblem = exports.$Enums.BusinessProblem = {
+  AUTOMATE: 'AUTOMATE',
+  CUSTOM: 'CUSTOM',
+  INTEGRATE: 'INTEGRATE',
+  MODERNIZE: 'MODERNIZE'
+};
+
+exports.CompanySize = exports.$Enums.CompanySize = {
+  SMALL: 'SMALL',
+  MEDIUM: 'MEDIUM',
+  LARGE: 'LARGE'
+};
+
+exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
+  NEW: 'NEW',
+  REVIEWING: 'REVIEWING',
+  CONTACTED: 'CONTACTED',
+  MEETING_SCHEDULED: 'MEETING_SCHEDULED',
+  PROPOSAL_SENT: 'PROPOSAL_SENT',
+  CLOSED_WON: 'CLOSED_WON',
+  CLOSED_LOST: 'CLOSED_LOST'
+};
+
 exports.Prisma.ModelName = {
   FormSubmission: 'FormSubmission'
 };
@@ -139,7 +181,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/vercel/share/v0-project/prisma/generated/client",
+      "value": "C:\\Users\\Santiago\\code\\sv\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -148,16 +190,17 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "rhel-openssl-3.0.x",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/vercel/share/v0-project/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\Santiago\\code\\sv\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
   "clientVersion": "6.19.3",
@@ -175,13 +218,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel FormSubmission {\n  id                 String      @id @default(cuid())\n  fullName           String\n  email              String?\n  projectType        ProjectType\n  companyName        String?\n  companyWebsite     String?\n  companySocialMedia String?\n  projectDescription String\n  createdAt          DateTime    @default(now())\n  updatedAt          DateTime    @updatedAt\n}\n\nenum ProjectType {\n  PERSONAL\n  COMPANY\n}\n",
-  "inlineSchemaHash": "28dd7c26c9b9eb857b384181916024bc442b53448e296c87c1dfae484d19d87e",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel FormSubmission {\n  id                 String           @id @default(cuid())\n  fullName           String\n  email              String?\n  projectType        ProjectType\n  projectStage       ProjectStage?\n  productType        ProductType?\n  businessProblem    BusinessProblem?\n  companyName        String?\n  companyWebsite     String?\n  companySocialMedia String?\n  companySize        CompanySize?\n  projectDescription String?\n  status             SubmissionStatus @default(NEW)\n  createdAt          DateTime         @default(now())\n  updatedAt          DateTime         @updatedAt\n}\n\nenum ProjectType {\n  PERSONAL\n  COMPANY\n}\n\nenum ProjectStage {\n  CONCEPT\n  PLAN\n  BUILT\n}\n\nenum ProductType {\n  MOBILE\n  WEB\n  MARKETPLACE\n  SAAS\n  OTHER\n}\n\nenum BusinessProblem {\n  AUTOMATE\n  CUSTOM\n  INTEGRATE\n  MODERNIZE\n}\n\nenum CompanySize {\n  SMALL\n  MEDIUM\n  LARGE\n}\n\nenum SubmissionStatus {\n  NEW\n  REVIEWING\n  CONTACTED\n  MEETING_SCHEDULED\n  PROPOSAL_SENT\n  CLOSED_WON\n  CLOSED_LOST\n}\n",
+  "inlineSchemaHash": "6b56ad3f2aa5ebb5deaefcfe701eb05df71c658b520e9dee151bd8ac3e28c795",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"FormSubmission\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"fullName\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"projectType\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"ProjectType\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"companyName\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"companyWebsite\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"companySocialMedia\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"projectDescription\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":true}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{\"ProjectType\":{\"values\":[{\"name\":\"PERSONAL\",\"dbName\":null},{\"name\":\"COMPANY\",\"dbName\":null}],\"dbName\":null}},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"FormSubmission\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"fullName\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"projectType\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"ProjectType\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"projectStage\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"ProjectStage\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"productType\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"ProductType\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"businessProblem\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"BusinessProblem\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"companyName\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"companyWebsite\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"companySocialMedia\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"companySize\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"CompanySize\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"projectDescription\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"status\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"SubmissionStatus\",\"nativeType\":null,\"default\":\"NEW\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":true}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{\"ProjectType\":{\"values\":[{\"name\":\"PERSONAL\",\"dbName\":null},{\"name\":\"COMPANY\",\"dbName\":null}],\"dbName\":null},\"ProjectStage\":{\"values\":[{\"name\":\"CONCEPT\",\"dbName\":null},{\"name\":\"PLAN\",\"dbName\":null},{\"name\":\"BUILT\",\"dbName\":null}],\"dbName\":null},\"ProductType\":{\"values\":[{\"name\":\"MOBILE\",\"dbName\":null},{\"name\":\"WEB\",\"dbName\":null},{\"name\":\"MARKETPLACE\",\"dbName\":null},{\"name\":\"SAAS\",\"dbName\":null},{\"name\":\"OTHER\",\"dbName\":null}],\"dbName\":null},\"BusinessProblem\":{\"values\":[{\"name\":\"AUTOMATE\",\"dbName\":null},{\"name\":\"CUSTOM\",\"dbName\":null},{\"name\":\"INTEGRATE\",\"dbName\":null},{\"name\":\"MODERNIZE\",\"dbName\":null}],\"dbName\":null},\"CompanySize\":{\"values\":[{\"name\":\"SMALL\",\"dbName\":null},{\"name\":\"MEDIUM\",\"dbName\":null},{\"name\":\"LARGE\",\"dbName\":null}],\"dbName\":null},\"SubmissionStatus\":{\"values\":[{\"name\":\"NEW\",\"dbName\":null},{\"name\":\"REVIEWING\",\"dbName\":null},{\"name\":\"CONTACTED\",\"dbName\":null},{\"name\":\"MEETING_SCHEDULED\",\"dbName\":null},{\"name\":\"PROPOSAL_SENT\",\"dbName\":null},{\"name\":\"CLOSED_WON\",\"dbName\":null},{\"name\":\"CLOSED_LOST\",\"dbName\":null}],\"dbName\":null}},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = undefined
 config.compilerWasm = undefined

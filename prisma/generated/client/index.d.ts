@@ -30,11 +30,83 @@ export namespace $Enums {
 
 export type ProjectType = (typeof ProjectType)[keyof typeof ProjectType]
 
+
+export const ProjectStage: {
+  CONCEPT: 'CONCEPT',
+  PLAN: 'PLAN',
+  BUILT: 'BUILT'
+};
+
+export type ProjectStage = (typeof ProjectStage)[keyof typeof ProjectStage]
+
+
+export const ProductType: {
+  MOBILE: 'MOBILE',
+  WEB: 'WEB',
+  MARKETPLACE: 'MARKETPLACE',
+  SAAS: 'SAAS',
+  OTHER: 'OTHER'
+};
+
+export type ProductType = (typeof ProductType)[keyof typeof ProductType]
+
+
+export const BusinessProblem: {
+  AUTOMATE: 'AUTOMATE',
+  CUSTOM: 'CUSTOM',
+  INTEGRATE: 'INTEGRATE',
+  MODERNIZE: 'MODERNIZE'
+};
+
+export type BusinessProblem = (typeof BusinessProblem)[keyof typeof BusinessProblem]
+
+
+export const CompanySize: {
+  SMALL: 'SMALL',
+  MEDIUM: 'MEDIUM',
+  LARGE: 'LARGE'
+};
+
+export type CompanySize = (typeof CompanySize)[keyof typeof CompanySize]
+
+
+export const SubmissionStatus: {
+  NEW: 'NEW',
+  REVIEWING: 'REVIEWING',
+  CONTACTED: 'CONTACTED',
+  MEETING_SCHEDULED: 'MEETING_SCHEDULED',
+  PROPOSAL_SENT: 'PROPOSAL_SENT',
+  CLOSED_WON: 'CLOSED_WON',
+  CLOSED_LOST: 'CLOSED_LOST'
+};
+
+export type SubmissionStatus = (typeof SubmissionStatus)[keyof typeof SubmissionStatus]
+
 }
 
 export type ProjectType = $Enums.ProjectType
 
 export const ProjectType: typeof $Enums.ProjectType
+
+export type ProjectStage = $Enums.ProjectStage
+
+export const ProjectStage: typeof $Enums.ProjectStage
+
+export type ProductType = $Enums.ProductType
+
+export const ProductType: typeof $Enums.ProductType
+
+export type BusinessProblem = $Enums.BusinessProblem
+
+export const BusinessProblem: typeof $Enums.BusinessProblem
+
+export type CompanySize = $Enums.CompanySize
+
+export const CompanySize: typeof $Enums.CompanySize
+
+export type SubmissionStatus = $Enums.SubmissionStatus
+
+export const SubmissionStatus: typeof $Enums.SubmissionStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -893,10 +965,15 @@ export namespace Prisma {
     fullName: string | null
     email: string | null
     projectType: $Enums.ProjectType | null
+    projectStage: $Enums.ProjectStage | null
+    productType: $Enums.ProductType | null
+    businessProblem: $Enums.BusinessProblem | null
     companyName: string | null
     companyWebsite: string | null
     companySocialMedia: string | null
+    companySize: $Enums.CompanySize | null
     projectDescription: string | null
+    status: $Enums.SubmissionStatus | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -906,10 +983,15 @@ export namespace Prisma {
     fullName: string | null
     email: string | null
     projectType: $Enums.ProjectType | null
+    projectStage: $Enums.ProjectStage | null
+    productType: $Enums.ProductType | null
+    businessProblem: $Enums.BusinessProblem | null
     companyName: string | null
     companyWebsite: string | null
     companySocialMedia: string | null
+    companySize: $Enums.CompanySize | null
     projectDescription: string | null
+    status: $Enums.SubmissionStatus | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -919,10 +1001,15 @@ export namespace Prisma {
     fullName: number
     email: number
     projectType: number
+    projectStage: number
+    productType: number
+    businessProblem: number
     companyName: number
     companyWebsite: number
     companySocialMedia: number
+    companySize: number
     projectDescription: number
+    status: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -934,10 +1021,15 @@ export namespace Prisma {
     fullName?: true
     email?: true
     projectType?: true
+    projectStage?: true
+    productType?: true
+    businessProblem?: true
     companyName?: true
     companyWebsite?: true
     companySocialMedia?: true
+    companySize?: true
     projectDescription?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -947,10 +1039,15 @@ export namespace Prisma {
     fullName?: true
     email?: true
     projectType?: true
+    projectStage?: true
+    productType?: true
+    businessProblem?: true
     companyName?: true
     companyWebsite?: true
     companySocialMedia?: true
+    companySize?: true
     projectDescription?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -960,10 +1057,15 @@ export namespace Prisma {
     fullName?: true
     email?: true
     projectType?: true
+    projectStage?: true
+    productType?: true
+    businessProblem?: true
     companyName?: true
     companyWebsite?: true
     companySocialMedia?: true
+    companySize?: true
     projectDescription?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1046,10 +1148,15 @@ export namespace Prisma {
     fullName: string
     email: string | null
     projectType: $Enums.ProjectType
+    projectStage: $Enums.ProjectStage | null
+    productType: $Enums.ProductType | null
+    businessProblem: $Enums.BusinessProblem | null
     companyName: string | null
     companyWebsite: string | null
     companySocialMedia: string | null
-    projectDescription: string
+    companySize: $Enums.CompanySize | null
+    projectDescription: string | null
+    status: $Enums.SubmissionStatus
     createdAt: Date
     updatedAt: Date
     _count: FormSubmissionCountAggregateOutputType | null
@@ -1076,10 +1183,15 @@ export namespace Prisma {
     fullName?: boolean
     email?: boolean
     projectType?: boolean
+    projectStage?: boolean
+    productType?: boolean
+    businessProblem?: boolean
     companyName?: boolean
     companyWebsite?: boolean
     companySocialMedia?: boolean
+    companySize?: boolean
     projectDescription?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["formSubmission"]>
@@ -1089,10 +1201,15 @@ export namespace Prisma {
     fullName?: boolean
     email?: boolean
     projectType?: boolean
+    projectStage?: boolean
+    productType?: boolean
+    businessProblem?: boolean
     companyName?: boolean
     companyWebsite?: boolean
     companySocialMedia?: boolean
+    companySize?: boolean
     projectDescription?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["formSubmission"]>
@@ -1102,10 +1219,15 @@ export namespace Prisma {
     fullName?: boolean
     email?: boolean
     projectType?: boolean
+    projectStage?: boolean
+    productType?: boolean
+    businessProblem?: boolean
     companyName?: boolean
     companyWebsite?: boolean
     companySocialMedia?: boolean
+    companySize?: boolean
     projectDescription?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["formSubmission"]>
@@ -1115,15 +1237,20 @@ export namespace Prisma {
     fullName?: boolean
     email?: boolean
     projectType?: boolean
+    projectStage?: boolean
+    productType?: boolean
+    businessProblem?: boolean
     companyName?: boolean
     companyWebsite?: boolean
     companySocialMedia?: boolean
+    companySize?: boolean
     projectDescription?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "projectType" | "companyName" | "companyWebsite" | "companySocialMedia" | "projectDescription" | "createdAt" | "updatedAt", ExtArgs["result"]["formSubmission"]>
+  export type FormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "projectType" | "projectStage" | "productType" | "businessProblem" | "companyName" | "companyWebsite" | "companySocialMedia" | "companySize" | "projectDescription" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["formSubmission"]>
 
   export type $FormSubmissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "FormSubmission"
@@ -1133,10 +1260,15 @@ export namespace Prisma {
       fullName: string
       email: string | null
       projectType: $Enums.ProjectType
+      projectStage: $Enums.ProjectStage | null
+      productType: $Enums.ProductType | null
+      businessProblem: $Enums.BusinessProblem | null
       companyName: string | null
       companyWebsite: string | null
       companySocialMedia: string | null
-      projectDescription: string
+      companySize: $Enums.CompanySize | null
+      projectDescription: string | null
+      status: $Enums.SubmissionStatus
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["formSubmission"]>
@@ -1566,10 +1698,15 @@ export namespace Prisma {
     readonly fullName: FieldRef<"FormSubmission", 'String'>
     readonly email: FieldRef<"FormSubmission", 'String'>
     readonly projectType: FieldRef<"FormSubmission", 'ProjectType'>
+    readonly projectStage: FieldRef<"FormSubmission", 'ProjectStage'>
+    readonly productType: FieldRef<"FormSubmission", 'ProductType'>
+    readonly businessProblem: FieldRef<"FormSubmission", 'BusinessProblem'>
     readonly companyName: FieldRef<"FormSubmission", 'String'>
     readonly companyWebsite: FieldRef<"FormSubmission", 'String'>
     readonly companySocialMedia: FieldRef<"FormSubmission", 'String'>
+    readonly companySize: FieldRef<"FormSubmission", 'CompanySize'>
     readonly projectDescription: FieldRef<"FormSubmission", 'String'>
+    readonly status: FieldRef<"FormSubmission", 'SubmissionStatus'>
     readonly createdAt: FieldRef<"FormSubmission", 'DateTime'>
     readonly updatedAt: FieldRef<"FormSubmission", 'DateTime'>
   }
@@ -1957,10 +2094,15 @@ export namespace Prisma {
     fullName: 'fullName',
     email: 'email',
     projectType: 'projectType',
+    projectStage: 'projectStage',
+    productType: 'productType',
+    businessProblem: 'businessProblem',
     companyName: 'companyName',
     companyWebsite: 'companyWebsite',
     companySocialMedia: 'companySocialMedia',
+    companySize: 'companySize',
     projectDescription: 'projectDescription',
+    status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -2026,6 +2168,76 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'ProjectStage'
+   */
+  export type EnumProjectStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectStage'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProjectStage[]'
+   */
+  export type ListEnumProjectStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectStage[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProductType'
+   */
+  export type EnumProductTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProductType[]'
+   */
+  export type ListEnumProductTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BusinessProblem'
+   */
+  export type EnumBusinessProblemFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BusinessProblem'>
+    
+
+
+  /**
+   * Reference to a field of type 'BusinessProblem[]'
+   */
+  export type ListEnumBusinessProblemFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BusinessProblem[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CompanySize'
+   */
+  export type EnumCompanySizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CompanySize'>
+    
+
+
+  /**
+   * Reference to a field of type 'CompanySize[]'
+   */
+  export type ListEnumCompanySizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CompanySize[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubmissionStatus'
+   */
+  export type EnumSubmissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubmissionStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'SubmissionStatus[]'
+   */
+  export type ListEnumSubmissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SubmissionStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -2064,10 +2276,15 @@ export namespace Prisma {
     fullName?: StringFilter<"FormSubmission"> | string
     email?: StringNullableFilter<"FormSubmission"> | string | null
     projectType?: EnumProjectTypeFilter<"FormSubmission"> | $Enums.ProjectType
+    projectStage?: EnumProjectStageNullableFilter<"FormSubmission"> | $Enums.ProjectStage | null
+    productType?: EnumProductTypeNullableFilter<"FormSubmission"> | $Enums.ProductType | null
+    businessProblem?: EnumBusinessProblemNullableFilter<"FormSubmission"> | $Enums.BusinessProblem | null
     companyName?: StringNullableFilter<"FormSubmission"> | string | null
     companyWebsite?: StringNullableFilter<"FormSubmission"> | string | null
     companySocialMedia?: StringNullableFilter<"FormSubmission"> | string | null
-    projectDescription?: StringFilter<"FormSubmission"> | string
+    companySize?: EnumCompanySizeNullableFilter<"FormSubmission"> | $Enums.CompanySize | null
+    projectDescription?: StringNullableFilter<"FormSubmission"> | string | null
+    status?: EnumSubmissionStatusFilter<"FormSubmission"> | $Enums.SubmissionStatus
     createdAt?: DateTimeFilter<"FormSubmission"> | Date | string
     updatedAt?: DateTimeFilter<"FormSubmission"> | Date | string
   }
@@ -2077,10 +2294,15 @@ export namespace Prisma {
     fullName?: SortOrder
     email?: SortOrderInput | SortOrder
     projectType?: SortOrder
+    projectStage?: SortOrderInput | SortOrder
+    productType?: SortOrderInput | SortOrder
+    businessProblem?: SortOrderInput | SortOrder
     companyName?: SortOrderInput | SortOrder
     companyWebsite?: SortOrderInput | SortOrder
     companySocialMedia?: SortOrderInput | SortOrder
-    projectDescription?: SortOrder
+    companySize?: SortOrderInput | SortOrder
+    projectDescription?: SortOrderInput | SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2093,10 +2315,15 @@ export namespace Prisma {
     fullName?: StringFilter<"FormSubmission"> | string
     email?: StringNullableFilter<"FormSubmission"> | string | null
     projectType?: EnumProjectTypeFilter<"FormSubmission"> | $Enums.ProjectType
+    projectStage?: EnumProjectStageNullableFilter<"FormSubmission"> | $Enums.ProjectStage | null
+    productType?: EnumProductTypeNullableFilter<"FormSubmission"> | $Enums.ProductType | null
+    businessProblem?: EnumBusinessProblemNullableFilter<"FormSubmission"> | $Enums.BusinessProblem | null
     companyName?: StringNullableFilter<"FormSubmission"> | string | null
     companyWebsite?: StringNullableFilter<"FormSubmission"> | string | null
     companySocialMedia?: StringNullableFilter<"FormSubmission"> | string | null
-    projectDescription?: StringFilter<"FormSubmission"> | string
+    companySize?: EnumCompanySizeNullableFilter<"FormSubmission"> | $Enums.CompanySize | null
+    projectDescription?: StringNullableFilter<"FormSubmission"> | string | null
+    status?: EnumSubmissionStatusFilter<"FormSubmission"> | $Enums.SubmissionStatus
     createdAt?: DateTimeFilter<"FormSubmission"> | Date | string
     updatedAt?: DateTimeFilter<"FormSubmission"> | Date | string
   }, "id">
@@ -2106,10 +2333,15 @@ export namespace Prisma {
     fullName?: SortOrder
     email?: SortOrderInput | SortOrder
     projectType?: SortOrder
+    projectStage?: SortOrderInput | SortOrder
+    productType?: SortOrderInput | SortOrder
+    businessProblem?: SortOrderInput | SortOrder
     companyName?: SortOrderInput | SortOrder
     companyWebsite?: SortOrderInput | SortOrder
     companySocialMedia?: SortOrderInput | SortOrder
-    projectDescription?: SortOrder
+    companySize?: SortOrderInput | SortOrder
+    projectDescription?: SortOrderInput | SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: FormSubmissionCountOrderByAggregateInput
@@ -2125,10 +2357,15 @@ export namespace Prisma {
     fullName?: StringWithAggregatesFilter<"FormSubmission"> | string
     email?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     projectType?: EnumProjectTypeWithAggregatesFilter<"FormSubmission"> | $Enums.ProjectType
+    projectStage?: EnumProjectStageNullableWithAggregatesFilter<"FormSubmission"> | $Enums.ProjectStage | null
+    productType?: EnumProductTypeNullableWithAggregatesFilter<"FormSubmission"> | $Enums.ProductType | null
+    businessProblem?: EnumBusinessProblemNullableWithAggregatesFilter<"FormSubmission"> | $Enums.BusinessProblem | null
     companyName?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     companyWebsite?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     companySocialMedia?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
-    projectDescription?: StringWithAggregatesFilter<"FormSubmission"> | string
+    companySize?: EnumCompanySizeNullableWithAggregatesFilter<"FormSubmission"> | $Enums.CompanySize | null
+    projectDescription?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    status?: EnumSubmissionStatusWithAggregatesFilter<"FormSubmission"> | $Enums.SubmissionStatus
     createdAt?: DateTimeWithAggregatesFilter<"FormSubmission"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"FormSubmission"> | Date | string
   }
@@ -2138,10 +2375,15 @@ export namespace Prisma {
     fullName: string
     email?: string | null
     projectType: $Enums.ProjectType
+    projectStage?: $Enums.ProjectStage | null
+    productType?: $Enums.ProductType | null
+    businessProblem?: $Enums.BusinessProblem | null
     companyName?: string | null
     companyWebsite?: string | null
     companySocialMedia?: string | null
-    projectDescription: string
+    companySize?: $Enums.CompanySize | null
+    projectDescription?: string | null
+    status?: $Enums.SubmissionStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2151,10 +2393,15 @@ export namespace Prisma {
     fullName: string
     email?: string | null
     projectType: $Enums.ProjectType
+    projectStage?: $Enums.ProjectStage | null
+    productType?: $Enums.ProductType | null
+    businessProblem?: $Enums.BusinessProblem | null
     companyName?: string | null
     companyWebsite?: string | null
     companySocialMedia?: string | null
-    projectDescription: string
+    companySize?: $Enums.CompanySize | null
+    projectDescription?: string | null
+    status?: $Enums.SubmissionStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2164,10 +2411,15 @@ export namespace Prisma {
     fullName?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     projectType?: EnumProjectTypeFieldUpdateOperationsInput | $Enums.ProjectType
+    projectStage?: NullableEnumProjectStageFieldUpdateOperationsInput | $Enums.ProjectStage | null
+    productType?: NullableEnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType | null
+    businessProblem?: NullableEnumBusinessProblemFieldUpdateOperationsInput | $Enums.BusinessProblem | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
     companyWebsite?: NullableStringFieldUpdateOperationsInput | string | null
     companySocialMedia?: NullableStringFieldUpdateOperationsInput | string | null
-    projectDescription?: StringFieldUpdateOperationsInput | string
+    companySize?: NullableEnumCompanySizeFieldUpdateOperationsInput | $Enums.CompanySize | null
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2177,10 +2429,15 @@ export namespace Prisma {
     fullName?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     projectType?: EnumProjectTypeFieldUpdateOperationsInput | $Enums.ProjectType
+    projectStage?: NullableEnumProjectStageFieldUpdateOperationsInput | $Enums.ProjectStage | null
+    productType?: NullableEnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType | null
+    businessProblem?: NullableEnumBusinessProblemFieldUpdateOperationsInput | $Enums.BusinessProblem | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
     companyWebsite?: NullableStringFieldUpdateOperationsInput | string | null
     companySocialMedia?: NullableStringFieldUpdateOperationsInput | string | null
-    projectDescription?: StringFieldUpdateOperationsInput | string
+    companySize?: NullableEnumCompanySizeFieldUpdateOperationsInput | $Enums.CompanySize | null
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2190,10 +2447,15 @@ export namespace Prisma {
     fullName: string
     email?: string | null
     projectType: $Enums.ProjectType
+    projectStage?: $Enums.ProjectStage | null
+    productType?: $Enums.ProductType | null
+    businessProblem?: $Enums.BusinessProblem | null
     companyName?: string | null
     companyWebsite?: string | null
     companySocialMedia?: string | null
-    projectDescription: string
+    companySize?: $Enums.CompanySize | null
+    projectDescription?: string | null
+    status?: $Enums.SubmissionStatus
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2203,10 +2465,15 @@ export namespace Prisma {
     fullName?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     projectType?: EnumProjectTypeFieldUpdateOperationsInput | $Enums.ProjectType
+    projectStage?: NullableEnumProjectStageFieldUpdateOperationsInput | $Enums.ProjectStage | null
+    productType?: NullableEnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType | null
+    businessProblem?: NullableEnumBusinessProblemFieldUpdateOperationsInput | $Enums.BusinessProblem | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
     companyWebsite?: NullableStringFieldUpdateOperationsInput | string | null
     companySocialMedia?: NullableStringFieldUpdateOperationsInput | string | null
-    projectDescription?: StringFieldUpdateOperationsInput | string
+    companySize?: NullableEnumCompanySizeFieldUpdateOperationsInput | $Enums.CompanySize | null
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2216,10 +2483,15 @@ export namespace Prisma {
     fullName?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     projectType?: EnumProjectTypeFieldUpdateOperationsInput | $Enums.ProjectType
+    projectStage?: NullableEnumProjectStageFieldUpdateOperationsInput | $Enums.ProjectStage | null
+    productType?: NullableEnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType | null
+    businessProblem?: NullableEnumBusinessProblemFieldUpdateOperationsInput | $Enums.BusinessProblem | null
     companyName?: NullableStringFieldUpdateOperationsInput | string | null
     companyWebsite?: NullableStringFieldUpdateOperationsInput | string | null
     companySocialMedia?: NullableStringFieldUpdateOperationsInput | string | null
-    projectDescription?: StringFieldUpdateOperationsInput | string
+    companySize?: NullableEnumCompanySizeFieldUpdateOperationsInput | $Enums.CompanySize | null
+    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2261,6 +2533,41 @@ export namespace Prisma {
     not?: NestedEnumProjectTypeFilter<$PrismaModel> | $Enums.ProjectType
   }
 
+  export type EnumProjectStageNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectStage | EnumProjectStageFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumProjectStageNullableFilter<$PrismaModel> | $Enums.ProjectStage | null
+  }
+
+  export type EnumProductTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumProductTypeNullableFilter<$PrismaModel> | $Enums.ProductType | null
+  }
+
+  export type EnumBusinessProblemNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.BusinessProblem | EnumBusinessProblemFieldRefInput<$PrismaModel> | null
+    in?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBusinessProblemNullableFilter<$PrismaModel> | $Enums.BusinessProblem | null
+  }
+
+  export type EnumCompanySizeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.CompanySize | EnumCompanySizeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumCompanySizeNullableFilter<$PrismaModel> | $Enums.CompanySize | null
+  }
+
+  export type EnumSubmissionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubmissionStatus | EnumSubmissionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SubmissionStatus[] | ListEnumSubmissionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubmissionStatus[] | ListEnumSubmissionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubmissionStatusFilter<$PrismaModel> | $Enums.SubmissionStatus
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -2282,10 +2589,15 @@ export namespace Prisma {
     fullName?: SortOrder
     email?: SortOrder
     projectType?: SortOrder
+    projectStage?: SortOrder
+    productType?: SortOrder
+    businessProblem?: SortOrder
     companyName?: SortOrder
     companyWebsite?: SortOrder
     companySocialMedia?: SortOrder
+    companySize?: SortOrder
     projectDescription?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2295,10 +2607,15 @@ export namespace Prisma {
     fullName?: SortOrder
     email?: SortOrder
     projectType?: SortOrder
+    projectStage?: SortOrder
+    productType?: SortOrder
+    businessProblem?: SortOrder
     companyName?: SortOrder
     companyWebsite?: SortOrder
     companySocialMedia?: SortOrder
+    companySize?: SortOrder
     projectDescription?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2308,10 +2625,15 @@ export namespace Prisma {
     fullName?: SortOrder
     email?: SortOrder
     projectType?: SortOrder
+    projectStage?: SortOrder
+    productType?: SortOrder
+    businessProblem?: SortOrder
     companyName?: SortOrder
     companyWebsite?: SortOrder
     companySocialMedia?: SortOrder
+    companySize?: SortOrder
     projectDescription?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2362,6 +2684,56 @@ export namespace Prisma {
     _max?: NestedEnumProjectTypeFilter<$PrismaModel>
   }
 
+  export type EnumProjectStageNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectStage | EnumProjectStageFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumProjectStageNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProjectStage | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumProjectStageNullableFilter<$PrismaModel>
+    _max?: NestedEnumProjectStageNullableFilter<$PrismaModel>
+  }
+
+  export type EnumProductTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumProductTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProductType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumProductTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumProductTypeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumBusinessProblemNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BusinessProblem | EnumBusinessProblemFieldRefInput<$PrismaModel> | null
+    in?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBusinessProblemNullableWithAggregatesFilter<$PrismaModel> | $Enums.BusinessProblem | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumBusinessProblemNullableFilter<$PrismaModel>
+    _max?: NestedEnumBusinessProblemNullableFilter<$PrismaModel>
+  }
+
+  export type EnumCompanySizeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CompanySize | EnumCompanySizeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumCompanySizeNullableWithAggregatesFilter<$PrismaModel> | $Enums.CompanySize | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumCompanySizeNullableFilter<$PrismaModel>
+    _max?: NestedEnumCompanySizeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumSubmissionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubmissionStatus | EnumSubmissionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SubmissionStatus[] | ListEnumSubmissionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubmissionStatus[] | ListEnumSubmissionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubmissionStatusWithAggregatesFilter<$PrismaModel> | $Enums.SubmissionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSubmissionStatusFilter<$PrismaModel>
+    _max?: NestedEnumSubmissionStatusFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -2386,6 +2758,26 @@ export namespace Prisma {
 
   export type EnumProjectTypeFieldUpdateOperationsInput = {
     set?: $Enums.ProjectType
+  }
+
+  export type NullableEnumProjectStageFieldUpdateOperationsInput = {
+    set?: $Enums.ProjectStage | null
+  }
+
+  export type NullableEnumProductTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ProductType | null
+  }
+
+  export type NullableEnumBusinessProblemFieldUpdateOperationsInput = {
+    set?: $Enums.BusinessProblem | null
+  }
+
+  export type NullableEnumCompanySizeFieldUpdateOperationsInput = {
+    set?: $Enums.CompanySize | null
+  }
+
+  export type EnumSubmissionStatusFieldUpdateOperationsInput = {
+    set?: $Enums.SubmissionStatus
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -2425,6 +2817,41 @@ export namespace Prisma {
     in?: $Enums.ProjectType[] | ListEnumProjectTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.ProjectType[] | ListEnumProjectTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumProjectTypeFilter<$PrismaModel> | $Enums.ProjectType
+  }
+
+  export type NestedEnumProjectStageNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectStage | EnumProjectStageFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumProjectStageNullableFilter<$PrismaModel> | $Enums.ProjectStage | null
+  }
+
+  export type NestedEnumProductTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumProductTypeNullableFilter<$PrismaModel> | $Enums.ProductType | null
+  }
+
+  export type NestedEnumBusinessProblemNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.BusinessProblem | EnumBusinessProblemFieldRefInput<$PrismaModel> | null
+    in?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBusinessProblemNullableFilter<$PrismaModel> | $Enums.BusinessProblem | null
+  }
+
+  export type NestedEnumCompanySizeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.CompanySize | EnumCompanySizeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumCompanySizeNullableFilter<$PrismaModel> | $Enums.CompanySize | null
+  }
+
+  export type NestedEnumSubmissionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubmissionStatus | EnumSubmissionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SubmissionStatus[] | ListEnumSubmissionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubmissionStatus[] | ListEnumSubmissionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubmissionStatusFilter<$PrismaModel> | $Enums.SubmissionStatus
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -2502,6 +2929,56 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumProjectTypeFilter<$PrismaModel>
     _max?: NestedEnumProjectTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumProjectStageNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectStage | EnumProjectStageFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumProjectStageNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProjectStage | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumProjectStageNullableFilter<$PrismaModel>
+    _max?: NestedEnumProjectStageNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumProductTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumProductTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProductType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumProductTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumProductTypeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBusinessProblemNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BusinessProblem | EnumBusinessProblemFieldRefInput<$PrismaModel> | null
+    in?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBusinessProblemNullableWithAggregatesFilter<$PrismaModel> | $Enums.BusinessProblem | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumBusinessProblemNullableFilter<$PrismaModel>
+    _max?: NestedEnumBusinessProblemNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCompanySizeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CompanySize | EnumCompanySizeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumCompanySizeNullableWithAggregatesFilter<$PrismaModel> | $Enums.CompanySize | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumCompanySizeNullableFilter<$PrismaModel>
+    _max?: NestedEnumCompanySizeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSubmissionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SubmissionStatus | EnumSubmissionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SubmissionStatus[] | ListEnumSubmissionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SubmissionStatus[] | ListEnumSubmissionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSubmissionStatusWithAggregatesFilter<$PrismaModel> | $Enums.SubmissionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSubmissionStatusFilter<$PrismaModel>
+    _max?: NestedEnumSubmissionStatusFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
