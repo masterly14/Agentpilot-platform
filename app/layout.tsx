@@ -16,26 +16,36 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: 'Web Prodigies — Design Services',
+  title: {
+    default: 'Santiago Cano Varón — Software a medida',
+    template: '%s | Santiago Cano Varón',
+  },
   description:
-    'We design MVPs for SaaS startups. World-class design team and design services on-demand.',
-  generator: 'v0.app',
+    'Colaboramos con dueños de negocio y fundadores para crear infraestructura de IA, automatizaciones y software a medida, para optimizar sus procesos y aumentar su productividad.',
+  keywords: [
+    'software a medida',
+    'desarrollo de software',
+    'automatización',
+    'inteligencia artificial',
+    'Santiago Cano Varón',
+  ],
+  authors: [{ name: 'Santiago Cano Varón' }],
+  openGraph: {
+    type: 'website',
+    locale: 'es_ES',
+    title: 'Santiago Cano Varón — Software a medida',
+    description:
+      'Infraestructura de IA, automatizaciones y software a medida para optimizar procesos y aumentar la productividad.',
+    siteName: 'Santiago Cano Varón',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Santiago Cano Varón — Software a medida',
+    description:
+      'Infraestructura de IA, automatizaciones y software a medida para optimizar procesos y aumentar la productividad.',
+  },
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/icon.svg',
   },
 }
 
@@ -45,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark bg-black">
+    <html lang="es" className="dark bg-black">
       <body className={`${plusJakarta.variable} ${instrumentSerif.variable} font-sans antialiased`}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
