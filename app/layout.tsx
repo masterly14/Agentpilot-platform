@@ -1,19 +1,24 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Raleway } from 'next/font/google'
+import { Instrument_Serif, Plus_Jakarta_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
-const _raleway = Raleway({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-raleway",
-});
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+})
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+})
 
 export const metadata: Metadata = {
-  title: 'Santiago Varón - Desarrollo de Software',
-  description: 'Desarrollo de software a medida. Cuéntame tu proyecto y recibe una respuesta personalizada.',
+  title: 'Web Prodigies — Design Services',
+  description:
+    'We design MVPs for SaaS startups. World-class design team and design services on-demand.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -40,8 +45,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className="bg-background">
-      <body className={`font-sans antialiased ${_raleway.variable}`}>
+    <html lang="en" className="dark bg-black">
+      <body className={`${plusJakarta.variable} ${instrumentSerif.variable} font-sans antialiased`}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

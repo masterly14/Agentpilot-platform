@@ -5,6 +5,12 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "3auasoi81o.ucarecd.net",
+      },
+    ],
   },
 }
 

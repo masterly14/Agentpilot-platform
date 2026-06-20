@@ -1,5 +1,5 @@
-import { MultiStepForm } from "@/components/multi-step-form"
+import { DesignServicesPage } from "@/components/landing/design-services-page"
 
 export default function Home() {
-  return <MultiStepForm />
+  return <DesignServicesPage />
 }
