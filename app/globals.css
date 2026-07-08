@@ -136,6 +136,12 @@
   body {
     @apply bg-black text-foreground;
   }
+  html.landing-scroll-locked,
+  html.landing-scroll-locked body {
+    overflow: hidden;
+    overscroll-behavior: none;
+    height: 100%;
+  }
 }
 
 @keyframes marquee-scroll {
@@ -161,6 +167,44 @@
   .animate-marquee-scroll {
     animation: none;
   }
+}
+
+@keyframes scroll-arrow {
+  0% {
+    transform: translateY(-6px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+}
+
+@utility animate-scroll-arrow {
+  animation: scroll-arrow 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes scroll-button-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(161 161 170 / 0.15);
+    border-color: rgb(63 63 70 / 0.8);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgb(161 161 170 / 0);
+    border-color: rgb(113 113 122 / 0.9);
+  }
+}
+
+@utility animate-scroll-button-pulse {
+  animation: scroll-button-pulse 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @media (hover: hover) {

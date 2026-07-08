@@ -125,15 +125,9 @@ exports.Prisma.FormSubmissionScalarFieldEnum = {
   id: 'id',
   fullName: 'fullName',
   email: 'email',
-  projectType: 'projectType',
-  projectStage: 'projectStage',
-  productType: 'productType',
-  businessProblem: 'businessProblem',
-  companyName: 'companyName',
-  companyWebsite: 'companyWebsite',
-  companySocialMedia: 'companySocialMedia',
-  companySize: 'companySize',
-  projectDescription: 'projectDescription',
+  usesPms: 'usesPms',
+  propertyCount: 'propertyCount',
+  revenueRange: 'revenueRange',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -148,41 +142,24 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-exports.ProjectType = exports.$Enums.ProjectType = {
-  PERSONAL: 'PERSONAL',
-  COMPANY: 'COMPANY'
+exports.PmsUsage = exports.$Enums.PmsUsage = {
+  YES: 'YES',
+  NO: 'NO',
+  EVALUATING: 'EVALUATING'
 };
 
-exports.ProjectStage = exports.$Enums.ProjectStage = {
-  CONCEPT: 'CONCEPT',
-  PLAN: 'PLAN',
-  BUILT: 'BUILT'
+exports.PropertyCount = exports.$Enums.PropertyCount = {
+  ONE_TO_FIVE: 'ONE_TO_FIVE',
+  SIX_TO_FIFTEEN: 'SIX_TO_FIFTEEN',
+  SIXTEEN_TO_FIFTY: 'SIXTEEN_TO_FIFTY',
+  FIFTY_ONE_PLUS: 'FIFTY_ONE_PLUS'
 };
 
-exports.ProductType = exports.$Enums.ProductType = {
-  MOBILE: 'MOBILE',
-  WEB: 'WEB',
-  MARKETPLACE: 'MARKETPLACE',
-  SAAS: 'SAAS',
-  OTHER: 'OTHER'
-};
-
-exports.BusinessProblem = exports.$Enums.BusinessProblem = {
-  AUTOMATE: 'AUTOMATE',
-  CUSTOM: 'CUSTOM',
-  INTEGRATE: 'INTEGRATE',
-  MODERNIZE: 'MODERNIZE'
-};
-
-exports.CompanySize = exports.$Enums.CompanySize = {
-  SMALL: 'SMALL',
-  MEDIUM: 'MEDIUM',
-  LARGE: 'LARGE'
+exports.RevenueRange = exports.$Enums.RevenueRange = {
+  UNDER_10M: 'UNDER_10M',
+  TEN_TO_FIFTY_M: 'TEN_TO_FIFTY_M',
+  FIFTY_TO_200M: 'FIFTY_TO_200M',
+  OVER_200M: 'OVER_200M'
 };
 
 exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {

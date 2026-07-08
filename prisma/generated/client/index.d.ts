@@ -23,51 +23,33 @@ export type FormSubmission = $Result.DefaultSelection<Prisma.$FormSubmissionPayl
  * Enums
  */
 export namespace $Enums {
-  export const ProjectType: {
-  PERSONAL: 'PERSONAL',
-  COMPANY: 'COMPANY'
+  export const PmsUsage: {
+  YES: 'YES',
+  NO: 'NO',
+  EVALUATING: 'EVALUATING'
 };
 
-export type ProjectType = (typeof ProjectType)[keyof typeof ProjectType]
+export type PmsUsage = (typeof PmsUsage)[keyof typeof PmsUsage]
 
 
-export const ProjectStage: {
-  CONCEPT: 'CONCEPT',
-  PLAN: 'PLAN',
-  BUILT: 'BUILT'
+export const PropertyCount: {
+  ONE_TO_FIVE: 'ONE_TO_FIVE',
+  SIX_TO_FIFTEEN: 'SIX_TO_FIFTEEN',
+  SIXTEEN_TO_FIFTY: 'SIXTEEN_TO_FIFTY',
+  FIFTY_ONE_PLUS: 'FIFTY_ONE_PLUS'
 };
 
-export type ProjectStage = (typeof ProjectStage)[keyof typeof ProjectStage]
+export type PropertyCount = (typeof PropertyCount)[keyof typeof PropertyCount]
 
 
-export const ProductType: {
-  MOBILE: 'MOBILE',
-  WEB: 'WEB',
-  MARKETPLACE: 'MARKETPLACE',
-  SAAS: 'SAAS',
-  OTHER: 'OTHER'
+export const RevenueRange: {
+  UNDER_10M: 'UNDER_10M',
+  TEN_TO_FIFTY_M: 'TEN_TO_FIFTY_M',
+  FIFTY_TO_200M: 'FIFTY_TO_200M',
+  OVER_200M: 'OVER_200M'
 };
 
-export type ProductType = (typeof ProductType)[keyof typeof ProductType]
-
-
-export const BusinessProblem: {
-  AUTOMATE: 'AUTOMATE',
-  CUSTOM: 'CUSTOM',
-  INTEGRATE: 'INTEGRATE',
-  MODERNIZE: 'MODERNIZE'
-};
-
-export type BusinessProblem = (typeof BusinessProblem)[keyof typeof BusinessProblem]
-
-
-export const CompanySize: {
-  SMALL: 'SMALL',
-  MEDIUM: 'MEDIUM',
-  LARGE: 'LARGE'
-};
-
-export type CompanySize = (typeof CompanySize)[keyof typeof CompanySize]
+export type RevenueRange = (typeof RevenueRange)[keyof typeof RevenueRange]
 
 
 export const SubmissionStatus: {
@@ -84,25 +66,17 @@ export type SubmissionStatus = (typeof SubmissionStatus)[keyof typeof Submission
 
 }
 
-export type ProjectType = $Enums.ProjectType
+export type PmsUsage = $Enums.PmsUsage
 
-export const ProjectType: typeof $Enums.ProjectType
+export const PmsUsage: typeof $Enums.PmsUsage
 
-export type ProjectStage = $Enums.ProjectStage
+export type PropertyCount = $Enums.PropertyCount
 
-export const ProjectStage: typeof $Enums.ProjectStage
+export const PropertyCount: typeof $Enums.PropertyCount
 
-export type ProductType = $Enums.ProductType
+export type RevenueRange = $Enums.RevenueRange
 
-export const ProductType: typeof $Enums.ProductType
-
-export type BusinessProblem = $Enums.BusinessProblem
-
-export const BusinessProblem: typeof $Enums.BusinessProblem
-
-export type CompanySize = $Enums.CompanySize
-
-export const CompanySize: typeof $Enums.CompanySize
+export const RevenueRange: typeof $Enums.RevenueRange
 
 export type SubmissionStatus = $Enums.SubmissionStatus
 
@@ -964,15 +938,9 @@ export namespace Prisma {
     id: string | null
     fullName: string | null
     email: string | null
-    projectType: $Enums.ProjectType | null
-    projectStage: $Enums.ProjectStage | null
-    productType: $Enums.ProductType | null
-    businessProblem: $Enums.BusinessProblem | null
-    companyName: string | null
-    companyWebsite: string | null
-    companySocialMedia: string | null
-    companySize: $Enums.CompanySize | null
-    projectDescription: string | null
+    usesPms: $Enums.PmsUsage | null
+    propertyCount: $Enums.PropertyCount | null
+    revenueRange: $Enums.RevenueRange | null
     status: $Enums.SubmissionStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -982,15 +950,9 @@ export namespace Prisma {
     id: string | null
     fullName: string | null
     email: string | null
-    projectType: $Enums.ProjectType | null
-    projectStage: $Enums.ProjectStage | null
-    productType: $Enums.ProductType | null
-    businessProblem: $Enums.BusinessProblem | null
-    companyName: string | null
-    companyWebsite: string | null
-    companySocialMedia: string | null
-    companySize: $Enums.CompanySize | null
-    projectDescription: string | null
+    usesPms: $Enums.PmsUsage | null
+    propertyCount: $Enums.PropertyCount | null
+    revenueRange: $Enums.RevenueRange | null
     status: $Enums.SubmissionStatus | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -1000,15 +962,9 @@ export namespace Prisma {
     id: number
     fullName: number
     email: number
-    projectType: number
-    projectStage: number
-    productType: number
-    businessProblem: number
-    companyName: number
-    companyWebsite: number
-    companySocialMedia: number
-    companySize: number
-    projectDescription: number
+    usesPms: number
+    propertyCount: number
+    revenueRange: number
     status: number
     createdAt: number
     updatedAt: number
@@ -1020,15 +976,9 @@ export namespace Prisma {
     id?: true
     fullName?: true
     email?: true
-    projectType?: true
-    projectStage?: true
-    productType?: true
-    businessProblem?: true
-    companyName?: true
-    companyWebsite?: true
-    companySocialMedia?: true
-    companySize?: true
-    projectDescription?: true
+    usesPms?: true
+    propertyCount?: true
+    revenueRange?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -1038,15 +988,9 @@ export namespace Prisma {
     id?: true
     fullName?: true
     email?: true
-    projectType?: true
-    projectStage?: true
-    productType?: true
-    businessProblem?: true
-    companyName?: true
-    companyWebsite?: true
-    companySocialMedia?: true
-    companySize?: true
-    projectDescription?: true
+    usesPms?: true
+    propertyCount?: true
+    revenueRange?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -1056,15 +1000,9 @@ export namespace Prisma {
     id?: true
     fullName?: true
     email?: true
-    projectType?: true
-    projectStage?: true
-    productType?: true
-    businessProblem?: true
-    companyName?: true
-    companyWebsite?: true
-    companySocialMedia?: true
-    companySize?: true
-    projectDescription?: true
+    usesPms?: true
+    propertyCount?: true
+    revenueRange?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -1146,16 +1084,10 @@ export namespace Prisma {
   export type FormSubmissionGroupByOutputType = {
     id: string
     fullName: string
-    email: string | null
-    projectType: $Enums.ProjectType
-    projectStage: $Enums.ProjectStage | null
-    productType: $Enums.ProductType | null
-    businessProblem: $Enums.BusinessProblem | null
-    companyName: string | null
-    companyWebsite: string | null
-    companySocialMedia: string | null
-    companySize: $Enums.CompanySize | null
-    projectDescription: string | null
+    email: string
+    usesPms: $Enums.PmsUsage
+    propertyCount: $Enums.PropertyCount
+    revenueRange: $Enums.RevenueRange
     status: $Enums.SubmissionStatus
     createdAt: Date
     updatedAt: Date
@@ -1182,15 +1114,9 @@ export namespace Prisma {
     id?: boolean
     fullName?: boolean
     email?: boolean
-    projectType?: boolean
-    projectStage?: boolean
-    productType?: boolean
-    businessProblem?: boolean
-    companyName?: boolean
-    companyWebsite?: boolean
-    companySocialMedia?: boolean
-    companySize?: boolean
-    projectDescription?: boolean
+    usesPms?: boolean
+    propertyCount?: boolean
+    revenueRange?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1200,15 +1126,9 @@ export namespace Prisma {
     id?: boolean
     fullName?: boolean
     email?: boolean
-    projectType?: boolean
-    projectStage?: boolean
-    productType?: boolean
-    businessProblem?: boolean
-    companyName?: boolean
-    companyWebsite?: boolean
-    companySocialMedia?: boolean
-    companySize?: boolean
-    projectDescription?: boolean
+    usesPms?: boolean
+    propertyCount?: boolean
+    revenueRange?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1218,15 +1138,9 @@ export namespace Prisma {
     id?: boolean
     fullName?: boolean
     email?: boolean
-    projectType?: boolean
-    projectStage?: boolean
-    productType?: boolean
-    businessProblem?: boolean
-    companyName?: boolean
-    companyWebsite?: boolean
-    companySocialMedia?: boolean
-    companySize?: boolean
-    projectDescription?: boolean
+    usesPms?: boolean
+    propertyCount?: boolean
+    revenueRange?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1236,21 +1150,15 @@ export namespace Prisma {
     id?: boolean
     fullName?: boolean
     email?: boolean
-    projectType?: boolean
-    projectStage?: boolean
-    productType?: boolean
-    businessProblem?: boolean
-    companyName?: boolean
-    companyWebsite?: boolean
-    companySocialMedia?: boolean
-    companySize?: boolean
-    projectDescription?: boolean
+    usesPms?: boolean
+    propertyCount?: boolean
+    revenueRange?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "projectType" | "projectStage" | "productType" | "businessProblem" | "companyName" | "companyWebsite" | "companySocialMedia" | "companySize" | "projectDescription" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["formSubmission"]>
+  export type FormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "usesPms" | "propertyCount" | "revenueRange" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["formSubmission"]>
 
   export type $FormSubmissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "FormSubmission"
@@ -1258,16 +1166,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       fullName: string
-      email: string | null
-      projectType: $Enums.ProjectType
-      projectStage: $Enums.ProjectStage | null
-      productType: $Enums.ProductType | null
-      businessProblem: $Enums.BusinessProblem | null
-      companyName: string | null
-      companyWebsite: string | null
-      companySocialMedia: string | null
-      companySize: $Enums.CompanySize | null
-      projectDescription: string | null
+      email: string
+      usesPms: $Enums.PmsUsage
+      propertyCount: $Enums.PropertyCount
+      revenueRange: $Enums.RevenueRange
       status: $Enums.SubmissionStatus
       createdAt: Date
       updatedAt: Date
@@ -1697,15 +1599,9 @@ export namespace Prisma {
     readonly id: FieldRef<"FormSubmission", 'String'>
     readonly fullName: FieldRef<"FormSubmission", 'String'>
     readonly email: FieldRef<"FormSubmission", 'String'>
-    readonly projectType: FieldRef<"FormSubmission", 'ProjectType'>
-    readonly projectStage: FieldRef<"FormSubmission", 'ProjectStage'>
-    readonly productType: FieldRef<"FormSubmission", 'ProductType'>
-    readonly businessProblem: FieldRef<"FormSubmission", 'BusinessProblem'>
-    readonly companyName: FieldRef<"FormSubmission", 'String'>
-    readonly companyWebsite: FieldRef<"FormSubmission", 'String'>
-    readonly companySocialMedia: FieldRef<"FormSubmission", 'String'>
-    readonly companySize: FieldRef<"FormSubmission", 'CompanySize'>
-    readonly projectDescription: FieldRef<"FormSubmission", 'String'>
+    readonly usesPms: FieldRef<"FormSubmission", 'PmsUsage'>
+    readonly propertyCount: FieldRef<"FormSubmission", 'PropertyCount'>
+    readonly revenueRange: FieldRef<"FormSubmission", 'RevenueRange'>
     readonly status: FieldRef<"FormSubmission", 'SubmissionStatus'>
     readonly createdAt: FieldRef<"FormSubmission", 'DateTime'>
     readonly updatedAt: FieldRef<"FormSubmission", 'DateTime'>
@@ -2093,15 +1989,9 @@ export namespace Prisma {
     id: 'id',
     fullName: 'fullName',
     email: 'email',
-    projectType: 'projectType',
-    projectStage: 'projectStage',
-    productType: 'productType',
-    businessProblem: 'businessProblem',
-    companyName: 'companyName',
-    companyWebsite: 'companyWebsite',
-    companySocialMedia: 'companySocialMedia',
-    companySize: 'companySize',
-    projectDescription: 'projectDescription',
+    usesPms: 'usesPms',
+    propertyCount: 'propertyCount',
+    revenueRange: 'revenueRange',
     status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -2126,14 +2016,6 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
   /**
    * Field references
    */
@@ -2154,72 +2036,44 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'ProjectType'
+   * Reference to a field of type 'PmsUsage'
    */
-  export type EnumProjectTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectType'>
+  export type EnumPmsUsageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PmsUsage'>
     
 
 
   /**
-   * Reference to a field of type 'ProjectType[]'
+   * Reference to a field of type 'PmsUsage[]'
    */
-  export type ListEnumProjectTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectType[]'>
+  export type ListEnumPmsUsageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PmsUsage[]'>
     
 
 
   /**
-   * Reference to a field of type 'ProjectStage'
+   * Reference to a field of type 'PropertyCount'
    */
-  export type EnumProjectStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectStage'>
+  export type EnumPropertyCountFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PropertyCount'>
     
 
 
   /**
-   * Reference to a field of type 'ProjectStage[]'
+   * Reference to a field of type 'PropertyCount[]'
    */
-  export type ListEnumProjectStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectStage[]'>
+  export type ListEnumPropertyCountFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PropertyCount[]'>
     
 
 
   /**
-   * Reference to a field of type 'ProductType'
+   * Reference to a field of type 'RevenueRange'
    */
-  export type EnumProductTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductType'>
+  export type EnumRevenueRangeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RevenueRange'>
     
 
 
   /**
-   * Reference to a field of type 'ProductType[]'
+   * Reference to a field of type 'RevenueRange[]'
    */
-  export type ListEnumProductTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductType[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'BusinessProblem'
-   */
-  export type EnumBusinessProblemFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BusinessProblem'>
-    
-
-
-  /**
-   * Reference to a field of type 'BusinessProblem[]'
-   */
-  export type ListEnumBusinessProblemFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BusinessProblem[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'CompanySize'
-   */
-  export type EnumCompanySizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CompanySize'>
-    
-
-
-  /**
-   * Reference to a field of type 'CompanySize[]'
-   */
-  export type ListEnumCompanySizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CompanySize[]'>
+  export type ListEnumRevenueRangeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RevenueRange[]'>
     
 
 
@@ -2274,16 +2128,10 @@ export namespace Prisma {
     NOT?: FormSubmissionWhereInput | FormSubmissionWhereInput[]
     id?: StringFilter<"FormSubmission"> | string
     fullName?: StringFilter<"FormSubmission"> | string
-    email?: StringNullableFilter<"FormSubmission"> | string | null
-    projectType?: EnumProjectTypeFilter<"FormSubmission"> | $Enums.ProjectType
-    projectStage?: EnumProjectStageNullableFilter<"FormSubmission"> | $Enums.ProjectStage | null
-    productType?: EnumProductTypeNullableFilter<"FormSubmission"> | $Enums.ProductType | null
-    businessProblem?: EnumBusinessProblemNullableFilter<"FormSubmission"> | $Enums.BusinessProblem | null
-    companyName?: StringNullableFilter<"FormSubmission"> | string | null
-    companyWebsite?: StringNullableFilter<"FormSubmission"> | string | null
-    companySocialMedia?: StringNullableFilter<"FormSubmission"> | string | null
-    companySize?: EnumCompanySizeNullableFilter<"FormSubmission"> | $Enums.CompanySize | null
-    projectDescription?: StringNullableFilter<"FormSubmission"> | string | null
+    email?: StringFilter<"FormSubmission"> | string
+    usesPms?: EnumPmsUsageFilter<"FormSubmission"> | $Enums.PmsUsage
+    propertyCount?: EnumPropertyCountFilter<"FormSubmission"> | $Enums.PropertyCount
+    revenueRange?: EnumRevenueRangeFilter<"FormSubmission"> | $Enums.RevenueRange
     status?: EnumSubmissionStatusFilter<"FormSubmission"> | $Enums.SubmissionStatus
     createdAt?: DateTimeFilter<"FormSubmission"> | Date | string
     updatedAt?: DateTimeFilter<"FormSubmission"> | Date | string
@@ -2292,16 +2140,10 @@ export namespace Prisma {
   export type FormSubmissionOrderByWithRelationInput = {
     id?: SortOrder
     fullName?: SortOrder
-    email?: SortOrderInput | SortOrder
-    projectType?: SortOrder
-    projectStage?: SortOrderInput | SortOrder
-    productType?: SortOrderInput | SortOrder
-    businessProblem?: SortOrderInput | SortOrder
-    companyName?: SortOrderInput | SortOrder
-    companyWebsite?: SortOrderInput | SortOrder
-    companySocialMedia?: SortOrderInput | SortOrder
-    companySize?: SortOrderInput | SortOrder
-    projectDescription?: SortOrderInput | SortOrder
+    email?: SortOrder
+    usesPms?: SortOrder
+    propertyCount?: SortOrder
+    revenueRange?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2313,16 +2155,10 @@ export namespace Prisma {
     OR?: FormSubmissionWhereInput[]
     NOT?: FormSubmissionWhereInput | FormSubmissionWhereInput[]
     fullName?: StringFilter<"FormSubmission"> | string
-    email?: StringNullableFilter<"FormSubmission"> | string | null
-    projectType?: EnumProjectTypeFilter<"FormSubmission"> | $Enums.ProjectType
-    projectStage?: EnumProjectStageNullableFilter<"FormSubmission"> | $Enums.ProjectStage | null
-    productType?: EnumProductTypeNullableFilter<"FormSubmission"> | $Enums.ProductType | null
-    businessProblem?: EnumBusinessProblemNullableFilter<"FormSubmission"> | $Enums.BusinessProblem | null
-    companyName?: StringNullableFilter<"FormSubmission"> | string | null
-    companyWebsite?: StringNullableFilter<"FormSubmission"> | string | null
-    companySocialMedia?: StringNullableFilter<"FormSubmission"> | string | null
-    companySize?: EnumCompanySizeNullableFilter<"FormSubmission"> | $Enums.CompanySize | null
-    projectDescription?: StringNullableFilter<"FormSubmission"> | string | null
+    email?: StringFilter<"FormSubmission"> | string
+    usesPms?: EnumPmsUsageFilter<"FormSubmission"> | $Enums.PmsUsage
+    propertyCount?: EnumPropertyCountFilter<"FormSubmission"> | $Enums.PropertyCount
+    revenueRange?: EnumRevenueRangeFilter<"FormSubmission"> | $Enums.RevenueRange
     status?: EnumSubmissionStatusFilter<"FormSubmission"> | $Enums.SubmissionStatus
     createdAt?: DateTimeFilter<"FormSubmission"> | Date | string
     updatedAt?: DateTimeFilter<"FormSubmission"> | Date | string
@@ -2331,16 +2167,10 @@ export namespace Prisma {
   export type FormSubmissionOrderByWithAggregationInput = {
     id?: SortOrder
     fullName?: SortOrder
-    email?: SortOrderInput | SortOrder
-    projectType?: SortOrder
-    projectStage?: SortOrderInput | SortOrder
-    productType?: SortOrderInput | SortOrder
-    businessProblem?: SortOrderInput | SortOrder
-    companyName?: SortOrderInput | SortOrder
-    companyWebsite?: SortOrderInput | SortOrder
-    companySocialMedia?: SortOrderInput | SortOrder
-    companySize?: SortOrderInput | SortOrder
-    projectDescription?: SortOrderInput | SortOrder
+    email?: SortOrder
+    usesPms?: SortOrder
+    propertyCount?: SortOrder
+    revenueRange?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2355,16 +2185,10 @@ export namespace Prisma {
     NOT?: FormSubmissionScalarWhereWithAggregatesInput | FormSubmissionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"FormSubmission"> | string
     fullName?: StringWithAggregatesFilter<"FormSubmission"> | string
-    email?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
-    projectType?: EnumProjectTypeWithAggregatesFilter<"FormSubmission"> | $Enums.ProjectType
-    projectStage?: EnumProjectStageNullableWithAggregatesFilter<"FormSubmission"> | $Enums.ProjectStage | null
-    productType?: EnumProductTypeNullableWithAggregatesFilter<"FormSubmission"> | $Enums.ProductType | null
-    businessProblem?: EnumBusinessProblemNullableWithAggregatesFilter<"FormSubmission"> | $Enums.BusinessProblem | null
-    companyName?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
-    companyWebsite?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
-    companySocialMedia?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
-    companySize?: EnumCompanySizeNullableWithAggregatesFilter<"FormSubmission"> | $Enums.CompanySize | null
-    projectDescription?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+    email?: StringWithAggregatesFilter<"FormSubmission"> | string
+    usesPms?: EnumPmsUsageWithAggregatesFilter<"FormSubmission"> | $Enums.PmsUsage
+    propertyCount?: EnumPropertyCountWithAggregatesFilter<"FormSubmission"> | $Enums.PropertyCount
+    revenueRange?: EnumRevenueRangeWithAggregatesFilter<"FormSubmission"> | $Enums.RevenueRange
     status?: EnumSubmissionStatusWithAggregatesFilter<"FormSubmission"> | $Enums.SubmissionStatus
     createdAt?: DateTimeWithAggregatesFilter<"FormSubmission"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"FormSubmission"> | Date | string
@@ -2373,16 +2197,10 @@ export namespace Prisma {
   export type FormSubmissionCreateInput = {
     id?: string
     fullName: string
-    email?: string | null
-    projectType: $Enums.ProjectType
-    projectStage?: $Enums.ProjectStage | null
-    productType?: $Enums.ProductType | null
-    businessProblem?: $Enums.BusinessProblem | null
-    companyName?: string | null
-    companyWebsite?: string | null
-    companySocialMedia?: string | null
-    companySize?: $Enums.CompanySize | null
-    projectDescription?: string | null
+    email: string
+    usesPms: $Enums.PmsUsage
+    propertyCount: $Enums.PropertyCount
+    revenueRange: $Enums.RevenueRange
     status?: $Enums.SubmissionStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -2391,16 +2209,10 @@ export namespace Prisma {
   export type FormSubmissionUncheckedCreateInput = {
     id?: string
     fullName: string
-    email?: string | null
-    projectType: $Enums.ProjectType
-    projectStage?: $Enums.ProjectStage | null
-    productType?: $Enums.ProductType | null
-    businessProblem?: $Enums.BusinessProblem | null
-    companyName?: string | null
-    companyWebsite?: string | null
-    companySocialMedia?: string | null
-    companySize?: $Enums.CompanySize | null
-    projectDescription?: string | null
+    email: string
+    usesPms: $Enums.PmsUsage
+    propertyCount: $Enums.PropertyCount
+    revenueRange: $Enums.RevenueRange
     status?: $Enums.SubmissionStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -2409,16 +2221,10 @@ export namespace Prisma {
   export type FormSubmissionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    projectType?: EnumProjectTypeFieldUpdateOperationsInput | $Enums.ProjectType
-    projectStage?: NullableEnumProjectStageFieldUpdateOperationsInput | $Enums.ProjectStage | null
-    productType?: NullableEnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType | null
-    businessProblem?: NullableEnumBusinessProblemFieldUpdateOperationsInput | $Enums.BusinessProblem | null
-    companyName?: NullableStringFieldUpdateOperationsInput | string | null
-    companyWebsite?: NullableStringFieldUpdateOperationsInput | string | null
-    companySocialMedia?: NullableStringFieldUpdateOperationsInput | string | null
-    companySize?: NullableEnumCompanySizeFieldUpdateOperationsInput | $Enums.CompanySize | null
-    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    usesPms?: EnumPmsUsageFieldUpdateOperationsInput | $Enums.PmsUsage
+    propertyCount?: EnumPropertyCountFieldUpdateOperationsInput | $Enums.PropertyCount
+    revenueRange?: EnumRevenueRangeFieldUpdateOperationsInput | $Enums.RevenueRange
     status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2427,16 +2233,10 @@ export namespace Prisma {
   export type FormSubmissionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    projectType?: EnumProjectTypeFieldUpdateOperationsInput | $Enums.ProjectType
-    projectStage?: NullableEnumProjectStageFieldUpdateOperationsInput | $Enums.ProjectStage | null
-    productType?: NullableEnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType | null
-    businessProblem?: NullableEnumBusinessProblemFieldUpdateOperationsInput | $Enums.BusinessProblem | null
-    companyName?: NullableStringFieldUpdateOperationsInput | string | null
-    companyWebsite?: NullableStringFieldUpdateOperationsInput | string | null
-    companySocialMedia?: NullableStringFieldUpdateOperationsInput | string | null
-    companySize?: NullableEnumCompanySizeFieldUpdateOperationsInput | $Enums.CompanySize | null
-    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    usesPms?: EnumPmsUsageFieldUpdateOperationsInput | $Enums.PmsUsage
+    propertyCount?: EnumPropertyCountFieldUpdateOperationsInput | $Enums.PropertyCount
+    revenueRange?: EnumRevenueRangeFieldUpdateOperationsInput | $Enums.RevenueRange
     status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2445,16 +2245,10 @@ export namespace Prisma {
   export type FormSubmissionCreateManyInput = {
     id?: string
     fullName: string
-    email?: string | null
-    projectType: $Enums.ProjectType
-    projectStage?: $Enums.ProjectStage | null
-    productType?: $Enums.ProductType | null
-    businessProblem?: $Enums.BusinessProblem | null
-    companyName?: string | null
-    companyWebsite?: string | null
-    companySocialMedia?: string | null
-    companySize?: $Enums.CompanySize | null
-    projectDescription?: string | null
+    email: string
+    usesPms: $Enums.PmsUsage
+    propertyCount: $Enums.PropertyCount
+    revenueRange: $Enums.RevenueRange
     status?: $Enums.SubmissionStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -2463,16 +2257,10 @@ export namespace Prisma {
   export type FormSubmissionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    projectType?: EnumProjectTypeFieldUpdateOperationsInput | $Enums.ProjectType
-    projectStage?: NullableEnumProjectStageFieldUpdateOperationsInput | $Enums.ProjectStage | null
-    productType?: NullableEnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType | null
-    businessProblem?: NullableEnumBusinessProblemFieldUpdateOperationsInput | $Enums.BusinessProblem | null
-    companyName?: NullableStringFieldUpdateOperationsInput | string | null
-    companyWebsite?: NullableStringFieldUpdateOperationsInput | string | null
-    companySocialMedia?: NullableStringFieldUpdateOperationsInput | string | null
-    companySize?: NullableEnumCompanySizeFieldUpdateOperationsInput | $Enums.CompanySize | null
-    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    usesPms?: EnumPmsUsageFieldUpdateOperationsInput | $Enums.PmsUsage
+    propertyCount?: EnumPropertyCountFieldUpdateOperationsInput | $Enums.PropertyCount
+    revenueRange?: EnumRevenueRangeFieldUpdateOperationsInput | $Enums.RevenueRange
     status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2481,16 +2269,10 @@ export namespace Prisma {
   export type FormSubmissionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    projectType?: EnumProjectTypeFieldUpdateOperationsInput | $Enums.ProjectType
-    projectStage?: NullableEnumProjectStageFieldUpdateOperationsInput | $Enums.ProjectStage | null
-    productType?: NullableEnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType | null
-    businessProblem?: NullableEnumBusinessProblemFieldUpdateOperationsInput | $Enums.BusinessProblem | null
-    companyName?: NullableStringFieldUpdateOperationsInput | string | null
-    companyWebsite?: NullableStringFieldUpdateOperationsInput | string | null
-    companySocialMedia?: NullableStringFieldUpdateOperationsInput | string | null
-    companySize?: NullableEnumCompanySizeFieldUpdateOperationsInput | $Enums.CompanySize | null
-    projectDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    usesPms?: EnumPmsUsageFieldUpdateOperationsInput | $Enums.PmsUsage
+    propertyCount?: EnumPropertyCountFieldUpdateOperationsInput | $Enums.PropertyCount
+    revenueRange?: EnumRevenueRangeFieldUpdateOperationsInput | $Enums.RevenueRange
     status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2511,54 +2293,25 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  export type EnumPmsUsageFilter<$PrismaModel = never> = {
+    equals?: $Enums.PmsUsage | EnumPmsUsageFieldRefInput<$PrismaModel>
+    in?: $Enums.PmsUsage[] | ListEnumPmsUsageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PmsUsage[] | ListEnumPmsUsageFieldRefInput<$PrismaModel>
+    not?: NestedEnumPmsUsageFilter<$PrismaModel> | $Enums.PmsUsage
   }
 
-  export type EnumProjectTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProjectType | EnumProjectTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ProjectType[] | ListEnumProjectTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ProjectType[] | ListEnumProjectTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumProjectTypeFilter<$PrismaModel> | $Enums.ProjectType
+  export type EnumPropertyCountFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyCount | EnumPropertyCountFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyCount[] | ListEnumPropertyCountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyCount[] | ListEnumPropertyCountFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyCountFilter<$PrismaModel> | $Enums.PropertyCount
   }
 
-  export type EnumProjectStageNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProjectStage | EnumProjectStageFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumProjectStageNullableFilter<$PrismaModel> | $Enums.ProjectStage | null
-  }
-
-  export type EnumProductTypeNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumProductTypeNullableFilter<$PrismaModel> | $Enums.ProductType | null
-  }
-
-  export type EnumBusinessProblemNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.BusinessProblem | EnumBusinessProblemFieldRefInput<$PrismaModel> | null
-    in?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumBusinessProblemNullableFilter<$PrismaModel> | $Enums.BusinessProblem | null
-  }
-
-  export type EnumCompanySizeNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.CompanySize | EnumCompanySizeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumCompanySizeNullableFilter<$PrismaModel> | $Enums.CompanySize | null
+  export type EnumRevenueRangeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RevenueRange | EnumRevenueRangeFieldRefInput<$PrismaModel>
+    in?: $Enums.RevenueRange[] | ListEnumRevenueRangeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RevenueRange[] | ListEnumRevenueRangeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRevenueRangeFilter<$PrismaModel> | $Enums.RevenueRange
   }
 
   export type EnumSubmissionStatusFilter<$PrismaModel = never> = {
@@ -2579,24 +2332,13 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type FormSubmissionCountOrderByAggregateInput = {
     id?: SortOrder
     fullName?: SortOrder
     email?: SortOrder
-    projectType?: SortOrder
-    projectStage?: SortOrder
-    productType?: SortOrder
-    businessProblem?: SortOrder
-    companyName?: SortOrder
-    companyWebsite?: SortOrder
-    companySocialMedia?: SortOrder
-    companySize?: SortOrder
-    projectDescription?: SortOrder
+    usesPms?: SortOrder
+    propertyCount?: SortOrder
+    revenueRange?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2606,15 +2348,9 @@ export namespace Prisma {
     id?: SortOrder
     fullName?: SortOrder
     email?: SortOrder
-    projectType?: SortOrder
-    projectStage?: SortOrder
-    productType?: SortOrder
-    businessProblem?: SortOrder
-    companyName?: SortOrder
-    companyWebsite?: SortOrder
-    companySocialMedia?: SortOrder
-    companySize?: SortOrder
-    projectDescription?: SortOrder
+    usesPms?: SortOrder
+    propertyCount?: SortOrder
+    revenueRange?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2624,15 +2360,9 @@ export namespace Prisma {
     id?: SortOrder
     fullName?: SortOrder
     email?: SortOrder
-    projectType?: SortOrder
-    projectStage?: SortOrder
-    productType?: SortOrder
-    businessProblem?: SortOrder
-    companyName?: SortOrder
-    companyWebsite?: SortOrder
-    companySocialMedia?: SortOrder
-    companySize?: SortOrder
-    projectDescription?: SortOrder
+    usesPms?: SortOrder
+    propertyCount?: SortOrder
+    revenueRange?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2656,72 +2386,34 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type EnumProjectTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProjectType | EnumProjectTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ProjectType[] | ListEnumProjectTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ProjectType[] | ListEnumProjectTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumProjectTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProjectType
+  export type EnumPmsUsageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PmsUsage | EnumPmsUsageFieldRefInput<$PrismaModel>
+    in?: $Enums.PmsUsage[] | ListEnumPmsUsageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PmsUsage[] | ListEnumPmsUsageFieldRefInput<$PrismaModel>
+    not?: NestedEnumPmsUsageWithAggregatesFilter<$PrismaModel> | $Enums.PmsUsage
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumProjectTypeFilter<$PrismaModel>
-    _max?: NestedEnumProjectTypeFilter<$PrismaModel>
+    _min?: NestedEnumPmsUsageFilter<$PrismaModel>
+    _max?: NestedEnumPmsUsageFilter<$PrismaModel>
   }
 
-  export type EnumProjectStageNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProjectStage | EnumProjectStageFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumProjectStageNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProjectStage | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumProjectStageNullableFilter<$PrismaModel>
-    _max?: NestedEnumProjectStageNullableFilter<$PrismaModel>
+  export type EnumPropertyCountWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyCount | EnumPropertyCountFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyCount[] | ListEnumPropertyCountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyCount[] | ListEnumPropertyCountFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyCountWithAggregatesFilter<$PrismaModel> | $Enums.PropertyCount
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPropertyCountFilter<$PrismaModel>
+    _max?: NestedEnumPropertyCountFilter<$PrismaModel>
   }
 
-  export type EnumProductTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumProductTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProductType | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumProductTypeNullableFilter<$PrismaModel>
-    _max?: NestedEnumProductTypeNullableFilter<$PrismaModel>
-  }
-
-  export type EnumBusinessProblemNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BusinessProblem | EnumBusinessProblemFieldRefInput<$PrismaModel> | null
-    in?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumBusinessProblemNullableWithAggregatesFilter<$PrismaModel> | $Enums.BusinessProblem | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumBusinessProblemNullableFilter<$PrismaModel>
-    _max?: NestedEnumBusinessProblemNullableFilter<$PrismaModel>
-  }
-
-  export type EnumCompanySizeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.CompanySize | EnumCompanySizeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumCompanySizeNullableWithAggregatesFilter<$PrismaModel> | $Enums.CompanySize | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumCompanySizeNullableFilter<$PrismaModel>
-    _max?: NestedEnumCompanySizeNullableFilter<$PrismaModel>
+  export type EnumRevenueRangeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RevenueRange | EnumRevenueRangeFieldRefInput<$PrismaModel>
+    in?: $Enums.RevenueRange[] | ListEnumRevenueRangeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RevenueRange[] | ListEnumRevenueRangeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRevenueRangeWithAggregatesFilter<$PrismaModel> | $Enums.RevenueRange
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRevenueRangeFilter<$PrismaModel>
+    _max?: NestedEnumRevenueRangeFilter<$PrismaModel>
   }
 
   export type EnumSubmissionStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -2752,28 +2444,16 @@ export namespace Prisma {
     set?: string
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type EnumPmsUsageFieldUpdateOperationsInput = {
+    set?: $Enums.PmsUsage
   }
 
-  export type EnumProjectTypeFieldUpdateOperationsInput = {
-    set?: $Enums.ProjectType
+  export type EnumPropertyCountFieldUpdateOperationsInput = {
+    set?: $Enums.PropertyCount
   }
 
-  export type NullableEnumProjectStageFieldUpdateOperationsInput = {
-    set?: $Enums.ProjectStage | null
-  }
-
-  export type NullableEnumProductTypeFieldUpdateOperationsInput = {
-    set?: $Enums.ProductType | null
-  }
-
-  export type NullableEnumBusinessProblemFieldUpdateOperationsInput = {
-    set?: $Enums.BusinessProblem | null
-  }
-
-  export type NullableEnumCompanySizeFieldUpdateOperationsInput = {
-    set?: $Enums.CompanySize | null
+  export type EnumRevenueRangeFieldUpdateOperationsInput = {
+    set?: $Enums.RevenueRange
   }
 
   export type EnumSubmissionStatusFieldUpdateOperationsInput = {
@@ -2798,53 +2478,25 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  export type NestedEnumPmsUsageFilter<$PrismaModel = never> = {
+    equals?: $Enums.PmsUsage | EnumPmsUsageFieldRefInput<$PrismaModel>
+    in?: $Enums.PmsUsage[] | ListEnumPmsUsageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PmsUsage[] | ListEnumPmsUsageFieldRefInput<$PrismaModel>
+    not?: NestedEnumPmsUsageFilter<$PrismaModel> | $Enums.PmsUsage
   }
 
-  export type NestedEnumProjectTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProjectType | EnumProjectTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ProjectType[] | ListEnumProjectTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ProjectType[] | ListEnumProjectTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumProjectTypeFilter<$PrismaModel> | $Enums.ProjectType
+  export type NestedEnumPropertyCountFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyCount | EnumPropertyCountFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyCount[] | ListEnumPropertyCountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyCount[] | ListEnumPropertyCountFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyCountFilter<$PrismaModel> | $Enums.PropertyCount
   }
 
-  export type NestedEnumProjectStageNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProjectStage | EnumProjectStageFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumProjectStageNullableFilter<$PrismaModel> | $Enums.ProjectStage | null
-  }
-
-  export type NestedEnumProductTypeNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumProductTypeNullableFilter<$PrismaModel> | $Enums.ProductType | null
-  }
-
-  export type NestedEnumBusinessProblemNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.BusinessProblem | EnumBusinessProblemFieldRefInput<$PrismaModel> | null
-    in?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumBusinessProblemNullableFilter<$PrismaModel> | $Enums.BusinessProblem | null
-  }
-
-  export type NestedEnumCompanySizeNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.CompanySize | EnumCompanySizeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumCompanySizeNullableFilter<$PrismaModel> | $Enums.CompanySize | null
+  export type NestedEnumRevenueRangeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RevenueRange | EnumRevenueRangeFieldRefInput<$PrismaModel>
+    in?: $Enums.RevenueRange[] | ListEnumRevenueRangeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RevenueRange[] | ListEnumRevenueRangeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRevenueRangeFilter<$PrismaModel> | $Enums.RevenueRange
   }
 
   export type NestedEnumSubmissionStatusFilter<$PrismaModel = never> = {
@@ -2893,82 +2545,34 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedEnumProjectTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProjectType | EnumProjectTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ProjectType[] | ListEnumProjectTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ProjectType[] | ListEnumProjectTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumProjectTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProjectType
+  export type NestedEnumPmsUsageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PmsUsage | EnumPmsUsageFieldRefInput<$PrismaModel>
+    in?: $Enums.PmsUsage[] | ListEnumPmsUsageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PmsUsage[] | ListEnumPmsUsageFieldRefInput<$PrismaModel>
+    not?: NestedEnumPmsUsageWithAggregatesFilter<$PrismaModel> | $Enums.PmsUsage
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumProjectTypeFilter<$PrismaModel>
-    _max?: NestedEnumProjectTypeFilter<$PrismaModel>
+    _min?: NestedEnumPmsUsageFilter<$PrismaModel>
+    _max?: NestedEnumPmsUsageFilter<$PrismaModel>
   }
 
-  export type NestedEnumProjectStageNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProjectStage | EnumProjectStageFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.ProjectStage[] | ListEnumProjectStageFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumProjectStageNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProjectStage | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumProjectStageNullableFilter<$PrismaModel>
-    _max?: NestedEnumProjectStageNullableFilter<$PrismaModel>
+  export type NestedEnumPropertyCountWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyCount | EnumPropertyCountFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyCount[] | ListEnumPropertyCountFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyCount[] | ListEnumPropertyCountFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyCountWithAggregatesFilter<$PrismaModel> | $Enums.PropertyCount
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPropertyCountFilter<$PrismaModel>
+    _max?: NestedEnumPropertyCountFilter<$PrismaModel>
   }
 
-  export type NestedEnumProductTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumProductTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProductType | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumProductTypeNullableFilter<$PrismaModel>
-    _max?: NestedEnumProductTypeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedEnumBusinessProblemNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BusinessProblem | EnumBusinessProblemFieldRefInput<$PrismaModel> | null
-    in?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.BusinessProblem[] | ListEnumBusinessProblemFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumBusinessProblemNullableWithAggregatesFilter<$PrismaModel> | $Enums.BusinessProblem | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumBusinessProblemNullableFilter<$PrismaModel>
-    _max?: NestedEnumBusinessProblemNullableFilter<$PrismaModel>
-  }
-
-  export type NestedEnumCompanySizeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.CompanySize | EnumCompanySizeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.CompanySize[] | ListEnumCompanySizeFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumCompanySizeNullableWithAggregatesFilter<$PrismaModel> | $Enums.CompanySize | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumCompanySizeNullableFilter<$PrismaModel>
-    _max?: NestedEnumCompanySizeNullableFilter<$PrismaModel>
+  export type NestedEnumRevenueRangeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RevenueRange | EnumRevenueRangeFieldRefInput<$PrismaModel>
+    in?: $Enums.RevenueRange[] | ListEnumRevenueRangeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RevenueRange[] | ListEnumRevenueRangeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRevenueRangeWithAggregatesFilter<$PrismaModel> | $Enums.RevenueRange
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRevenueRangeFilter<$PrismaModel>
+    _max?: NestedEnumRevenueRangeFilter<$PrismaModel>
   }
 
   export type NestedEnumSubmissionStatusWithAggregatesFilter<$PrismaModel = never> = {

@@ -12,53 +12,35 @@ datasource db {
 }
 
 model FormSubmission {
-  id                 String           @id @default(cuid())
-  fullName           String
-  email              String?
-  projectType        ProjectType
-  projectStage       ProjectStage?
-  productType        ProductType?
-  businessProblem    BusinessProblem?
-  companyName        String?
-  companyWebsite     String?
-  companySocialMedia String?
-  companySize        CompanySize?
-  projectDescription String?
-  status             SubmissionStatus @default(NEW)
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
+  id            String           @id @default(cuid())
+  fullName      String
+  email         String
+  usesPms       PmsUsage
+  propertyCount PropertyCount
+  revenueRange  RevenueRange
+  status        SubmissionStatus @default(NEW)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
 }
 
-enum ProjectType {
-  PERSONAL
-  COMPANY
+enum PmsUsage {
+  YES
+  NO
+  EVALUATING
 }
 
-enum ProjectStage {
-  CONCEPT
-  PLAN
-  BUILT
+enum PropertyCount {
+  ONE_TO_FIVE
+  SIX_TO_FIFTEEN
+  SIXTEEN_TO_FIFTY
+  FIFTY_ONE_PLUS
 }
 
-enum ProductType {
-  MOBILE
-  WEB
-  MARKETPLACE
-  SAAS
-  OTHER
-}
-
-enum BusinessProblem {
-  AUTOMATE
-  CUSTOM
-  INTEGRATE
-  MODERNIZE
-}
-
-enum CompanySize {
-  SMALL
-  MEDIUM
-  LARGE
+enum RevenueRange {
+  UNDER_10M
+  TEN_TO_FIFTY_M
+  FIFTY_TO_200M
+  OVER_200M
 }
 
 enum SubmissionStatus {

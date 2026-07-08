@@ -97,15 +97,9 @@ exports.Prisma.FormSubmissionScalarFieldEnum = {
   id: 'id',
   fullName: 'fullName',
   email: 'email',
-  projectType: 'projectType',
-  projectStage: 'projectStage',
-  productType: 'productType',
-  businessProblem: 'businessProblem',
-  companyName: 'companyName',
-  companyWebsite: 'companyWebsite',
-  companySocialMedia: 'companySocialMedia',
-  companySize: 'companySize',
-  projectDescription: 'projectDescription',
+  usesPms: 'usesPms',
+  propertyCount: 'propertyCount',
+  revenueRange: 'revenueRange',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -120,41 +114,24 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-exports.ProjectType = exports.$Enums.ProjectType = {
-  PERSONAL: 'PERSONAL',
-  COMPANY: 'COMPANY'
+exports.PmsUsage = exports.$Enums.PmsUsage = {
+  YES: 'YES',
+  NO: 'NO',
+  EVALUATING: 'EVALUATING'
 };
 
-exports.ProjectStage = exports.$Enums.ProjectStage = {
-  CONCEPT: 'CONCEPT',
-  PLAN: 'PLAN',
-  BUILT: 'BUILT'
+exports.PropertyCount = exports.$Enums.PropertyCount = {
+  ONE_TO_FIVE: 'ONE_TO_FIVE',
+  SIX_TO_FIFTEEN: 'SIX_TO_FIFTEEN',
+  SIXTEEN_TO_FIFTY: 'SIXTEEN_TO_FIFTY',
+  FIFTY_ONE_PLUS: 'FIFTY_ONE_PLUS'
 };
 
-exports.ProductType = exports.$Enums.ProductType = {
-  MOBILE: 'MOBILE',
-  WEB: 'WEB',
-  MARKETPLACE: 'MARKETPLACE',
-  SAAS: 'SAAS',
-  OTHER: 'OTHER'
-};
-
-exports.BusinessProblem = exports.$Enums.BusinessProblem = {
-  AUTOMATE: 'AUTOMATE',
-  CUSTOM: 'CUSTOM',
-  INTEGRATE: 'INTEGRATE',
-  MODERNIZE: 'MODERNIZE'
-};
-
-exports.CompanySize = exports.$Enums.CompanySize = {
-  SMALL: 'SMALL',
-  MEDIUM: 'MEDIUM',
-  LARGE: 'LARGE'
+exports.RevenueRange = exports.$Enums.RevenueRange = {
+  UNDER_10M: 'UNDER_10M',
+  TEN_TO_FIFTY_M: 'TEN_TO_FIFTY_M',
+  FIFTY_TO_200M: 'FIFTY_TO_200M',
+  OVER_200M: 'OVER_200M'
 };
 
 exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
@@ -218,13 +195,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel FormSubmission {\n  id                 String           @id @default(cuid())\n  fullName           String\n  email              String?\n  projectType        ProjectType\n  projectStage       ProjectStage?\n  productType        ProductType?\n  businessProblem    BusinessProblem?\n  companyName        String?\n  companyWebsite     String?\n  companySocialMedia String?\n  companySize        CompanySize?\n  projectDescription String?\n  status             SubmissionStatus @default(NEW)\n  createdAt          DateTime         @default(now())\n  updatedAt          DateTime         @updatedAt\n}\n\nenum ProjectType {\n  PERSONAL\n  COMPANY\n}\n\nenum ProjectStage {\n  CONCEPT\n  PLAN\n  BUILT\n}\n\nenum ProductType {\n  MOBILE\n  WEB\n  MARKETPLACE\n  SAAS\n  OTHER\n}\n\nenum BusinessProblem {\n  AUTOMATE\n  CUSTOM\n  INTEGRATE\n  MODERNIZE\n}\n\nenum CompanySize {\n  SMALL\n  MEDIUM\n  LARGE\n}\n\nenum SubmissionStatus {\n  NEW\n  REVIEWING\n  CONTACTED\n  MEETING_SCHEDULED\n  PROPOSAL_SENT\n  CLOSED_WON\n  CLOSED_LOST\n}\n",
-  "inlineSchemaHash": "6b56ad3f2aa5ebb5deaefcfe701eb05df71c658b520e9dee151bd8ac3e28c795",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel FormSubmission {\n  id            String           @id @default(cuid())\n  fullName      String\n  email         String\n  usesPms       PmsUsage\n  propertyCount PropertyCount\n  revenueRange  RevenueRange\n  status        SubmissionStatus @default(NEW)\n  createdAt     DateTime         @default(now())\n  updatedAt     DateTime         @updatedAt\n}\n\nenum PmsUsage {\n  YES\n  NO\n  EVALUATING\n}\n\nenum PropertyCount {\n  ONE_TO_FIVE\n  SIX_TO_FIFTEEN\n  SIXTEEN_TO_FIFTY\n  FIFTY_ONE_PLUS\n}\n\nenum RevenueRange {\n  UNDER_10M\n  TEN_TO_FIFTY_M\n  FIFTY_TO_200M\n  OVER_200M\n}\n\nenum SubmissionStatus {\n  NEW\n  REVIEWING\n  CONTACTED\n  MEETING_SCHEDULED\n  PROPOSAL_SENT\n  CLOSED_WON\n  CLOSED_LOST\n}\n",
+  "inlineSchemaHash": "a8d442d0f9d0ba045746c592ef5c291a465b78f5e77641fc3272c27b6f4cfabd",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"FormSubmission\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fullName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"projectType\",\"kind\":\"enum\",\"type\":\"ProjectType\"},{\"name\":\"projectStage\",\"kind\":\"enum\",\"type\":\"ProjectStage\"},{\"name\":\"productType\",\"kind\":\"enum\",\"type\":\"ProductType\"},{\"name\":\"businessProblem\",\"kind\":\"enum\",\"type\":\"BusinessProblem\"},{\"name\":\"companyName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"companyWebsite\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"companySocialMedia\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"companySize\",\"kind\":\"enum\",\"type\":\"CompanySize\"},{\"name\":\"projectDescription\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"SubmissionStatus\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"FormSubmission\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fullName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"usesPms\",\"kind\":\"enum\",\"type\":\"PmsUsage\"},{\"name\":\"propertyCount\",\"kind\":\"enum\",\"type\":\"PropertyCount\"},{\"name\":\"revenueRange\",\"kind\":\"enum\",\"type\":\"RevenueRange\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"SubmissionStatus\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),
