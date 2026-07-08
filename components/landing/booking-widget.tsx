@@ -19,6 +19,7 @@ import { BOOKING_MONTH, BOOKING_YEAR } from "@/lib/booking/config"
 import { getUnbookableDaysInMonth } from "@/lib/booking/rules"
 import { filterPastSlots } from "@/lib/booking/slots"
 import type { BookingSlot, MonthAvailabilityResponse } from "@/lib/booking/types"
+import { trackBookingLead } from "@/lib/facebook-pixel"
 import { scrollToElement } from "@/lib/smooth-scroll"
 import { cn } from "@/lib/utils"
 
@@ -498,6 +499,12 @@ export function BookingWidget() {
 
       const result = (await response.json()) as { meetLink?: string }
       setMeetLink(result.meetLink ?? null)
+      trackBookingLead({
+        email: formData.email,
+        fullName: formData.fullName,
+        date: toBookingDate(selectedDay),
+        slotStart: selectedSlotStart,
+      })
       setStep("submitted")
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "No se pudo confirmar la reunión")

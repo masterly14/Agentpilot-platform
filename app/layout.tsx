@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Instrument_Serif, Plus_Jakarta_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { FacebookPixel } from '@/components/analytics/facebook-pixel'
 import './globals.css'
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -57,6 +58,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="dark bg-black">
       <body className={`${plusJakarta.variable} ${instrumentSerif.variable} font-sans antialiased`}>
+        <FacebookPixel />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
