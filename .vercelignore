@@ -1,0 +1,6 @@
+.env
+.env.*
+site-reference/
+tsconfig.tsbuildinfo
+prisma/generated/client/query_engine-windows.dll.node
+.git
