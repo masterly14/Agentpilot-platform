@@ -26,10 +26,31 @@ export function formatBookingAnswersForDescription(answers: {
   usesPms: string
   propertyCount: string
   revenueRange: string
+  phoneCountryCode?: string
+  phoneNumber?: string
+  companyName?: string
+  websiteUrl?: string
 }) {
-  return [
+  const lines = [
     `PMS: ${getOptionLabel(PMS_OPTIONS, answers.usesPms)}`,
     `Propiedades: ${getOptionLabel(PROPERTY_OPTIONS, answers.propertyCount)}`,
     `Facturación: ${getOptionLabel(REVENUE_OPTIONS, answers.revenueRange)}`,
-  ].join("\n")
+  ]
+
+  const phoneDigits = answers.phoneNumber?.replace(/\D/g, "") ?? ""
+  if (phoneDigits) {
+    lines.push(`Teléfono: ${answers.phoneCountryCode ?? ""} ${phoneDigits}`.trim())
+  }
+
+  const companyName = answers.companyName?.trim()
+  if (companyName) {
+    lines.push(`Empresa: ${companyName}`)
+  }
+
+  const websiteUrl = answers.websiteUrl?.trim()
+  if (websiteUrl) {
+    lines.push(`Sitio web: ${websiteUrl}`)
+  }
+
+  return lines.join("\n")
 }

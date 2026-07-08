@@ -5,6 +5,7 @@ import {
   isValidBookingDate,
   isValidSlot,
 } from "@/lib/booking/composio-calendar"
+import { isValidPhoneNumber } from "@/lib/booking/phone-countries"
 import type { BookingFormPayload } from "@/lib/booking/types"
 
 function isValidPayload(body: unknown): body is BookingFormPayload {
@@ -16,11 +17,17 @@ function isValidPayload(body: unknown): body is BookingFormPayload {
     typeof record.slotStart === "string" &&
     typeof record.fullName === "string" &&
     typeof record.email === "string" &&
+    typeof record.phoneCountryCode === "string" &&
+    typeof record.phoneNumber === "string" &&
+    typeof record.companyName === "string" &&
+    typeof record.websiteUrl === "string" &&
     typeof record.usesPms === "string" &&
     typeof record.propertyCount === "string" &&
     typeof record.revenueRange === "string" &&
     record.fullName.trim().length > 0 &&
     record.email.trim().length > 0 &&
+    record.phoneCountryCode.trim().length > 0 &&
+    isValidPhoneNumber(record.phoneNumber) &&
     record.usesPms.trim().length > 0 &&
     record.propertyCount.trim().length > 0 &&
     record.revenueRange.trim().length > 0
@@ -29,6 +36,25 @@ function isValidPayload(body: unknown): body is BookingFormPayload {
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+function isValidOptionalUrl(value: string) {
+  const trimmed = value.trim()
+  if (!trimmed) return true
+
+  try {
+    const normalized = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`
+    const url = new URL(normalized)
+    return Boolean(url.hostname.includes("."))
+  } catch {
+    return false
+  }
+}
+
+function normalizeWebsiteUrl(value: string) {
+  const trimmed = value.trim()
+  if (!trimmed) return ""
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`
 }
 
 export async function POST(request: Request) {
@@ -41,6 +67,10 @@ export async function POST(request: Request) {
 
     if (!isValidEmail(body.email.trim())) {
       return NextResponse.json({ error: "Correo electrónico inválido" }, { status: 400 })
+    }
+
+    if (!isValidOptionalUrl(body.websiteUrl)) {
+      return NextResponse.json({ error: "Enlace de página web inválido" }, { status: 400 })
     }
 
     if (!isValidBookingDate(body.date)) {
@@ -56,6 +86,10 @@ export async function POST(request: Request) {
       slotStart: body.slotStart,
       fullName: body.fullName.trim(),
       email: body.email.trim(),
+      phoneCountryCode: body.phoneCountryCode.trim(),
+      phoneNumber: body.phoneNumber.replace(/\D/g, ""),
+      companyName: body.companyName.trim(),
+      websiteUrl: normalizeWebsiteUrl(body.websiteUrl),
       usesPms: body.usesPms,
       propertyCount: body.propertyCount,
       revenueRange: body.revenueRange,

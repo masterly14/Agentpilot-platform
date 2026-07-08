@@ -192,6 +192,10 @@ export async function createBooking(payload: BookingFormPayload): Promise<Bookin
     usesPms: payload.usesPms,
     propertyCount: payload.propertyCount,
     revenueRange: payload.revenueRange,
+    phoneCountryCode: payload.phoneCountryCode,
+    phoneNumber: payload.phoneNumber,
+    companyName: payload.companyName,
+    websiteUrl: payload.websiteUrl,
   })
 
   const result = await executeCalendarTool("GOOGLECALENDAR_CREATE_EVENT", {

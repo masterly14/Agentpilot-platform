@@ -9,6 +9,10 @@ export type BookingFormPayload = {
   slotStart: string
   fullName: string
   email: string
+  phoneCountryCode: string
+  phoneNumber: string
+  companyName: string
+  websiteUrl: string
   usesPms: string
   propertyCount: string
   revenueRange: string

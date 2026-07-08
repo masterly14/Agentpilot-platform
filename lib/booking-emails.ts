@@ -6,6 +6,7 @@ import {
   PROPERTY_OPTIONS,
   REVENUE_OPTIONS,
 } from "@/lib/booking/form-options"
+import { formatPhoneNumber } from "@/lib/booking/phone-countries"
 import type { BookingFormPayload, BookingCreateResponse } from "@/lib/booking/types"
 import { getResendFromAddress } from "@/lib/email"
 import { getVisitorFirstName } from "@/lib/visitor-confirmation-email"
@@ -87,6 +88,7 @@ function buildBookingNotificationEmail(payload: BookingFormPayload, result: Book
     .split("\n")
     .map((line) => `<li>${escapeHtml(line)}</li>`)
     .join("\n")
+  const phone = formatPhoneNumber(payload.phoneCountryCode, payload.phoneNumber)
 
   return {
     subject: `Nueva llamada agendada: ${payload.fullName}`,
@@ -98,6 +100,17 @@ function buildBookingNotificationEmail(payload: BookingFormPayload, result: Book
         <ul>
           <li><strong>Nombre:</strong> ${escapeHtml(payload.fullName)}</li>
           <li><strong>Correo:</strong> ${escapeHtml(payload.email)}</li>
+          <li><strong>Teléfono:</strong> ${escapeHtml(phone)}</li>
+          ${
+            payload.companyName
+              ? `<li><strong>Empresa:</strong> ${escapeHtml(payload.companyName)}</li>`
+              : ""
+          }
+          ${
+            payload.websiteUrl
+              ? `<li><strong>Sitio web:</strong> <a href="${escapeHtml(payload.websiteUrl)}">${escapeHtml(payload.websiteUrl)}</a></li>`
+              : ""
+          }
         </ul>
 
         <h2 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: #666;">Reunión</h2>

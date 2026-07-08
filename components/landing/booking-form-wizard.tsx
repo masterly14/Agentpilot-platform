@@ -1,6 +1,11 @@
 "use client"
 
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react"
+import {
+  DEFAULT_PHONE_COUNTRY_CODE,
+  isValidPhoneNumber,
+  PHONE_COUNTRY_OPTIONS,
+} from "@/lib/booking/phone-countries"
 import { cn } from "@/lib/utils"
 
 export type BookingFormData = {
@@ -9,6 +14,10 @@ export type BookingFormData = {
   revenueRange: string
   fullName: string
   email: string
+  phoneCountryCode: string
+  phoneNumber: string
+  companyName: string
+  websiteUrl: string
 }
 
 export const INITIAL_BOOKING_FORM: BookingFormData = {
@@ -17,6 +26,10 @@ export const INITIAL_BOOKING_FORM: BookingFormData = {
   revenueRange: "",
   fullName: "",
   email: "",
+  phoneCountryCode: DEFAULT_PHONE_COUNTRY_CODE,
+  phoneNumber: "",
+  companyName: "",
+  websiteUrl: "",
 }
 
 type FormStepId = "usesPms" | "propertyCount" | "revenueRange" | "contact"
@@ -72,6 +85,7 @@ function CalInput({
   value,
   placeholder,
   required,
+  optional,
   onChange,
 }: {
   id: string
@@ -80,6 +94,7 @@ function CalInput({
   value: string
   placeholder: string
   required?: boolean
+  optional?: boolean
   onChange: (value: string) => void
 }) {
   return (
@@ -87,6 +102,7 @@ function CalInput({
       <label htmlFor={id} className="mb-2 block text-sm font-medium text-zinc-300">
         {label}
         {required && <span className="text-red-400"> *</span>}
+        {optional && <span className="text-zinc-500"> (opcional)</span>}
       </label>
       <input
         id={id}
@@ -99,6 +115,65 @@ function CalInput({
       />
     </div>
   )
+}
+
+function CalPhoneInput({
+  countryCode,
+  phoneNumber,
+  onCountryCodeChange,
+  onPhoneNumberChange,
+}: {
+  countryCode: string
+  phoneNumber: string
+  onCountryCodeChange: (value: string) => void
+  onPhoneNumberChange: (value: string) => void
+}) {
+  return (
+    <div>
+      <label htmlFor="booking-phone" className="mb-2 block text-sm font-medium text-zinc-300">
+        Teléfono<span className="text-red-400"> *</span>
+      </label>
+      <div className="flex gap-2">
+        <select
+          id="booking-phone-country"
+          value={countryCode}
+          onChange={(event) => onCountryCodeChange(event.target.value)}
+          aria-label="Código de país"
+          className="w-[140px] shrink-0 rounded-lg border border-zinc-700 bg-zinc-900/40 px-3 py-3 text-sm text-white focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
+        >
+          {PHONE_COUNTRY_OPTIONS.map((option) => (
+            <option key={option.code} value={option.code}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <input
+          id="booking-phone"
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel-national"
+          required
+          value={phoneNumber}
+          onChange={(event) => onPhoneNumberChange(event.target.value.replace(/[^\d\s-]/g, ""))}
+          placeholder="300 123 4567"
+          className="min-w-0 flex-1 rounded-lg border border-zinc-700 bg-zinc-900/40 px-4 py-3 text-sm text-white placeholder:text-zinc-500 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
+        />
+      </div>
+    </div>
+  )
+}
+
+function isValidOptionalUrl(value: string) {
+  const trimmed = value.trim()
+  if (!trimmed) return true
+
+  try {
+    const normalized = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`
+    const url = new URL(normalized)
+    return Boolean(url.hostname.includes("."))
+  } catch {
+    return false
+  }
 }
 
 export function BookingFormWizard({
@@ -134,7 +209,12 @@ export function BookingFormWizard({
     if (step.id === "propertyCount") return Boolean(formData.propertyCount)
     if (step.id === "revenueRange") return Boolean(formData.revenueRange)
     if (step.id === "contact") {
-      return formData.fullName.trim().length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())
+      return (
+        formData.fullName.trim().length > 0 &&
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim()) &&
+        isValidPhoneNumber(formData.phoneNumber) &&
+        isValidOptionalUrl(formData.websiteUrl)
+      )
     }
     return false
   })()
@@ -232,6 +312,30 @@ export function BookingFormWizard({
               value={formData.email}
               placeholder="tu@email.com"
               onChange={(value) => onChange("email", value)}
+            />
+            <CalPhoneInput
+              countryCode={formData.phoneCountryCode}
+              phoneNumber={formData.phoneNumber}
+              onCountryCodeChange={(value) => onChange("phoneCountryCode", value)}
+              onPhoneNumberChange={(value) => onChange("phoneNumber", value)}
+            />
+            <CalInput
+              id="booking-company"
+              label="Nombre de la empresa"
+              type="text"
+              optional
+              value={formData.companyName}
+              placeholder="Tu empresa"
+              onChange={(value) => onChange("companyName", value)}
+            />
+            <CalInput
+              id="booking-website"
+              label="Página web"
+              type="url"
+              optional
+              value={formData.websiteUrl}
+              placeholder="https://tuempresa.com"
+              onChange={(value) => onChange("websiteUrl", value)}
             />
             <p className="text-xs leading-relaxed text-zinc-500">
               Enviaremos la invitación de Google Calendar con el enlace de Google Meet a este correo.
