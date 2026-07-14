@@ -14,7 +14,7 @@ const PLANS = [
     price: "$5,000 USD",
     maintenance: "$120 USD/mes",
     modulesCount: 11,
-    description: "Ideal para iniciar la automatización de tus reservas.",
+    description: "Para administradores pequeños o con pocas propiedades.",
     features: [
       { name: "Automatización de reservas", included: true },
       { name: "Organización de calendario de propiedades", included: true },
