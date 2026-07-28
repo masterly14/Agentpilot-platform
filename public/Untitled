@@ -1,0 +1,66 @@
+{
+  "image": {
+    "type": "portrait",
+    "orientation": "square",
+    "dimensions": {
+      "width": 428,
+      "height": 426
+    },
+    "color_mode": "grayscale",
+    "background": {
+      "type": "solid",
+      "color": "light gray"
+    }
+  },
+  "subject": {
+    "count": 1,
+    "description": "Persona adulta sentada en pose relajada.",
+    "position": "center",
+    "gender_presentation": "masculine",
+    "age_group": "adult"
+  },
+  "appearance": {
+    "hair": {
+      "color": "dark",
+      "style": "short"
+    },
+    "facial_hair": "short beard and mustache",
+    "expression": "smiling"
+  },
+  "clothing": {
+    "top": {
+      "type": "long-sleeve shirt",
+      "color": "black"
+    },
+    "bottom": {
+      "color": "black"
+    },
+    "accessories": [
+      {
+        "type": "smartwatch",
+        "wrist": "left"
+      }
+    ]
+  },
+  "pose": {
+    "body": "seated",
+    "left_hand": "resting on knee",
+    "right_hand": "touching side of head",
+    "head_direction": "slightly turned"
+  },
+  "lighting": {
+    "style": "studio",
+    "contrast": "soft",
+    "shadows": "minimal"
+  },
+  "composition": {
+    "framing": "medium shot",
+    "camera_angle": "eye level",
+    "focus": "subject in sharp focus"
+  },
+  "style": {
+    "photography": "studio portrait",
+    "processing": "black and white",
+    "mood": "professional, friendly"
+  }
+}

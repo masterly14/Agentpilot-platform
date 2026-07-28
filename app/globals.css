@@ -169,6 +169,25 @@
   }
 }
 
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility animate-marquee-x {
+  animation: marquee-x var(--marquee-duration, 50s) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-x {
+    animation: none;
+  }
+}
+
 @keyframes scroll-arrow {
   0% {
     transform: translateY(-6px);
