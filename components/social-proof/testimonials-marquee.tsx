@@ -7,8 +7,8 @@ import { AvatarSlot, SectionHeading } from "./primitives"
 
 type Testimonial = (typeof TESTIMONIALS)[number]
 
-const ROW_ONE = TESTIMONIALS.slice(0, 5)
-const ROW_TWO = TESTIMONIALS.slice(5)
+const ROW_ONE = TESTIMONIALS.slice(0, 4)
+const ROW_TWO = TESTIMONIALS.slice(4)
 
 export function TestimonialsMarquee() {
   return (

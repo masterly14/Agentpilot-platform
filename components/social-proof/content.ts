@@ -19,7 +19,6 @@ export const HERO = {
 
 export const LOGOS = [
   { name: "Zapata Hospitality", src: "/logos/zapata.png", className: "h-8 w-auto" },
-  { name: "Cozy Apartments", src: "/logos/cozy.png", className: "h-12 w-auto" },
   { name: "M&G Apartments", src: "/logos/mg.png", className: "h-auto w-14" },
   { name: "SpotHost", src: "/logos/spothost.png", className: "h-11 w-auto" },
   { name: "Urus Capital Group", src: "/logos/urus.png", className: "h-10 w-auto" },
@@ -121,22 +120,6 @@ export const TESTIMONIALS = [
     author: "Santiago Lopez",
     role: "Property Manager",
     company: "inHouse",
-    avatar: "",
-  },
-  {
-    quote:
-      "Antes cerraba el mes con tres días de conciliación manual. Hoy el reporte a propietarios sale solo.",
-    author: "Juan Mendez",
-    role: "Director de operaciones",
-    company: "Cozy Apartments",
-    avatar: "",
-  },
-  {
-    quote:
-      "Me fui de viaje dos semanas con el teléfono en silencio. Volví y la ocupación había subido.",
-    author: "Nicolas Mendez",
-    role: "Founder",
-    company: "Cozy Apartments",
     avatar: "",
   },
   {

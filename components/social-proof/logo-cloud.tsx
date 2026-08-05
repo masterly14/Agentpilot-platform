@@ -20,7 +20,7 @@ export function LogoCloud() {
           Operaciones que ya corren solas
         </motion.p>
 
-        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-zinc-800/70 bg-zinc-800/50 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-zinc-800/70 bg-zinc-800/50 sm:grid-cols-3 lg:grid-cols-5">
           {LOGOS.map((logo, index) => (
             <motion.div
               key={logo.name}
