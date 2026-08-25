@@ -7,7 +7,12 @@ import {
   toBookingDate,
 } from "@/lib/booking/config"
 import { parseBookingDateTime } from "@/lib/booking/datetime"
-import { isBookableDay, getBookingDateTimeParts, isSlotOpenForBooking } from "@/lib/booking/rules"
+import {
+  isBookableDay,
+  getBookingDateTimeParts,
+  isBookableMonth,
+  isSlotOpenForBooking,
+} from "@/lib/booking/rules"
 import {
   buildDayRange,
   buildMockMonthAvailability,
@@ -235,14 +240,23 @@ export async function createBooking(payload: BookingFormPayload): Promise<Bookin
 }
 
 export function isValidBookingDate(date: string) {
-  return (
-    /^\d{4}-\d{2}-\d{2}$/.test(date) &&
-    date.startsWith(`${BOOKING_YEAR}-${String(BOOKING_MONTH).padStart(2, "0")}`) &&
-    isBookableDay(date)
-  )
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return false
+
+  const [year, month, day] = date.split("-").map(Number)
+  const parsed = new Date(year, month - 1, day)
+  if (
+    parsed.getFullYear() !== year ||
+    parsed.getMonth() !== month - 1 ||
+    parsed.getDate() !== day
+  ) {
+    return false
+  }
+
+  return isBookableMonth(year, month) && isBookableDay(date)
 }
-export function dayToBookingDate(day: number) {
-  return toBookingDate(day)
+
+export function dayToBookingDate(year: number, month: number, day: number) {
+  return toBookingDate(year, month, day)
 }
 
 export function isValidSlot(date: string, slotStart: string) {

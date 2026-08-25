@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { BOOKING_MONTH, BOOKING_YEAR } from "@/lib/booking/config"
 import { getMonthAvailability } from "@/lib/booking/composio-calendar"
+import { isBookableMonth } from "@/lib/booking/rules"
 
 export async function GET(request: Request) {
   try {
@@ -8,7 +9,7 @@ export async function GET(request: Request) {
     const year = Number(searchParams.get("year") ?? BOOKING_YEAR)
     const month = Number(searchParams.get("month") ?? BOOKING_MONTH)
 
-    if (!Number.isInteger(year) || !Number.isInteger(month) || month < 1 || month > 12) {
+    if (!isBookableMonth(year, month)) {
       return NextResponse.json({ error: "Parámetros de mes inválidos" }, { status: 400 })
     }
 

@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server"
 import { ADMIN_COOKIE, isValidSessionValue } from "@/lib/admin-auth"
 import { stampAttributionCookies } from "@/lib/marketing/middleware"
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   const isProtectedPage = pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")

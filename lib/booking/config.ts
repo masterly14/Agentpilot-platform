@@ -1,5 +1,6 @@
 export const BOOKING_MONTH = 8
 export const BOOKING_YEAR = 2026
+export const BOOKING_MONTH_HORIZON = 4
 
 const MONTHS_ES = [
   "enero",
@@ -16,12 +17,17 @@ const MONTHS_ES = [
   "diciembre",
 ] as const
 
-export function bookingMonthName() {
-  return MONTHS_ES[BOOKING_MONTH - 1] ?? ""
+export function bookingMonthName(month: number = BOOKING_MONTH) {
+  return MONTHS_ES[month - 1] ?? ""
 }
 
-export function bookingMonthLabel() {
-  return `${bookingMonthName()} ${BOOKING_YEAR}`
+export function bookingMonthLabel(year: number = BOOKING_YEAR, month: number = BOOKING_MONTH) {
+  return `${bookingMonthName(month)} ${year}`
+}
+
+export function addBookingMonths(year: number, month: number, delta: number) {
+  const date = new Date(year, month - 1 + delta, 1)
+  return { year: date.getFullYear(), month: date.getMonth() + 1 }
 }
 
 export const bookingConfig = {
@@ -41,6 +47,6 @@ export function isComposioConfigured() {
   return Boolean(process.env.COMPOSIO_API_KEY && bookingConfig.composioUserId)
 }
 
-export function toBookingDate(day: number) {
-  return `${BOOKING_YEAR}-${String(BOOKING_MONTH).padStart(2, "0")}-${String(day).padStart(2, "0")}`
+export function toBookingDate(year: number, month: number, day: number) {
+  return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`
 }

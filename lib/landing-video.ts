@@ -17,7 +17,7 @@ export function effectiveUnlockAt(durationSeconds: number) {
 export function displayedProgress(
   currentTime: number,
   duration: number,
-  unlockAt = LANDING_VIDEO.unlockAtSeconds,
+  unlockAt: number = LANDING_VIDEO.unlockAtSeconds,
 ) {
   if (!Number.isFinite(duration) || duration <= 0) return 0
   const time = clamp(currentTime, 0, duration)

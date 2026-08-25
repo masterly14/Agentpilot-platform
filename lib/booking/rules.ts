@@ -1,4 +1,4 @@
-import { bookingConfig } from "@/lib/booking/config"
+import { BOOKING_MONTH_HORIZON, bookingConfig } from "@/lib/booking/config"
 
 export function getBookingDateTimeParts(now = new Date()) {
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -86,4 +86,30 @@ export function getUnbookableDaysInMonth(year: number, month: number): number[] 
   }
 
   return unbookable
+}
+
+export function getCurrentBookingYearMonth(now = new Date()) {
+  const { date } = getBookingDateTimeParts(now)
+  const [year, month] = date.split("-").map(Number)
+  return { year, month }
+}
+
+export function isMonthInBookingWindow(
+  year: number,
+  month: number,
+  currentYear: number,
+  currentMonth: number,
+) {
+  if (!Number.isInteger(year) || !Number.isInteger(month) || month < 1 || month > 12) {
+    return false
+  }
+
+  const start = currentYear * 12 + currentMonth
+  const target = year * 12 + month
+  return target >= start && target < start + BOOKING_MONTH_HORIZON
+}
+
+export function isBookableMonth(year: number, month: number, now = new Date()) {
+  const current = getCurrentBookingYearMonth(now)
+  return isMonthInBookingWindow(year, month, current.year, current.month)
 }

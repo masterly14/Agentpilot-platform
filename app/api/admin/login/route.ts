@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Contraseña incorrecta" }, { status: 401 })
   }
 
-  const response = createAdminSessionCookie()
+  const response = await createAdminSessionCookie()
   if (!response) {
     return NextResponse.json({ error: "No se pudo crear la sesión" }, { status: 500 })
   }

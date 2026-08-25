@@ -10,7 +10,7 @@ import {
   Loader2,
 } from "lucide-react"
 import Image from "next/image"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import {
   BookingFormWizardLight,
   INITIAL_BOOKING_FORM,
@@ -23,8 +23,16 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { usePartialSubmission } from "@/hooks/use-partial-submission"
-import { BOOKING_MONTH, BOOKING_YEAR, bookingConfig, bookingMonthLabel, bookingMonthName } from "@/lib/booking/config"
-import { getUnbookableDaysInMonth } from "@/lib/booking/rules"
+import {
+  addBookingMonths,
+  BOOKING_MONTH,
+  BOOKING_YEAR,
+  bookingConfig,
+  bookingMonthLabel,
+  bookingMonthName,
+  toBookingDate,
+} from "@/lib/booking/config"
+import { getCurrentBookingYearMonth, getUnbookableDaysInMonth, isMonthInBookingWindow } from "@/lib/booking/rules"
 import { applyLiveSlotRules, filterPastSlots } from "@/lib/booking/slots"
 import type { BookingSlot, MonthAvailabilityResponse } from "@/lib/booking/types"
 import { trackSchedule } from "@/lib/facebook-pixel"
@@ -51,8 +59,6 @@ function buildMonthWeeks(year: number, month: number) {
   return weeks
 }
 
-const MONTH_WEEKS = buildMonthWeeks(BOOKING_YEAR, BOOKING_MONTH)
-
 const DAY_LABELS = ["DOM", "LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB"]
 const DAY_NAMES = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"]
 
@@ -65,12 +71,8 @@ type BookingStep =
   | "submitted"
   | "error"
 
-function toBookingDate(day: number) {
-  return `${BOOKING_YEAR}-${String(BOOKING_MONTH).padStart(2, "0")}-${String(day).padStart(2, "0")}`
-}
-
-function getFallbackUnavailableDays() {
-  return getUnbookableDaysInMonth(BOOKING_YEAR, BOOKING_MONTH)
+function getFallbackUnavailableDays(year: number, month: number) {
+  return getUnbookableDaysInMonth(year, month)
 }
 
 function BookingRecommendations() {
@@ -135,8 +137,8 @@ function GoogleMeetIcon({ className }: { className?: string }) {
   )
 }
 
-function formatSelectedDate(day: number) {
-  const date = new Date(BOOKING_YEAR, BOOKING_MONTH - 1, day)
+function formatSelectedDate(year: number, month: number, day: number) {
+  const date = new Date(year, month - 1, day)
   return `${DAY_NAMES[date.getDay()]} ${String(day).padStart(2, "0")}`
 }
 
@@ -167,12 +169,14 @@ function NoSlotsPanel() {
 
 function CalendarDay({
   day,
+  monthName,
   isSelected,
   isUnavailable,
   isDisabled,
   onSelect,
 }: {
   day: number | null
+  monthName: string
   isSelected: boolean
   isUnavailable: boolean
   isDisabled?: boolean
@@ -194,7 +198,7 @@ function CalendarDay({
     <button
       type="button"
       onClick={() => onSelect(day)}
-      aria-label={`Seleccionar ${day} de ${bookingMonthName()}`}
+      aria-label={`Seleccionar ${day} de ${monthName}`}
       aria-pressed={isSelected}
       className={cn(
         "flex aspect-square w-full flex-col items-center justify-center rounded-xl transition-colors lg:rounded-lg",
@@ -228,6 +232,8 @@ function EmptyPanel() {
 
 function TimeSlotsPanel({
   selectedDay,
+  viewYear,
+  viewMonth,
   selectedSlotStart,
   use24h,
   slots,
@@ -235,6 +241,8 @@ function TimeSlotsPanel({
   onToggleFormat,
 }: {
   selectedDay: number
+  viewYear: number
+  viewMonth: number
   selectedSlotStart: string | null
   use24h: boolean
   slots: BookingSlot[]
@@ -247,7 +255,7 @@ function TimeSlotsPanel({
   return (
     <>
       <div className="mb-4 flex items-center justify-between">
-        <span className="text-sm font-medium text-zinc-900">{formatSelectedDate(selectedDay)}</span>
+        <span className="text-sm font-medium text-zinc-900">{formatSelectedDate(viewYear, viewMonth, selectedDay)}</span>
         <div className="flex rounded-lg border border-zinc-200 p-0.5 text-xs">
           <button
             type="button"
@@ -317,6 +325,8 @@ function TimeSlotsPanel({
 function BookingSidePanel({
   step,
   selectedDay,
+  viewYear,
+  viewMonth,
   selectedSlotStart,
   selectedTimeLabel,
   use24h,
@@ -338,6 +348,8 @@ function BookingSidePanel({
 }: {
   step: BookingStep
   selectedDay: number | null
+  viewYear: number
+  viewMonth: number
   selectedSlotStart: string | null
   selectedTimeLabel: string | null
   use24h: boolean
@@ -364,6 +376,8 @@ function BookingSidePanel({
     return (
       <TimeSlotsPanel
         selectedDay={selectedDay}
+        viewYear={viewYear}
+        viewMonth={viewMonth}
         selectedSlotStart={selectedSlotStart}
         use24h={use24h}
         slots={timeSlots}
@@ -374,7 +388,7 @@ function BookingSidePanel({
   if ((step === "form" || step === "submitting") && selectedTimeLabel)
     return leadMode ? (
       <LeadConfirmPanel
-        selectedDateLabel={formatSelectedDate(selectedDay)}
+        selectedDateLabel={formatSelectedDate(viewYear, viewMonth, selectedDay)}
         selectedTimeLabel={selectedTimeLabel}
         leadName={leadMode.name}
         leadEmail={leadMode.email}
@@ -385,7 +399,7 @@ function BookingSidePanel({
       />
     ) : (
       <BookingFormWizardLight
-        selectedDateLabel={formatSelectedDate(selectedDay)}
+        selectedDateLabel={formatSelectedDate(viewYear, viewMonth, selectedDay)}
         selectedTimeLabel={selectedTimeLabel}
         formData={formData}
         formStep={formStep}
@@ -402,6 +416,8 @@ function BookingSidePanel({
     return (
       <SuccessPanel
         selectedDay={selectedDay}
+        viewYear={viewYear}
+        viewMonth={viewMonth}
         selectedTimeLabel={selectedTimeLabel}
         attendeeEmail={attendeeEmail}
         meetLink={meetLink}
@@ -413,11 +429,15 @@ function BookingSidePanel({
 
 function SuccessPanel({
   selectedDay,
+  viewYear,
+  viewMonth,
   selectedTimeLabel,
   attendeeEmail,
   meetLink,
 }: {
   selectedDay: number
+  viewYear: number
+  viewMonth: number
   selectedTimeLabel: string
   attendeeEmail: string
   meetLink?: string | null
@@ -430,7 +450,7 @@ function SuccessPanel({
       <div>
         <p className="text-sm font-medium text-zinc-900">Reunión agendada</p>
         <p className="mt-1 text-xs text-zinc-500">
-          {formatSelectedDate(selectedDay)} · {selectedTimeLabel}
+          {formatSelectedDate(viewYear, viewMonth, selectedDay)} · {selectedTimeLabel}
         </p>
       </div>
       <p className="max-w-xs text-sm text-zinc-600">
@@ -529,6 +549,9 @@ export function BookingWidgetLight({
   leadName?: string
   leadEmail?: string
 } = {}) {
+  const [viewYear, setViewYear] = useState(BOOKING_YEAR)
+  const [viewMonth, setViewMonth] = useState(BOOKING_MONTH)
+  const [currentMonth, setCurrentMonth] = useState({ year: BOOKING_YEAR, month: BOOKING_MONTH })
   const [selectedDay, setSelectedDay] = useState<number | null>(null)
   const [selectedSlotStart, setSelectedSlotStart] = useState<string | null>(null)
   const [selectedTimeLabel, setSelectedTimeLabel] = useState<string | null>(null)
@@ -552,6 +575,22 @@ export function BookingWidgetLight({
     enabled: !existingLead,
   })
 
+  const monthWeeks = useMemo(() => buildMonthWeeks(viewYear, viewMonth), [viewYear, viewMonth])
+  const previousMonth = addBookingMonths(viewYear, viewMonth, -1)
+  const nextMonth = addBookingMonths(viewYear, viewMonth, 1)
+  const canGoPrev = isMonthInBookingWindow(
+    previousMonth.year,
+    previousMonth.month,
+    currentMonth.year,
+    currentMonth.month,
+  )
+  const canGoNext = isMonthInBookingWindow(
+    nextMonth.year,
+    nextMonth.month,
+    currentMonth.year,
+    currentMonth.month,
+  )
+
   const clearLoadTimeout = useCallback(() => {
     if (loadTimeoutRef.current !== null) {
       window.clearTimeout(loadTimeoutRef.current)
@@ -561,12 +600,23 @@ export function BookingWidgetLight({
 
   useEffect(() => clearLoadTimeout, [clearLoadTimeout])
 
+  const resetSelection = useCallback(() => {
+    setSelectedDay(null)
+    setSelectedSlotStart(null)
+    setSelectedTimeLabel(null)
+    setTimeSlots([])
+    setMeetLink(null)
+    setErrorMessage(null)
+    setFormStep(0)
+    setStep("idle")
+  }, [])
+
   const loadMonthAvailability = useCallback(async () => {
     setIsLoadingCalendar(true)
     setCalendarError(null)
 
     try {
-      const response = await fetch(`/api/booking/month?year=${BOOKING_YEAR}&month=${BOOKING_MONTH}`)
+      const response = await fetch(`/api/booking/month?year=${viewYear}&month=${viewMonth}`)
       if (!response.ok) throw new Error("No se pudo cargar el calendario")
 
       const data = (await response.json()) as MonthAvailabilityResponse
@@ -577,16 +627,34 @@ export function BookingWidgetLight({
       setCalendarError(
         error instanceof Error ? error.message : "No se pudo consultar la disponibilidad"
       )
-      setUnavailableDays(new Set(getFallbackUnavailableDays()))
+      setUnavailableDays(new Set(getFallbackUnavailableDays(viewYear, viewMonth)))
       setSlotsByDate({})
     } finally {
       setIsLoadingCalendar(false)
     }
-  }, [])
+  }, [viewMonth, viewYear])
 
   useEffect(() => {
     loadMonthAvailability()
   }, [loadMonthAvailability])
+
+  useEffect(() => {
+    const current = getCurrentBookingYearMonth()
+    setCurrentMonth(current)
+    setViewYear(current.year)
+    setViewMonth(current.month)
+  }, [])
+
+  const handleShiftMonth = useCallback(
+    (delta: number) => {
+      const next = addBookingMonths(viewYear, viewMonth, delta)
+      if (!isMonthInBookingWindow(next.year, next.month, currentMonth.year, currentMonth.month)) return
+      setViewYear(next.year)
+      setViewMonth(next.month)
+      resetSelection()
+    },
+    [currentMonth.month, currentMonth.year, resetSelection, viewMonth, viewYear]
+  )
 
   useEffect(() => {
     if (selectedDay === null) return
@@ -611,7 +679,7 @@ export function BookingWidgetLight({
       setErrorMessage(null)
       setStep("loading-times")
 
-      const dateKey = toBookingDate(day)
+      const dateKey = toBookingDate(viewYear, viewMonth, day)
 
       try {
         const response = await fetch(`/api/booking/availability?date=${dateKey}`)
@@ -627,7 +695,7 @@ export function BookingWidgetLight({
         setStep("error")
       }
     },
-    [clearLoadTimeout, isLoadingCalendar, unavailableDays]
+    [clearLoadTimeout, isLoadingCalendar, unavailableDays, viewMonth, viewYear]
   )
 
   const handleSelectTime = useCallback(
@@ -674,14 +742,14 @@ export function BookingWidgetLight({
         body: JSON.stringify(
           leadToken
             ? {
-                date: toBookingDate(selectedDay),
+                date: toBookingDate(viewYear, viewMonth, selectedDay),
                 slotStart: selectedSlotStart,
                 leadToken,
                 bookingFlow: "EBOOK_SQL",
                 attribution: collectAttribution(),
               }
             : {
-                date: toBookingDate(selectedDay),
+                date: toBookingDate(viewYear, viewMonth, selectedDay),
                 slotStart: selectedSlotStart,
                 ...formData,
                 bookingFlow: "DIAGNOSIS_PUBLIC",
@@ -711,7 +779,7 @@ export function BookingWidgetLight({
       setErrorMessage(error instanceof Error ? error.message : "No se pudo confirmar la reunión")
       setStep("form")
     }
-  }, [clear, flush, formData, getToken, leadEmail, leadName, leadToken, selectedDay, selectedSlotStart])
+  }, [clear, flush, formData, getToken, leadEmail, leadName, leadToken, selectedDay, selectedSlotStart, viewMonth, viewYear])
 
   const isFormActive = step === "form" || step === "submitting" || step === "submitted"
   const showMobilePanel = selectedDay !== null
@@ -778,18 +846,22 @@ export function BookingWidgetLight({
           )}
         >
           <div className="mb-4 flex items-center justify-between md:mb-5">
-            <span className="text-sm font-medium text-zinc-900">{bookingMonthLabel()}</span>
+            <span className="text-sm font-medium text-zinc-900">{bookingMonthLabel(viewYear, viewMonth)}</span>
             <div className="flex items-center gap-1">
               <button
                 type="button"
-                className="flex h-7 w-7 items-center justify-center text-zinc-500 hover:text-zinc-900"
+                onClick={() => handleShiftMonth(-1)}
+                disabled={!canGoPrev || isLoadingCalendar}
+                className="flex h-7 w-7 items-center justify-center text-zinc-500 hover:text-zinc-900 disabled:cursor-not-allowed disabled:text-zinc-300 disabled:hover:text-zinc-300"
                 aria-label="Mes anterior"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
               <button
                 type="button"
-                className="flex h-7 w-7 items-center justify-center text-zinc-500 hover:text-zinc-900"
+                onClick={() => handleShiftMonth(1)}
+                disabled={!canGoNext || isLoadingCalendar}
+                className="flex h-7 w-7 items-center justify-center text-zinc-500 hover:text-zinc-900 disabled:cursor-not-allowed disabled:text-zinc-300 disabled:hover:text-zinc-300"
                 aria-label="Mes siguiente"
               >
                 <ChevronRight className="h-4 w-4" />
@@ -830,12 +902,13 @@ export function BookingWidgetLight({
             </div>
 
             <div className="space-y-1.5 md:space-y-1">
-              {MONTH_WEEKS.map((week, weekIndex) => (
+              {monthWeeks.map((week, weekIndex) => (
                 <div key={weekIndex} className="grid grid-cols-7 gap-1.5 md:gap-1">
                   {week.map((day, dayIndex) => (
                     <CalendarDay
-                      key={`${weekIndex}-${dayIndex}`}
+                      key={`${viewYear}-${viewMonth}-${weekIndex}-${dayIndex}`}
                       day={day}
+                      monthName={bookingMonthName(viewMonth)}
                       isSelected={day === selectedDay}
                       isUnavailable={day !== null && unavailableDays.has(day)}
                       isDisabled={isLoadingCalendar}
@@ -857,6 +930,8 @@ export function BookingWidgetLight({
           <BookingSidePanel
             step={step}
             selectedDay={selectedDay}
+            viewYear={viewYear}
+            viewMonth={viewMonth}
             selectedSlotStart={selectedSlotStart}
             selectedTimeLabel={selectedTimeLabel}
             use24h={use24h}
@@ -892,6 +967,8 @@ export function BookingWidgetLight({
             <BookingSidePanel
               step={step}
               selectedDay={selectedDay}
+              viewYear={viewYear}
+              viewMonth={viewMonth}
               selectedSlotStart={selectedSlotStart}
               selectedTimeLabel={selectedTimeLabel}
               use24h={use24h}

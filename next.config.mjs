@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   // Without this, Next refuses to serve /_next/* to phones hitting the dev server through a
   // tunnel or the LAN IP, so the page ships its HTML but never boots any JavaScript.
@@ -27,6 +27,7 @@ const nextConfig = {
       },
     ],
   },
+  serverExternalPackages: ["@prisma/client", "prisma"],
   outputFileTracingIncludes: {
     "/api/ebook/download": ["./content/ebook.pdf"],
   },
