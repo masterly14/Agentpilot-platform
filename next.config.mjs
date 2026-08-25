@@ -27,7 +27,7 @@ const nextConfig = {
       },
     ],
   },
-  serverExternalPackages: ["@prisma/client", "prisma"],
+  serverExternalPackages: ["@prisma/client", "prisma", "@mastra/core"],
   outputFileTracingIncludes: {
     "/api/ebook/download": ["./content/ebook.pdf"],
   },
