@@ -15,24 +15,36 @@ import {
   INITIAL_BOOKING_FORM,
   type BookingFormData,
 } from "@/components/landing/booking-form-wizard"
-import { BOOKING_MONTH, BOOKING_YEAR } from "@/lib/booking/config"
+import { usePartialSubmission } from "@/hooks/use-partial-submission"
+import { BOOKING_MONTH, BOOKING_YEAR, bookingConfig, bookingMonthLabel, bookingMonthName } from "@/lib/booking/config"
 import { getUnbookableDaysInMonth } from "@/lib/booking/rules"
-import { filterPastSlots } from "@/lib/booking/slots"
+import { applyLiveSlotRules, filterPastSlots } from "@/lib/booking/slots"
 import type { BookingSlot, MonthAvailabilityResponse } from "@/lib/booking/types"
-import { trackBookingLead } from "@/lib/facebook-pixel"
+import { trackSchedule } from "@/lib/facebook-pixel"
+import { collectAttribution } from "@/lib/marketing/attribution-client"
 import { scrollToElement } from "@/lib/smooth-scroll"
 import { cn } from "@/lib/utils"
 
 const CEO_PHOTO_URL =
   "https://3auasoi81o.ucarecd.net/bb605086-50c5-4a5c-bdc0-cf5cba44620b/IMG_0758.png"
 
-const JULY_2026_WEEKS = [
-  [null, null, null, 1, 2, 3, 4],
-  [5, 6, 7, 8, 9, 10, 11],
-  [12, 13, 14, 15, 16, 17, 18],
-  [19, 20, 21, 22, 23, 24, 25],
-  [26, 27, 28, 29, 30, 31, null],
-]
+function buildMonthWeeks(year: number, month: number) {
+  const firstWeekday = new Date(year, month - 1, 1).getDay()
+  const daysInMonth = new Date(year, month, 0).getDate()
+  const cells: Array<number | null> = [
+    ...Array.from({ length: firstWeekday }, () => null),
+    ...Array.from({ length: daysInMonth }, (_, index) => index + 1),
+  ]
+  while (cells.length % 7 !== 0) cells.push(null)
+
+  const weeks: Array<Array<number | null>> = []
+  for (let index = 0; index < cells.length; index += 7) {
+    weeks.push(cells.slice(index, index + 7))
+  }
+  return weeks
+}
+
+const MONTH_WEEKS = buildMonthWeeks(BOOKING_YEAR, BOOKING_MONTH)
 
 const DAY_LABELS = ["DOM", "LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB"]
 const DAY_NAMES = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"]
@@ -131,7 +143,7 @@ function CalendarDay({
     <button
       type="button"
       onClick={() => onSelect(day)}
-      aria-label={`Seleccionar ${day} de julio`}
+      aria-label={`Seleccionar ${day} de ${bookingMonthName()}`}
       aria-pressed={isSelected}
       className={cn(
         "flex aspect-square w-full flex-col items-center justify-center rounded-xl transition-colors lg:rounded-lg",
@@ -178,7 +190,8 @@ function TimeSlotsPanel({
   onSelectTime: (slot: BookingSlot) => void
   onToggleFormat: (use24h: boolean) => void
 }) {
-  if (slots.length === 0) return <NoSlotsPanel />
+  const visibleSlots = applyLiveSlotRules(slots)
+  if (visibleSlots.length === 0) return <NoSlotsPanel />
 
   return (
     <>
@@ -209,22 +222,42 @@ function TimeSlotsPanel({
       </div>
 
       <div className="max-h-[320px] space-y-2 overflow-y-auto pr-1 [scrollbar-color:rgb(63_63_70)_transparent] [scrollbar-width:thin] lg:max-h-[280px]">
-        {slots.map((slot) => (
-          <button
-            key={slot.start}
-            type="button"
-            onClick={() => onSelectTime(slot)}
-            className={cn(
-              "flex w-full items-center gap-2.5 rounded-lg border px-3 py-2.5 text-sm transition-colors",
-              selectedSlotStart === slot.start
-                ? "border-white bg-zinc-800 text-white"
-                : "border-zinc-700/80 bg-zinc-900/40 text-zinc-200 hover:border-zinc-600 hover:bg-zinc-800/60"
-            )}
-          >
-            <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
-            {use24h ? slot.label24h : slot.label12h}
-          </button>
-        ))}
+        {visibleSlots.map((slot) => {
+          const label = use24h ? slot.label24h : slot.label12h
+
+          if (!slot.available) {
+            return (
+              <div
+                key={slot.start}
+                aria-disabled="true"
+                className="flex w-full cursor-not-allowed items-center gap-2.5 rounded-lg border border-zinc-800 bg-zinc-900/30 px-3 py-2.5 text-sm text-zinc-500"
+              >
+                <span className="h-2 w-2 shrink-0 rounded-full bg-zinc-600" />
+                <span className="line-through decoration-zinc-600">{label}</span>
+                <span className="ml-auto text-[11px] font-medium uppercase tracking-wide text-zinc-600">
+                  Lleno
+                </span>
+              </div>
+            )
+          }
+
+          return (
+            <button
+              key={slot.start}
+              type="button"
+              onClick={() => onSelectTime(slot)}
+              className={cn(
+                "flex w-full items-center gap-2.5 rounded-lg border px-3 py-2.5 text-sm transition-colors",
+                selectedSlotStart === slot.start
+                  ? "border-white bg-zinc-800 text-white"
+                  : "border-zinc-700/80 bg-zinc-900/40 text-zinc-200 hover:border-zinc-600 hover:bg-zinc-800/60"
+              )}
+            >
+              <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
+              {label}
+            </button>
+          )
+        })}
       </div>
     </>
   )
@@ -242,6 +275,7 @@ function BookingSidePanel({
   errorMessage,
   attendeeEmail,
   meetLink,
+  leadMode,
   onSelectTime,
   onToggleFormat,
   onFormChange,
@@ -249,6 +283,7 @@ function BookingSidePanel({
   onFormSubmit,
   onBackToTimes,
   onRetry,
+  onFieldBlur,
 }: {
   step: BookingStep
   selectedDay: number | null
@@ -261,6 +296,7 @@ function BookingSidePanel({
   errorMessage: string | null
   attendeeEmail: string
   meetLink: string | null
+  leadMode?: { name: string; email: string }
   onSelectTime: (slot: BookingSlot) => void
   onToggleFormat: (use24h: boolean) => void
   onFormChange: (field: keyof BookingFormData, value: string) => void
@@ -268,6 +304,7 @@ function BookingSidePanel({
   onFormSubmit: () => void
   onBackToTimes: () => void
   onRetry?: () => void
+  onFieldBlur?: () => void
 }) {
   if (!selectedDay) return <EmptyPanel />
   if (step === "loading-times") return <LoadingPanel label="Cargando horarios disponibles..." />
@@ -284,7 +321,18 @@ function BookingSidePanel({
       />
     )
   if ((step === "form" || step === "submitting") && selectedTimeLabel)
-    return (
+    return leadMode ? (
+      <LeadConfirmPanel
+        selectedDateLabel={formatSelectedDate(selectedDay)}
+        selectedTimeLabel={selectedTimeLabel}
+        leadName={leadMode.name}
+        leadEmail={leadMode.email}
+        isSubmitting={step === "submitting"}
+        errorMessage={errorMessage}
+        onBackToTimes={onBackToTimes}
+        onSubmit={onFormSubmit}
+      />
+    ) : (
       <BookingFormWizard
         selectedDateLabel={formatSelectedDate(selectedDay)}
         selectedTimeLabel={selectedTimeLabel}
@@ -296,6 +344,7 @@ function BookingSidePanel({
         onStepChange={onFormStepChange}
         onBackToTimes={onBackToTimes}
         onSubmit={onFormSubmit}
+        onFieldBlur={onFieldBlur}
       />
     )
   if (step === "submitted" && selectedTimeLabel)
@@ -351,7 +400,84 @@ function SuccessPanel({
   )
 }
 
-export function BookingWidget() {
+function LeadConfirmPanel({
+  selectedDateLabel,
+  selectedTimeLabel,
+  leadName,
+  leadEmail,
+  isSubmitting,
+  errorMessage,
+  onBackToTimes,
+  onSubmit,
+}: {
+  selectedDateLabel: string
+  selectedTimeLabel: string
+  leadName: string
+  leadEmail: string
+  isSubmitting: boolean
+  errorMessage?: string | null
+  onBackToTimes: () => void
+  onSubmit: () => void
+}) {
+  return (
+    <div className="flex min-h-[320px] flex-col lg:min-h-[420px]">
+      <button
+        type="button"
+        onClick={onBackToTimes}
+        disabled={isSubmitting}
+        className="mb-5 self-start text-xs text-zinc-500 transition-colors hover:text-white disabled:opacity-50"
+      >
+        ← Volver a horarios
+      </button>
+      <h3 className="mb-2 text-lg font-semibold leading-snug text-white md:text-xl">
+        Confirma tu reunión
+      </h3>
+      <p className="mb-6 text-sm text-zinc-400">
+        {selectedDateLabel} · {selectedTimeLabel}
+      </p>
+      <div className="rounded-lg border border-zinc-800 bg-zinc-900/40 px-4 py-3 text-sm">
+        <p className="font-medium text-white">{leadName}</p>
+        <p className="mt-1 text-zinc-400">{leadEmail}</p>
+      </div>
+      <p className="mt-4 text-xs leading-relaxed text-zinc-500">
+        Usaremos los datos que ya nos diste en la guía. La invitación de Google Meet llega a este correo.
+      </p>
+      {errorMessage ? <p className="mt-4 text-sm text-red-400">{errorMessage}</p> : null}
+      <div className="mt-auto border-t border-zinc-800 pt-4">
+        <button
+          type="button"
+          onClick={onSubmit}
+          disabled={isSubmitting}
+          className={cn(
+            "flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium transition-colors",
+            isSubmitting
+              ? "cursor-not-allowed bg-zinc-800 text-zinc-500"
+              : "bg-white text-black hover:bg-zinc-200"
+          )}
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Confirmando...
+            </>
+          ) : (
+            "Confirmar reunión"
+          )}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export function BookingWidget({
+  leadToken,
+  leadName,
+  leadEmail,
+}: {
+  leadToken?: string
+  leadName?: string
+  leadEmail?: string
+} = {}) {
   const [selectedDay, setSelectedDay] = useState<number | null>(null)
   const [selectedSlotStart, setSelectedSlotStart] = useState<string | null>(null)
   const [selectedTimeLabel, setSelectedTimeLabel] = useState<string | null>(null)
@@ -368,6 +494,12 @@ export function BookingWidget() {
   const [meetLink, setMeetLink] = useState<string | null>(null)
   const loadTimeoutRef = useRef<number | null>(null)
   const mobileTimesPanelRef = useRef<HTMLDivElement>(null)
+  const existingLead = Boolean(leadToken)
+  const { getToken, sync, flush, clear } = usePartialSubmission({
+    entrySource: "DIRECT_BOOKING",
+    bookingFlow: "DIRECT_BOOKING",
+    enabled: !existingLead,
+  })
 
   const clearLoadTimeout = useCallback(() => {
     if (loadTimeoutRef.current !== null) {
@@ -424,8 +556,6 @@ export function BookingWidget() {
       setSelectedDay(day)
       setSelectedSlotStart(null)
       setSelectedTimeLabel(null)
-      setFormData(INITIAL_BOOKING_FORM)
-      setFormStep(0)
       setMeetLink(null)
       setErrorMessage(null)
       setStep("loading-times")
@@ -451,11 +581,10 @@ export function BookingWidget() {
 
   const handleSelectTime = useCallback(
     (slot: BookingSlot) => {
+      if (!slot.available) return
       clearLoadTimeout()
       setSelectedSlotStart(slot.start)
       setSelectedTimeLabel(use24h ? slot.label24h : slot.label12h)
-      setFormStep(0)
-      setFormData(INITIAL_BOOKING_FORM)
       setErrorMessage(null)
       setStep("form")
     },
@@ -471,9 +600,14 @@ export function BookingWidget() {
     setStep("times")
   }, [clearLoadTimeout])
 
-  const handleFormChange = useCallback((field: keyof BookingFormData, value: string) => {
-    setFormData((current) => ({ ...current, [field]: value }))
-  }, [])
+  const handleFormChange = useCallback(
+    (field: keyof BookingFormData, value: string) => {
+      const next = { ...formData, [field]: value }
+      setFormData(next)
+      sync(next, field)
+    },
+    [formData, sync]
+  )
 
   const handleFormSubmit = useCallback(async () => {
     if (!selectedDay || !selectedSlotStart) return
@@ -482,14 +616,28 @@ export function BookingWidget() {
     setErrorMessage(null)
 
     try {
+      await flush()
       const response = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          date: toBookingDate(selectedDay),
-          slotStart: selectedSlotStart,
-          ...formData,
-        }),
+        body: JSON.stringify(
+          leadToken
+            ? {
+                date: toBookingDate(selectedDay),
+                slotStart: selectedSlotStart,
+                leadToken,
+                bookingFlow: "EBOOK_PDF",
+                attribution: collectAttribution(),
+              }
+            : {
+                date: toBookingDate(selectedDay),
+                slotStart: selectedSlotStart,
+                ...formData,
+                bookingFlow: "DIRECT_BOOKING",
+                leadToken: getToken() || undefined,
+                attribution: collectAttribution(),
+              }
+        ),
       })
 
       if (!response.ok) {
@@ -497,23 +645,27 @@ export function BookingWidget() {
         throw new Error(payload?.error ?? "No se pudo confirmar la reunión")
       }
 
-      const result = (await response.json()) as { meetLink?: string }
+      const result = (await response.json()) as { meetLink?: string; marketingEventId?: string | null }
       setMeetLink(result.meetLink ?? null)
-      trackBookingLead({
-        email: formData.email,
-        fullName: formData.fullName,
-        date: toBookingDate(selectedDay),
-        slotStart: selectedSlotStart,
-      })
+      if (result.marketingEventId) {
+        trackSchedule({
+          email: leadEmail || formData.email,
+          fullName: leadName || formData.fullName,
+          eventID: result.marketingEventId,
+        })
+      }
+      clear()
       setStep("submitted")
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "No se pudo confirmar la reunión")
       setStep("form")
     }
-  }, [formData, selectedDay, selectedSlotStart])
+  }, [clear, flush, formData, getToken, leadEmail, leadName, leadToken, selectedDay, selectedSlotStart])
 
   const isFormActive = step === "form" || step === "submitting" || step === "submitted"
   const showMobilePanel = selectedDay !== null
+  const leadMode = leadToken && leadName && leadEmail ? { name: leadName, email: leadEmail } : undefined
+  const attendeeEmail = leadEmail || formData.email
 
   return (
     <div className="overflow-hidden rounded-xl border border-zinc-800 bg-[#111111] md:rounded-2xl">
@@ -551,7 +703,7 @@ export function BookingWidget() {
           <div className="space-y-2.5 text-sm text-zinc-400">
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 shrink-0" />
-              <span>30m</span>
+              <span>{bookingConfig.slotMinutes}m</span>
             </div>
             <div className="flex items-center gap-2">
               <GoogleMeetIcon className="h-4 w-4 shrink-0" />
@@ -573,7 +725,7 @@ export function BookingWidget() {
           )}
         >
           <div className="mb-4 flex items-center justify-between md:mb-5">
-            <span className="text-sm font-medium text-white">julio 2026</span>
+            <span className="text-sm font-medium text-white">{bookingMonthLabel()}</span>
             <div className="flex items-center gap-1">
               <button
                 type="button"
@@ -625,7 +777,7 @@ export function BookingWidget() {
             </div>
 
             <div className="space-y-1.5 md:space-y-1">
-              {JULY_2026_WEEKS.map((week, weekIndex) => (
+              {MONTH_WEEKS.map((week, weekIndex) => (
                 <div key={weekIndex} className="grid grid-cols-7 gap-1.5 md:gap-1">
                   {week.map((day, dayIndex) => (
                     <CalendarDay
@@ -659,8 +811,9 @@ export function BookingWidget() {
             formData={formData}
             formStep={formStep}
             errorMessage={errorMessage}
-            attendeeEmail={formData.email}
+            attendeeEmail={attendeeEmail}
             meetLink={meetLink}
+            leadMode={leadMode}
             onSelectTime={handleSelectTime}
             onToggleFormat={setUse24h}
             onFormChange={handleFormChange}
@@ -668,6 +821,9 @@ export function BookingWidget() {
             onFormSubmit={handleFormSubmit}
             onBackToTimes={handleBackToTimes}
             onRetry={selectedDay ? () => handleSelectDay(selectedDay) : undefined}
+            onFieldBlur={() => {
+              void flush()
+            }}
           />
         </div>
 
@@ -690,8 +846,9 @@ export function BookingWidget() {
               formData={formData}
               formStep={formStep}
               errorMessage={errorMessage}
-              attendeeEmail={formData.email}
+              attendeeEmail={attendeeEmail}
               meetLink={meetLink}
+              leadMode={leadMode}
               onSelectTime={handleSelectTime}
               onToggleFormat={setUse24h}
               onFormChange={handleFormChange}
@@ -699,6 +856,9 @@ export function BookingWidget() {
               onFormSubmit={handleFormSubmit}
               onBackToTimes={handleBackToTimes}
               onRetry={selectedDay ? () => handleSelectDay(selectedDay) : undefined}
+              onFieldBlur={() => {
+                void flush()
+              }}
             />
           </div>
         )}

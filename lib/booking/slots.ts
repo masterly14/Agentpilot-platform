@@ -1,13 +1,16 @@
-import { format, parseISO } from "date-fns"
-import { es } from "date-fns/locale"
-import { bookingConfig } from "@/lib/booking/config"
+import { BOOKING_MONTH, BOOKING_YEAR, bookingConfig } from "@/lib/booking/config"
 import {
   bookingSlotStart,
   formatBookingLabel12h,
   parseBookingDateTime,
   slotIntervalFromStart,
 } from "@/lib/booking/datetime"
-import { isBookableDay, getBookingToday, getUnbookableDaysInMonth, isPastBookingSlotStart } from "@/lib/booking/rules"
+import {
+  getUnbookableDaysInMonth,
+  isBookableDay,
+  isPastBookingSlotStart,
+  isWithinMinNotice,
+} from "@/lib/booking/rules"
 import type { BookingSlot } from "@/lib/booking/types"
 
 type Interval = {
@@ -38,19 +41,17 @@ export function generateCandidateSlotStarts(date: string): string[] {
   if (!isBookableDay(date)) return []
 
   const starts: string[] = []
+  const startMinutes = bookingConfig.workStartHour * 60
+  const endMinutes = bookingConfig.workEndHour * 60
+  const step = bookingConfig.slotMinutes
 
-  for (let hour = bookingConfig.workStartHour; hour < bookingConfig.workEndHour; hour++) {
-    for (const minute of [0, 30]) {
-      const endMinutes = hour * 60 + minute + bookingConfig.slotMinutes
-      const endHour = Math.floor(endMinutes / 60)
-      const endMinute = endMinutes % 60
+  for (let minutes = startMinutes; minutes < endMinutes; minutes += step) {
+    const slotEnd = minutes + step
+    if (slotEnd > endMinutes) continue
 
-      if (endHour > bookingConfig.workEndHour || (endHour === bookingConfig.workEndHour && endMinute > 0)) {
-        continue
-      }
-
-      starts.push(bookingSlotStart(date, hour, minute))
-    }
+    const hour = Math.floor(minutes / 60)
+    const minute = minutes % 60
+    starts.push(bookingSlotStart(date, hour, minute))
   }
 
   return starts
@@ -64,28 +65,37 @@ export function intervalsOverlap(a: Interval, b: Interval) {
   return a.start < b.end && b.start < a.end
 }
 
-export function toBookingSlot(start: string): BookingSlot {
+export function toBookingSlot(start: string, available = true): BookingSlot {
   return {
     start,
     label12h: formatBookingLabel12h(start),
     label24h: start.slice(11, 16),
+    available,
   }
 }
 
-export function filterPastSlots(date: string, slots: BookingSlot[]): BookingSlot[] {
-  if (date !== getBookingToday()) return slots
-  return slots.filter((slot) => !isPastBookingSlotStart(slot.start))
+export function applyLiveSlotRules(slots: BookingSlot[]): BookingSlot[] {
+  return slots
+    .filter((slot) => !isPastBookingSlotStart(slot.start))
+    .map((slot) => (isWithinMinNotice(slot.start) ? { ...slot, available: false } : slot))
+}
+
+export function filterPastSlots(_date: string, slots: BookingSlot[]): BookingSlot[] {
+  return applyLiveSlotRules(slots)
+}
+
+export function buildDaySlots(date: string, busyIntervals: Interval[]): BookingSlot[] {
+  return applyLiveSlotRules(
+    generateCandidateSlotStarts(date).map((start) => {
+      const candidate = slotIntervalFromStart(start)
+      const busy = busyIntervals.some((interval) => intervalsOverlap(candidate, interval))
+      return toBookingSlot(start, !busy)
+    })
+  )
 }
 
 export function filterAvailableSlots(date: string, busyIntervals: Interval[]): BookingSlot[] {
-  const available = generateCandidateSlotStarts(date)
-    .filter((start) => {
-      const candidate = slotIntervalFromStart(start)
-      return !busyIntervals.some((busy) => intervalsOverlap(candidate, busy))
-    })
-    .map((start) => toBookingSlot(start))
-
-  return filterPastSlots(date, available)
+  return buildDaySlots(date, busyIntervals)
 }
 
 export function parseBusyIntervals(payload: unknown): Interval[] {
@@ -178,10 +188,10 @@ export function buildMonthAvailabilityMaps(
       (interval) => interval.start <= dayEnd && interval.end >= dayStart
     )
 
-    const slots = filterAvailableSlots(date, dayBusy)
+    const slots = buildDaySlots(date, dayBusy)
     slotsByDate[date] = slots
 
-    if (slots.length > 0) availableDays.push(day)
+    if (slots.some((slot) => slot.available)) availableDays.push(day)
     else unavailableDays.push(day)
   }
 
@@ -203,24 +213,32 @@ export function buildMockMonthAvailability(year: number, month: number) {
       continue
     }
 
-    const slots = getMockSlotsForDay(day)
+    const slots = getMockSlotsForDay(day, year, month)
     slotsByDate[date] = slots
-    if (slots.length > 0) availableDays.push(day)
+    if (slots.some((slot) => slot.available)) availableDays.push(day)
     else unavailableDays.push(day)
   }
 
   return { slotsByDate, availableDays, unavailableDays }
 }
 
-export function getMockSlotsForDay(day: number): BookingSlot[] {
-  const date = `2026-07-${String(day).padStart(2, "0")}`
-  const all = filterAvailableSlots(date, [])
+export function getMockSlotsForDay(
+  day: number,
+  year = BOOKING_YEAR,
+  month = BOOKING_MONTH,
+): BookingSlot[] {
+  const date = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`
+  const all = buildDaySlots(date, [])
 
-  if (day % 3 === 0) return all.filter((_, index) => index % 2 === 0)
-  if (day % 2 === 0) return all.slice(0, 6)
+  if (day % 3 === 0) {
+    return all.map((slot, index) => (index % 2 === 0 ? slot : { ...slot, available: false }))
+  }
+  if (day % 2 === 0) {
+    return all.map((slot, index) => (index < 6 ? slot : { ...slot, available: false }))
+  }
   return all
 }
 
 export function getMockUnavailableDays(): number[] {
-  return getUnbookableDaysInMonth(2026, 7)
+  return getUnbookableDaysInMonth(BOOKING_YEAR, BOOKING_MONTH)
 }

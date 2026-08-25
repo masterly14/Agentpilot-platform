@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { isAdminAuthenticated, unauthorizedResponse } from "@/lib/admin-auth"
 import { prisma } from "@/lib/prisma"
-import { serializeSubmission } from "@/lib/submission-display"
+import { toLeadRecord } from "@/lib/admin/lead-record"
 
 export async function GET() {
   if (!(await isAdminAuthenticated())) {
@@ -10,9 +10,18 @@ export async function GET() {
 
   const submissions = await prisma.formSubmission.findMany({
     orderBy: { createdAt: "desc" },
+    include: {
+      contact: {
+        include: {
+          pipeline: {
+            select: { meetingTime: true, meetLink: true },
+          },
+        },
+      },
+    },
   })
 
   return NextResponse.json({
-    submissions: submissions.map(serializeSubmission),
+    submissions: submissions.map(toLeadRecord),
   })
 }

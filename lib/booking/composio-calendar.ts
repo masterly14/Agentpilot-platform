@@ -7,7 +7,7 @@ import {
   toBookingDate,
 } from "@/lib/booking/config"
 import { parseBookingDateTime } from "@/lib/booking/datetime"
-import { isBookableDay, getBookingDateTimeParts, isPastBookingSlotStart } from "@/lib/booking/rules"
+import { isBookableDay, getBookingDateTimeParts, isSlotOpenForBooking } from "@/lib/booking/rules"
 import {
   buildDayRange,
   buildMockMonthAvailability,
@@ -65,10 +65,10 @@ function slotsFromFreeBusy(date: string, payload: unknown) {
 
 export async function getDayAvailability(date: string): Promise<AvailabilityResponse> {
   if (!isComposioConfigured()) {
-    const day = Number(date.split("-")[2])
+    const [year, month, day] = date.split("-").map(Number)
     return {
       date,
-      slots: getMockSlotsForDay(day),
+      slots: getMockSlotsForDay(day, year, month),
       source: "mock",
     }
   }
@@ -164,12 +164,12 @@ function extractMeetLink(payload: unknown): string | undefined {  if (!payload |
 }
 
 async function assertSlotIsAvailable(date: string, slotStart: string) {
-  if (isPastBookingSlotStart(slotStart)) {
+  if (!isSlotOpenForBooking(slotStart)) {
     throw new Error("El horario seleccionado ya no está disponible")
   }
 
   const availability = await getDayAvailability(date)
-  const isAvailable = availability.slots.some((slot) => slot.start === slotStart)
+  const isAvailable = availability.slots.some((slot) => slot.start === slotStart && slot.available)
 
   if (!isAvailable) {
     throw new Error("El horario seleccionado ya no está disponible")
@@ -192,10 +192,16 @@ export async function createBooking(payload: BookingFormPayload): Promise<Bookin
     usesPms: payload.usesPms,
     propertyCount: payload.propertyCount,
     revenueRange: payload.revenueRange,
+    isTodero: payload.isTodero,
+    usesAi: payload.usesAi,
+    wantsToScale: payload.wantsToScale,
+    industryTime: payload.industryTime,
     phoneCountryCode: payload.phoneCountryCode,
     phoneNumber: payload.phoneNumber,
     companyName: payload.companyName,
     websiteUrl: payload.websiteUrl,
+    instagramUrl: payload.instagramUrl,
+    origin: payload.origin,
   })
 
   const result = await executeCalendarTool("GOOGLECALENDAR_CREATE_EVENT", {
@@ -240,5 +246,5 @@ export function dayToBookingDate(day: number) {
 }
 
 export function isValidSlot(date: string, slotStart: string) {
-  return generateCandidateSlotStarts(date).includes(slotStart)
+  return generateCandidateSlotStarts(date).includes(slotStart) && isSlotOpenForBooking(slotStart)
 }

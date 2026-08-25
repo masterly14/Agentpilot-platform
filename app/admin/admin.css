@@ -1,0 +1,87 @@
+/* Cloudscape Visual Refresh — light tokens, scoped to admin only.
+   Palette: https://cloudscape.design/foundation/visual-foundation/colors/ */
+
+.admin-shell,
+html.admin-light {
+  --background: #ffffff;
+  --foreground: #16191f;
+  --card: #ffffff;
+  --card-foreground: #16191f;
+  --popover: #ffffff;
+  --popover-foreground: #16191f;
+  --primary: #0972d3;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f3f3;
+  --secondary-foreground: #16191f;
+  --muted: #f2f3f3;
+  --muted-foreground: #5f6b7a;
+  --accent: #f4f4f4;
+  --accent-foreground: #16191f;
+  --destructive: #d91515;
+  --destructive-foreground: #ffffff;
+  --border: #e9ebed;
+  --input: #d1d5db;
+  --ring: #0972d3;
+  --radius: 0.5rem;
+  --sidebar: #f8f8f8;
+  --sidebar-foreground: #16191f;
+  --sidebar-primary: #0972d3;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ececed;
+  --sidebar-accent-foreground: #16191f;
+  --sidebar-border: #e9ebed;
+  --chart-1: #d91515;
+  --chart-2: #037f0c;
+  --chart-3: #0972d3;
+  --chart-4: #8d6605;
+  --chart-5: #033160;
+}
+
+html.admin-light,
+html.admin-light body {
+  background-color: #f2f3f3 !important;
+  color: #16191f;
+  color-scheme: light;
+}
+
+.admin-shell {
+  min-height: 100vh;
+  background: #f2f3f3;
+  color: #16191f;
+  color-scheme: light;
+  font-family: var(--font-admin), "Open Sans", "Helvetica Neue", Roboto, Arial, sans-serif;
+}
+
+.admin-shell h1,
+.admin-shell h2,
+.admin-shell h3 {
+  margin: 0;
+}
+
+.admin-shell [data-slot="button"],
+html.admin-light [data-slot="button"] {
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.admin-shell [data-slot="card"],
+.admin-shell [data-slot="dialog-content"],
+html.admin-light [data-slot="dialog-content"],
+.admin-shell [data-slot="sheet-content"],
+html.admin-light [data-slot="sheet-content"] {
+  border-radius: 16px;
+  border-color: #e9ebed;
+  box-shadow: 0 1px 1px 0 #0000001a, 0 1px 8px 2px #0000001a;
+}
+
+.admin-shell [data-slot="input"],
+html.admin-light [data-slot="input"] {
+  border-radius: 8px;
+  background: #ffffff;
+  border-color: #7d8998;
+}
+
+.admin-shell [data-slot="badge"] {
+  border-radius: 16px;
+  font-weight: 500;
+}

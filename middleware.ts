@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import { ADMIN_COOKIE, isValidSessionValue } from "@/lib/admin-auth"
+import { stampAttributionCookies } from "@/lib/marketing/middleware"
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -11,7 +12,7 @@ export async function middleware(request: NextRequest) {
     (pathname.startsWith("/api/admin") && !pathname.startsWith("/api/admin/login"))
 
   if (!isProtectedPage && !isProtectedApi) {
-    return NextResponse.next()
+    return stampAttributionCookies(request, NextResponse.next())
   }
 
   const session = request.cookies.get(ADMIN_COOKIE)
@@ -26,5 +27,10 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/submissions/:path*", "/api/admin/:path*"],
+  matcher: [
+    "/admin/:path*",
+    "/api/submissions/:path*",
+    "/api/admin/:path*",
+    "/((?!_next/static|_next/image|favicon.ico|icon.svg|api/).*)",
+  ],
 }

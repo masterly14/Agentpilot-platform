@@ -34,16 +34,34 @@ export function getBookingNowIso(): string {
   return `${date}T${time}`
 }
 
-export function isPastBookingSlotStart(slotStart: string): boolean {
+function compareSlotToInstant(slotStart: string, instant: Date) {
   const slotDate = slotStart.slice(0, 10)
   const slotTime = slotStart.slice(11, 19)
-  const { date: today, time: nowTime } = getBookingDateTimeParts()
+  const { date, time } = getBookingDateTimeParts(instant)
 
-  if (slotDate < today) return true
-  if (slotDate > today) return false
-
-  return slotTime < nowTime
+  if (slotDate < date) return -1
+  if (slotDate > date) return 1
+  if (slotTime < time) return -1
+  if (slotTime > time) return 1
+  return 0
 }
+
+export function isPastBookingSlotStart(slotStart: string, now = new Date()): boolean {
+  return compareSlotToInstant(slotStart, now) < 0
+}
+
+export function isWithinMinNotice(slotStart: string, now = new Date()): boolean {
+  const noticeMinutes = bookingConfig.minNoticeMinutes
+  if (!Number.isFinite(noticeMinutes) || noticeMinutes <= 0) return false
+
+  const cutoff = new Date(now.getTime() + noticeMinutes * 60 * 1000)
+  return compareSlotToInstant(slotStart, cutoff) < 0
+}
+
+export function isSlotOpenForBooking(slotStart: string, now = new Date()): boolean {
+  return !isPastBookingSlotStart(slotStart, now) && !isWithinMinNotice(slotStart, now)
+}
+
 export function isSunday(date: string): boolean {
   const [year, month, day] = date.split("-").map(Number)
   return new Date(year, month - 1, day).getDay() === 0

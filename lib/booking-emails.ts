@@ -2,9 +2,12 @@ import { bookingConfig } from "@/lib/booking/config"
 import { parseBookingDateTime } from "@/lib/booking/datetime"
 import {
   formatBookingAnswersForDescription,
+  getOptionLabel,
+  INDUSTRY_TIME_OPTIONS,
   PMS_OPTIONS,
   PROPERTY_OPTIONS,
   REVENUE_OPTIONS,
+  YES_NO_OPTIONS,
 } from "@/lib/booking/form-options"
 import { formatPhoneNumber } from "@/lib/booking/phone-countries"
 import type { BookingFormPayload, BookingCreateResponse } from "@/lib/booking/types"
@@ -20,10 +23,6 @@ function escapeHtml(value: string) {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
-}
-
-function getOptionLabel(options: readonly { value: string; label: string }[], value: string) {
-  return options.find((option) => option.value === value)?.label ?? value
 }
 
 export function formatMeetingDateTime(slotStart: string) {
@@ -111,6 +110,11 @@ function buildBookingNotificationEmail(payload: BookingFormPayload, result: Book
               ? `<li><strong>Sitio web:</strong> <a href="${escapeHtml(payload.websiteUrl)}">${escapeHtml(payload.websiteUrl)}</a></li>`
               : ""
           }
+          ${
+            payload.instagramUrl
+              ? `<li><strong>Instagram:</strong> ${escapeHtml(payload.instagramUrl)}</li>`
+              : ""
+          }
         </ul>
 
         <h2 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: #666;">Reunión</h2>
@@ -135,9 +139,13 @@ function buildBookingNotificationEmail(payload: BookingFormPayload, result: Book
         </ul>
 
         <p style="margin-top: 24px; color: #666; font-size: 13px;">
-          PMS: ${escapeHtml(getOptionLabel(PMS_OPTIONS, payload.usesPms))}<br />
           Propiedades: ${escapeHtml(getOptionLabel(PROPERTY_OPTIONS, payload.propertyCount))}<br />
-          Facturación: ${escapeHtml(getOptionLabel(REVENUE_OPTIONS, payload.revenueRange))}
+          Facturación: ${escapeHtml(getOptionLabel(REVENUE_OPTIONS, payload.revenueRange))}<br />
+          PMS: ${escapeHtml(getOptionLabel(PMS_OPTIONS, payload.usesPms))}<br />
+          Todero: ${escapeHtml(getOptionLabel(YES_NO_OPTIONS, payload.isTodero))}<br />
+          Quiere escalar: ${escapeHtml(getOptionLabel(YES_NO_OPTIONS, payload.wantsToScale))}<br />
+          Usa IA: ${escapeHtml(getOptionLabel(YES_NO_OPTIONS, payload.usesAi))}<br />
+          Industria: ${escapeHtml(getOptionLabel(INDUSTRY_TIME_OPTIONS, payload.industryTime))}
         </p>
       </div>
     `,

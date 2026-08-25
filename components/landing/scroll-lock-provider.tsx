@@ -24,7 +24,13 @@ export function useScrollLock() {
   return context
 }
 
-export function ScrollLockProvider({ children }: { children: ReactNode }) {
+export function ScrollLockProvider({
+  children,
+  lockScroll = true,
+}: {
+  children: ReactNode
+  lockScroll?: boolean
+}) {
   const [isLocked, setIsLocked] = useState(true)
 
   const unlock = useCallback(() => {
@@ -32,7 +38,7 @@ export function ScrollLockProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    if (!isLocked) return
+    if (!isLocked || !lockScroll) return
 
     const html = document.documentElement
     const body = document.body
@@ -45,7 +51,7 @@ export function ScrollLockProvider({ children }: { children: ReactNode }) {
     }
 
     const preventScrollKeys = (event: KeyboardEvent) => {
-      const scrollKeys = ["ArrowDown", "ArrowUp", "PageDown", "PageUp", " ", "Home", "End"]
+      const scrollKeys = ["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End"]
       if (scrollKeys.includes(event.key)) {
         event.preventDefault()
       }
@@ -68,7 +74,7 @@ export function ScrollLockProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("keydown", preventScrollKeys)
       window.removeEventListener("scroll", resetScroll)
     }
-  }, [isLocked])
+  }, [isLocked, lockScroll])
 
   return (
     <ScrollLockContext.Provider value={{ isLocked, unlock }}>

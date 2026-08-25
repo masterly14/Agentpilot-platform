@@ -2,47 +2,127 @@
 
 import { useDraggable, useDroppable } from "@dnd-kit/core"
 import { CSS } from "@dnd-kit/utilities"
-import { Building2, GripVertical, Mail, User } from "lucide-react"
+import { Calendar, GripVertical, Mail } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import type { FunnelColumn } from "@/lib/marketing/funnel-ui"
+import { isFunnelCardDraggable } from "@/lib/marketing/funnel-ui"
 import type { SubmissionRecord } from "@/lib/submission-display"
 import {
+  QUALIFICATION_LABEL,
   getSubmissionSubtitle,
-  getSubmissionSummary,
   getSubmissionTitle,
 } from "@/lib/submission-display"
-import type { StatusColumn } from "@/lib/submission-status"
 import { cn } from "@/lib/utils"
+
+function leadInitials(title: string) {
+  return title
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase()
+}
+
+export function formatMeetingLabel(iso: string | null) {
+  if (!iso) return null
+  return new Date(iso)
+    .toLocaleString("es-CO", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      hour: "numeric",
+      minute: "2-digit",
+      timeZone: "America/Bogota",
+    })
+    .replace(/[\u00A0\u202F\u2009]/g, " ")
+}
+
+export function LeadStageActions({
+  submission,
+  disabled,
+  compact = false,
+  onShowUp,
+  onNoShow,
+  onCloseDeal,
+}: {
+  submission: SubmissionRecord
+  disabled: boolean
+  compact?: boolean
+  onShowUp: () => void
+  onNoShow: () => void
+  onCloseDeal: () => void
+}) {
+  const stage = submission.marketingFunnelStage
+  if (stage === "SCHEDULED") {
+    return (
+      <div className={cn("grid gap-2", compact ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-2")}>
+        <Button type="button" size="sm" disabled={disabled} onClick={onShowUp}>
+          Asistió
+        </Button>
+        <Button type="button" size="sm" variant="outline" disabled={disabled} onClick={onNoShow}>
+          No asistió
+        </Button>
+      </div>
+    )
+  }
+
+  if (stage === "SHOWED_UP") {
+    return (
+      <Button type="button" size="sm" className="w-full" disabled={disabled} onClick={onCloseDeal}>
+        Cerrar trato
+      </Button>
+    )
+  }
+
+  if (stage === "NO_SHOW") {
+    return (
+      <Button type="button" size="sm" variant="outline" className="w-full" disabled={disabled} onClick={onShowUp}>
+        Marcar show-up
+      </Button>
+    )
+  }
+
+  return null
+}
 
 export function KanbanColumn({
   column,
   count,
   children,
 }: {
-  column: StatusColumn
+  column: FunnelColumn
   count: number
   children: React.ReactNode
 }) {
-  const { setNodeRef, isOver } = useDroppable({ id: column.id })
+  const { setNodeRef, isOver } = useDroppable({
+    id: column.id,
+    disabled: !column.droppable,
+  })
 
   return (
     <div
       ref={setNodeRef}
       className={cn(
-        "flex w-[300px] shrink-0 flex-col rounded-xl border bg-background/80",
-        column.accent,
-        isOver && "ring-2 ring-primary/30"
+        "flex w-[280px] shrink-0 flex-col rounded-2xl bg-muted/70 p-3",
+        column.droppable && isOver && "ring-2 ring-primary/30",
       )}
     >
-      <div className="border-b px-4 py-3">
-        <div className="flex items-center justify-between gap-2">
-          <h2 className="text-sm font-semibold">{column.label}</h2>
-          <Badge variant="secondary">{count}</Badge>
+      <div className="mb-3">
+        <div className="inline-flex max-w-full items-center gap-2 rounded-full bg-white px-3 py-1.5 shadow-sm">
+          <span className={cn("size-2 shrink-0 rounded-full", column.accent)} />
+          <h2 className="truncate text-sm font-semibold">{column.label}</h2>
+          <span className="text-xs tabular-nums text-muted-foreground">{count}</span>
         </div>
-        <p className="mt-1 text-xs text-muted-foreground">{column.description}</p>
+        <p className="mt-2 px-1 text-xs text-muted-foreground">{column.description}</p>
+        {column.hint ? (
+          <p className="mt-0.5 px-1 text-[10px] font-medium tracking-wide text-muted-foreground">
+            {column.hint}
+          </p>
+        ) : null}
       </div>
-      <div className="flex min-h-[420px] flex-1 flex-col gap-3 p-3">
-        {children}
-      </div>
+      <div className="flex min-h-[420px] flex-1 flex-col gap-3">{children}</div>
     </div>
   )
 }
@@ -51,87 +131,95 @@ export function KanbanCard({
   submission,
   isUpdating,
   onOpen,
+  onShowUp,
+  onNoShow,
+  onCloseDeal,
 }: {
   submission: SubmissionRecord
   isUpdating: boolean
   onOpen: () => void
+  onShowUp: () => void
+  onNoShow: () => void
+  onCloseDeal: () => void
 }) {
+  const draggable = isFunnelCardDraggable(submission.marketingFunnelStage)
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: submission.id,
+    disabled: !draggable,
   })
 
-  const style = transform
-    ? { transform: CSS.Translate.toString(transform) }
-    : undefined
-
-  const isCompany = submission.projectType === "COMPANY"
+  const style = transform ? { transform: CSS.Translate.toString(transform) } : undefined
+  const meeting = formatMeetingLabel(submission.meetingTime || submission.bookedAt)
 
   return (
     <div
       ref={setNodeRef}
       style={style}
       className={cn(
-        "rounded-lg border bg-card p-3 shadow-sm transition-opacity",
+        "rounded-xl border border-border bg-white p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-opacity",
         isDragging && "opacity-40",
-        isUpdating && "opacity-60"
+        isUpdating && "opacity-60",
       )}
     >
       <div className="mb-2 flex items-start justify-between gap-2">
-        <button
-          type="button"
-          onClick={onOpen}
-          className="min-w-0 text-left"
-        >
-          <p className="truncate text-sm font-semibold hover:underline">
-            {getSubmissionTitle(submission)}
-          </p>
-          <p className="truncate text-xs text-muted-foreground">
-            {getSubmissionSubtitle(submission)}
-          </p>
+        <button type="button" onClick={onOpen} className="flex min-w-0 items-start gap-2.5 text-left">
+          <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-[11px] font-semibold text-foreground">
+            {leadInitials(getSubmissionTitle(submission))}
+          </span>
+          <span className="min-w-0">
+            <p className="truncate text-sm font-semibold hover:underline">{getSubmissionTitle(submission)}</p>
+            <p className="truncate text-xs text-muted-foreground">{getSubmissionSubtitle(submission)}</p>
+          </span>
         </button>
-        <button
-          type="button"
-          className="rounded p-1 text-muted-foreground hover:bg-muted"
-          aria-label="Arrastrar tarjeta"
-          {...listeners}
-          {...attributes}
-        >
-          <GripVertical className="h-4 w-4" />
-        </button>
+        {draggable ? (
+          <button
+            type="button"
+            className="rounded p-1 text-muted-foreground hover:bg-muted"
+            aria-label="Arrastrar tarjeta"
+            {...listeners}
+            {...attributes}
+          >
+            <GripVertical className="h-4 w-4" />
+          </button>
+        ) : null}
       </div>
 
       <button type="button" onClick={onOpen} className="w-full text-left">
-        <p className="mb-3 line-clamp-2 text-xs text-muted-foreground">
-          {submission.projectDescription || getSubmissionSummary(submission)}
-        </p>
-        <div className="flex items-center justify-between gap-2">
-          <Badge variant="outline" className="text-[10px]">
-            {isCompany ? (
-              <span className="inline-flex items-center gap-1">
-                <Building2 className="h-3 w-3" />
-                Empresa
-              </span>
-            ) : (
-              <span className="inline-flex items-center gap-1">
-                <User className="h-3 w-3" />
-                Personal
-              </span>
-            )}
-          </Badge>
-          {submission.email && (
-            <span className="inline-flex max-w-[120px] items-center gap-1 truncate text-[10px] text-muted-foreground">
-              <Mail className="h-3 w-3 shrink-0" />
-              {submission.email}
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          {submission.qualification ? (
+            <Badge variant="secondary" className="rounded-full bg-muted text-[10px] text-foreground">
+              {QUALIFICATION_LABEL[submission.qualification]}
+              {submission.qualificationScore != null ? ` · ${submission.qualificationScore}` : ""}
+            </Badge>
+          ) : null}
+          {meeting ? (
+            <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
+              <Calendar className="h-3 w-3" />
+              {meeting}
             </span>
-          )}
+          ) : null}
         </div>
-        <p className="mt-2 text-[10px] text-muted-foreground">
-          {new Date(submission.createdAt).toLocaleDateString("es-CO", {
-            day: "numeric",
-            month: "short",
-          })}
-        </p>
+        {submission.email ? (
+          <p className="mb-3 inline-flex max-w-full items-center gap-1 truncate text-[10px] text-muted-foreground">
+            <Mail className="h-3 w-3 shrink-0" />
+            {submission.email}
+          </p>
+        ) : null}
       </button>
+
+      <div
+        onPointerDown={(event) => event.stopPropagation()}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <LeadStageActions
+          submission={submission}
+          disabled={isUpdating}
+          compact
+          onShowUp={onShowUp}
+          onNoShow={onNoShow}
+          onCloseDeal={onCloseDeal}
+        />
+      </div>
     </div>
   )
 }

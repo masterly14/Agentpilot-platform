@@ -43,7 +43,7 @@ export function AdminLoginForm() {
     <Card className="w-full max-w-sm">
       <CardHeader>
         <CardTitle>Acceso interno</CardTitle>
-        <CardDescription>Ingresa la contraseña del panel de solicitudes.</CardDescription>
+        <CardDescription>Ingresa la contraseña del panel interno.</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">

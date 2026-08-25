@@ -11,16 +11,197 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Contact {
+  id               String   @id @default(cuid())
+  fullName         String
+  email            String?
+  phoneE164        String   @unique
+  waId             String?  @unique
+  phoneCountryCode String
+  phoneNumber      String
+  companyName      String?
+  websiteUrl       String?
+  instagramUrl     String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  submissions   FormSubmission[]
+  pipeline      LeadPipeline?
+  conversations Conversation[]
+
+  @@index([email])
+}
+
 model FormSubmission {
-  id            String           @id @default(cuid())
-  fullName      String
-  email         String
-  usesPms       PmsUsage
-  propertyCount PropertyCount
-  revenueRange  RevenueRange
-  status        SubmissionStatus @default(NEW)
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
+  id                     String                  @id @default(cuid())
+  fullName               String?
+  email                  String?
+  companyName            String?
+  phoneCountryCode       String?
+  phoneNumber            String?
+  instagramUrl           String?
+  websiteUrl             String?
+  usesPms                PmsUsage?
+  propertyCount          PropertyCount?
+  revenueRange           RevenueRange?
+  isTodero               YesNo?
+  usesAi                 YesNo?
+  wantsToScale           YesNo?
+  industryTime           IndustryTime?
+  pdfToken               String                  @unique
+  qualification          LeadQualification?
+  qualificationScore     Int?
+  disqualificationReason DisqualificationReason?
+  scoreBreakdown         Json?
+  entrySource            LeadEntrySource         @default(EBOOK)
+  bookingFlow            BookingFlow?
+  bookedAt               DateTime?
+  status                 SubmissionStatus        @default(NEW)
+  fbclid                 String?
+  fbp                    String?
+  fbc                    String?
+  utmSource              String?
+  utmMedium              String?
+  utmCampaign            String?
+  utmContent             String?
+  utmTerm                String?
+  landingPath            String?
+  referrer               String?
+  marketingFunnelStage   MarketingFunnelStage?
+  contractValueUsd       Decimal?                @db.Decimal(12, 2)
+  contractPlan           ContractPlan?
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+  contactId              String?
+  contact                Contact?                @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  events                 LeadEvent[]
+
+  @@index([qualification])
+  @@index([entrySource])
+  @@index([bookingFlow])
+  @@index([contactId])
+  @@index([marketingFunnelStage])
+}
+
+model LeadEvent {
+  id              String             @id
+  submissionId    String
+  submission      FormSubmission     @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  eventName       MarketingEventName
+  eventTime       DateTime           @default(now())
+  eventSourceUrl  String?
+  value           Decimal            @db.Decimal(12, 2)
+  currency        String             @default("USD")
+  sentToMeta      Boolean            @default(false)
+  metaResponse    Json?
+  attemptCount    Int                @default(0)
+  lastAttemptAt   DateTime?
+  triggeredBy     String
+  clientIp        String?
+  clientUserAgent String?
+  createdAt       DateTime           @default(now())
+
+  @@unique([submissionId, eventName])
+  @@index([sentToMeta, createdAt])
+  @@index([submissionId])
+}
+
+model VideoWatchSession {
+  id              String           @id @default(cuid())
+  visitorId       String
+  videoId         String
+  startedAt       DateTime         @default(now())
+  lastHeartbeatAt DateTime         @default(now())
+  maxSecond       Int              @default(0)
+  durationSeconds Int              @default(0)
+  unlocked        Boolean          @default(false)
+  completed       Boolean          @default(false)
+  droppedAtSecond Int?
+  dropReason      VideoDropReason?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@index([videoId, startedAt])
+  @@index([visitorId])
+  @@index([videoId, completed])
+}
+
+model LeadPipeline {
+  id                   String        @id @default(cuid())
+  contactId            String        @unique
+  contact              Contact       @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  funnelOrigin         FunnelOrigin
+  currentStage         PipelineStage
+  currentState         PipelineState
+  scheduledJobId       String?
+  scheduledJobDedupKey String?       @unique
+  videoWatched         Boolean       @default(false)
+  utmSource            String?
+  pixelFiredAt         DateTime?
+  painPoint            String?
+  qualificationAnswers Json?
+  meetingId            String?
+  meetingTime          DateTime?
+  meetLink             String?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  jobs                 PipelineJob[]
+
+  @@index([currentStage, currentState])
+  @@index([funnelOrigin])
+  @@index([currentState])
+  @@index([meetingTime])
+  @@index([scheduledJobId])
+}
+
+model Conversation {
+  id              String                @id @default(cuid())
+  contactId       String
+  contact         Contact               @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  channel         ConversationChannel   @default(WHATSAPP)
+  waPhoneNumberId String?
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+  messages        ConversationMessage[]
+
+  @@unique([contactId, channel])
+}
+
+model ConversationMessage {
+  id             String           @id @default(cuid())
+  conversationId String
+  conversation   Conversation     @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  direction      MessageDirection
+  waMessageId    String?          @unique
+  type           MessageType
+  body           String?
+  templateName   String?
+  buttonId       String?
+  rawPayload     Json?
+  pipelineState  PipelineState?
+  status         MessageStatus    @default(PENDING)
+  mediaId        String?
+  mimeType       String?
+  mediaFilename  String?
+  mediaUrl       String?
+  caption        String?
+  createdAt      DateTime         @default(now())
+
+  @@index([conversationId, createdAt])
+}
+
+model PipelineJob {
+  id              String            @id @default(cuid())
+  pipelineId      String
+  pipeline        LeadPipeline      @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  dedupKey        String            @unique
+  expectedState   PipelineState
+  qstashMessageId String?
+  status          PipelineJobStatus @default(PENDING)
+  createdAt       DateTime          @default(now())
+  executedAt      DateTime?
+
+  @@index([pipelineId, status])
 }
 
 enum PmsUsage {
@@ -30,20 +211,32 @@ enum PmsUsage {
 }
 
 enum PropertyCount {
-  ONE_TO_FIVE
-  SIX_TO_FIFTEEN
-  SIXTEEN_TO_FIFTY
-  FIFTY_ONE_PLUS
+  UNDER_5
+  FIVE_TO_FIFTEEN
+  SIXTEEN_TO_TWENTY_FIVE
+  OVER_25
 }
 
 enum RevenueRange {
   UNDER_10M
-  TEN_TO_FIFTY_M
-  FIFTY_TO_200M
-  OVER_200M
+  TEN_TO_TWENTY_M
+  TWENTY_ONE_TO_FIFTY_M
+  OVER_50M
+}
+
+enum YesNo {
+  YES
+  NO
+}
+
+enum IndustryTime {
+  UNDER_5
+  FIVE_TO_TEN
+  OVER_10
 }
 
 enum SubmissionStatus {
+  PARTIAL
   NEW
   REVIEWING
   CONTACTED
@@ -51,4 +244,151 @@ enum SubmissionStatus {
   PROPOSAL_SENT
   CLOSED_WON
   CLOSED_LOST
+}
+
+enum LeadQualification {
+  SQL
+  MQL
+  DISQUALIFIED
+}
+
+enum DisqualificationReason {
+  REVENUE_VETO
+  LOW_SCORE
+}
+
+enum LeadEntrySource {
+  EBOOK
+  DIAGNOSIS
+  DIRECT_BOOKING
+}
+
+enum BookingFlow {
+  EBOOK_SQL
+  EBOOK_PDF
+  DIAGNOSIS_PUBLIC
+  DIRECT_BOOKING
+}
+
+enum FunnelOrigin {
+  SQL
+  MQL
+  DIRECT_BOOKING
+}
+
+enum PipelineStage {
+  NURTURING
+  PRE_MEETING
+  PRE_DEMO
+  POST_DEMO
+}
+
+enum PipelineState {
+  LEAD_MAGNET_DOWNLOADED
+  AWAITING_CONFIRMATION
+  QUALIFICATION_OFFERED
+  QUALIFYING_Q1
+  QUALIFYING_Q2
+  QUALIFYING_Q3
+  FIT_CONFIRMED
+  DISQUALIFIED
+  VIDEO_SENT
+  CTA_SENT_SAW_VIDEO
+  CTA_SENT_NO_VIDEO
+  LAST_NURTURE_SENT
+  COLD_CALL_QUEUED
+  SCHEDULED
+  LOST
+  LONG_TERM_NURTURE
+  MEETING_SCHEDULED
+  CONFIRMATION_SENT
+  REMINDER_48H
+  REMINDER_24H
+  REMINDER_8AM_DAY_OF
+  REMINDER_30MIN
+  ATTENDED
+  NO_SHOW
+  RESCHEDULE_OFFERED
+  DISCOVERY_COMPLETED
+  DISCOVERY_SUMMARY_SENT
+  DEMO_CONFIRMATION_SENT
+  DEMO_REMINDER_48H
+  DEMO_REMINDER_24H
+  DEMO_REMINDER_8AM
+  DEMO_REMINDER_30MIN
+  QUOTE_PRESENTED
+  WON
+  FORMAL_PROPOSAL_SENT
+  FOLLOWUP_48H
+  FOLLOWUP_5_7_DAYS
+  CUTOFF_20_DAYS
+}
+
+enum ConversationChannel {
+  WHATSAPP
+}
+
+enum MessageDirection {
+  INBOUND
+  OUTBOUND
+}
+
+enum MessageType {
+  TEXT
+  TEMPLATE
+  BUTTON
+  INTERACTIVE
+  STATUS
+  AUDIO
+  IMAGE
+  VIDEO
+  DOCUMENT
+  STICKER
+  LOCATION
+}
+
+enum MessageStatus {
+  PENDING
+  SENT
+  DELIVERED
+  READ
+  FAILED
+}
+
+enum PipelineJobStatus {
+  PENDING
+  EXECUTED
+  STALE
+  CANCELLED
+}
+
+enum MarketingFunnelStage {
+  LEAD_MAGNET_SENT
+  VIDEO_SENT
+  SCHEDULED
+  SHOWED_UP
+  NO_SHOW
+  PURCHASED
+}
+
+enum MarketingEventName {
+  VIEW_CONTENT
+  LEAD
+  SCHEDULE
+  SHOW_UP
+  PURCHASE
+}
+
+enum ContractPlan {
+  THREE_MONTH
+  FIVE_MONTH
+  OTHER
+}
+
+enum VideoDropReason {
+  PAUSE
+  TAB_HIDDEN
+  PAGE_LEAVE
+  SCROLL
+  ENDED
 }

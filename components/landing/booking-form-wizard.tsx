@@ -2,56 +2,24 @@
 
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react"
 import {
-  DEFAULT_PHONE_COUNTRY_CODE,
-  isValidPhoneNumber,
-  PHONE_COUNTRY_OPTIONS,
-} from "@/lib/booking/phone-countries"
-import { cn } from "@/lib/utils"
-
-export type BookingFormData = {
-  usesPms: string
-  propertyCount: string
-  revenueRange: string
-  fullName: string
-  email: string
-  phoneCountryCode: string
-  phoneNumber: string
-  companyName: string
-  websiteUrl: string
-}
-
-export const INITIAL_BOOKING_FORM: BookingFormData = {
-  usesPms: "",
-  propertyCount: "",
-  revenueRange: "",
-  fullName: "",
-  email: "",
-  phoneCountryCode: DEFAULT_PHONE_COUNTRY_CODE,
-  phoneNumber: "",
-  companyName: "",
-  websiteUrl: "",
-}
-
-type FormStepId = "usesPms" | "propertyCount" | "revenueRange" | "contact"
-
-type StepConfig = {
-  id: FormStepId
-  question: string
-  required?: boolean
-}
-
-const FORM_STEPS: StepConfig[] = [
-  { id: "usesPms", question: "¿Usas actualmente un PMS?" },
-  { id: "propertyCount", question: "¿Con cuántas propiedades trabajas?" },
-  { id: "revenueRange", question: "¿Cuál es tu rango de facturación actual?" },
-  { id: "contact", question: "Ingresa tus datos", required: true },
-]
-
-import {
+  BOOKING_FORM_STEPS,
+  INDUSTRY_TIME_OPTIONS,
+  INITIAL_BOOKING_FORM,
+  isValidOptionalUrl,
   PMS_OPTIONS,
   PROPERTY_OPTIONS,
   REVENUE_OPTIONS,
+  YES_NO_OPTIONS,
 } from "@/lib/booking/form-options"
+import {
+  isValidPhoneNumber,
+  PHONE_COUNTRY_OPTIONS,
+} from "@/lib/booking/phone-countries"
+import type { BookingFormData } from "@/lib/booking/types"
+import { cn } from "@/lib/utils"
+
+export type { BookingFormData }
+export { INITIAL_BOOKING_FORM }
 
 function CalOption({
   label,
@@ -87,6 +55,7 @@ function CalInput({
   required,
   optional,
   onChange,
+  onBlur,
 }: {
   id: string
   label: string
@@ -96,6 +65,7 @@ function CalInput({
   required?: boolean
   optional?: boolean
   onChange: (value: string) => void
+  onBlur?: () => void
 }) {
   return (
     <div>
@@ -110,6 +80,7 @@ function CalInput({
         required={required}
         value={value}
         onChange={(event) => onChange(event.target.value)}
+        onBlur={onBlur}
         placeholder={placeholder}
         className="w-full rounded-lg border border-zinc-700 bg-zinc-900/40 px-4 py-3 text-sm text-white placeholder:text-zinc-500 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
       />
@@ -122,11 +93,13 @@ function CalPhoneInput({
   phoneNumber,
   onCountryCodeChange,
   onPhoneNumberChange,
+  onBlur,
 }: {
   countryCode: string
   phoneNumber: string
   onCountryCodeChange: (value: string) => void
   onPhoneNumberChange: (value: string) => void
+  onBlur?: () => void
 }) {
   return (
     <div>
@@ -155,6 +128,7 @@ function CalPhoneInput({
           required
           value={phoneNumber}
           onChange={(event) => onPhoneNumberChange(event.target.value.replace(/[^\d\s-]/g, ""))}
+          onBlur={onBlur}
           placeholder="300 123 4567"
           className="min-w-0 flex-1 rounded-lg border border-zinc-700 bg-zinc-900/40 px-4 py-3 text-sm text-white placeholder:text-zinc-500 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
         />
@@ -163,17 +137,23 @@ function CalPhoneInput({
   )
 }
 
-function isValidOptionalUrl(value: string) {
-  const trimmed = value.trim()
-  if (!trimmed) return true
-
-  try {
-    const normalized = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`
-    const url = new URL(normalized)
-    return Boolean(url.hostname.includes("."))
-  } catch {
-    return false
+function stepIsComplete(stepId: (typeof BOOKING_FORM_STEPS)[number]["id"], formData: BookingFormData) {
+  if (stepId === "usesPms") return Boolean(formData.usesPms)
+  if (stepId === "propertyCount") return Boolean(formData.propertyCount)
+  if (stepId === "revenueRange") return Boolean(formData.revenueRange)
+  if (stepId === "isTodero") return Boolean(formData.isTodero)
+  if (stepId === "wantsToScale") return Boolean(formData.wantsToScale)
+  if (stepId === "usesAi") return Boolean(formData.usesAi)
+  if (stepId === "industryTime") return Boolean(formData.industryTime)
+  if (stepId === "contact") {
+    return (
+      formData.fullName.trim().length > 0 &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim()) &&
+      isValidPhoneNumber(formData.phoneNumber) &&
+      isValidOptionalUrl(formData.websiteUrl)
+    )
   }
+  return false
 }
 
 export function BookingFormWizard({
@@ -187,6 +167,7 @@ export function BookingFormWizard({
   onStepChange,
   onBackToTimes,
   onSubmit,
+  onFieldBlur,
 }: {
   selectedDateLabel: string
   selectedTimeLabel: string
@@ -198,26 +179,12 @@ export function BookingFormWizard({
   onStepChange: (step: number) => void
   onBackToTimes: () => void
   onSubmit: () => void
+  onFieldBlur?: () => void
 }) {
-  const step = FORM_STEPS[formStep]
-  const isLastStep = formStep === FORM_STEPS.length - 1
+  const step = BOOKING_FORM_STEPS[formStep]
+  const isLastStep = formStep === BOOKING_FORM_STEPS.length - 1
   const isFirstStep = formStep === 0
-
-  const canContinue = (() => {
-    if (!step) return false
-    if (step.id === "usesPms") return Boolean(formData.usesPms)
-    if (step.id === "propertyCount") return Boolean(formData.propertyCount)
-    if (step.id === "revenueRange") return Boolean(formData.revenueRange)
-    if (step.id === "contact") {
-      return (
-        formData.fullName.trim().length > 0 &&
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim()) &&
-        isValidPhoneNumber(formData.phoneNumber) &&
-        isValidOptionalUrl(formData.websiteUrl)
-      )
-    }
-    return false
-  })()
+  const canContinue = step ? stepIsComplete(step.id, formData) : false
 
   const handleBack = () => {
     if (isFirstStep) {
@@ -253,7 +220,7 @@ export function BookingFormWizard({
             {selectedDateLabel} · {selectedTimeLabel}
           </p>
           <p className="text-[11px] text-zinc-600">
-            Paso {formStep + 1} de {FORM_STEPS.length}
+            Paso {formStep + 1} de {BOOKING_FORM_STEPS.length}
           </p>
         </div>
       </div>
@@ -293,6 +260,46 @@ export function BookingFormWizard({
             />
           ))}
 
+        {step?.id === "isTodero" &&
+          YES_NO_OPTIONS.map((option) => (
+            <CalOption
+              key={option.value}
+              label={option.label}
+              selected={formData.isTodero === option.value}
+              onSelect={() => onChange("isTodero", option.value)}
+            />
+          ))}
+
+        {step?.id === "wantsToScale" &&
+          YES_NO_OPTIONS.map((option) => (
+            <CalOption
+              key={option.value}
+              label={option.label}
+              selected={formData.wantsToScale === option.value}
+              onSelect={() => onChange("wantsToScale", option.value)}
+            />
+          ))}
+
+        {step?.id === "usesAi" &&
+          YES_NO_OPTIONS.map((option) => (
+            <CalOption
+              key={option.value}
+              label={option.label}
+              selected={formData.usesAi === option.value}
+              onSelect={() => onChange("usesAi", option.value)}
+            />
+          ))}
+
+        {step?.id === "industryTime" &&
+          INDUSTRY_TIME_OPTIONS.map((option) => (
+            <CalOption
+              key={option.value}
+              label={option.label}
+              selected={formData.industryTime === option.value}
+              onSelect={() => onChange("industryTime", option.value)}
+            />
+          ))}
+
         {step?.id === "contact" && (
           <div className="space-y-4">
             <CalInput
@@ -303,6 +310,7 @@ export function BookingFormWizard({
               value={formData.fullName}
               placeholder="Tu nombre completo"
               onChange={(value) => onChange("fullName", value)}
+              onBlur={onFieldBlur}
             />
             <CalInput
               id="booking-email"
@@ -312,12 +320,14 @@ export function BookingFormWizard({
               value={formData.email}
               placeholder="tu@email.com"
               onChange={(value) => onChange("email", value)}
+              onBlur={onFieldBlur}
             />
             <CalPhoneInput
               countryCode={formData.phoneCountryCode}
               phoneNumber={formData.phoneNumber}
               onCountryCodeChange={(value) => onChange("phoneCountryCode", value)}
               onPhoneNumberChange={(value) => onChange("phoneNumber", value)}
+              onBlur={onFieldBlur}
             />
             <CalInput
               id="booking-company"
@@ -327,6 +337,17 @@ export function BookingFormWizard({
               value={formData.companyName}
               placeholder="Tu empresa"
               onChange={(value) => onChange("companyName", value)}
+              onBlur={onFieldBlur}
+            />
+            <CalInput
+              id="booking-instagram"
+              label="Instagram"
+              type="text"
+              optional
+              value={formData.instagramUrl}
+              placeholder="@tuempresa"
+              onChange={(value) => onChange("instagramUrl", value)}
+              onBlur={onFieldBlur}
             />
             <CalInput
               id="booking-website"
@@ -336,6 +357,7 @@ export function BookingFormWizard({
               value={formData.websiteUrl}
               placeholder="https://tuempresa.com"
               onChange={(value) => onChange("websiteUrl", value)}
+              onBlur={onFieldBlur}
             />
             <p className="text-xs leading-relaxed text-zinc-500">
               Enviaremos la invitación de Google Calendar con el enlace de Google Meet a este correo.

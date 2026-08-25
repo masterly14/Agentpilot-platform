@@ -8,6 +8,7 @@ type DashedGridProps = {
   contentClassName?: string
   maxWidth?: "2xl" | "4xl" | "5xl" | "6xl" | "full"
   padding?: string
+  fillHeight?: boolean
 }
 
 const maxWidthClass = {
@@ -25,11 +26,12 @@ export function DashedGrid({
   contentClassName,
   maxWidth = "2xl",
   padding = "px-4 py-8 md:px-6 md:py-12",
+  fillHeight = false,
 }: DashedGridProps) {
   const patternId = `dash-${gridId}`
 
   return (
-    <div className={cn("relative w-full", className)}>
+    <div className={cn("relative w-full", fillHeight && "flex min-h-0 flex-1 flex-col", className)}>
       <svg className="absolute h-0 w-0" aria-hidden="true">
         <defs>
           <pattern id={`${patternId}-h`} width="20" height="2" patternUnits="userSpaceOnUse">
@@ -51,7 +53,7 @@ export function DashedGrid({
         </svg>
       </div>
 
-      <div className={cn("relative mx-auto", maxWidthClass[maxWidth])}>
+      <div className={cn("relative mx-auto w-full", maxWidthClass[maxWidth], fillHeight && "flex min-h-0 flex-1 flex-col")}>
         <div className="absolute left-0 top-0 h-full w-0.5 opacity-20">
           <svg width="2" height="100%" className="block" preserveAspectRatio="none">
             <rect width="2" height="100%" fill={`url(#${patternId}-v)`} />
@@ -63,7 +65,7 @@ export function DashedGrid({
           </svg>
         </div>
 
-        <div className={cn("relative", padding, contentClassName)}>{children}</div>
+        <div className={cn("relative", padding, fillHeight && "flex min-h-0 flex-1 flex-col", contentClassName)}>{children}</div>
       </div>
     </div>
   )

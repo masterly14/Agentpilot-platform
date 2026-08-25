@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import type { ReactNode } from "react"
-import { animate, motion, useInView } from "framer-motion"
+import { animate, useInView } from "framer-motion"
 import { ImageIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -17,17 +17,11 @@ type RevealProps = {
   duration?: number
 }
 
-export function Reveal({ children, className, delay = 0, y = 28, duration = 0.75 }: RevealProps) {
+export function Reveal({ children, className, delay = 0 }: RevealProps) {
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration, delay, ease: EASE_OUT }}
-    >
+    <div className={cn("ap-fade-up", className)} style={{ animationDelay: `${delay}s` }}>
       {children}
-    </motion.div>
+    </div>
   )
 }
 
@@ -71,7 +65,7 @@ export function SectionHeading({
       ) : null}
 
       <Reveal delay={0.08}>
-        <h2 className="text-balance bg-gradient-to-br from-zinc-100 via-zinc-300 to-zinc-500 bg-clip-text text-3xl font-light leading-[1.15] tracking-tight text-transparent md:text-5xl">
+        <h2 className="text-balance bg-gradient-to-br from-zinc-100 via-zinc-300 to-zinc-500 bg-clip-text text-3xl font-light leading-[1.15] tracking-tight text-zinc-100 [-webkit-background-clip:text] md:text-5xl md:text-transparent">
           {titleLead}
           {titleAccent ? (
             <>

@@ -19,33 +19,53 @@ export function isFacebookPixelEnabled() {
   return Boolean(PIXEL_ID)
 }
 
-/** Fires when a visitor successfully books a meeting (conversion / lead). */
-export function trackBookingLead(params: {
-  email: string
-  fullName: string
-  date: string
-  slotStart: string
-}) {
-  if (typeof window === "undefined" || !window.fbq || !PIXEL_ID) return
-
-  const email = params.email.trim().toLowerCase()
-  const firstName = getFirstName(params.fullName)
-
+function initAdvancedMatching(email: string, fullName: string) {
+  if (typeof window === "undefined" || !window.fbq || !PIXEL_ID) return false
+  const normalizedEmail = email.trim().toLowerCase()
+  const firstName = getFirstName(fullName)
   window.fbq("init", PIXEL_ID, {
-    em: email,
+    em: normalizedEmail,
     ...(firstName ? { fn: firstName } : {}),
   })
+  return true
+}
+
+/** Fires when a visitor successfully books a meeting. Deduped with CAPI via eventID. */
+export function trackSchedule(params: {
+  email: string
+  fullName: string
+  eventID: string
+}) {
+  if (!params.eventID || !initAdvancedMatching(params.email, params.fullName) || !window.fbq) return
+
+  window.fbq(
+    "trackCustom",
+    "Schedule",
+    {
+      content_name: "Reunión agendada",
+      content_category: "booking",
+      value: 25,
+      currency: "USD",
+      status: "confirmed",
+    },
+    { eventID: params.eventID },
+  )
+}
+
+/** Fires when a visitor submits the guide download form. Deduped with CAPI via eventID. */
+export function trackEbookLead(params: { email: string; fullName: string; eventID: string }) {
+  if (!params.eventID || !initAdvancedMatching(params.email, params.fullName) || !window.fbq) return
 
   window.fbq(
     "track",
     "Lead",
     {
-      content_name: "Reunión agendada",
-      content_category: "booking",
-      status: "confirmed",
+      content_name: "Guía gratuita",
+      content_category: "ebook",
+      value: 0,
+      currency: "USD",
+      status: "submitted",
     },
-    {
-      eventID: `booking-${params.slotStart}-${email}`,
-    }
+    { eventID: params.eventID },
   )
 }

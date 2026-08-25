@@ -1,11 +1,35 @@
-export const BOOKING_MONTH = 7
+export const BOOKING_MONTH = 8
 export const BOOKING_YEAR = 2026
+
+const MONTHS_ES = [
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
+] as const
+
+export function bookingMonthName() {
+  return MONTHS_ES[BOOKING_MONTH - 1] ?? ""
+}
+
+export function bookingMonthLabel() {
+  return `${bookingMonthName()} ${BOOKING_YEAR}`
+}
 
 export const bookingConfig = {
   timezone: process.env.BOOKING_TIMEZONE ?? "America/Bogota",
-  slotMinutes: Number(process.env.BOOKING_SLOT_MINUTES ?? 30),
-  workStartHour: Number(process.env.BOOKING_WORK_START_HOUR ?? 8),
-  workEndHour: Number(process.env.BOOKING_WORK_END_HOUR ?? 20),
+  slotMinutes: Number(process.env.BOOKING_SLOT_MINUTES ?? 40),
+  workStartHour: Number(process.env.BOOKING_WORK_START_HOUR ?? 10),
+  workEndHour: Number(process.env.BOOKING_WORK_END_HOUR ?? 18),
+  minNoticeMinutes: Number(process.env.BOOKING_MIN_NOTICE_MINUTES ?? 120),
   calendarId: process.env.BOOKING_CALENDAR_ID ?? "primary",
   composioUserId: process.env.COMPOSIO_CALENDAR_USER_ID ?? "santiago-calendar",
   composioAuthConfigId: process.env.COMPOSIO_GOOGLE_CALENDAR_AUTH_CONFIG_ID,

@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { AdminLogoutButton } from "@/components/admin/admin-logout-button"
+import { AdminSidebar } from "@/components/admin/admin-sidebar"
+import { Toaster } from "sonner"
 
 export const metadata = {
   title: "Panel interno | Santiago Varón",
@@ -12,33 +12,12 @@ export default function AdminDashboardLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="border-b bg-background/95 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-[1600px] items-center justify-between px-4 md:px-6">
-          <div className="flex items-center gap-6">
-            <Link
-              href="/admin"
-              className="text-sm font-bold tracking-[0.18em] uppercase"
-              style={{ fontFamily: "var(--font-raleway, 'Raleway', sans-serif)" }}
-            >
-              Panel interno
-            </Link>
-            <span className="hidden text-xs text-muted-foreground md:inline">
-              Solicitudes de proyecto
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Ver sitio público
-            </Link>
-            <AdminLogoutButton />
-          </div>
-        </div>
-      </header>
-      <main className="mx-auto max-w-[1600px] px-4 py-6 md:px-6">{children}</main>
+    <div className="flex min-h-screen flex-col md:h-screen md:flex-row">
+      <AdminSidebar />
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-background">
+        <main className="flex min-h-0 flex-1 flex-col">{children}</main>
+      </div>
+      <Toaster theme="light" position="bottom-right" />
     </div>
   )
 }

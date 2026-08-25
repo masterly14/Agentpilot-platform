@@ -8,6 +8,7 @@ export type StatusColumn = {
 }
 
 export const STATUS_COLUMNS: StatusColumn[] = [
+  { id: "PARTIAL", label: "Incompleto", description: "Abandonó el formulario", accent: "border-zinc-500/40 bg-zinc-500/5" },
   { id: "NEW", label: "Nuevo", description: "Recién recibido", accent: "border-sky-500/40 bg-sky-500/5" },
   { id: "REVIEWING", label: "En revisión", description: "Evaluando encaje", accent: "border-violet-500/40 bg-violet-500/5" },
   { id: "CONTACTED", label: "Contactado", description: "Primer contacto hecho", accent: "border-amber-500/40 bg-amber-500/5" },

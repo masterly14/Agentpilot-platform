@@ -2,21 +2,33 @@ export type BookingSlot = {
   start: string
   label12h: string
   label24h: string
+  available: boolean
 }
 
-export type BookingFormPayload = {
-  date: string
-  slotStart: string
+export type BookingFormData = {
+  usesPms: string
+  propertyCount: string
+  revenueRange: string
+  isTodero: string
+  usesAi: string
+  wantsToScale: string
+  industryTime: string
   fullName: string
   email: string
   phoneCountryCode: string
   phoneNumber: string
   companyName: string
   websiteUrl: string
-  usesPms: string
-  propertyCount: string
-  revenueRange: string
+  instagramUrl: string
 }
+
+export type BookingFormPayload = {
+  date: string
+  slotStart: string
+  origin?: string
+} & BookingFormData
+
+export type LeadFormPayload = BookingFormData
 
 export type AvailabilityResponse = {
   date: string

@@ -93,16 +93,156 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.ContactScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  phoneE164: 'phoneE164',
+  waId: 'waId',
+  phoneCountryCode: 'phoneCountryCode',
+  phoneNumber: 'phoneNumber',
+  companyName: 'companyName',
+  websiteUrl: 'websiteUrl',
+  instagramUrl: 'instagramUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.FormSubmissionScalarFieldEnum = {
   id: 'id',
   fullName: 'fullName',
   email: 'email',
+  companyName: 'companyName',
+  phoneCountryCode: 'phoneCountryCode',
+  phoneNumber: 'phoneNumber',
+  instagramUrl: 'instagramUrl',
+  websiteUrl: 'websiteUrl',
   usesPms: 'usesPms',
   propertyCount: 'propertyCount',
   revenueRange: 'revenueRange',
+  isTodero: 'isTodero',
+  usesAi: 'usesAi',
+  wantsToScale: 'wantsToScale',
+  industryTime: 'industryTime',
+  pdfToken: 'pdfToken',
+  qualification: 'qualification',
+  qualificationScore: 'qualificationScore',
+  disqualificationReason: 'disqualificationReason',
+  scoreBreakdown: 'scoreBreakdown',
+  entrySource: 'entrySource',
+  bookingFlow: 'bookingFlow',
+  bookedAt: 'bookedAt',
   status: 'status',
+  fbclid: 'fbclid',
+  fbp: 'fbp',
+  fbc: 'fbc',
+  utmSource: 'utmSource',
+  utmMedium: 'utmMedium',
+  utmCampaign: 'utmCampaign',
+  utmContent: 'utmContent',
+  utmTerm: 'utmTerm',
+  landingPath: 'landingPath',
+  referrer: 'referrer',
+  marketingFunnelStage: 'marketingFunnelStage',
+  contractValueUsd: 'contractValueUsd',
+  contractPlan: 'contractPlan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  contactId: 'contactId'
+};
+
+exports.Prisma.LeadEventScalarFieldEnum = {
+  id: 'id',
+  submissionId: 'submissionId',
+  eventName: 'eventName',
+  eventTime: 'eventTime',
+  eventSourceUrl: 'eventSourceUrl',
+  value: 'value',
+  currency: 'currency',
+  sentToMeta: 'sentToMeta',
+  metaResponse: 'metaResponse',
+  attemptCount: 'attemptCount',
+  lastAttemptAt: 'lastAttemptAt',
+  triggeredBy: 'triggeredBy',
+  clientIp: 'clientIp',
+  clientUserAgent: 'clientUserAgent',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.VideoWatchSessionScalarFieldEnum = {
+  id: 'id',
+  visitorId: 'visitorId',
+  videoId: 'videoId',
+  startedAt: 'startedAt',
+  lastHeartbeatAt: 'lastHeartbeatAt',
+  maxSecond: 'maxSecond',
+  durationSeconds: 'durationSeconds',
+  unlocked: 'unlocked',
+  completed: 'completed',
+  droppedAtSecond: 'droppedAtSecond',
+  dropReason: 'dropReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LeadPipelineScalarFieldEnum = {
+  id: 'id',
+  contactId: 'contactId',
+  funnelOrigin: 'funnelOrigin',
+  currentStage: 'currentStage',
+  currentState: 'currentState',
+  scheduledJobId: 'scheduledJobId',
+  scheduledJobDedupKey: 'scheduledJobDedupKey',
+  videoWatched: 'videoWatched',
+  utmSource: 'utmSource',
+  pixelFiredAt: 'pixelFiredAt',
+  painPoint: 'painPoint',
+  qualificationAnswers: 'qualificationAnswers',
+  meetingId: 'meetingId',
+  meetingTime: 'meetingTime',
+  meetLink: 'meetLink',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ConversationScalarFieldEnum = {
+  id: 'id',
+  contactId: 'contactId',
+  channel: 'channel',
+  waPhoneNumberId: 'waPhoneNumberId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ConversationMessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  direction: 'direction',
+  waMessageId: 'waMessageId',
+  type: 'type',
+  body: 'body',
+  templateName: 'templateName',
+  buttonId: 'buttonId',
+  rawPayload: 'rawPayload',
+  pipelineState: 'pipelineState',
+  status: 'status',
+  mediaId: 'mediaId',
+  mimeType: 'mimeType',
+  mediaFilename: 'mediaFilename',
+  mediaUrl: 'mediaUrl',
+  caption: 'caption',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PipelineJobScalarFieldEnum = {
+  id: 'id',
+  pipelineId: 'pipelineId',
+  dedupKey: 'dedupKey',
+  expectedState: 'expectedState',
+  qstashMessageId: 'qstashMessageId',
+  status: 'status',
+  createdAt: 'createdAt',
+  executedAt: 'executedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -110,9 +250,25 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.PmsUsage = exports.$Enums.PmsUsage = {
   YES: 'YES',
@@ -121,20 +277,32 @@ exports.PmsUsage = exports.$Enums.PmsUsage = {
 };
 
 exports.PropertyCount = exports.$Enums.PropertyCount = {
-  ONE_TO_FIVE: 'ONE_TO_FIVE',
-  SIX_TO_FIFTEEN: 'SIX_TO_FIFTEEN',
-  SIXTEEN_TO_FIFTY: 'SIXTEEN_TO_FIFTY',
-  FIFTY_ONE_PLUS: 'FIFTY_ONE_PLUS'
+  UNDER_5: 'UNDER_5',
+  FIVE_TO_FIFTEEN: 'FIVE_TO_FIFTEEN',
+  SIXTEEN_TO_TWENTY_FIVE: 'SIXTEEN_TO_TWENTY_FIVE',
+  OVER_25: 'OVER_25'
 };
 
 exports.RevenueRange = exports.$Enums.RevenueRange = {
   UNDER_10M: 'UNDER_10M',
-  TEN_TO_FIFTY_M: 'TEN_TO_FIFTY_M',
-  FIFTY_TO_200M: 'FIFTY_TO_200M',
-  OVER_200M: 'OVER_200M'
+  TEN_TO_TWENTY_M: 'TEN_TO_TWENTY_M',
+  TWENTY_ONE_TO_FIFTY_M: 'TWENTY_ONE_TO_FIFTY_M',
+  OVER_50M: 'OVER_50M'
+};
+
+exports.YesNo = exports.$Enums.YesNo = {
+  YES: 'YES',
+  NO: 'NO'
+};
+
+exports.IndustryTime = exports.$Enums.IndustryTime = {
+  UNDER_5: 'UNDER_5',
+  FIVE_TO_TEN: 'FIVE_TO_TEN',
+  OVER_10: 'OVER_10'
 };
 
 exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
+  PARTIAL: 'PARTIAL',
   NEW: 'NEW',
   REVIEWING: 'REVIEWING',
   CONTACTED: 'CONTACTED',
@@ -144,8 +312,162 @@ exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
   CLOSED_LOST: 'CLOSED_LOST'
 };
 
+exports.LeadQualification = exports.$Enums.LeadQualification = {
+  SQL: 'SQL',
+  MQL: 'MQL',
+  DISQUALIFIED: 'DISQUALIFIED'
+};
+
+exports.DisqualificationReason = exports.$Enums.DisqualificationReason = {
+  REVENUE_VETO: 'REVENUE_VETO',
+  LOW_SCORE: 'LOW_SCORE'
+};
+
+exports.LeadEntrySource = exports.$Enums.LeadEntrySource = {
+  EBOOK: 'EBOOK',
+  DIAGNOSIS: 'DIAGNOSIS',
+  DIRECT_BOOKING: 'DIRECT_BOOKING'
+};
+
+exports.BookingFlow = exports.$Enums.BookingFlow = {
+  EBOOK_SQL: 'EBOOK_SQL',
+  EBOOK_PDF: 'EBOOK_PDF',
+  DIAGNOSIS_PUBLIC: 'DIAGNOSIS_PUBLIC',
+  DIRECT_BOOKING: 'DIRECT_BOOKING'
+};
+
+exports.FunnelOrigin = exports.$Enums.FunnelOrigin = {
+  SQL: 'SQL',
+  MQL: 'MQL',
+  DIRECT_BOOKING: 'DIRECT_BOOKING'
+};
+
+exports.PipelineStage = exports.$Enums.PipelineStage = {
+  NURTURING: 'NURTURING',
+  PRE_MEETING: 'PRE_MEETING',
+  PRE_DEMO: 'PRE_DEMO',
+  POST_DEMO: 'POST_DEMO'
+};
+
+exports.PipelineState = exports.$Enums.PipelineState = {
+  LEAD_MAGNET_DOWNLOADED: 'LEAD_MAGNET_DOWNLOADED',
+  AWAITING_CONFIRMATION: 'AWAITING_CONFIRMATION',
+  QUALIFICATION_OFFERED: 'QUALIFICATION_OFFERED',
+  QUALIFYING_Q1: 'QUALIFYING_Q1',
+  QUALIFYING_Q2: 'QUALIFYING_Q2',
+  QUALIFYING_Q3: 'QUALIFYING_Q3',
+  FIT_CONFIRMED: 'FIT_CONFIRMED',
+  DISQUALIFIED: 'DISQUALIFIED',
+  VIDEO_SENT: 'VIDEO_SENT',
+  CTA_SENT_SAW_VIDEO: 'CTA_SENT_SAW_VIDEO',
+  CTA_SENT_NO_VIDEO: 'CTA_SENT_NO_VIDEO',
+  LAST_NURTURE_SENT: 'LAST_NURTURE_SENT',
+  COLD_CALL_QUEUED: 'COLD_CALL_QUEUED',
+  SCHEDULED: 'SCHEDULED',
+  LOST: 'LOST',
+  LONG_TERM_NURTURE: 'LONG_TERM_NURTURE',
+  MEETING_SCHEDULED: 'MEETING_SCHEDULED',
+  CONFIRMATION_SENT: 'CONFIRMATION_SENT',
+  REMINDER_48H: 'REMINDER_48H',
+  REMINDER_24H: 'REMINDER_24H',
+  REMINDER_8AM_DAY_OF: 'REMINDER_8AM_DAY_OF',
+  REMINDER_30MIN: 'REMINDER_30MIN',
+  ATTENDED: 'ATTENDED',
+  NO_SHOW: 'NO_SHOW',
+  RESCHEDULE_OFFERED: 'RESCHEDULE_OFFERED',
+  DISCOVERY_COMPLETED: 'DISCOVERY_COMPLETED',
+  DISCOVERY_SUMMARY_SENT: 'DISCOVERY_SUMMARY_SENT',
+  DEMO_CONFIRMATION_SENT: 'DEMO_CONFIRMATION_SENT',
+  DEMO_REMINDER_48H: 'DEMO_REMINDER_48H',
+  DEMO_REMINDER_24H: 'DEMO_REMINDER_24H',
+  DEMO_REMINDER_8AM: 'DEMO_REMINDER_8AM',
+  DEMO_REMINDER_30MIN: 'DEMO_REMINDER_30MIN',
+  QUOTE_PRESENTED: 'QUOTE_PRESENTED',
+  WON: 'WON',
+  FORMAL_PROPOSAL_SENT: 'FORMAL_PROPOSAL_SENT',
+  FOLLOWUP_48H: 'FOLLOWUP_48H',
+  FOLLOWUP_5_7_DAYS: 'FOLLOWUP_5_7_DAYS',
+  CUTOFF_20_DAYS: 'CUTOFF_20_DAYS'
+};
+
+exports.ConversationChannel = exports.$Enums.ConversationChannel = {
+  WHATSAPP: 'WHATSAPP'
+};
+
+exports.MessageDirection = exports.$Enums.MessageDirection = {
+  INBOUND: 'INBOUND',
+  OUTBOUND: 'OUTBOUND'
+};
+
+exports.MessageType = exports.$Enums.MessageType = {
+  TEXT: 'TEXT',
+  TEMPLATE: 'TEMPLATE',
+  BUTTON: 'BUTTON',
+  INTERACTIVE: 'INTERACTIVE',
+  STATUS: 'STATUS',
+  AUDIO: 'AUDIO',
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO',
+  DOCUMENT: 'DOCUMENT',
+  STICKER: 'STICKER',
+  LOCATION: 'LOCATION'
+};
+
+exports.MessageStatus = exports.$Enums.MessageStatus = {
+  PENDING: 'PENDING',
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  READ: 'READ',
+  FAILED: 'FAILED'
+};
+
+exports.PipelineJobStatus = exports.$Enums.PipelineJobStatus = {
+  PENDING: 'PENDING',
+  EXECUTED: 'EXECUTED',
+  STALE: 'STALE',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.MarketingFunnelStage = exports.$Enums.MarketingFunnelStage = {
+  LEAD_MAGNET_SENT: 'LEAD_MAGNET_SENT',
+  VIDEO_SENT: 'VIDEO_SENT',
+  SCHEDULED: 'SCHEDULED',
+  SHOWED_UP: 'SHOWED_UP',
+  NO_SHOW: 'NO_SHOW',
+  PURCHASED: 'PURCHASED'
+};
+
+exports.MarketingEventName = exports.$Enums.MarketingEventName = {
+  VIEW_CONTENT: 'VIEW_CONTENT',
+  LEAD: 'LEAD',
+  SCHEDULE: 'SCHEDULE',
+  SHOW_UP: 'SHOW_UP',
+  PURCHASE: 'PURCHASE'
+};
+
+exports.ContractPlan = exports.$Enums.ContractPlan = {
+  THREE_MONTH: 'THREE_MONTH',
+  FIVE_MONTH: 'FIVE_MONTH',
+  OTHER: 'OTHER'
+};
+
+exports.VideoDropReason = exports.$Enums.VideoDropReason = {
+  PAUSE: 'PAUSE',
+  TAB_HIDDEN: 'TAB_HIDDEN',
+  PAGE_LEAVE: 'PAGE_LEAVE',
+  SCROLL: 'SCROLL',
+  ENDED: 'ENDED'
+};
+
 exports.Prisma.ModelName = {
-  FormSubmission: 'FormSubmission'
+  Contact: 'Contact',
+  FormSubmission: 'FormSubmission',
+  LeadEvent: 'LeadEvent',
+  VideoWatchSession: 'VideoWatchSession',
+  LeadPipeline: 'LeadPipeline',
+  Conversation: 'Conversation',
+  ConversationMessage: 'ConversationMessage',
+  PipelineJob: 'PipelineJob'
 };
 /**
  * Create the Client
@@ -158,7 +480,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Santiago\\code\\sv\\prisma\\generated\\client",
+      "value": "C:\\Users\\Santiago\\code\\agentpilot-platform\\prisma\\generated\\client-tmp",
       "fromEnvVar": null
     },
     "config": {
@@ -172,11 +494,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Santiago\\code\\sv\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Santiago\\code\\agentpilot-platform\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
+    "rootEnvPath": "../../../.env",
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
@@ -195,13 +517,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel FormSubmission {\n  id            String           @id @default(cuid())\n  fullName      String\n  email         String\n  usesPms       PmsUsage\n  propertyCount PropertyCount\n  revenueRange  RevenueRange\n  status        SubmissionStatus @default(NEW)\n  createdAt     DateTime         @default(now())\n  updatedAt     DateTime         @updatedAt\n}\n\nenum PmsUsage {\n  YES\n  NO\n  EVALUATING\n}\n\nenum PropertyCount {\n  ONE_TO_FIVE\n  SIX_TO_FIFTEEN\n  SIXTEEN_TO_FIFTY\n  FIFTY_ONE_PLUS\n}\n\nenum RevenueRange {\n  UNDER_10M\n  TEN_TO_FIFTY_M\n  FIFTY_TO_200M\n  OVER_200M\n}\n\nenum SubmissionStatus {\n  NEW\n  REVIEWING\n  CONTACTED\n  MEETING_SCHEDULED\n  PROPOSAL_SENT\n  CLOSED_WON\n  CLOSED_LOST\n}\n",
-  "inlineSchemaHash": "a8d442d0f9d0ba045746c592ef5c291a465b78f5e77641fc3272c27b6f4cfabd",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Contact {\n  id               String   @id @default(cuid())\n  fullName         String\n  email            String?\n  phoneE164        String   @unique\n  waId             String?  @unique\n  phoneCountryCode String\n  phoneNumber      String\n  companyName      String?\n  websiteUrl       String?\n  instagramUrl     String?\n  createdAt        DateTime @default(now())\n  updatedAt        DateTime @updatedAt\n\n  submissions   FormSubmission[]\n  pipeline      LeadPipeline?\n  conversations Conversation[]\n\n  @@index([email])\n}\n\nmodel FormSubmission {\n  id                     String                  @id @default(cuid())\n  fullName               String?\n  email                  String?\n  companyName            String?\n  phoneCountryCode       String?\n  phoneNumber            String?\n  instagramUrl           String?\n  websiteUrl             String?\n  usesPms                PmsUsage?\n  propertyCount          PropertyCount?\n  revenueRange           RevenueRange?\n  isTodero               YesNo?\n  usesAi                 YesNo?\n  wantsToScale           YesNo?\n  industryTime           IndustryTime?\n  pdfToken               String                  @unique\n  qualification          LeadQualification?\n  qualificationScore     Int?\n  disqualificationReason DisqualificationReason?\n  scoreBreakdown         Json?\n  entrySource            LeadEntrySource         @default(EBOOK)\n  bookingFlow            BookingFlow?\n  bookedAt               DateTime?\n  status                 SubmissionStatus        @default(NEW)\n  fbclid                 String?\n  fbp                    String?\n  fbc                    String?\n  utmSource              String?\n  utmMedium              String?\n  utmCampaign            String?\n  utmContent             String?\n  utmTerm                String?\n  landingPath            String?\n  referrer               String?\n  marketingFunnelStage   MarketingFunnelStage?\n  contractValueUsd       Decimal?                @db.Decimal(12, 2)\n  contractPlan           ContractPlan?\n  createdAt              DateTime                @default(now())\n  updatedAt              DateTime                @updatedAt\n  contactId              String?\n  contact                Contact?                @relation(fields: [contactId], references: [id], onDelete: SetNull)\n  events                 LeadEvent[]\n\n  @@index([qualification])\n  @@index([entrySource])\n  @@index([bookingFlow])\n  @@index([contactId])\n  @@index([marketingFunnelStage])\n}\n\nmodel LeadEvent {\n  id              String             @id\n  submissionId    String\n  submission      FormSubmission     @relation(fields: [submissionId], references: [id], onDelete: Cascade)\n  eventName       MarketingEventName\n  eventTime       DateTime           @default(now())\n  eventSourceUrl  String?\n  value           Decimal            @db.Decimal(12, 2)\n  currency        String             @default(\"USD\")\n  sentToMeta      Boolean            @default(false)\n  metaResponse    Json?\n  attemptCount    Int                @default(0)\n  lastAttemptAt   DateTime?\n  triggeredBy     String\n  clientIp        String?\n  clientUserAgent String?\n  createdAt       DateTime           @default(now())\n\n  @@unique([submissionId, eventName])\n  @@index([sentToMeta, createdAt])\n  @@index([submissionId])\n}\n\nmodel VideoWatchSession {\n  id              String           @id @default(cuid())\n  visitorId       String\n  videoId         String\n  startedAt       DateTime         @default(now())\n  lastHeartbeatAt DateTime         @default(now())\n  maxSecond       Int              @default(0)\n  durationSeconds Int              @default(0)\n  unlocked        Boolean          @default(false)\n  completed       Boolean          @default(false)\n  droppedAtSecond Int?\n  dropReason      VideoDropReason?\n  createdAt       DateTime         @default(now())\n  updatedAt       DateTime         @updatedAt\n\n  @@index([videoId, startedAt])\n  @@index([visitorId])\n  @@index([videoId, completed])\n}\n\nmodel LeadPipeline {\n  id                   String        @id @default(cuid())\n  contactId            String        @unique\n  contact              Contact       @relation(fields: [contactId], references: [id], onDelete: Cascade)\n  funnelOrigin         FunnelOrigin\n  currentStage         PipelineStage\n  currentState         PipelineState\n  scheduledJobId       String?\n  scheduledJobDedupKey String?       @unique\n  videoWatched         Boolean       @default(false)\n  utmSource            String?\n  pixelFiredAt         DateTime?\n  painPoint            String?\n  qualificationAnswers Json?\n  meetingId            String?\n  meetingTime          DateTime?\n  meetLink             String?\n  createdAt            DateTime      @default(now())\n  updatedAt            DateTime      @updatedAt\n  jobs                 PipelineJob[]\n\n  @@index([currentStage, currentState])\n  @@index([funnelOrigin])\n  @@index([currentState])\n  @@index([meetingTime])\n  @@index([scheduledJobId])\n}\n\nmodel Conversation {\n  id              String                @id @default(cuid())\n  contactId       String\n  contact         Contact               @relation(fields: [contactId], references: [id], onDelete: Cascade)\n  channel         ConversationChannel   @default(WHATSAPP)\n  waPhoneNumberId String?\n  createdAt       DateTime              @default(now())\n  updatedAt       DateTime              @updatedAt\n  messages        ConversationMessage[]\n\n  @@unique([contactId, channel])\n}\n\nmodel ConversationMessage {\n  id             String           @id @default(cuid())\n  conversationId String\n  conversation   Conversation     @relation(fields: [conversationId], references: [id], onDelete: Cascade)\n  direction      MessageDirection\n  waMessageId    String?          @unique\n  type           MessageType\n  body           String?\n  templateName   String?\n  buttonId       String?\n  rawPayload     Json?\n  pipelineState  PipelineState?\n  status         MessageStatus    @default(PENDING)\n  mediaId        String?\n  mimeType       String?\n  mediaFilename  String?\n  mediaUrl       String?\n  caption        String?\n  createdAt      DateTime         @default(now())\n\n  @@index([conversationId, createdAt])\n}\n\nmodel PipelineJob {\n  id              String            @id @default(cuid())\n  pipelineId      String\n  pipeline        LeadPipeline      @relation(fields: [pipelineId], references: [id], onDelete: Cascade)\n  dedupKey        String            @unique\n  expectedState   PipelineState\n  qstashMessageId String?\n  status          PipelineJobStatus @default(PENDING)\n  createdAt       DateTime          @default(now())\n  executedAt      DateTime?\n\n  @@index([pipelineId, status])\n}\n\nenum PmsUsage {\n  YES\n  NO\n  EVALUATING\n}\n\nenum PropertyCount {\n  UNDER_5\n  FIVE_TO_FIFTEEN\n  SIXTEEN_TO_TWENTY_FIVE\n  OVER_25\n}\n\nenum RevenueRange {\n  UNDER_10M\n  TEN_TO_TWENTY_M\n  TWENTY_ONE_TO_FIFTY_M\n  OVER_50M\n}\n\nenum YesNo {\n  YES\n  NO\n}\n\nenum IndustryTime {\n  UNDER_5\n  FIVE_TO_TEN\n  OVER_10\n}\n\nenum SubmissionStatus {\n  PARTIAL\n  NEW\n  REVIEWING\n  CONTACTED\n  MEETING_SCHEDULED\n  PROPOSAL_SENT\n  CLOSED_WON\n  CLOSED_LOST\n}\n\nenum LeadQualification {\n  SQL\n  MQL\n  DISQUALIFIED\n}\n\nenum DisqualificationReason {\n  REVENUE_VETO\n  LOW_SCORE\n}\n\nenum LeadEntrySource {\n  EBOOK\n  DIAGNOSIS\n  DIRECT_BOOKING\n}\n\nenum BookingFlow {\n  EBOOK_SQL\n  EBOOK_PDF\n  DIAGNOSIS_PUBLIC\n  DIRECT_BOOKING\n}\n\nenum FunnelOrigin {\n  SQL\n  MQL\n  DIRECT_BOOKING\n}\n\nenum PipelineStage {\n  NURTURING\n  PRE_MEETING\n  PRE_DEMO\n  POST_DEMO\n}\n\nenum PipelineState {\n  LEAD_MAGNET_DOWNLOADED\n  AWAITING_CONFIRMATION\n  QUALIFICATION_OFFERED\n  QUALIFYING_Q1\n  QUALIFYING_Q2\n  QUALIFYING_Q3\n  FIT_CONFIRMED\n  DISQUALIFIED\n  VIDEO_SENT\n  CTA_SENT_SAW_VIDEO\n  CTA_SENT_NO_VIDEO\n  LAST_NURTURE_SENT\n  COLD_CALL_QUEUED\n  SCHEDULED\n  LOST\n  LONG_TERM_NURTURE\n  MEETING_SCHEDULED\n  CONFIRMATION_SENT\n  REMINDER_48H\n  REMINDER_24H\n  REMINDER_8AM_DAY_OF\n  REMINDER_30MIN\n  ATTENDED\n  NO_SHOW\n  RESCHEDULE_OFFERED\n  DISCOVERY_COMPLETED\n  DISCOVERY_SUMMARY_SENT\n  DEMO_CONFIRMATION_SENT\n  DEMO_REMINDER_48H\n  DEMO_REMINDER_24H\n  DEMO_REMINDER_8AM\n  DEMO_REMINDER_30MIN\n  QUOTE_PRESENTED\n  WON\n  FORMAL_PROPOSAL_SENT\n  FOLLOWUP_48H\n  FOLLOWUP_5_7_DAYS\n  CUTOFF_20_DAYS\n}\n\nenum ConversationChannel {\n  WHATSAPP\n}\n\nenum MessageDirection {\n  INBOUND\n  OUTBOUND\n}\n\nenum MessageType {\n  TEXT\n  TEMPLATE\n  BUTTON\n  INTERACTIVE\n  STATUS\n  AUDIO\n  IMAGE\n  VIDEO\n  DOCUMENT\n  STICKER\n  LOCATION\n}\n\nenum MessageStatus {\n  PENDING\n  SENT\n  DELIVERED\n  READ\n  FAILED\n}\n\nenum PipelineJobStatus {\n  PENDING\n  EXECUTED\n  STALE\n  CANCELLED\n}\n\nenum MarketingFunnelStage {\n  LEAD_MAGNET_SENT\n  VIDEO_SENT\n  SCHEDULED\n  SHOWED_UP\n  NO_SHOW\n  PURCHASED\n}\n\nenum MarketingEventName {\n  VIEW_CONTENT\n  LEAD\n  SCHEDULE\n  SHOW_UP\n  PURCHASE\n}\n\nenum ContractPlan {\n  THREE_MONTH\n  FIVE_MONTH\n  OTHER\n}\n\nenum VideoDropReason {\n  PAUSE\n  TAB_HIDDEN\n  PAGE_LEAVE\n  SCROLL\n  ENDED\n}\n",
+  "inlineSchemaHash": "e058a5ca96ad887ef7034e4db052ed5f168818e551dbbd49b4c0869f9ab835d7",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"FormSubmission\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"fullName\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"usesPms\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"PmsUsage\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"propertyCount\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"PropertyCount\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"revenueRange\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"RevenueRange\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"status\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"SubmissionStatus\",\"nativeType\":null,\"default\":\"NEW\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":true}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{\"PmsUsage\":{\"values\":[{\"name\":\"YES\",\"dbName\":null},{\"name\":\"NO\",\"dbName\":null},{\"name\":\"EVALUATING\",\"dbName\":null}],\"dbName\":null},\"PropertyCount\":{\"values\":[{\"name\":\"ONE_TO_FIVE\",\"dbName\":null},{\"name\":\"SIX_TO_FIFTEEN\",\"dbName\":null},{\"name\":\"SIXTEEN_TO_FIFTY\",\"dbName\":null},{\"name\":\"FIFTY_ONE_PLUS\",\"dbName\":null}],\"dbName\":null},\"RevenueRange\":{\"values\":[{\"name\":\"UNDER_10M\",\"dbName\":null},{\"name\":\"TEN_TO_FIFTY_M\",\"dbName\":null},{\"name\":\"FIFTY_TO_200M\",\"dbName\":null},{\"name\":\"OVER_200M\",\"dbName\":null}],\"dbName\":null},\"SubmissionStatus\":{\"values\":[{\"name\":\"NEW\",\"dbName\":null},{\"name\":\"REVIEWING\",\"dbName\":null},{\"name\":\"CONTACTED\",\"dbName\":null},{\"name\":\"MEETING_SCHEDULED\",\"dbName\":null},{\"name\":\"PROPOSAL_SENT\",\"dbName\":null},{\"name\":\"CLOSED_WON\",\"dbName\":null},{\"name\":\"CLOSED_LOST\",\"dbName\":null}],\"dbName\":null}},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Contact\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"fullName\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"phoneE164\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"waId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"phoneCountryCode\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"companyName\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"websiteUrl\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"instagramUrl\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":true},{\"name\":\"submissions\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"FormSubmission\",\"nativeType\":null,\"relationName\":\"ContactToFormSubmission\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"pipeline\",\"kind\":\"object\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"LeadPipeline\",\"nativeType\":null,\"relationName\":\"ContactToLeadPipeline\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"conversations\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Conversation\",\"nativeType\":null,\"relationName\":\"ContactToConversation\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"FormSubmission\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"fullName\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"companyName\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"phoneCountryCode\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"instagramUrl\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"websiteUrl\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"usesPms\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"PmsUsage\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"propertyCount\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"PropertyCount\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"revenueRange\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"RevenueRange\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"isTodero\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"YesNo\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"usesAi\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"YesNo\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"wantsToScale\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"YesNo\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"industryTime\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"IndustryTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"pdfToken\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"qualification\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"LeadQualification\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"qualificationScore\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"disqualificationReason\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DisqualificationReason\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"scoreBreakdown\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Json\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"entrySource\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"LeadEntrySource\",\"nativeType\":null,\"default\":\"EBOOK\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"bookingFlow\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"BookingFlow\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"bookedAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"status\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"SubmissionStatus\",\"nativeType\":null,\"default\":\"NEW\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"fbclid\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"fbp\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"fbc\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"utmSource\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"utmMedium\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"utmCampaign\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"utmContent\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"utmTerm\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"landingPath\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"referrer\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"marketingFunnelStage\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"MarketingFunnelStage\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"contractValueUsd\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Decimal\",\"nativeType\":[\"Decimal\",[\"12\",\"2\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"contractPlan\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"ContractPlan\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":true},{\"name\":\"contactId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"contact\",\"kind\":\"object\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Contact\",\"nativeType\":null,\"relationName\":\"ContactToFormSubmission\",\"relationFromFields\":[\"contactId\"],\"relationToFields\":[\"id\"],\"relationOnDelete\":\"SetNull\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"events\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"LeadEvent\",\"nativeType\":null,\"relationName\":\"FormSubmissionToLeadEvent\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"LeadEvent\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"submissionId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"submission\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"FormSubmission\",\"nativeType\":null,\"relationName\":\"FormSubmissionToLeadEvent\",\"relationFromFields\":[\"submissionId\"],\"relationToFields\":[\"id\"],\"relationOnDelete\":\"Cascade\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"eventName\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"MarketingEventName\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"eventTime\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"eventSourceUrl\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"value\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Decimal\",\"nativeType\":[\"Decimal\",[\"12\",\"2\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"currency\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":\"USD\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"sentToMeta\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Boolean\",\"nativeType\":null,\"default\":false,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"metaResponse\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Json\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"attemptCount\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":0,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"lastAttemptAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"triggeredBy\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"clientIp\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"clientUserAgent\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[[\"submissionId\",\"eventName\"]],\"uniqueIndexes\":[{\"name\":null,\"fields\":[\"submissionId\",\"eventName\"]}],\"isGenerated\":false},\"VideoWatchSession\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"visitorId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"videoId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"startedAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"lastHeartbeatAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"maxSecond\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":0,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"durationSeconds\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":0,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"unlocked\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Boolean\",\"nativeType\":null,\"default\":false,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"completed\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Boolean\",\"nativeType\":null,\"default\":false,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"droppedAtSecond\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"dropReason\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"VideoDropReason\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":true}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"LeadPipeline\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"contactId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"contact\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Contact\",\"nativeType\":null,\"relationName\":\"ContactToLeadPipeline\",\"relationFromFields\":[\"contactId\"],\"relationToFields\":[\"id\"],\"relationOnDelete\":\"Cascade\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"funnelOrigin\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"FunnelOrigin\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"currentStage\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"PipelineStage\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"currentState\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"PipelineState\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"scheduledJobId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"scheduledJobDedupKey\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"videoWatched\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Boolean\",\"nativeType\":null,\"default\":false,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"utmSource\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"pixelFiredAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"painPoint\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"qualificationAnswers\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Json\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"meetingId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"meetingTime\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"meetLink\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":true},{\"name\":\"jobs\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"PipelineJob\",\"nativeType\":null,\"relationName\":\"LeadPipelineToPipelineJob\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Conversation\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"contactId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"contact\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Contact\",\"nativeType\":null,\"relationName\":\"ContactToConversation\",\"relationFromFields\":[\"contactId\"],\"relationToFields\":[\"id\"],\"relationOnDelete\":\"Cascade\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"channel\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"ConversationChannel\",\"nativeType\":null,\"default\":\"WHATSAPP\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"waPhoneNumberId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":true},{\"name\":\"messages\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"ConversationMessage\",\"nativeType\":null,\"relationName\":\"ConversationToConversationMessage\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[[\"contactId\",\"channel\"]],\"uniqueIndexes\":[{\"name\":null,\"fields\":[\"contactId\",\"channel\"]}],\"isGenerated\":false},\"ConversationMessage\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"conversationId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"conversation\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Conversation\",\"nativeType\":null,\"relationName\":\"ConversationToConversationMessage\",\"relationFromFields\":[\"conversationId\"],\"relationToFields\":[\"id\"],\"relationOnDelete\":\"Cascade\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"direction\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"MessageDirection\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"waMessageId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"type\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"MessageType\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"body\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"templateName\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"buttonId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"rawPayload\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Json\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"pipelineState\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"PipelineState\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"status\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"MessageStatus\",\"nativeType\":null,\"default\":\"PENDING\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"mediaId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"mimeType\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"mediaFilename\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"mediaUrl\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"caption\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"PipelineJob\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"pipelineId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"pipeline\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"LeadPipeline\",\"nativeType\":null,\"relationName\":\"LeadPipelineToPipelineJob\",\"relationFromFields\":[\"pipelineId\"],\"relationToFields\":[\"id\"],\"relationOnDelete\":\"Cascade\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"dedupKey\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"expectedState\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"PipelineState\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"qstashMessageId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"status\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"PipelineJobStatus\",\"nativeType\":null,\"default\":\"PENDING\",\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"executedAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{\"PmsUsage\":{\"values\":[{\"name\":\"YES\",\"dbName\":null},{\"name\":\"NO\",\"dbName\":null},{\"name\":\"EVALUATING\",\"dbName\":null}],\"dbName\":null},\"PropertyCount\":{\"values\":[{\"name\":\"UNDER_5\",\"dbName\":null},{\"name\":\"FIVE_TO_FIFTEEN\",\"dbName\":null},{\"name\":\"SIXTEEN_TO_TWENTY_FIVE\",\"dbName\":null},{\"name\":\"OVER_25\",\"dbName\":null}],\"dbName\":null},\"RevenueRange\":{\"values\":[{\"name\":\"UNDER_10M\",\"dbName\":null},{\"name\":\"TEN_TO_TWENTY_M\",\"dbName\":null},{\"name\":\"TWENTY_ONE_TO_FIFTY_M\",\"dbName\":null},{\"name\":\"OVER_50M\",\"dbName\":null}],\"dbName\":null},\"YesNo\":{\"values\":[{\"name\":\"YES\",\"dbName\":null},{\"name\":\"NO\",\"dbName\":null}],\"dbName\":null},\"IndustryTime\":{\"values\":[{\"name\":\"UNDER_5\",\"dbName\":null},{\"name\":\"FIVE_TO_TEN\",\"dbName\":null},{\"name\":\"OVER_10\",\"dbName\":null}],\"dbName\":null},\"SubmissionStatus\":{\"values\":[{\"name\":\"PARTIAL\",\"dbName\":null},{\"name\":\"NEW\",\"dbName\":null},{\"name\":\"REVIEWING\",\"dbName\":null},{\"name\":\"CONTACTED\",\"dbName\":null},{\"name\":\"MEETING_SCHEDULED\",\"dbName\":null},{\"name\":\"PROPOSAL_SENT\",\"dbName\":null},{\"name\":\"CLOSED_WON\",\"dbName\":null},{\"name\":\"CLOSED_LOST\",\"dbName\":null}],\"dbName\":null},\"LeadQualification\":{\"values\":[{\"name\":\"SQL\",\"dbName\":null},{\"name\":\"MQL\",\"dbName\":null},{\"name\":\"DISQUALIFIED\",\"dbName\":null}],\"dbName\":null},\"DisqualificationReason\":{\"values\":[{\"name\":\"REVENUE_VETO\",\"dbName\":null},{\"name\":\"LOW_SCORE\",\"dbName\":null}],\"dbName\":null},\"LeadEntrySource\":{\"values\":[{\"name\":\"EBOOK\",\"dbName\":null},{\"name\":\"DIAGNOSIS\",\"dbName\":null},{\"name\":\"DIRECT_BOOKING\",\"dbName\":null}],\"dbName\":null},\"BookingFlow\":{\"values\":[{\"name\":\"EBOOK_SQL\",\"dbName\":null},{\"name\":\"EBOOK_PDF\",\"dbName\":null},{\"name\":\"DIAGNOSIS_PUBLIC\",\"dbName\":null},{\"name\":\"DIRECT_BOOKING\",\"dbName\":null}],\"dbName\":null},\"FunnelOrigin\":{\"values\":[{\"name\":\"SQL\",\"dbName\":null},{\"name\":\"MQL\",\"dbName\":null},{\"name\":\"DIRECT_BOOKING\",\"dbName\":null}],\"dbName\":null},\"PipelineStage\":{\"values\":[{\"name\":\"NURTURING\",\"dbName\":null},{\"name\":\"PRE_MEETING\",\"dbName\":null},{\"name\":\"PRE_DEMO\",\"dbName\":null},{\"name\":\"POST_DEMO\",\"dbName\":null}],\"dbName\":null},\"PipelineState\":{\"values\":[{\"name\":\"LEAD_MAGNET_DOWNLOADED\",\"dbName\":null},{\"name\":\"AWAITING_CONFIRMATION\",\"dbName\":null},{\"name\":\"QUALIFICATION_OFFERED\",\"dbName\":null},{\"name\":\"QUALIFYING_Q1\",\"dbName\":null},{\"name\":\"QUALIFYING_Q2\",\"dbName\":null},{\"name\":\"QUALIFYING_Q3\",\"dbName\":null},{\"name\":\"FIT_CONFIRMED\",\"dbName\":null},{\"name\":\"DISQUALIFIED\",\"dbName\":null},{\"name\":\"VIDEO_SENT\",\"dbName\":null},{\"name\":\"CTA_SENT_SAW_VIDEO\",\"dbName\":null},{\"name\":\"CTA_SENT_NO_VIDEO\",\"dbName\":null},{\"name\":\"LAST_NURTURE_SENT\",\"dbName\":null},{\"name\":\"COLD_CALL_QUEUED\",\"dbName\":null},{\"name\":\"SCHEDULED\",\"dbName\":null},{\"name\":\"LOST\",\"dbName\":null},{\"name\":\"LONG_TERM_NURTURE\",\"dbName\":null},{\"name\":\"MEETING_SCHEDULED\",\"dbName\":null},{\"name\":\"CONFIRMATION_SENT\",\"dbName\":null},{\"name\":\"REMINDER_48H\",\"dbName\":null},{\"name\":\"REMINDER_24H\",\"dbName\":null},{\"name\":\"REMINDER_8AM_DAY_OF\",\"dbName\":null},{\"name\":\"REMINDER_30MIN\",\"dbName\":null},{\"name\":\"ATTENDED\",\"dbName\":null},{\"name\":\"NO_SHOW\",\"dbName\":null},{\"name\":\"RESCHEDULE_OFFERED\",\"dbName\":null},{\"name\":\"DISCOVERY_COMPLETED\",\"dbName\":null},{\"name\":\"DISCOVERY_SUMMARY_SENT\",\"dbName\":null},{\"name\":\"DEMO_CONFIRMATION_SENT\",\"dbName\":null},{\"name\":\"DEMO_REMINDER_48H\",\"dbName\":null},{\"name\":\"DEMO_REMINDER_24H\",\"dbName\":null},{\"name\":\"DEMO_REMINDER_8AM\",\"dbName\":null},{\"name\":\"DEMO_REMINDER_30MIN\",\"dbName\":null},{\"name\":\"QUOTE_PRESENTED\",\"dbName\":null},{\"name\":\"WON\",\"dbName\":null},{\"name\":\"FORMAL_PROPOSAL_SENT\",\"dbName\":null},{\"name\":\"FOLLOWUP_48H\",\"dbName\":null},{\"name\":\"FOLLOWUP_5_7_DAYS\",\"dbName\":null},{\"name\":\"CUTOFF_20_DAYS\",\"dbName\":null}],\"dbName\":null},\"ConversationChannel\":{\"values\":[{\"name\":\"WHATSAPP\",\"dbName\":null}],\"dbName\":null},\"MessageDirection\":{\"values\":[{\"name\":\"INBOUND\",\"dbName\":null},{\"name\":\"OUTBOUND\",\"dbName\":null}],\"dbName\":null},\"MessageType\":{\"values\":[{\"name\":\"TEXT\",\"dbName\":null},{\"name\":\"TEMPLATE\",\"dbName\":null},{\"name\":\"BUTTON\",\"dbName\":null},{\"name\":\"INTERACTIVE\",\"dbName\":null},{\"name\":\"STATUS\",\"dbName\":null},{\"name\":\"AUDIO\",\"dbName\":null},{\"name\":\"IMAGE\",\"dbName\":null},{\"name\":\"VIDEO\",\"dbName\":null},{\"name\":\"DOCUMENT\",\"dbName\":null},{\"name\":\"STICKER\",\"dbName\":null},{\"name\":\"LOCATION\",\"dbName\":null}],\"dbName\":null},\"MessageStatus\":{\"values\":[{\"name\":\"PENDING\",\"dbName\":null},{\"name\":\"SENT\",\"dbName\":null},{\"name\":\"DELIVERED\",\"dbName\":null},{\"name\":\"READ\",\"dbName\":null},{\"name\":\"FAILED\",\"dbName\":null}],\"dbName\":null},\"PipelineJobStatus\":{\"values\":[{\"name\":\"PENDING\",\"dbName\":null},{\"name\":\"EXECUTED\",\"dbName\":null},{\"name\":\"STALE\",\"dbName\":null},{\"name\":\"CANCELLED\",\"dbName\":null}],\"dbName\":null},\"MarketingFunnelStage\":{\"values\":[{\"name\":\"LEAD_MAGNET_SENT\",\"dbName\":null},{\"name\":\"VIDEO_SENT\",\"dbName\":null},{\"name\":\"SCHEDULED\",\"dbName\":null},{\"name\":\"SHOWED_UP\",\"dbName\":null},{\"name\":\"NO_SHOW\",\"dbName\":null},{\"name\":\"PURCHASED\",\"dbName\":null}],\"dbName\":null},\"MarketingEventName\":{\"values\":[{\"name\":\"VIEW_CONTENT\",\"dbName\":null},{\"name\":\"LEAD\",\"dbName\":null},{\"name\":\"SCHEDULE\",\"dbName\":null},{\"name\":\"SHOW_UP\",\"dbName\":null},{\"name\":\"PURCHASE\",\"dbName\":null}],\"dbName\":null},\"ContractPlan\":{\"values\":[{\"name\":\"THREE_MONTH\",\"dbName\":null},{\"name\":\"FIVE_MONTH\",\"dbName\":null},{\"name\":\"OTHER\",\"dbName\":null}],\"dbName\":null},\"VideoDropReason\":{\"values\":[{\"name\":\"PAUSE\",\"dbName\":null},{\"name\":\"TAB_HIDDEN\",\"dbName\":null},{\"name\":\"PAGE_LEAVE\",\"dbName\":null},{\"name\":\"SCROLL\",\"dbName\":null},{\"name\":\"ENDED\",\"dbName\":null}],\"dbName\":null}},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = undefined
 config.compilerWasm = undefined

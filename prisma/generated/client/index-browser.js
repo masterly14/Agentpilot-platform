@@ -121,16 +121,156 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.ContactScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  phoneE164: 'phoneE164',
+  waId: 'waId',
+  phoneCountryCode: 'phoneCountryCode',
+  phoneNumber: 'phoneNumber',
+  companyName: 'companyName',
+  websiteUrl: 'websiteUrl',
+  instagramUrl: 'instagramUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.FormSubmissionScalarFieldEnum = {
   id: 'id',
   fullName: 'fullName',
   email: 'email',
+  companyName: 'companyName',
+  phoneCountryCode: 'phoneCountryCode',
+  phoneNumber: 'phoneNumber',
+  instagramUrl: 'instagramUrl',
+  websiteUrl: 'websiteUrl',
   usesPms: 'usesPms',
   propertyCount: 'propertyCount',
   revenueRange: 'revenueRange',
+  isTodero: 'isTodero',
+  usesAi: 'usesAi',
+  wantsToScale: 'wantsToScale',
+  industryTime: 'industryTime',
+  pdfToken: 'pdfToken',
+  qualification: 'qualification',
+  qualificationScore: 'qualificationScore',
+  disqualificationReason: 'disqualificationReason',
+  scoreBreakdown: 'scoreBreakdown',
+  entrySource: 'entrySource',
+  bookingFlow: 'bookingFlow',
+  bookedAt: 'bookedAt',
   status: 'status',
+  fbclid: 'fbclid',
+  fbp: 'fbp',
+  fbc: 'fbc',
+  utmSource: 'utmSource',
+  utmMedium: 'utmMedium',
+  utmCampaign: 'utmCampaign',
+  utmContent: 'utmContent',
+  utmTerm: 'utmTerm',
+  landingPath: 'landingPath',
+  referrer: 'referrer',
+  marketingFunnelStage: 'marketingFunnelStage',
+  contractValueUsd: 'contractValueUsd',
+  contractPlan: 'contractPlan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  contactId: 'contactId'
+};
+
+exports.Prisma.LeadEventScalarFieldEnum = {
+  id: 'id',
+  submissionId: 'submissionId',
+  eventName: 'eventName',
+  eventTime: 'eventTime',
+  eventSourceUrl: 'eventSourceUrl',
+  value: 'value',
+  currency: 'currency',
+  sentToMeta: 'sentToMeta',
+  metaResponse: 'metaResponse',
+  attemptCount: 'attemptCount',
+  lastAttemptAt: 'lastAttemptAt',
+  triggeredBy: 'triggeredBy',
+  clientIp: 'clientIp',
+  clientUserAgent: 'clientUserAgent',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.VideoWatchSessionScalarFieldEnum = {
+  id: 'id',
+  visitorId: 'visitorId',
+  videoId: 'videoId',
+  startedAt: 'startedAt',
+  lastHeartbeatAt: 'lastHeartbeatAt',
+  maxSecond: 'maxSecond',
+  durationSeconds: 'durationSeconds',
+  unlocked: 'unlocked',
+  completed: 'completed',
+  droppedAtSecond: 'droppedAtSecond',
+  dropReason: 'dropReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LeadPipelineScalarFieldEnum = {
+  id: 'id',
+  contactId: 'contactId',
+  funnelOrigin: 'funnelOrigin',
+  currentStage: 'currentStage',
+  currentState: 'currentState',
+  scheduledJobId: 'scheduledJobId',
+  scheduledJobDedupKey: 'scheduledJobDedupKey',
+  videoWatched: 'videoWatched',
+  utmSource: 'utmSource',
+  pixelFiredAt: 'pixelFiredAt',
+  painPoint: 'painPoint',
+  qualificationAnswers: 'qualificationAnswers',
+  meetingId: 'meetingId',
+  meetingTime: 'meetingTime',
+  meetLink: 'meetLink',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ConversationScalarFieldEnum = {
+  id: 'id',
+  contactId: 'contactId',
+  channel: 'channel',
+  waPhoneNumberId: 'waPhoneNumberId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ConversationMessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  direction: 'direction',
+  waMessageId: 'waMessageId',
+  type: 'type',
+  body: 'body',
+  templateName: 'templateName',
+  buttonId: 'buttonId',
+  rawPayload: 'rawPayload',
+  pipelineState: 'pipelineState',
+  status: 'status',
+  mediaId: 'mediaId',
+  mimeType: 'mimeType',
+  mediaFilename: 'mediaFilename',
+  mediaUrl: 'mediaUrl',
+  caption: 'caption',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PipelineJobScalarFieldEnum = {
+  id: 'id',
+  pipelineId: 'pipelineId',
+  dedupKey: 'dedupKey',
+  expectedState: 'expectedState',
+  qstashMessageId: 'qstashMessageId',
+  status: 'status',
+  createdAt: 'createdAt',
+  executedAt: 'executedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -138,9 +278,25 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.PmsUsage = exports.$Enums.PmsUsage = {
   YES: 'YES',
@@ -149,20 +305,56 @@ exports.PmsUsage = exports.$Enums.PmsUsage = {
 };
 
 exports.PropertyCount = exports.$Enums.PropertyCount = {
-  ONE_TO_FIVE: 'ONE_TO_FIVE',
-  SIX_TO_FIFTEEN: 'SIX_TO_FIFTEEN',
-  SIXTEEN_TO_FIFTY: 'SIXTEEN_TO_FIFTY',
-  FIFTY_ONE_PLUS: 'FIFTY_ONE_PLUS'
+  UNDER_5: 'UNDER_5',
+  FIVE_TO_FIFTEEN: 'FIVE_TO_FIFTEEN',
+  SIXTEEN_TO_TWENTY_FIVE: 'SIXTEEN_TO_TWENTY_FIVE',
+  OVER_25: 'OVER_25'
 };
 
 exports.RevenueRange = exports.$Enums.RevenueRange = {
   UNDER_10M: 'UNDER_10M',
-  TEN_TO_FIFTY_M: 'TEN_TO_FIFTY_M',
-  FIFTY_TO_200M: 'FIFTY_TO_200M',
-  OVER_200M: 'OVER_200M'
+  TEN_TO_TWENTY_M: 'TEN_TO_TWENTY_M',
+  TWENTY_ONE_TO_FIFTY_M: 'TWENTY_ONE_TO_FIFTY_M',
+  OVER_50M: 'OVER_50M'
+};
+
+exports.YesNo = exports.$Enums.YesNo = {
+  YES: 'YES',
+  NO: 'NO'
+};
+
+exports.IndustryTime = exports.$Enums.IndustryTime = {
+  UNDER_5: 'UNDER_5',
+  FIVE_TO_TEN: 'FIVE_TO_TEN',
+  OVER_10: 'OVER_10'
+};
+
+exports.LeadQualification = exports.$Enums.LeadQualification = {
+  SQL: 'SQL',
+  MQL: 'MQL',
+  DISQUALIFIED: 'DISQUALIFIED'
+};
+
+exports.DisqualificationReason = exports.$Enums.DisqualificationReason = {
+  REVENUE_VETO: 'REVENUE_VETO',
+  LOW_SCORE: 'LOW_SCORE'
+};
+
+exports.LeadEntrySource = exports.$Enums.LeadEntrySource = {
+  EBOOK: 'EBOOK',
+  DIAGNOSIS: 'DIAGNOSIS',
+  DIRECT_BOOKING: 'DIRECT_BOOKING'
+};
+
+exports.BookingFlow = exports.$Enums.BookingFlow = {
+  EBOOK_SQL: 'EBOOK_SQL',
+  EBOOK_PDF: 'EBOOK_PDF',
+  DIAGNOSIS_PUBLIC: 'DIAGNOSIS_PUBLIC',
+  DIRECT_BOOKING: 'DIRECT_BOOKING'
 };
 
 exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
+  PARTIAL: 'PARTIAL',
   NEW: 'NEW',
   REVIEWING: 'REVIEWING',
   CONTACTED: 'CONTACTED',
@@ -172,8 +364,138 @@ exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
   CLOSED_LOST: 'CLOSED_LOST'
 };
 
+exports.MarketingFunnelStage = exports.$Enums.MarketingFunnelStage = {
+  LEAD_MAGNET_SENT: 'LEAD_MAGNET_SENT',
+  VIDEO_SENT: 'VIDEO_SENT',
+  SCHEDULED: 'SCHEDULED',
+  SHOWED_UP: 'SHOWED_UP',
+  NO_SHOW: 'NO_SHOW',
+  PURCHASED: 'PURCHASED'
+};
+
+exports.ContractPlan = exports.$Enums.ContractPlan = {
+  THREE_MONTH: 'THREE_MONTH',
+  FIVE_MONTH: 'FIVE_MONTH',
+  OTHER: 'OTHER'
+};
+
+exports.MarketingEventName = exports.$Enums.MarketingEventName = {
+  VIEW_CONTENT: 'VIEW_CONTENT',
+  LEAD: 'LEAD',
+  SCHEDULE: 'SCHEDULE',
+  SHOW_UP: 'SHOW_UP',
+  PURCHASE: 'PURCHASE'
+};
+
+exports.VideoDropReason = exports.$Enums.VideoDropReason = {
+  PAUSE: 'PAUSE',
+  TAB_HIDDEN: 'TAB_HIDDEN',
+  PAGE_LEAVE: 'PAGE_LEAVE',
+  SCROLL: 'SCROLL',
+  ENDED: 'ENDED'
+};
+
+exports.FunnelOrigin = exports.$Enums.FunnelOrigin = {
+  SQL: 'SQL',
+  MQL: 'MQL',
+  DIRECT_BOOKING: 'DIRECT_BOOKING'
+};
+
+exports.PipelineStage = exports.$Enums.PipelineStage = {
+  NURTURING: 'NURTURING',
+  PRE_MEETING: 'PRE_MEETING',
+  PRE_DEMO: 'PRE_DEMO',
+  POST_DEMO: 'POST_DEMO'
+};
+
+exports.PipelineState = exports.$Enums.PipelineState = {
+  LEAD_MAGNET_DOWNLOADED: 'LEAD_MAGNET_DOWNLOADED',
+  AWAITING_CONFIRMATION: 'AWAITING_CONFIRMATION',
+  QUALIFICATION_OFFERED: 'QUALIFICATION_OFFERED',
+  QUALIFYING_Q1: 'QUALIFYING_Q1',
+  QUALIFYING_Q2: 'QUALIFYING_Q2',
+  QUALIFYING_Q3: 'QUALIFYING_Q3',
+  FIT_CONFIRMED: 'FIT_CONFIRMED',
+  DISQUALIFIED: 'DISQUALIFIED',
+  VIDEO_SENT: 'VIDEO_SENT',
+  CTA_SENT_SAW_VIDEO: 'CTA_SENT_SAW_VIDEO',
+  CTA_SENT_NO_VIDEO: 'CTA_SENT_NO_VIDEO',
+  LAST_NURTURE_SENT: 'LAST_NURTURE_SENT',
+  COLD_CALL_QUEUED: 'COLD_CALL_QUEUED',
+  SCHEDULED: 'SCHEDULED',
+  LOST: 'LOST',
+  LONG_TERM_NURTURE: 'LONG_TERM_NURTURE',
+  MEETING_SCHEDULED: 'MEETING_SCHEDULED',
+  CONFIRMATION_SENT: 'CONFIRMATION_SENT',
+  REMINDER_48H: 'REMINDER_48H',
+  REMINDER_24H: 'REMINDER_24H',
+  REMINDER_8AM_DAY_OF: 'REMINDER_8AM_DAY_OF',
+  REMINDER_30MIN: 'REMINDER_30MIN',
+  ATTENDED: 'ATTENDED',
+  NO_SHOW: 'NO_SHOW',
+  RESCHEDULE_OFFERED: 'RESCHEDULE_OFFERED',
+  DISCOVERY_COMPLETED: 'DISCOVERY_COMPLETED',
+  DISCOVERY_SUMMARY_SENT: 'DISCOVERY_SUMMARY_SENT',
+  DEMO_CONFIRMATION_SENT: 'DEMO_CONFIRMATION_SENT',
+  DEMO_REMINDER_48H: 'DEMO_REMINDER_48H',
+  DEMO_REMINDER_24H: 'DEMO_REMINDER_24H',
+  DEMO_REMINDER_8AM: 'DEMO_REMINDER_8AM',
+  DEMO_REMINDER_30MIN: 'DEMO_REMINDER_30MIN',
+  QUOTE_PRESENTED: 'QUOTE_PRESENTED',
+  WON: 'WON',
+  FORMAL_PROPOSAL_SENT: 'FORMAL_PROPOSAL_SENT',
+  FOLLOWUP_48H: 'FOLLOWUP_48H',
+  FOLLOWUP_5_7_DAYS: 'FOLLOWUP_5_7_DAYS',
+  CUTOFF_20_DAYS: 'CUTOFF_20_DAYS'
+};
+
+exports.ConversationChannel = exports.$Enums.ConversationChannel = {
+  WHATSAPP: 'WHATSAPP'
+};
+
+exports.MessageDirection = exports.$Enums.MessageDirection = {
+  INBOUND: 'INBOUND',
+  OUTBOUND: 'OUTBOUND'
+};
+
+exports.MessageType = exports.$Enums.MessageType = {
+  TEXT: 'TEXT',
+  TEMPLATE: 'TEMPLATE',
+  BUTTON: 'BUTTON',
+  INTERACTIVE: 'INTERACTIVE',
+  STATUS: 'STATUS',
+  AUDIO: 'AUDIO',
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO',
+  DOCUMENT: 'DOCUMENT',
+  STICKER: 'STICKER',
+  LOCATION: 'LOCATION'
+};
+
+exports.MessageStatus = exports.$Enums.MessageStatus = {
+  PENDING: 'PENDING',
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  READ: 'READ',
+  FAILED: 'FAILED'
+};
+
+exports.PipelineJobStatus = exports.$Enums.PipelineJobStatus = {
+  PENDING: 'PENDING',
+  EXECUTED: 'EXECUTED',
+  STALE: 'STALE',
+  CANCELLED: 'CANCELLED'
+};
+
 exports.Prisma.ModelName = {
-  FormSubmission: 'FormSubmission'
+  Contact: 'Contact',
+  FormSubmission: 'FormSubmission',
+  LeadEvent: 'LeadEvent',
+  VideoWatchSession: 'VideoWatchSession',
+  LeadPipeline: 'LeadPipeline',
+  Conversation: 'Conversation',
+  ConversationMessage: 'ConversationMessage',
+  PipelineJob: 'PipelineJob'
 };
 
 /**

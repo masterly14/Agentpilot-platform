@@ -1,59 +1,103 @@
 import type {
-  BusinessProblem,
-  CompanySize,
-  ProductType,
-  ProjectStage,
-  ProjectType,
+  BookingFlow,
+  ContractPlan,
+  DisqualificationReason,
+  IndustryTime,
+  LeadEntrySource,
+  LeadQualification,
+  MarketingFunnelStage,
+  PmsUsage,
+  PropertyCount,
+  RevenueRange,
   SubmissionStatus,
+  YesNo,
 } from "@/prisma/generated/client"
-import { STATUS_LABELS } from "@/lib/submission-status"
+import { FUNNEL_STAGE_LABEL } from "@/lib/marketing/funnel-ui"
 
-const PROJECT_TYPE: Record<ProjectType, string> = {
-  PERSONAL: "Personal",
-  COMPANY: "Empresa",
+const PMS_USAGE: Record<PmsUsage, string> = {
+  YES: "Sí, usa PMS",
+  NO: "No usa PMS",
+  EVALUATING: "Evaluando PMS",
 }
 
-const PROJECT_STAGE: Record<ProjectStage, string> = {
-  CONCEPT: "Solo es un concepto",
-  PLAN: "Tengo bocetos o un plan",
-  BUILT: "Ya tengo algo funcionando",
+const PROPERTY_COUNT: Record<PropertyCount, string> = {
+  UNDER_5: "Menos de 5 propiedades",
+  FIVE_TO_FIFTEEN: "Entre 5 y 15 propiedades",
+  SIXTEEN_TO_TWENTY_FIVE: "Entre 16 y 25 propiedades",
+  OVER_25: "+25 propiedades",
 }
 
-const PRODUCT_TYPE: Record<ProductType, string> = {
-  MOBILE: "App móvil",
-  WEB: "Plataforma web",
-  MARKETPLACE: "Marketplace",
-  SAAS: "SaaS",
-  OTHER: "Otro",
+const REVENUE_RANGE: Record<RevenueRange, string> = {
+  UNDER_10M: "Menos de 10 millones",
+  TEN_TO_TWENTY_M: "Entre 10 y 20 millones",
+  TWENTY_ONE_TO_FIFTY_M: "Entre 21 millones y 50 millones",
+  OVER_50M: "Más de 50 millones",
 }
 
-const BUSINESS_PROBLEM: Record<BusinessProblem, string> = {
-  AUTOMATE: "Automatizar procesos",
-  CUSTOM: "Sistema a medida",
-  INTEGRATE: "Integrar herramientas",
-  MODERNIZE: "Modernizar algo existente",
+const YES_NO: Record<YesNo, string> = {
+  YES: "Sí",
+  NO: "No",
 }
 
-const COMPANY_SIZE: Record<CompanySize, string> = {
-  SMALL: "1–10",
-  MEDIUM: "11–50",
-  LARGE: "50+",
+const INDUSTRY_TIME: Record<IndustryTime, string> = {
+  UNDER_5: "Menos de 5 años",
+  FIVE_TO_TEN: "Entre 5 y 10 años",
+  OVER_10: "Más de 10 años",
+}
+
+export const BOOKING_FLOW_LABEL: Record<BookingFlow, string> = {
+  EBOOK_SQL: "Ebook → SQL → diagnóstico",
+  EBOOK_PDF: "Ebook → PDF → agendar",
+  DIAGNOSIS_PUBLIC: "Diagnóstico público",
+  DIRECT_BOOKING: "Widget de booking",
+}
+
+export const QUALIFICATION_LABEL: Record<LeadQualification, string> = {
+  SQL: "SQL",
+  MQL: "MQL",
+  DISQUALIFIED: "Descalificado",
+}
+
+const DISQUALIFICATION_LABEL: Record<DisqualificationReason, string> = {
+  REVENUE_VETO: "Veto por facturación",
+  LOW_SCORE: "Score bajo",
+}
+
+export const ENTRY_SOURCE_LABEL: Record<LeadEntrySource, string> = {
+  EBOOK: "Guía (ebook)",
+  DIAGNOSIS: "Diagnóstico público",
+  DIRECT_BOOKING: "Booking directo",
 }
 
 export type SubmissionRecord = {
   id: string
-  fullName: string
+  fullName: string | null
   email: string | null
-  projectType: ProjectType
-  projectStage: ProjectStage | null
-  productType: ProductType | null
-  businessProblem: BusinessProblem | null
   companyName: string | null
-  companyWebsite: string | null
-  companySocialMedia: string | null
-  companySize: CompanySize | null
-  projectDescription: string | null
+  phoneCountryCode: string | null
+  phoneNumber: string | null
+  instagramUrl: string | null
+  websiteUrl: string | null
+  usesPms: PmsUsage | null
+  propertyCount: PropertyCount | null
+  revenueRange: RevenueRange | null
+  isTodero: YesNo | null
+  usesAi: YesNo | null
+  wantsToScale: YesNo | null
+  industryTime: IndustryTime | null
+  qualification: LeadQualification | null
+  qualificationScore: number | null
+  disqualificationReason: DisqualificationReason | null
+  entrySource: LeadEntrySource
+  bookingFlow: BookingFlow | null
+  bookedAt: string | null
   status: SubmissionStatus
+  marketingFunnelStage: MarketingFunnelStage | null
+  contractValueUsd: string | null
+  contractPlan: ContractPlan | null
+  contactId: string | null
+  meetingTime: string | null
+  meetLink: string | null
   createdAt: string
   updatedAt: string
 }
@@ -61,51 +105,116 @@ export type SubmissionRecord = {
 export function serializeSubmission<T extends {
   createdAt: Date
   updatedAt: Date
-}>(submission: T): Omit<T, "createdAt" | "updatedAt"> & { createdAt: string; updatedAt: string } {
+  bookedAt?: Date | null
+  contractValueUsd?: unknown
+  meetingTime?: Date | null
+  meetLink?: string | null
+}>(submission: T) {
+  const { contractValueUsd, createdAt, updatedAt, bookedAt, meetingTime, meetLink, ...rest } =
+    submission
   return {
-    ...submission,
-    createdAt: submission.createdAt.toISOString(),
-    updatedAt: submission.updatedAt.toISOString(),
+    ...rest,
+    createdAt: createdAt.toISOString(),
+    updatedAt: updatedAt.toISOString(),
+    bookedAt: bookedAt ? bookedAt.toISOString() : null,
+    meetingTime: meetingTime ? meetingTime.toISOString() : null,
+    meetLink: meetLink ?? null,
+    contractValueUsd: contractValueUsd == null ? null : String(contractValueUsd),
   }
 }
 
-export function getSubmissionTitle(submission: Pick<SubmissionRecord, "companyName" | "fullName" | "projectType">) {
-  if (submission.projectType === "COMPANY" && submission.companyName) {
-    return submission.companyName
-  }
-  return submission.fullName
+export function getSubmissionTitle(
+  submission: Pick<SubmissionRecord, "companyName" | "fullName" | "email">
+) {
+  return (
+    submission.companyName?.trim() ||
+    submission.fullName?.trim() ||
+    submission.email?.trim() ||
+    "Lead incompleto"
+  )
 }
 
-export function getSubmissionSubtitle(submission: Pick<SubmissionRecord, "companyName" | "fullName" | "projectType">) {
-  if (submission.projectType === "COMPANY" && submission.companyName) {
-    return submission.fullName
+export function getSubmissionSubtitle(
+  submission: Pick<SubmissionRecord, "companyName" | "fullName" | "email">
+) {
+  if (submission.companyName?.trim() && submission.fullName?.trim()) {
+    return submission.fullName.trim()
   }
-  return PROJECT_TYPE[submission.projectType]
+  if (submission.fullName?.trim() && submission.email?.trim()) {
+    return submission.email.trim()
+  }
+  return "Formulario incompleto"
 }
 
 export function getSubmissionSummary(submission: SubmissionRecord) {
-  const parts: string[] = [PROJECT_TYPE[submission.projectType]]
+  const parts = [
+    submission.qualification ? QUALIFICATION_LABEL[submission.qualification] : null,
+    submission.qualificationScore != null ? `${submission.qualificationScore} pts` : null,
+    submission.propertyCount ? PROPERTY_COUNT[submission.propertyCount] : null,
+    submission.revenueRange ? REVENUE_RANGE[submission.revenueRange] : null,
+  ].filter((part): part is string => Boolean(part))
 
-  if (submission.projectStage) parts.push(PROJECT_STAGE[submission.projectStage])
-  if (submission.productType) parts.push(PRODUCT_TYPE[submission.productType])
-  if (submission.businessProblem) parts.push(BUSINESS_PROBLEM[submission.businessProblem])
-  if (submission.companySize) parts.push(COMPANY_SIZE[submission.companySize])
-
-  return parts.join(" · ")
+  return parts.join(" · ") || "Aún no completa el formulario"
 }
 
 export function getSubmissionDetails(submission: SubmissionRecord) {
+  const phone =
+    submission.phoneNumber
+      ? `${submission.phoneCountryCode ?? ""} ${submission.phoneNumber}`.trim()
+      : null
+
   return [
-    { label: "Estado", value: STATUS_LABELS[submission.status] },
-    { label: "Tipo", value: PROJECT_TYPE[submission.projectType] },
-    { label: "Nombre", value: submission.fullName },
-    { label: "Correo", value: submission.email ?? "—" },
-    submission.projectStage ? { label: "Etapa", value: PROJECT_STAGE[submission.projectStage] } : null,
-    submission.productType ? { label: "Producto", value: PRODUCT_TYPE[submission.productType] } : null,
-    submission.businessProblem ? { label: "Objetivo", value: BUSINESS_PROBLEM[submission.businessProblem] } : null,
+    {
+      label: "Etapa",
+      value: submission.marketingFunnelStage
+        ? FUNNEL_STAGE_LABEL[submission.marketingFunnelStage]
+        : "Bandeja",
+    },
+    {
+      label: "Calificación",
+      value: submission.qualification
+        ? `${QUALIFICATION_LABEL[submission.qualification]}${
+            submission.qualificationScore != null ? ` · ${submission.qualificationScore} pts` : ""
+          }`
+        : "Sin clasificar",
+    },
+    submission.disqualificationReason
+      ? { label: "Motivo", value: DISQUALIFICATION_LABEL[submission.disqualificationReason] }
+      : null,
+    { label: "Origen", value: ENTRY_SOURCE_LABEL[submission.entrySource] },
+    submission.bookingFlow
+      ? { label: "Flujo de agendamiento", value: BOOKING_FLOW_LABEL[submission.bookingFlow] }
+      : null,
+    { label: "Nombre", value: submission.fullName?.trim() || "Sin nombre" },
+    { label: "Correo", value: submission.email?.trim() || "Sin correo" },
     submission.companyName ? { label: "Empresa", value: submission.companyName } : null,
-    submission.companyWebsite ? { label: "Sitio web", value: submission.companyWebsite } : null,
-    submission.companySocialMedia ? { label: "Redes", value: submission.companySocialMedia } : null,
-    submission.companySize ? { label: "Tamaño", value: COMPANY_SIZE[submission.companySize] } : null,
+    phone ? { label: "Teléfono", value: phone } : null,
+    {
+      label: "Propiedades",
+      value: submission.propertyCount ? PROPERTY_COUNT[submission.propertyCount] : "Sin responder",
+    },
+    {
+      label: "Facturación",
+      value: submission.revenueRange ? REVENUE_RANGE[submission.revenueRange] : "Sin responder",
+    },
+    { label: "PMS", value: submission.usesPms ? PMS_USAGE[submission.usesPms] : "Sin responder" },
+    submission.isTodero ? { label: "Todero", value: YES_NO[submission.isTodero] } : null,
+    submission.wantsToScale ? { label: "Quiere escalar", value: YES_NO[submission.wantsToScale] } : null,
+    submission.usesAi ? { label: "Usa IA", value: YES_NO[submission.usesAi] } : null,
+    submission.industryTime ? { label: "Industria", value: INDUSTRY_TIME[submission.industryTime] } : null,
+    submission.instagramUrl ? { label: "Instagram", value: submission.instagramUrl } : null,
+    submission.websiteUrl ? { label: "Sitio web", value: submission.websiteUrl } : null,
+    submission.bookedAt
+      ? {
+          label: "Agendó",
+          value: new Date(submission.bookedAt)
+            .toLocaleString("es-CO", {
+              dateStyle: "medium",
+              timeStyle: "short",
+              timeZone: "America/Bogota",
+            })
+            .replace(/[\u00A0\u202F\u2009]/g, " "),
+        }
+      : null,
   ].filter((item): item is { label: string; value: string } => item !== null)
 }

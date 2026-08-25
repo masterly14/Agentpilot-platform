@@ -1,14 +1,8 @@
 "use client"
 
+import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import {
   Sheet,
   SheetContent,
@@ -16,29 +10,41 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet"
-import { getSubmissionDetails, getSubmissionTitle } from "@/lib/submission-display"
+import { formatMeetingLabel, LeadStageActions } from "@/components/admin/kanban-parts"
+import { FUNNEL_STAGE_LABEL } from "@/lib/marketing/funnel-ui"
+import {
+  getSubmissionDetails,
+  getSubmissionSummary,
+  getSubmissionTitle,
+} from "@/lib/submission-display"
 import type { SubmissionRecord } from "@/lib/submission-display"
-import { STATUS_COLUMNS } from "@/lib/submission-status"
-import type { SubmissionStatus } from "@/prisma/generated/client"
 
 type SubmissionDetailSheetProps = {
   submission: SubmissionRecord | null
   open: boolean
-  onOpenChange: (open: boolean) => void
-  onStatusChange: (id: string, status: SubmissionStatus) => Promise<void>
   isUpdating: boolean
+  onOpenChange: (open: boolean) => void
+  onShowUp: () => void
+  onNoShow: () => void
+  onCloseDeal: () => void
 }
 
 export function SubmissionDetailSheet({
   submission,
   open,
-  onOpenChange,
-  onStatusChange,
   isUpdating,
+  onOpenChange,
+  onShowUp,
+  onNoShow,
+  onCloseDeal,
 }: SubmissionDetailSheetProps) {
   if (!submission) return null
 
   const details = getSubmissionDetails(submission)
+  const meeting = formatMeetingLabel(submission.meetingTime || submission.bookedAt)
+  const stageLabel = submission.marketingFunnelStage
+    ? FUNNEL_STAGE_LABEL[submission.marketingFunnelStage]
+    : "Bandeja"
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -46,36 +52,27 @@ export function SubmissionDetailSheet({
         <SheetHeader>
           <SheetTitle>{getSubmissionTitle(submission)}</SheetTitle>
           <SheetDescription>
-            Recibido el{" "}
-            {new Date(submission.createdAt).toLocaleString("es-CO", {
-              dateStyle: "medium",
-              timeStyle: "short",
-            })}
+            {stageLabel}
+            {meeting ? ` · ${meeting}` : ""}
           </SheetDescription>
         </SheetHeader>
 
         <div className="mt-6 space-y-6 px-1">
-          <div className="space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-              Estado interno
-            </p>
-            <Select
-              value={submission.status}
-              onValueChange={(value) => onStatusChange(submission.id, value as SubmissionStatus)}
-              disabled={isUpdating}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {STATUS_COLUMNS.map((column) => (
-                  <SelectItem key={column.id} value={column.id}>
-                    {column.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          <LeadStageActions
+            submission={submission}
+            disabled={isUpdating}
+            onShowUp={onShowUp}
+            onNoShow={onNoShow}
+            onCloseDeal={onCloseDeal}
+          />
+
+          {submission.meetLink ? (
+            <Button asChild variant="outline" size="sm">
+              <a href={submission.meetLink} target="_blank" rel="noreferrer">
+                Abrir Meet
+              </a>
+            </Button>
+          ) : null}
 
           <div className="space-y-3">
             {details.map((detail) => (
@@ -86,24 +83,33 @@ export function SubmissionDetailSheet({
             ))}
           </div>
 
+          {submission.contractValueUsd ? (
+            <div className="rounded-lg border bg-muted/30 p-3 text-sm">
+              Contrato · ${Number(submission.contractValueUsd).toLocaleString("en-US")} USD
+            </div>
+          ) : null}
+
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-              Descripción
+              Resumen
             </p>
-            <p className="rounded-lg border bg-muted/30 p-3 text-sm leading-relaxed">
-              {submission.projectDescription || "Sin descripción adicional."}
+            <p className="rounded-xl border bg-muted/50 p-3 text-sm leading-relaxed">
+              {getSubmissionSummary(submission)}
             </p>
           </div>
 
           <div className="flex flex-wrap gap-2">
+            {submission.contactId ? (
+              <Button asChild variant="outline" size="sm">
+                <Link href={`/admin/chat?contactId=${submission.contactId}`}>Ver chat</Link>
+              </Button>
+            ) : null}
             {submission.email && (
               <Button asChild variant="outline" size="sm">
                 <a href={`mailto:${submission.email}`}>Enviar correo</a>
               </Button>
             )}
-            <Badge variant="secondary">
-              ID {submission.id.slice(0, 8)}
-            </Badge>
+            <Badge variant="secondary">ID {submission.id.slice(0, 8)}</Badge>
           </div>
         </div>
       </SheetContent>

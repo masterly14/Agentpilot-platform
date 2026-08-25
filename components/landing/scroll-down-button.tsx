@@ -3,6 +3,7 @@
 import { ChevronDown } from "lucide-react"
 import { scrollToSection } from "@/lib/smooth-scroll"
 import { useScrollLock } from "./scroll-lock-provider"
+
 type ScrollDownButtonProps = {
   targetId: string
 }
@@ -18,7 +19,8 @@ export function ScrollDownButton({ targetId }: ScrollDownButtonProps) {
   return (
     <button
       type="button"
-      onClick={handleClick}      aria-label="Desplazarse hacia abajo"
+      onClick={handleClick}
+      aria-label="Desplazarse hacia abajo"
       className="group inline-flex h-14 w-14 items-center justify-center rounded-full border border-zinc-700/80 bg-zinc-900/40 text-zinc-200 transition-colors hover:border-zinc-400 hover:bg-zinc-800/70 hover:text-white animate-scroll-button-pulse motion-reduce:animate-none"
     >
       <span className="relative flex h-7 w-7 flex-col items-center justify-center">
