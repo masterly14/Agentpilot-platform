@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { LandingVisitTracker } from "@/components/analytics/landing-visit-tracker"
 import { EbookFinalCta } from "@/components/ebook-landing/final-cta"
 import { EbookHero } from "@/components/ebook-landing/hero"
 import { EbookLeadProvider } from "@/components/ebook-landing/lead-modal"
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 export default function EbookPage() {
   return (
     <EbookLeadProvider>
+      <LandingVisitTracker landingPath="/ebook" />
       <div className="min-h-screen overflow-x-hidden bg-black text-white selection:bg-zinc-800">
         <EbookHero />
         <EbookProof />

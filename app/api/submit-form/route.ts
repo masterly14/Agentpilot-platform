@@ -35,6 +35,8 @@ import { ensureNurturingPipeline } from "@/lib/pipeline/engine"
 import type { LeadFormPayload } from "@/lib/booking/types"
 import { attributionFromRequest, clientContextFromRequest } from "@/lib/marketing/attribution"
 import { MARKETING_TRIGGERED_BY, recordMarketingStage } from "@/lib/marketing/events"
+import { markLandingConverted } from "@/lib/ad-landing"
+import { readVisitorId } from "@/lib/visitor-id"
 import { getAppUrl } from "@/lib/ebook/app-url"
 
 export const runtime = "nodejs"
@@ -193,6 +195,17 @@ export async function POST(request: Request) {
       attribution,
       client,
     })
+
+    try {
+      await markLandingConverted({
+        visitorId: readVisitorId((body as { visitorId?: unknown }).visitorId),
+        landingPath: "/ebook",
+        conversion: "LEAD",
+        attribution,
+      })
+    } catch (error) {
+      console.error("[landing/visit] no se pudo marcar Lead", error)
+    }
 
     if (process.env.RESEND_API_KEY) {
       const from = getResendFromAddress()

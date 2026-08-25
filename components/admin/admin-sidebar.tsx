@@ -2,13 +2,14 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { BarChart3, Columns3, Globe, LogOut, MessageCircle } from "lucide-react"
+import { BarChart3, ClipboardList, Columns3, Globe, LogOut, MessageCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 
 const LINKS = [
   { href: "/admin", label: "Pipeline", exact: true, icon: Columns3 },
   { href: "/admin/chat", label: "Chat", exact: false, icon: MessageCircle },
+  { href: "/admin/diagnostico", label: "Diagnóstico", exact: false, icon: ClipboardList },
   { href: "/admin/dashboard", label: "Dashboard", exact: false, icon: BarChart3 },
 ] as const
 
@@ -23,7 +24,7 @@ export function AdminSidebar() {
   }
 
   return (
-    <aside className="flex w-full shrink-0 flex-col border-b border-sidebar-border bg-sidebar md:h-screen md:w-60 md:border-b-0 md:border-r">
+    <aside className="flex w-full shrink-0 flex-col border-b border-sidebar-border bg-sidebar print:hidden md:h-screen md:w-60 md:border-b-0 md:border-r">
       <div className="flex items-center gap-2 px-4 py-4 md:px-5">
         <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
           SV

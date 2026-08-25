@@ -25,6 +25,7 @@ import {
 import { trackEbookLead } from "@/lib/facebook-pixel"
 import { collectAttribution } from "@/lib/marketing/attribution-client"
 import { usePartialSubmission } from "@/hooks/use-partial-submission"
+import { getVisitorId } from "@/lib/visitor-id"
 import type { LeadFormPayload } from "@/lib/booking/types"
 import { cn } from "@/lib/utils"
 
@@ -348,6 +349,7 @@ function EbookLeadModal({
           ...form,
           leadToken: getToken() || undefined,
           attribution: collectAttribution(),
+          visitorId: getVisitorId() || undefined,
         }),
       })
 

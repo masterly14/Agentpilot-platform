@@ -13,7 +13,10 @@
     "capi:test-lead": "node --experimental-strip-types scripts/send-capi-test-lead.ts",
     "test:funnel": "node --experimental-strip-types scripts/run-funnel-tests.ts",
     "pipeline:sim-sql": "node --experimental-strip-types scripts/sim-sql-nurture.ts",
-    "pipeline:sim-mql": "node --experimental-strip-types scripts/sim-mql-nurture.ts"
+    "pipeline:sim-mql": "node --experimental-strip-types scripts/sim-mql-nurture.ts",
+    "airbnb:import": "node --experimental-strip-types scripts/import-airbnb-leads.ts",
+    "airbnb:verify": "node --experimental-strip-types scripts/verify-airbnb-import.ts",
+    "airbnb:cutover-env": "node --experimental-strip-types scripts/cutover-airbnb-env.ts"
   },
   "dependencies": {
     "@cloudscape-design/global-styles": "^1.0.67",

@@ -37,6 +37,7 @@ import { applyLiveSlotRules, filterPastSlots } from "@/lib/booking/slots"
 import type { BookingSlot, MonthAvailabilityResponse } from "@/lib/booking/types"
 import { trackSchedule } from "@/lib/facebook-pixel"
 import { collectAttribution } from "@/lib/marketing/attribution-client"
+import { getVisitorId } from "@/lib/visitor-id"
 import { scrollToElement } from "@/lib/smooth-scroll"
 import { cn } from "@/lib/utils"
 
@@ -747,6 +748,7 @@ export function BookingWidgetLight({
                 leadToken,
                 bookingFlow: "EBOOK_SQL",
                 attribution: collectAttribution(),
+                visitorId: getVisitorId() || undefined,
               }
             : {
                 date: toBookingDate(viewYear, viewMonth, selectedDay),
@@ -755,6 +757,7 @@ export function BookingWidgetLight({
                 bookingFlow: "DIAGNOSIS_PUBLIC",
                 leadToken: getToken() || undefined,
                 attribution: collectAttribution(),
+                visitorId: getVisitorId() || undefined,
               }
         ),
       })

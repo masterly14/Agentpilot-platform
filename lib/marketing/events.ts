@@ -125,3 +125,55 @@ export async function recordMarketingStage(
     return null
   }
 }
+
+type AirbnbMarketingStage = "SCHEDULED" | "SHOWED_UP" | "PURCHASED"
+
+type RecordAirbnbMarketingInput = {
+  airbnbLeadId: string
+  to: AirbnbMarketingStage
+  triggeredBy: string
+  eventSourceUrl?: string
+  contractValueUsd?: number
+  client?: ClientContext
+}
+
+export async function recordAirbnbMarketingStage(input: RecordAirbnbMarketingInput) {
+  const eventName = STAGE_EVENT[input.to]
+  if (!eventName) return { event: null, eventId: null }
+
+  const purchaseValue =
+    input.to === "PURCHASED" ? input.contractValueUsd : undefined
+  if (input.to === "PURCHASED" && (!purchaseValue || purchaseValue <= 0)) {
+    throw new Error("Purchase requiere contractValueUsd")
+  }
+
+  const value = eventName === "PURCHASE" ? purchaseValue! : EVENT_VALUE[eventName]
+  const eventId = eventIdFor(input.airbnbLeadId, eventName)
+  const eventSourceUrl = input.eventSourceUrl || `${getAppUrl()}/admin?board=airbnb&airbnbLead=${input.airbnbLeadId}`
+
+  try {
+    const event = await prisma.leadEvent.create({
+      data: {
+        id: eventId,
+        airbnbLeadId: input.airbnbLeadId,
+        eventName,
+        eventSourceUrl,
+        value,
+        triggeredBy: input.triggeredBy,
+        clientIp: input.client?.ip,
+        clientUserAgent: input.client?.userAgent,
+      },
+    })
+    await enqueueCapiSend(event.id)
+    return { event, eventId }
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+      const existing = await prisma.leadEvent.findUnique({ where: { id: eventId } })
+      if (existing && !existing.sentToMeta) {
+        await enqueueCapiSend(existing.id)
+      }
+      return { event: existing, eventId }
+    }
+    throw error
+  }
+}

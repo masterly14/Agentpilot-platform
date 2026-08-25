@@ -1,6 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
+import { useSheetSelection } from "@/components/admin/use-sheet-selection"
 import {
   DndContext,
   DragOverlay,
@@ -44,17 +45,24 @@ const FILTERS: Array<{ id: BoardFilter; label: string }> = [
 type SubmissionsKanbanProps = {
   initialSubmissions: SubmissionRecord[]
   initialSelectedId?: string | null
+  onSelectedIdChange?: (id: string | null) => void
+  showTitle?: boolean
 }
 
 export function SubmissionsKanban({
   initialSubmissions,
   initialSelectedId = null,
+  onSelectedIdChange,
+  showTitle = true,
 }: SubmissionsKanbanProps) {
   const [submissions, setSubmissions] = useState(initialSubmissions)
   const [filter, setFilter] = useState<BoardFilter>("all")
   const [showInbox, setShowInbox] = useState(true)
   const [activeId, setActiveId] = useState<string | null>(null)
-  const [selectedId, setSelectedId] = useState<string | null>(initialSelectedId)
+  const { selectedId, setSelectedId, onOpenChange } = useSheetSelection(
+    initialSelectedId,
+    onSelectedIdChange,
+  )
   const [updatingId, setUpdatingId] = useState<string | null>(null)
   const [closeLeadId, setCloseLeadId] = useState<string | null>(null)
 
@@ -225,17 +233,25 @@ export function SubmissionsKanban({
   return (
     <>
       <div className="mb-6 flex flex-col gap-4">
-        <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Pipeline</h1>
-            <p className="text-sm text-muted-foreground">
-              Confirma show-up y cierres. Las primeras columnas se mueven solas.
-            </p>
+        {showTitle ? (
+          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h1 className="text-2xl font-semibold tracking-tight">Pipeline</h1>
+              <p className="text-sm text-muted-foreground">
+                Confirma show-up y cierres. Las primeras columnas se mueven solas.
+              </p>
+            </div>
+            <Badge variant="secondary" className="rounded-full bg-muted text-foreground">
+              {pipeline.length} en pipeline
+            </Badge>
           </div>
-          <Badge variant="secondary" className="rounded-full bg-muted text-foreground">
-            {pipeline.length} en pipeline
-          </Badge>
-        </div>
+        ) : (
+          <div className="flex justify-end">
+            <Badge variant="secondary" className="rounded-full bg-muted text-foreground">
+              {pipeline.length} en pipeline
+            </Badge>
+          </div>
+        )}
 
         <div className="flex flex-wrap gap-1.5">
           {FILTERS.map((item) => (
@@ -341,9 +357,7 @@ export function SubmissionsKanban({
         submission={selectedSubmission}
         open={selectedSubmission !== null}
         isUpdating={selectedSubmission ? updatingId === selectedSubmission.id : false}
-        onOpenChange={(open) => {
-          if (!open) setSelectedId(null)
-        }}
+        onOpenChange={onOpenChange}
         onShowUp={() => selectedSubmission && void markShowUp(selectedSubmission.id)}
         onNoShow={() => selectedSubmission && void markNoShow(selectedSubmission.id)}
         onCloseDeal={() => selectedSubmission && setCloseLeadId(selectedSubmission.id)}

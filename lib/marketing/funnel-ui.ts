@@ -3,7 +3,7 @@ import type { ContractPlan, MarketingFunnelStage } from "@/prisma/generated/clie
 export type FunnelColumnId = MarketingFunnelStage
 
 export type FunnelColumn = {
-  id: FunnelColumnId
+  id: string
   label: string
   description: string
   hint?: string

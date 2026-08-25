@@ -182,6 +182,7 @@ exports.Prisma.FormSubmissionScalarFieldEnum = {
 exports.Prisma.LeadEventScalarFieldEnum = {
   id: 'id',
   submissionId: 'submissionId',
+  airbnbLeadId: 'airbnbLeadId',
   eventName: 'eventName',
   eventTime: 'eventTime',
   eventSourceUrl: 'eventSourceUrl',
@@ -209,6 +210,24 @@ exports.Prisma.VideoWatchSessionScalarFieldEnum = {
   completed: 'completed',
   droppedAtSecond: 'droppedAtSecond',
   dropReason: 'dropReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LandingVisitScalarFieldEnum = {
+  id: 'id',
+  visitorId: 'visitorId',
+  landingPath: 'landingPath',
+  fromAd: 'fromAd',
+  fbclid: 'fbclid',
+  fbp: 'fbp',
+  fbc: 'fbc',
+  utmSource: 'utmSource',
+  utmMedium: 'utmMedium',
+  utmCampaign: 'utmCampaign',
+  convertedAt: 'convertedAt',
+  conversion: 'conversion',
+  lastSeenAt: 'lastSeenAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -273,6 +292,147 @@ exports.Prisma.PipelineJobScalarFieldEnum = {
   executedAt: 'executedAt'
 };
 
+exports.Prisma.AirbnbLeadScalarFieldEnum = {
+  id: 'id',
+  hostAirbnbId: 'hostAirbnbId',
+  threadId: 'threadId',
+  name: 'name',
+  hostProfileUrl: 'hostProfileUrl',
+  primaryListingUrl: 'primaryListingUrl',
+  primaryListingName: 'primaryListingName',
+  totalProperties: 'totalProperties',
+  companyName: 'companyName',
+  isSuperhost: 'isSuperhost',
+  market: 'market',
+  icpSkipReason: 'icpSkipReason',
+  status: 'status',
+  businessScale: 'businessScale',
+  painPoints: 'painPoints',
+  executiveSummary: 'executiveSummary',
+  lastContactedAt: 'lastContactedAt',
+  nextFollowUpAt: 'nextFollowUpAt',
+  botReplyCount: 'botReplyCount',
+  calLinkSent: 'calLinkSent',
+  calBookedAt: 'calBookedAt',
+  hostEmail: 'hostEmail',
+  contactId: 'contactId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AirbnbMessageScalarFieldEnum = {
+  id: 'id',
+  leadId: 'leadId',
+  prospectAccountId: 'prospectAccountId',
+  direction: 'direction',
+  content: 'content',
+  aiIntent: 'aiIntent',
+  sentAt: 'sentAt'
+};
+
+exports.Prisma.SystemStateScalarFieldEnum = {
+  key: 'key',
+  value: 'value',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CalBookingScalarFieldEnum = {
+  id: 'id',
+  calUid: 'calUid',
+  calBookingId: 'calBookingId',
+  leadId: 'leadId',
+  triggerEvent: 'triggerEvent',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  attendeeEmail: 'attendeeEmail',
+  attendeeName: 'attendeeName',
+  eventTypeSlug: 'eventTypeSlug',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ProspectAccountScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  airbnbEmail: 'airbnbEmail',
+  airbnbPasswordEnc: 'airbnbPasswordEnc',
+  composioUserId: 'composioUserId',
+  composioConnectionId: 'composioConnectionId',
+  composioConnectedAt: 'composioConnectedAt',
+  proxyHost: 'proxyHost',
+  proxyPort: 'proxyPort',
+  proxyUser: 'proxyUser',
+  proxyPassEnc: 'proxyPassEnc',
+  proxyProvider: 'proxyProvider',
+  proxySessionId: 'proxySessionId',
+  proxyCountry: 'proxyCountry',
+  sessionPath: 'sessionPath',
+  sessionStateEnc: 'sessionStateEnc',
+  market: 'market',
+  messagesSentToday: 'messagesSentToday',
+  waveMessagesSent: 'waveMessagesSent',
+  status: 'status',
+  rateLimitedAt: 'rateLimitedAt',
+  cooldownUntil: 'cooldownUntil',
+  lastWaveStartedAt: 'lastWaveStartedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.HostContactScalarFieldEnum = {
+  id: 'id',
+  hostAirbnbId: 'hostAirbnbId',
+  leadId: 'leadId',
+  firstContactedAt: 'firstContactedAt',
+  firstContactAccountId: 'firstContactAccountId',
+  source: 'source',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.LeadIdentityAliasScalarFieldEnum = {
+  id: 'id',
+  aliasId: 'aliasId',
+  canonicalId: 'canonicalId',
+  leadId: 'leadId'
+};
+
+exports.Prisma.DailyOutboundStatsScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  market: 'market',
+  coldMessagesSent: 'coldMessagesSent'
+};
+
+exports.Prisma.AccountBlockEventScalarFieldEnum = {
+  id: 'id',
+  accountId: 'accountId',
+  type: 'type',
+  message: 'message',
+  occurredAt: 'occurredAt'
+};
+
+exports.Prisma.AirbnbCommercialScalarFieldEnum = {
+  id: 'id',
+  leadId: 'leadId',
+  stage: 'stage',
+  hostEmail: 'hostEmail',
+  meetingTime: 'meetingTime',
+  meetLink: 'meetLink',
+  meetingId: 'meetingId',
+  contractValueUsd: 'contractValueUsd',
+  contractPlan: 'contractPlan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OperationalDiagnosisScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  clientName: 'clientName',
+  payload: 'payload',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -280,6 +440,10 @@ exports.Prisma.SortOrder = {
 
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -455,7 +619,8 @@ exports.ConversationChannel = exports.$Enums.ConversationChannel = {
 
 exports.MessageDirection = exports.$Enums.MessageDirection = {
   INBOUND: 'INBOUND',
-  OUTBOUND: 'OUTBOUND'
+  OUTBOUND: 'OUTBOUND',
+  SYSTEM: 'SYSTEM'
 };
 
 exports.MessageType = exports.$Enums.MessageType = {
@@ -487,15 +652,79 @@ exports.PipelineJobStatus = exports.$Enums.PipelineJobStatus = {
   CANCELLED: 'CANCELLED'
 };
 
+exports.IcpSkipReason = exports.$Enums.IcpSkipReason = {
+  below_min: 'below_min',
+  above_max: 'above_max',
+  not_superhost: 'not_superhost',
+  hotel_loft: 'hotel_loft',
+  wrong_market: 'wrong_market'
+};
+
+exports.LeadStatus = exports.$Enums.LeadStatus = {
+  LEAD_DISCOVERED: 'LEAD_DISCOVERED',
+  INITIAL_MSG_SENT: 'INITIAL_MSG_SENT',
+  FOLLOW_UP_1_SENT: 'FOLLOW_UP_1_SENT',
+  FOLLOW_UP_2_SENT: 'FOLLOW_UP_2_SENT',
+  FOLLOW_UP_3_SENT: 'FOLLOW_UP_3_SENT',
+  REPLIED_IN_PROGRESS: 'REPLIED_IN_PROGRESS',
+  HUMAN_TAKEOVER: 'HUMAN_TAKEOVER',
+  CLOSED_WON: 'CLOSED_WON',
+  CLOSED_LOST: 'CLOSED_LOST'
+};
+
+exports.AccountStatus = exports.$Enums.AccountStatus = {
+  ACTIVE: 'ACTIVE',
+  COOLDOWN: 'COOLDOWN',
+  BLOCKED: 'BLOCKED',
+  PENDING_GMAIL: 'PENDING_GMAIL',
+  PENDING_CREDENTIALS: 'PENDING_CREDENTIALS',
+  VERIFYING: 'VERIFYING'
+};
+
+exports.ContactSource = exports.$Enums.ContactSource = {
+  OUTBOUND: 'OUTBOUND',
+  MANUAL_SYNC: 'MANUAL_SYNC',
+  MANUAL_REGISTER: 'MANUAL_REGISTER',
+  AIRBNB_PRESEND_GUARD: 'AIRBNB_PRESEND_GUARD',
+  BACKFILL: 'BACKFILL'
+};
+
+exports.BlockType = exports.$Enums.BlockType = {
+  RATE_LIMIT: 'RATE_LIMIT',
+  IDENTITY: 'IDENTITY',
+  CAPTCHA: 'CAPTCHA',
+  OTHER: 'OTHER'
+};
+
+exports.AirbnbCommercialStage = exports.$Enums.AirbnbCommercialStage = {
+  HANDOFF: 'HANDOFF',
+  SCHEDULED: 'SCHEDULED',
+  SHOWED_UP: 'SHOWED_UP',
+  NO_SHOW: 'NO_SHOW',
+  PURCHASED: 'PURCHASED'
+};
+
 exports.Prisma.ModelName = {
   Contact: 'Contact',
   FormSubmission: 'FormSubmission',
   LeadEvent: 'LeadEvent',
   VideoWatchSession: 'VideoWatchSession',
+  LandingVisit: 'LandingVisit',
   LeadPipeline: 'LeadPipeline',
   Conversation: 'Conversation',
   ConversationMessage: 'ConversationMessage',
-  PipelineJob: 'PipelineJob'
+  PipelineJob: 'PipelineJob',
+  AirbnbLead: 'AirbnbLead',
+  AirbnbMessage: 'AirbnbMessage',
+  SystemState: 'SystemState',
+  CalBooking: 'CalBooking',
+  ProspectAccount: 'ProspectAccount',
+  HostContact: 'HostContact',
+  LeadIdentityAlias: 'LeadIdentityAlias',
+  DailyOutboundStats: 'DailyOutboundStats',
+  AccountBlockEvent: 'AccountBlockEvent',
+  AirbnbCommercial: 'AirbnbCommercial',
+  OperationalDiagnosis: 'OperationalDiagnosis'
 };
 
 /**

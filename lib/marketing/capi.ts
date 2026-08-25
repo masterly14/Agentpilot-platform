@@ -55,7 +55,7 @@ function getGraphVersion() {
 export async function sendLeadEventToMeta(eventId: string) {
   const event = await prisma.leadEvent.findUnique({
     where: { id: eventId },
-    include: { submission: true },
+    include: { submission: true, airbnbLead: true },
   })
 
   if (!event) {
@@ -80,21 +80,29 @@ export async function sendLeadEventToMeta(eventId: string) {
     return { status: "skipped" as const }
   }
 
-  const { submission } = event
-  const { first, last } = splitName(submission.fullName)
-  const userData: CapiUserData = {
-    external_id: [submission.id],
+  const { submission, airbnbLead } = event
+  const fullName = submission?.fullName ?? airbnbLead?.name
+  const { first, last } = splitName(fullName)
+  const externalId = submission?.id ?? airbnbLead?.id
+  if (!externalId) {
+    console.error("[marketing] CAPI: evento sin sujeto", eventId)
+    return { status: "missing" as const }
   }
 
-  if (submission.email) userData.em = [hashNormalized(submission.email)]
+  const userData: CapiUserData = {
+    external_id: [externalId],
+  }
+
+  const email = submission?.email ?? airbnbLead?.hostEmail
+  if (email) userData.em = [hashNormalized(email)]
   if (first) userData.fn = [hashNormalized(first)]
   if (last) userData.ln = [hashNormalized(last)]
-  if (submission.fbp) userData.fbp = submission.fbp
-  if (submission.fbc) userData.fbc = submission.fbc
+  if (submission?.fbp) userData.fbp = submission.fbp
+  if (submission?.fbc) userData.fbc = submission.fbc
   if (event.clientIp) userData.client_ip_address = event.clientIp
   if (event.clientUserAgent) userData.client_user_agent = event.clientUserAgent
 
-  if (submission.phoneCountryCode && submission.phoneNumber) {
+  if (submission?.phoneCountryCode && submission.phoneNumber) {
     try {
       userData.ph = [hashNormalized(toPhoneE164(submission.phoneCountryCode, submission.phoneNumber))]
     } catch {

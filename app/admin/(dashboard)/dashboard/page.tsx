@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation"
+import { AdLandingCard } from "@/components/admin/ad-landing-card"
 import { FunnelFrictionCard } from "@/components/admin/funnel-friction-card"
 import { VideoRetentionCard } from "@/components/admin/video-retention-card"
 import { isAdminAuthenticated } from "@/lib/admin-auth"
+import { AD_LANDING_PATHS, buildAdLandingReport } from "@/lib/ad-landing"
 import { buildFunnelFriction } from "@/lib/funnel-friction"
 import { LANDING_VIDEO } from "@/lib/landing-video"
 import { prisma } from "@/lib/prisma"
@@ -16,7 +18,7 @@ export default async function AdminDashboardMetricsPage() {
     redirect("/admin/login")
   }
 
-  const [submissions, videoSessions] = await Promise.all([
+  const [submissions, videoSessions, landingVisits] = await Promise.all([
     prisma.formSubmission.findMany({
       select: {
         status: true,
@@ -46,10 +48,20 @@ export default async function AdminDashboardMetricsPage() {
         dropReason: true,
       },
     }),
+    prisma.landingVisit.findMany({
+      where: { landingPath: { in: [...AD_LANDING_PATHS] } },
+      select: {
+        landingPath: true,
+        fromAd: true,
+        convertedAt: true,
+        conversion: true,
+      },
+    }),
   ])
 
   return (
     <div className="mx-auto w-full max-w-[1600px] flex-1 space-y-8 px-4 py-6 md:px-8">
+      <AdLandingCard data={buildAdLandingReport(landingVisits)} />
       <VideoRetentionCard data={buildVideoRetention(videoSessions)} />
       <FunnelFrictionCard data={buildFunnelFriction(submissions)} />
     </div>

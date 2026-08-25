@@ -34,6 +34,11 @@ export type LeadEvent = $Result.DefaultSelection<Prisma.$LeadEventPayload>
  */
 export type VideoWatchSession = $Result.DefaultSelection<Prisma.$VideoWatchSessionPayload>
 /**
+ * Model LandingVisit
+ * 
+ */
+export type LandingVisit = $Result.DefaultSelection<Prisma.$LandingVisitPayload>
+/**
  * Model LeadPipeline
  * 
  */
@@ -53,6 +58,61 @@ export type ConversationMessage = $Result.DefaultSelection<Prisma.$ConversationM
  * 
  */
 export type PipelineJob = $Result.DefaultSelection<Prisma.$PipelineJobPayload>
+/**
+ * Model AirbnbLead
+ * 
+ */
+export type AirbnbLead = $Result.DefaultSelection<Prisma.$AirbnbLeadPayload>
+/**
+ * Model AirbnbMessage
+ * 
+ */
+export type AirbnbMessage = $Result.DefaultSelection<Prisma.$AirbnbMessagePayload>
+/**
+ * Model SystemState
+ * 
+ */
+export type SystemState = $Result.DefaultSelection<Prisma.$SystemStatePayload>
+/**
+ * Model CalBooking
+ * 
+ */
+export type CalBooking = $Result.DefaultSelection<Prisma.$CalBookingPayload>
+/**
+ * Model ProspectAccount
+ * 
+ */
+export type ProspectAccount = $Result.DefaultSelection<Prisma.$ProspectAccountPayload>
+/**
+ * Model HostContact
+ * 
+ */
+export type HostContact = $Result.DefaultSelection<Prisma.$HostContactPayload>
+/**
+ * Model LeadIdentityAlias
+ * 
+ */
+export type LeadIdentityAlias = $Result.DefaultSelection<Prisma.$LeadIdentityAliasPayload>
+/**
+ * Model DailyOutboundStats
+ * 
+ */
+export type DailyOutboundStats = $Result.DefaultSelection<Prisma.$DailyOutboundStatsPayload>
+/**
+ * Model AccountBlockEvent
+ * 
+ */
+export type AccountBlockEvent = $Result.DefaultSelection<Prisma.$AccountBlockEventPayload>
+/**
+ * Model AirbnbCommercial
+ * 
+ */
+export type AirbnbCommercial = $Result.DefaultSelection<Prisma.$AirbnbCommercialPayload>
+/**
+ * Model OperationalDiagnosis
+ * 
+ */
+export type OperationalDiagnosis = $Result.DefaultSelection<Prisma.$OperationalDiagnosisPayload>
 
 /**
  * Enums
@@ -226,7 +286,8 @@ export type ConversationChannel = (typeof ConversationChannel)[keyof typeof Conv
 
 export const MessageDirection: {
   INBOUND: 'INBOUND',
-  OUTBOUND: 'OUTBOUND'
+  OUTBOUND: 'OUTBOUND',
+  SYSTEM: 'SYSTEM'
 };
 
 export type MessageDirection = (typeof MessageDirection)[keyof typeof MessageDirection]
@@ -311,6 +372,76 @@ export const VideoDropReason: {
 };
 
 export type VideoDropReason = (typeof VideoDropReason)[keyof typeof VideoDropReason]
+
+
+export const LeadStatus: {
+  LEAD_DISCOVERED: 'LEAD_DISCOVERED',
+  INITIAL_MSG_SENT: 'INITIAL_MSG_SENT',
+  FOLLOW_UP_1_SENT: 'FOLLOW_UP_1_SENT',
+  FOLLOW_UP_2_SENT: 'FOLLOW_UP_2_SENT',
+  FOLLOW_UP_3_SENT: 'FOLLOW_UP_3_SENT',
+  REPLIED_IN_PROGRESS: 'REPLIED_IN_PROGRESS',
+  HUMAN_TAKEOVER: 'HUMAN_TAKEOVER',
+  CLOSED_WON: 'CLOSED_WON',
+  CLOSED_LOST: 'CLOSED_LOST'
+};
+
+export type LeadStatus = (typeof LeadStatus)[keyof typeof LeadStatus]
+
+
+export const IcpSkipReason: {
+  below_min: 'below_min',
+  above_max: 'above_max',
+  not_superhost: 'not_superhost',
+  hotel_loft: 'hotel_loft',
+  wrong_market: 'wrong_market'
+};
+
+export type IcpSkipReason = (typeof IcpSkipReason)[keyof typeof IcpSkipReason]
+
+
+export const AccountStatus: {
+  ACTIVE: 'ACTIVE',
+  COOLDOWN: 'COOLDOWN',
+  BLOCKED: 'BLOCKED',
+  PENDING_GMAIL: 'PENDING_GMAIL',
+  PENDING_CREDENTIALS: 'PENDING_CREDENTIALS',
+  VERIFYING: 'VERIFYING'
+};
+
+export type AccountStatus = (typeof AccountStatus)[keyof typeof AccountStatus]
+
+
+export const BlockType: {
+  RATE_LIMIT: 'RATE_LIMIT',
+  IDENTITY: 'IDENTITY',
+  CAPTCHA: 'CAPTCHA',
+  OTHER: 'OTHER'
+};
+
+export type BlockType = (typeof BlockType)[keyof typeof BlockType]
+
+
+export const ContactSource: {
+  OUTBOUND: 'OUTBOUND',
+  MANUAL_SYNC: 'MANUAL_SYNC',
+  MANUAL_REGISTER: 'MANUAL_REGISTER',
+  AIRBNB_PRESEND_GUARD: 'AIRBNB_PRESEND_GUARD',
+  BACKFILL: 'BACKFILL'
+};
+
+export type ContactSource = (typeof ContactSource)[keyof typeof ContactSource]
+
+
+export const AirbnbCommercialStage: {
+  HANDOFF: 'HANDOFF',
+  SCHEDULED: 'SCHEDULED',
+  SHOWED_UP: 'SHOWED_UP',
+  NO_SHOW: 'NO_SHOW',
+  PURCHASED: 'PURCHASED'
+};
+
+export type AirbnbCommercialStage = (typeof AirbnbCommercialStage)[keyof typeof AirbnbCommercialStage]
 
 }
 
@@ -401,6 +532,30 @@ export const ContractPlan: typeof $Enums.ContractPlan
 export type VideoDropReason = $Enums.VideoDropReason
 
 export const VideoDropReason: typeof $Enums.VideoDropReason
+
+export type LeadStatus = $Enums.LeadStatus
+
+export const LeadStatus: typeof $Enums.LeadStatus
+
+export type IcpSkipReason = $Enums.IcpSkipReason
+
+export const IcpSkipReason: typeof $Enums.IcpSkipReason
+
+export type AccountStatus = $Enums.AccountStatus
+
+export const AccountStatus: typeof $Enums.AccountStatus
+
+export type BlockType = $Enums.BlockType
+
+export const BlockType: typeof $Enums.BlockType
+
+export type ContactSource = $Enums.ContactSource
+
+export const ContactSource: typeof $Enums.ContactSource
+
+export type AirbnbCommercialStage = $Enums.AirbnbCommercialStage
+
+export const AirbnbCommercialStage: typeof $Enums.AirbnbCommercialStage
 
 /**
  * ##  Prisma Client ʲˢ
@@ -561,6 +716,16 @@ export class PrismaClient<
   get videoWatchSession(): Prisma.VideoWatchSessionDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.landingVisit`: Exposes CRUD operations for the **LandingVisit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LandingVisits
+    * const landingVisits = await prisma.landingVisit.findMany()
+    * ```
+    */
+  get landingVisit(): Prisma.LandingVisitDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.leadPipeline`: Exposes CRUD operations for the **LeadPipeline** model.
     * Example usage:
     * ```ts
@@ -599,6 +764,116 @@ export class PrismaClient<
     * ```
     */
   get pipelineJob(): Prisma.PipelineJobDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.airbnbLead`: Exposes CRUD operations for the **AirbnbLead** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AirbnbLeads
+    * const airbnbLeads = await prisma.airbnbLead.findMany()
+    * ```
+    */
+  get airbnbLead(): Prisma.AirbnbLeadDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.airbnbMessage`: Exposes CRUD operations for the **AirbnbMessage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AirbnbMessages
+    * const airbnbMessages = await prisma.airbnbMessage.findMany()
+    * ```
+    */
+  get airbnbMessage(): Prisma.AirbnbMessageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.systemState`: Exposes CRUD operations for the **SystemState** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SystemStates
+    * const systemStates = await prisma.systemState.findMany()
+    * ```
+    */
+  get systemState(): Prisma.SystemStateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.calBooking`: Exposes CRUD operations for the **CalBooking** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CalBookings
+    * const calBookings = await prisma.calBooking.findMany()
+    * ```
+    */
+  get calBooking(): Prisma.CalBookingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.prospectAccount`: Exposes CRUD operations for the **ProspectAccount** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProspectAccounts
+    * const prospectAccounts = await prisma.prospectAccount.findMany()
+    * ```
+    */
+  get prospectAccount(): Prisma.ProspectAccountDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.hostContact`: Exposes CRUD operations for the **HostContact** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more HostContacts
+    * const hostContacts = await prisma.hostContact.findMany()
+    * ```
+    */
+  get hostContact(): Prisma.HostContactDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.leadIdentityAlias`: Exposes CRUD operations for the **LeadIdentityAlias** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LeadIdentityAliases
+    * const leadIdentityAliases = await prisma.leadIdentityAlias.findMany()
+    * ```
+    */
+  get leadIdentityAlias(): Prisma.LeadIdentityAliasDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.dailyOutboundStats`: Exposes CRUD operations for the **DailyOutboundStats** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DailyOutboundStats
+    * const dailyOutboundStats = await prisma.dailyOutboundStats.findMany()
+    * ```
+    */
+  get dailyOutboundStats(): Prisma.DailyOutboundStatsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.accountBlockEvent`: Exposes CRUD operations for the **AccountBlockEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AccountBlockEvents
+    * const accountBlockEvents = await prisma.accountBlockEvent.findMany()
+    * ```
+    */
+  get accountBlockEvent(): Prisma.AccountBlockEventDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.airbnbCommercial`: Exposes CRUD operations for the **AirbnbCommercial** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AirbnbCommercials
+    * const airbnbCommercials = await prisma.airbnbCommercial.findMany()
+    * ```
+    */
+  get airbnbCommercial(): Prisma.AirbnbCommercialDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.operationalDiagnosis`: Exposes CRUD operations for the **OperationalDiagnosis** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OperationalDiagnoses
+    * const operationalDiagnoses = await prisma.operationalDiagnosis.findMany()
+    * ```
+    */
+  get operationalDiagnosis(): Prisma.OperationalDiagnosisDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1044,10 +1319,22 @@ export namespace Prisma {
     FormSubmission: 'FormSubmission',
     LeadEvent: 'LeadEvent',
     VideoWatchSession: 'VideoWatchSession',
+    LandingVisit: 'LandingVisit',
     LeadPipeline: 'LeadPipeline',
     Conversation: 'Conversation',
     ConversationMessage: 'ConversationMessage',
-    PipelineJob: 'PipelineJob'
+    PipelineJob: 'PipelineJob',
+    AirbnbLead: 'AirbnbLead',
+    AirbnbMessage: 'AirbnbMessage',
+    SystemState: 'SystemState',
+    CalBooking: 'CalBooking',
+    ProspectAccount: 'ProspectAccount',
+    HostContact: 'HostContact',
+    LeadIdentityAlias: 'LeadIdentityAlias',
+    DailyOutboundStats: 'DailyOutboundStats',
+    AccountBlockEvent: 'AccountBlockEvent',
+    AirbnbCommercial: 'AirbnbCommercial',
+    OperationalDiagnosis: 'OperationalDiagnosis'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1066,7 +1353,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "contact" | "formSubmission" | "leadEvent" | "videoWatchSession" | "leadPipeline" | "conversation" | "conversationMessage" | "pipelineJob"
+      modelProps: "contact" | "formSubmission" | "leadEvent" | "videoWatchSession" | "landingVisit" | "leadPipeline" | "conversation" | "conversationMessage" | "pipelineJob" | "airbnbLead" | "airbnbMessage" | "systemState" | "calBooking" | "prospectAccount" | "hostContact" | "leadIdentityAlias" | "dailyOutboundStats" | "accountBlockEvent" | "airbnbCommercial" | "operationalDiagnosis"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1366,6 +1653,80 @@ export namespace Prisma {
           }
         }
       }
+      LandingVisit: {
+        payload: Prisma.$LandingVisitPayload<ExtArgs>
+        fields: Prisma.LandingVisitFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LandingVisitFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LandingVisitPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LandingVisitFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LandingVisitPayload>
+          }
+          findFirst: {
+            args: Prisma.LandingVisitFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LandingVisitPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LandingVisitFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LandingVisitPayload>
+          }
+          findMany: {
+            args: Prisma.LandingVisitFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LandingVisitPayload>[]
+          }
+          create: {
+            args: Prisma.LandingVisitCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LandingVisitPayload>
+          }
+          createMany: {
+            args: Prisma.LandingVisitCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LandingVisitCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LandingVisitPayload>[]
+          }
+          delete: {
+            args: Prisma.LandingVisitDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LandingVisitPayload>
+          }
+          update: {
+            args: Prisma.LandingVisitUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LandingVisitPayload>
+          }
+          deleteMany: {
+            args: Prisma.LandingVisitDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LandingVisitUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LandingVisitUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LandingVisitPayload>[]
+          }
+          upsert: {
+            args: Prisma.LandingVisitUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LandingVisitPayload>
+          }
+          aggregate: {
+            args: Prisma.LandingVisitAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLandingVisit>
+          }
+          groupBy: {
+            args: Prisma.LandingVisitGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LandingVisitGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LandingVisitCountArgs<ExtArgs>
+            result: $Utils.Optional<LandingVisitCountAggregateOutputType> | number
+          }
+        }
+      }
       LeadPipeline: {
         payload: Prisma.$LeadPipelinePayload<ExtArgs>
         fields: Prisma.LeadPipelineFieldRefs
@@ -1662,6 +2023,820 @@ export namespace Prisma {
           }
         }
       }
+      AirbnbLead: {
+        payload: Prisma.$AirbnbLeadPayload<ExtArgs>
+        fields: Prisma.AirbnbLeadFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AirbnbLeadFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbLeadPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AirbnbLeadFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbLeadPayload>
+          }
+          findFirst: {
+            args: Prisma.AirbnbLeadFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbLeadPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AirbnbLeadFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbLeadPayload>
+          }
+          findMany: {
+            args: Prisma.AirbnbLeadFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbLeadPayload>[]
+          }
+          create: {
+            args: Prisma.AirbnbLeadCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbLeadPayload>
+          }
+          createMany: {
+            args: Prisma.AirbnbLeadCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AirbnbLeadCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbLeadPayload>[]
+          }
+          delete: {
+            args: Prisma.AirbnbLeadDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbLeadPayload>
+          }
+          update: {
+            args: Prisma.AirbnbLeadUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbLeadPayload>
+          }
+          deleteMany: {
+            args: Prisma.AirbnbLeadDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AirbnbLeadUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AirbnbLeadUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbLeadPayload>[]
+          }
+          upsert: {
+            args: Prisma.AirbnbLeadUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbLeadPayload>
+          }
+          aggregate: {
+            args: Prisma.AirbnbLeadAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAirbnbLead>
+          }
+          groupBy: {
+            args: Prisma.AirbnbLeadGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AirbnbLeadGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AirbnbLeadCountArgs<ExtArgs>
+            result: $Utils.Optional<AirbnbLeadCountAggregateOutputType> | number
+          }
+        }
+      }
+      AirbnbMessage: {
+        payload: Prisma.$AirbnbMessagePayload<ExtArgs>
+        fields: Prisma.AirbnbMessageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AirbnbMessageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbMessagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AirbnbMessageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbMessagePayload>
+          }
+          findFirst: {
+            args: Prisma.AirbnbMessageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbMessagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AirbnbMessageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbMessagePayload>
+          }
+          findMany: {
+            args: Prisma.AirbnbMessageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbMessagePayload>[]
+          }
+          create: {
+            args: Prisma.AirbnbMessageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbMessagePayload>
+          }
+          createMany: {
+            args: Prisma.AirbnbMessageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AirbnbMessageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbMessagePayload>[]
+          }
+          delete: {
+            args: Prisma.AirbnbMessageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbMessagePayload>
+          }
+          update: {
+            args: Prisma.AirbnbMessageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbMessagePayload>
+          }
+          deleteMany: {
+            args: Prisma.AirbnbMessageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AirbnbMessageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AirbnbMessageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbMessagePayload>[]
+          }
+          upsert: {
+            args: Prisma.AirbnbMessageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbMessagePayload>
+          }
+          aggregate: {
+            args: Prisma.AirbnbMessageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAirbnbMessage>
+          }
+          groupBy: {
+            args: Prisma.AirbnbMessageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AirbnbMessageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AirbnbMessageCountArgs<ExtArgs>
+            result: $Utils.Optional<AirbnbMessageCountAggregateOutputType> | number
+          }
+        }
+      }
+      SystemState: {
+        payload: Prisma.$SystemStatePayload<ExtArgs>
+        fields: Prisma.SystemStateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SystemStateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemStatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SystemStateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemStatePayload>
+          }
+          findFirst: {
+            args: Prisma.SystemStateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemStatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SystemStateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemStatePayload>
+          }
+          findMany: {
+            args: Prisma.SystemStateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemStatePayload>[]
+          }
+          create: {
+            args: Prisma.SystemStateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemStatePayload>
+          }
+          createMany: {
+            args: Prisma.SystemStateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SystemStateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemStatePayload>[]
+          }
+          delete: {
+            args: Prisma.SystemStateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemStatePayload>
+          }
+          update: {
+            args: Prisma.SystemStateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemStatePayload>
+          }
+          deleteMany: {
+            args: Prisma.SystemStateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SystemStateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SystemStateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemStatePayload>[]
+          }
+          upsert: {
+            args: Prisma.SystemStateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemStatePayload>
+          }
+          aggregate: {
+            args: Prisma.SystemStateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSystemState>
+          }
+          groupBy: {
+            args: Prisma.SystemStateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SystemStateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SystemStateCountArgs<ExtArgs>
+            result: $Utils.Optional<SystemStateCountAggregateOutputType> | number
+          }
+        }
+      }
+      CalBooking: {
+        payload: Prisma.$CalBookingPayload<ExtArgs>
+        fields: Prisma.CalBookingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CalBookingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalBookingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CalBookingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalBookingPayload>
+          }
+          findFirst: {
+            args: Prisma.CalBookingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalBookingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CalBookingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalBookingPayload>
+          }
+          findMany: {
+            args: Prisma.CalBookingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalBookingPayload>[]
+          }
+          create: {
+            args: Prisma.CalBookingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalBookingPayload>
+          }
+          createMany: {
+            args: Prisma.CalBookingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CalBookingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalBookingPayload>[]
+          }
+          delete: {
+            args: Prisma.CalBookingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalBookingPayload>
+          }
+          update: {
+            args: Prisma.CalBookingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalBookingPayload>
+          }
+          deleteMany: {
+            args: Prisma.CalBookingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CalBookingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CalBookingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalBookingPayload>[]
+          }
+          upsert: {
+            args: Prisma.CalBookingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CalBookingPayload>
+          }
+          aggregate: {
+            args: Prisma.CalBookingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCalBooking>
+          }
+          groupBy: {
+            args: Prisma.CalBookingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CalBookingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CalBookingCountArgs<ExtArgs>
+            result: $Utils.Optional<CalBookingCountAggregateOutputType> | number
+          }
+        }
+      }
+      ProspectAccount: {
+        payload: Prisma.$ProspectAccountPayload<ExtArgs>
+        fields: Prisma.ProspectAccountFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProspectAccountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProspectAccountPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProspectAccountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProspectAccountPayload>
+          }
+          findFirst: {
+            args: Prisma.ProspectAccountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProspectAccountPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProspectAccountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProspectAccountPayload>
+          }
+          findMany: {
+            args: Prisma.ProspectAccountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProspectAccountPayload>[]
+          }
+          create: {
+            args: Prisma.ProspectAccountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProspectAccountPayload>
+          }
+          createMany: {
+            args: Prisma.ProspectAccountCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProspectAccountCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProspectAccountPayload>[]
+          }
+          delete: {
+            args: Prisma.ProspectAccountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProspectAccountPayload>
+          }
+          update: {
+            args: Prisma.ProspectAccountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProspectAccountPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProspectAccountDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProspectAccountUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProspectAccountUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProspectAccountPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProspectAccountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProspectAccountPayload>
+          }
+          aggregate: {
+            args: Prisma.ProspectAccountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProspectAccount>
+          }
+          groupBy: {
+            args: Prisma.ProspectAccountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProspectAccountGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProspectAccountCountArgs<ExtArgs>
+            result: $Utils.Optional<ProspectAccountCountAggregateOutputType> | number
+          }
+        }
+      }
+      HostContact: {
+        payload: Prisma.$HostContactPayload<ExtArgs>
+        fields: Prisma.HostContactFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HostContactFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HostContactPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HostContactFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HostContactPayload>
+          }
+          findFirst: {
+            args: Prisma.HostContactFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HostContactPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HostContactFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HostContactPayload>
+          }
+          findMany: {
+            args: Prisma.HostContactFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HostContactPayload>[]
+          }
+          create: {
+            args: Prisma.HostContactCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HostContactPayload>
+          }
+          createMany: {
+            args: Prisma.HostContactCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HostContactCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HostContactPayload>[]
+          }
+          delete: {
+            args: Prisma.HostContactDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HostContactPayload>
+          }
+          update: {
+            args: Prisma.HostContactUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HostContactPayload>
+          }
+          deleteMany: {
+            args: Prisma.HostContactDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HostContactUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.HostContactUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HostContactPayload>[]
+          }
+          upsert: {
+            args: Prisma.HostContactUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HostContactPayload>
+          }
+          aggregate: {
+            args: Prisma.HostContactAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHostContact>
+          }
+          groupBy: {
+            args: Prisma.HostContactGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HostContactGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HostContactCountArgs<ExtArgs>
+            result: $Utils.Optional<HostContactCountAggregateOutputType> | number
+          }
+        }
+      }
+      LeadIdentityAlias: {
+        payload: Prisma.$LeadIdentityAliasPayload<ExtArgs>
+        fields: Prisma.LeadIdentityAliasFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LeadIdentityAliasFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadIdentityAliasPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LeadIdentityAliasFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadIdentityAliasPayload>
+          }
+          findFirst: {
+            args: Prisma.LeadIdentityAliasFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadIdentityAliasPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LeadIdentityAliasFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadIdentityAliasPayload>
+          }
+          findMany: {
+            args: Prisma.LeadIdentityAliasFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadIdentityAliasPayload>[]
+          }
+          create: {
+            args: Prisma.LeadIdentityAliasCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadIdentityAliasPayload>
+          }
+          createMany: {
+            args: Prisma.LeadIdentityAliasCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LeadIdentityAliasCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadIdentityAliasPayload>[]
+          }
+          delete: {
+            args: Prisma.LeadIdentityAliasDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadIdentityAliasPayload>
+          }
+          update: {
+            args: Prisma.LeadIdentityAliasUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadIdentityAliasPayload>
+          }
+          deleteMany: {
+            args: Prisma.LeadIdentityAliasDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LeadIdentityAliasUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LeadIdentityAliasUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadIdentityAliasPayload>[]
+          }
+          upsert: {
+            args: Prisma.LeadIdentityAliasUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadIdentityAliasPayload>
+          }
+          aggregate: {
+            args: Prisma.LeadIdentityAliasAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLeadIdentityAlias>
+          }
+          groupBy: {
+            args: Prisma.LeadIdentityAliasGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LeadIdentityAliasGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LeadIdentityAliasCountArgs<ExtArgs>
+            result: $Utils.Optional<LeadIdentityAliasCountAggregateOutputType> | number
+          }
+        }
+      }
+      DailyOutboundStats: {
+        payload: Prisma.$DailyOutboundStatsPayload<ExtArgs>
+        fields: Prisma.DailyOutboundStatsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DailyOutboundStatsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyOutboundStatsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DailyOutboundStatsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyOutboundStatsPayload>
+          }
+          findFirst: {
+            args: Prisma.DailyOutboundStatsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyOutboundStatsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DailyOutboundStatsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyOutboundStatsPayload>
+          }
+          findMany: {
+            args: Prisma.DailyOutboundStatsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyOutboundStatsPayload>[]
+          }
+          create: {
+            args: Prisma.DailyOutboundStatsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyOutboundStatsPayload>
+          }
+          createMany: {
+            args: Prisma.DailyOutboundStatsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DailyOutboundStatsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyOutboundStatsPayload>[]
+          }
+          delete: {
+            args: Prisma.DailyOutboundStatsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyOutboundStatsPayload>
+          }
+          update: {
+            args: Prisma.DailyOutboundStatsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyOutboundStatsPayload>
+          }
+          deleteMany: {
+            args: Prisma.DailyOutboundStatsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DailyOutboundStatsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DailyOutboundStatsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyOutboundStatsPayload>[]
+          }
+          upsert: {
+            args: Prisma.DailyOutboundStatsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyOutboundStatsPayload>
+          }
+          aggregate: {
+            args: Prisma.DailyOutboundStatsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDailyOutboundStats>
+          }
+          groupBy: {
+            args: Prisma.DailyOutboundStatsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DailyOutboundStatsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DailyOutboundStatsCountArgs<ExtArgs>
+            result: $Utils.Optional<DailyOutboundStatsCountAggregateOutputType> | number
+          }
+        }
+      }
+      AccountBlockEvent: {
+        payload: Prisma.$AccountBlockEventPayload<ExtArgs>
+        fields: Prisma.AccountBlockEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AccountBlockEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBlockEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AccountBlockEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBlockEventPayload>
+          }
+          findFirst: {
+            args: Prisma.AccountBlockEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBlockEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AccountBlockEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBlockEventPayload>
+          }
+          findMany: {
+            args: Prisma.AccountBlockEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBlockEventPayload>[]
+          }
+          create: {
+            args: Prisma.AccountBlockEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBlockEventPayload>
+          }
+          createMany: {
+            args: Prisma.AccountBlockEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AccountBlockEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBlockEventPayload>[]
+          }
+          delete: {
+            args: Prisma.AccountBlockEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBlockEventPayload>
+          }
+          update: {
+            args: Prisma.AccountBlockEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBlockEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.AccountBlockEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AccountBlockEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AccountBlockEventUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBlockEventPayload>[]
+          }
+          upsert: {
+            args: Prisma.AccountBlockEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AccountBlockEventPayload>
+          }
+          aggregate: {
+            args: Prisma.AccountBlockEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAccountBlockEvent>
+          }
+          groupBy: {
+            args: Prisma.AccountBlockEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AccountBlockEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AccountBlockEventCountArgs<ExtArgs>
+            result: $Utils.Optional<AccountBlockEventCountAggregateOutputType> | number
+          }
+        }
+      }
+      AirbnbCommercial: {
+        payload: Prisma.$AirbnbCommercialPayload<ExtArgs>
+        fields: Prisma.AirbnbCommercialFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AirbnbCommercialFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbCommercialPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AirbnbCommercialFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbCommercialPayload>
+          }
+          findFirst: {
+            args: Prisma.AirbnbCommercialFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbCommercialPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AirbnbCommercialFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbCommercialPayload>
+          }
+          findMany: {
+            args: Prisma.AirbnbCommercialFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbCommercialPayload>[]
+          }
+          create: {
+            args: Prisma.AirbnbCommercialCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbCommercialPayload>
+          }
+          createMany: {
+            args: Prisma.AirbnbCommercialCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AirbnbCommercialCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbCommercialPayload>[]
+          }
+          delete: {
+            args: Prisma.AirbnbCommercialDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbCommercialPayload>
+          }
+          update: {
+            args: Prisma.AirbnbCommercialUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbCommercialPayload>
+          }
+          deleteMany: {
+            args: Prisma.AirbnbCommercialDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AirbnbCommercialUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AirbnbCommercialUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbCommercialPayload>[]
+          }
+          upsert: {
+            args: Prisma.AirbnbCommercialUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AirbnbCommercialPayload>
+          }
+          aggregate: {
+            args: Prisma.AirbnbCommercialAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAirbnbCommercial>
+          }
+          groupBy: {
+            args: Prisma.AirbnbCommercialGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AirbnbCommercialGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AirbnbCommercialCountArgs<ExtArgs>
+            result: $Utils.Optional<AirbnbCommercialCountAggregateOutputType> | number
+          }
+        }
+      }
+      OperationalDiagnosis: {
+        payload: Prisma.$OperationalDiagnosisPayload<ExtArgs>
+        fields: Prisma.OperationalDiagnosisFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OperationalDiagnosisFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OperationalDiagnosisPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OperationalDiagnosisFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OperationalDiagnosisPayload>
+          }
+          findFirst: {
+            args: Prisma.OperationalDiagnosisFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OperationalDiagnosisPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OperationalDiagnosisFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OperationalDiagnosisPayload>
+          }
+          findMany: {
+            args: Prisma.OperationalDiagnosisFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OperationalDiagnosisPayload>[]
+          }
+          create: {
+            args: Prisma.OperationalDiagnosisCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OperationalDiagnosisPayload>
+          }
+          createMany: {
+            args: Prisma.OperationalDiagnosisCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OperationalDiagnosisCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OperationalDiagnosisPayload>[]
+          }
+          delete: {
+            args: Prisma.OperationalDiagnosisDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OperationalDiagnosisPayload>
+          }
+          update: {
+            args: Prisma.OperationalDiagnosisUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OperationalDiagnosisPayload>
+          }
+          deleteMany: {
+            args: Prisma.OperationalDiagnosisDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OperationalDiagnosisUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OperationalDiagnosisUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OperationalDiagnosisPayload>[]
+          }
+          upsert: {
+            args: Prisma.OperationalDiagnosisUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OperationalDiagnosisPayload>
+          }
+          aggregate: {
+            args: Prisma.OperationalDiagnosisAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOperationalDiagnosis>
+          }
+          groupBy: {
+            args: Prisma.OperationalDiagnosisGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OperationalDiagnosisGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OperationalDiagnosisCountArgs<ExtArgs>
+            result: $Utils.Optional<OperationalDiagnosisCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1762,10 +2937,22 @@ export namespace Prisma {
     formSubmission?: FormSubmissionOmit
     leadEvent?: LeadEventOmit
     videoWatchSession?: VideoWatchSessionOmit
+    landingVisit?: LandingVisitOmit
     leadPipeline?: LeadPipelineOmit
     conversation?: ConversationOmit
     conversationMessage?: ConversationMessageOmit
     pipelineJob?: PipelineJobOmit
+    airbnbLead?: AirbnbLeadOmit
+    airbnbMessage?: AirbnbMessageOmit
+    systemState?: SystemStateOmit
+    calBooking?: CalBookingOmit
+    prospectAccount?: ProspectAccountOmit
+    hostContact?: HostContactOmit
+    leadIdentityAlias?: LeadIdentityAliasOmit
+    dailyOutboundStats?: DailyOutboundStatsOmit
+    accountBlockEvent?: AccountBlockEventOmit
+    airbnbCommercial?: AirbnbCommercialOmit
+    operationalDiagnosis?: OperationalDiagnosisOmit
   }
 
   /* Types for Logging */
@@ -1971,6 +3158,104 @@ export namespace Prisma {
    */
   export type ConversationCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ConversationMessageWhereInput
+  }
+
+
+  /**
+   * Count Type AirbnbLeadCountOutputType
+   */
+
+  export type AirbnbLeadCountOutputType = {
+    messages: number
+    calBookings: number
+    events: number
+  }
+
+  export type AirbnbLeadCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    messages?: boolean | AirbnbLeadCountOutputTypeCountMessagesArgs
+    calBookings?: boolean | AirbnbLeadCountOutputTypeCountCalBookingsArgs
+    events?: boolean | AirbnbLeadCountOutputTypeCountEventsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AirbnbLeadCountOutputType without action
+   */
+  export type AirbnbLeadCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLeadCountOutputType
+     */
+    select?: AirbnbLeadCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AirbnbLeadCountOutputType without action
+   */
+  export type AirbnbLeadCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AirbnbMessageWhereInput
+  }
+
+  /**
+   * AirbnbLeadCountOutputType without action
+   */
+  export type AirbnbLeadCountOutputTypeCountCalBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CalBookingWhereInput
+  }
+
+  /**
+   * AirbnbLeadCountOutputType without action
+   */
+  export type AirbnbLeadCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeadEventWhereInput
+  }
+
+
+  /**
+   * Count Type ProspectAccountCountOutputType
+   */
+
+  export type ProspectAccountCountOutputType = {
+    blockEvents: number
+    messages: number
+    hostContacts: number
+  }
+
+  export type ProspectAccountCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blockEvents?: boolean | ProspectAccountCountOutputTypeCountBlockEventsArgs
+    messages?: boolean | ProspectAccountCountOutputTypeCountMessagesArgs
+    hostContacts?: boolean | ProspectAccountCountOutputTypeCountHostContactsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ProspectAccountCountOutputType without action
+   */
+  export type ProspectAccountCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccountCountOutputType
+     */
+    select?: ProspectAccountCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProspectAccountCountOutputType without action
+   */
+  export type ProspectAccountCountOutputTypeCountBlockEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountBlockEventWhereInput
+  }
+
+  /**
+   * ProspectAccountCountOutputType without action
+   */
+  export type ProspectAccountCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AirbnbMessageWhereInput
+  }
+
+  /**
+   * ProspectAccountCountOutputType without action
+   */
+  export type ProspectAccountCountOutputTypeCountHostContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HostContactWhereInput
   }
 
 
@@ -2201,6 +3486,7 @@ export namespace Prisma {
     submissions?: boolean | Contact$submissionsArgs<ExtArgs>
     pipeline?: boolean | Contact$pipelineArgs<ExtArgs>
     conversations?: boolean | Contact$conversationsArgs<ExtArgs>
+    airbnbLead?: boolean | Contact$airbnbLeadArgs<ExtArgs>
     _count?: boolean | ContactCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contact"]>
 
@@ -2254,6 +3540,7 @@ export namespace Prisma {
     submissions?: boolean | Contact$submissionsArgs<ExtArgs>
     pipeline?: boolean | Contact$pipelineArgs<ExtArgs>
     conversations?: boolean | Contact$conversationsArgs<ExtArgs>
+    airbnbLead?: boolean | Contact$airbnbLeadArgs<ExtArgs>
     _count?: boolean | ContactCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ContactIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2265,6 +3552,7 @@ export namespace Prisma {
       submissions: Prisma.$FormSubmissionPayload<ExtArgs>[]
       pipeline: Prisma.$LeadPipelinePayload<ExtArgs> | null
       conversations: Prisma.$ConversationPayload<ExtArgs>[]
+      airbnbLead: Prisma.$AirbnbLeadPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2676,6 +3964,7 @@ export namespace Prisma {
     submissions<T extends Contact$submissionsArgs<ExtArgs> = {}>(args?: Subset<T, Contact$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pipeline<T extends Contact$pipelineArgs<ExtArgs> = {}>(args?: Subset<T, Contact$pipelineArgs<ExtArgs>>): Prisma__LeadPipelineClient<$Result.GetResult<Prisma.$LeadPipelinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     conversations<T extends Contact$conversationsArgs<ExtArgs> = {}>(args?: Subset<T, Contact$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    airbnbLead<T extends Contact$airbnbLeadArgs<ExtArgs> = {}>(args?: Subset<T, Contact$airbnbLeadArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3169,6 +4458,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * Contact.airbnbLead
+   */
+  export type Contact$airbnbLeadArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+    where?: AirbnbLeadWhereInput
   }
 
   /**
@@ -4811,6 +6119,7 @@ export namespace Prisma {
   export type LeadEventMinAggregateOutputType = {
     id: string | null
     submissionId: string | null
+    airbnbLeadId: string | null
     eventName: $Enums.MarketingEventName | null
     eventTime: Date | null
     eventSourceUrl: string | null
@@ -4828,6 +6137,7 @@ export namespace Prisma {
   export type LeadEventMaxAggregateOutputType = {
     id: string | null
     submissionId: string | null
+    airbnbLeadId: string | null
     eventName: $Enums.MarketingEventName | null
     eventTime: Date | null
     eventSourceUrl: string | null
@@ -4845,6 +6155,7 @@ export namespace Prisma {
   export type LeadEventCountAggregateOutputType = {
     id: number
     submissionId: number
+    airbnbLeadId: number
     eventName: number
     eventTime: number
     eventSourceUrl: number
@@ -4875,6 +6186,7 @@ export namespace Prisma {
   export type LeadEventMinAggregateInputType = {
     id?: true
     submissionId?: true
+    airbnbLeadId?: true
     eventName?: true
     eventTime?: true
     eventSourceUrl?: true
@@ -4892,6 +6204,7 @@ export namespace Prisma {
   export type LeadEventMaxAggregateInputType = {
     id?: true
     submissionId?: true
+    airbnbLeadId?: true
     eventName?: true
     eventTime?: true
     eventSourceUrl?: true
@@ -4909,6 +6222,7 @@ export namespace Prisma {
   export type LeadEventCountAggregateInputType = {
     id?: true
     submissionId?: true
+    airbnbLeadId?: true
     eventName?: true
     eventTime?: true
     eventSourceUrl?: true
@@ -5013,7 +6327,8 @@ export namespace Prisma {
 
   export type LeadEventGroupByOutputType = {
     id: string
-    submissionId: string
+    submissionId: string | null
+    airbnbLeadId: string | null
     eventName: $Enums.MarketingEventName
     eventTime: Date
     eventSourceUrl: string | null
@@ -5051,6 +6366,7 @@ export namespace Prisma {
   export type LeadEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     submissionId?: boolean
+    airbnbLeadId?: boolean
     eventName?: boolean
     eventTime?: boolean
     eventSourceUrl?: boolean
@@ -5064,12 +6380,14 @@ export namespace Prisma {
     clientIp?: boolean
     clientUserAgent?: boolean
     createdAt?: boolean
-    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+    submission?: boolean | LeadEvent$submissionArgs<ExtArgs>
+    airbnbLead?: boolean | LeadEvent$airbnbLeadArgs<ExtArgs>
   }, ExtArgs["result"]["leadEvent"]>
 
   export type LeadEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     submissionId?: boolean
+    airbnbLeadId?: boolean
     eventName?: boolean
     eventTime?: boolean
     eventSourceUrl?: boolean
@@ -5083,12 +6401,14 @@ export namespace Prisma {
     clientIp?: boolean
     clientUserAgent?: boolean
     createdAt?: boolean
-    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+    submission?: boolean | LeadEvent$submissionArgs<ExtArgs>
+    airbnbLead?: boolean | LeadEvent$airbnbLeadArgs<ExtArgs>
   }, ExtArgs["result"]["leadEvent"]>
 
   export type LeadEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     submissionId?: boolean
+    airbnbLeadId?: boolean
     eventName?: boolean
     eventTime?: boolean
     eventSourceUrl?: boolean
@@ -5102,12 +6422,14 @@ export namespace Prisma {
     clientIp?: boolean
     clientUserAgent?: boolean
     createdAt?: boolean
-    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+    submission?: boolean | LeadEvent$submissionArgs<ExtArgs>
+    airbnbLead?: boolean | LeadEvent$airbnbLeadArgs<ExtArgs>
   }, ExtArgs["result"]["leadEvent"]>
 
   export type LeadEventSelectScalar = {
     id?: boolean
     submissionId?: boolean
+    airbnbLeadId?: boolean
     eventName?: boolean
     eventTime?: boolean
     eventSourceUrl?: boolean
@@ -5123,25 +6445,30 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type LeadEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "submissionId" | "eventName" | "eventTime" | "eventSourceUrl" | "value" | "currency" | "sentToMeta" | "metaResponse" | "attemptCount" | "lastAttemptAt" | "triggeredBy" | "clientIp" | "clientUserAgent" | "createdAt", ExtArgs["result"]["leadEvent"]>
+  export type LeadEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "submissionId" | "airbnbLeadId" | "eventName" | "eventTime" | "eventSourceUrl" | "value" | "currency" | "sentToMeta" | "metaResponse" | "attemptCount" | "lastAttemptAt" | "triggeredBy" | "clientIp" | "clientUserAgent" | "createdAt", ExtArgs["result"]["leadEvent"]>
   export type LeadEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+    submission?: boolean | LeadEvent$submissionArgs<ExtArgs>
+    airbnbLead?: boolean | LeadEvent$airbnbLeadArgs<ExtArgs>
   }
   export type LeadEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+    submission?: boolean | LeadEvent$submissionArgs<ExtArgs>
+    airbnbLead?: boolean | LeadEvent$airbnbLeadArgs<ExtArgs>
   }
   export type LeadEventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+    submission?: boolean | LeadEvent$submissionArgs<ExtArgs>
+    airbnbLead?: boolean | LeadEvent$airbnbLeadArgs<ExtArgs>
   }
 
   export type $LeadEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "LeadEvent"
     objects: {
-      submission: Prisma.$FormSubmissionPayload<ExtArgs>
+      submission: Prisma.$FormSubmissionPayload<ExtArgs> | null
+      airbnbLead: Prisma.$AirbnbLeadPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      submissionId: string
+      submissionId: string | null
+      airbnbLeadId: string | null
       eventName: $Enums.MarketingEventName
       eventTime: Date
       eventSourceUrl: string | null
@@ -5549,7 +6876,8 @@ export namespace Prisma {
    */
   export interface Prisma__LeadEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    submission<T extends FormSubmissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmissionDefaultArgs<ExtArgs>>): Prisma__FormSubmissionClient<$Result.GetResult<Prisma.$FormSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    submission<T extends LeadEvent$submissionArgs<ExtArgs> = {}>(args?: Subset<T, LeadEvent$submissionArgs<ExtArgs>>): Prisma__FormSubmissionClient<$Result.GetResult<Prisma.$FormSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    airbnbLead<T extends LeadEvent$airbnbLeadArgs<ExtArgs> = {}>(args?: Subset<T, LeadEvent$airbnbLeadArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5581,6 +6909,7 @@ export namespace Prisma {
   interface LeadEventFieldRefs {
     readonly id: FieldRef<"LeadEvent", 'String'>
     readonly submissionId: FieldRef<"LeadEvent", 'String'>
+    readonly airbnbLeadId: FieldRef<"LeadEvent", 'String'>
     readonly eventName: FieldRef<"LeadEvent", 'MarketingEventName'>
     readonly eventTime: FieldRef<"LeadEvent", 'DateTime'>
     readonly eventSourceUrl: FieldRef<"LeadEvent", 'String'>
@@ -5987,6 +7316,44 @@ export namespace Prisma {
      * Limit how many LeadEvents to delete.
      */
     limit?: number
+  }
+
+  /**
+   * LeadEvent.submission
+   */
+  export type LeadEvent$submissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormSubmission
+     */
+    select?: FormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FormSubmission
+     */
+    omit?: FormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
+    where?: FormSubmissionWhereInput
+  }
+
+  /**
+   * LeadEvent.airbnbLead
+   */
+  export type LeadEvent$airbnbLeadArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+    where?: AirbnbLeadWhereInput
   }
 
   /**
@@ -7146,6 +8513,1131 @@ export namespace Prisma {
      * Omit specific fields from the VideoWatchSession
      */
     omit?: VideoWatchSessionOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LandingVisit
+   */
+
+  export type AggregateLandingVisit = {
+    _count: LandingVisitCountAggregateOutputType | null
+    _min: LandingVisitMinAggregateOutputType | null
+    _max: LandingVisitMaxAggregateOutputType | null
+  }
+
+  export type LandingVisitMinAggregateOutputType = {
+    id: string | null
+    visitorId: string | null
+    landingPath: string | null
+    fromAd: boolean | null
+    fbclid: string | null
+    fbp: string | null
+    fbc: string | null
+    utmSource: string | null
+    utmMedium: string | null
+    utmCampaign: string | null
+    convertedAt: Date | null
+    conversion: string | null
+    lastSeenAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LandingVisitMaxAggregateOutputType = {
+    id: string | null
+    visitorId: string | null
+    landingPath: string | null
+    fromAd: boolean | null
+    fbclid: string | null
+    fbp: string | null
+    fbc: string | null
+    utmSource: string | null
+    utmMedium: string | null
+    utmCampaign: string | null
+    convertedAt: Date | null
+    conversion: string | null
+    lastSeenAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LandingVisitCountAggregateOutputType = {
+    id: number
+    visitorId: number
+    landingPath: number
+    fromAd: number
+    fbclid: number
+    fbp: number
+    fbc: number
+    utmSource: number
+    utmMedium: number
+    utmCampaign: number
+    convertedAt: number
+    conversion: number
+    lastSeenAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LandingVisitMinAggregateInputType = {
+    id?: true
+    visitorId?: true
+    landingPath?: true
+    fromAd?: true
+    fbclid?: true
+    fbp?: true
+    fbc?: true
+    utmSource?: true
+    utmMedium?: true
+    utmCampaign?: true
+    convertedAt?: true
+    conversion?: true
+    lastSeenAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LandingVisitMaxAggregateInputType = {
+    id?: true
+    visitorId?: true
+    landingPath?: true
+    fromAd?: true
+    fbclid?: true
+    fbp?: true
+    fbc?: true
+    utmSource?: true
+    utmMedium?: true
+    utmCampaign?: true
+    convertedAt?: true
+    conversion?: true
+    lastSeenAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LandingVisitCountAggregateInputType = {
+    id?: true
+    visitorId?: true
+    landingPath?: true
+    fromAd?: true
+    fbclid?: true
+    fbp?: true
+    fbc?: true
+    utmSource?: true
+    utmMedium?: true
+    utmCampaign?: true
+    convertedAt?: true
+    conversion?: true
+    lastSeenAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LandingVisitAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LandingVisit to aggregate.
+     */
+    where?: LandingVisitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LandingVisits to fetch.
+     */
+    orderBy?: LandingVisitOrderByWithRelationInput | LandingVisitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LandingVisitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LandingVisits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LandingVisits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LandingVisits
+    **/
+    _count?: true | LandingVisitCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LandingVisitMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LandingVisitMaxAggregateInputType
+  }
+
+  export type GetLandingVisitAggregateType<T extends LandingVisitAggregateArgs> = {
+        [P in keyof T & keyof AggregateLandingVisit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLandingVisit[P]>
+      : GetScalarType<T[P], AggregateLandingVisit[P]>
+  }
+
+
+
+
+  export type LandingVisitGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LandingVisitWhereInput
+    orderBy?: LandingVisitOrderByWithAggregationInput | LandingVisitOrderByWithAggregationInput[]
+    by: LandingVisitScalarFieldEnum[] | LandingVisitScalarFieldEnum
+    having?: LandingVisitScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LandingVisitCountAggregateInputType | true
+    _min?: LandingVisitMinAggregateInputType
+    _max?: LandingVisitMaxAggregateInputType
+  }
+
+  export type LandingVisitGroupByOutputType = {
+    id: string
+    visitorId: string
+    landingPath: string
+    fromAd: boolean
+    fbclid: string | null
+    fbp: string | null
+    fbc: string | null
+    utmSource: string | null
+    utmMedium: string | null
+    utmCampaign: string | null
+    convertedAt: Date | null
+    conversion: string | null
+    lastSeenAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: LandingVisitCountAggregateOutputType | null
+    _min: LandingVisitMinAggregateOutputType | null
+    _max: LandingVisitMaxAggregateOutputType | null
+  }
+
+  type GetLandingVisitGroupByPayload<T extends LandingVisitGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LandingVisitGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LandingVisitGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LandingVisitGroupByOutputType[P]>
+            : GetScalarType<T[P], LandingVisitGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LandingVisitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    visitorId?: boolean
+    landingPath?: boolean
+    fromAd?: boolean
+    fbclid?: boolean
+    fbp?: boolean
+    fbc?: boolean
+    utmSource?: boolean
+    utmMedium?: boolean
+    utmCampaign?: boolean
+    convertedAt?: boolean
+    conversion?: boolean
+    lastSeenAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["landingVisit"]>
+
+  export type LandingVisitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    visitorId?: boolean
+    landingPath?: boolean
+    fromAd?: boolean
+    fbclid?: boolean
+    fbp?: boolean
+    fbc?: boolean
+    utmSource?: boolean
+    utmMedium?: boolean
+    utmCampaign?: boolean
+    convertedAt?: boolean
+    conversion?: boolean
+    lastSeenAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["landingVisit"]>
+
+  export type LandingVisitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    visitorId?: boolean
+    landingPath?: boolean
+    fromAd?: boolean
+    fbclid?: boolean
+    fbp?: boolean
+    fbc?: boolean
+    utmSource?: boolean
+    utmMedium?: boolean
+    utmCampaign?: boolean
+    convertedAt?: boolean
+    conversion?: boolean
+    lastSeenAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["landingVisit"]>
+
+  export type LandingVisitSelectScalar = {
+    id?: boolean
+    visitorId?: boolean
+    landingPath?: boolean
+    fromAd?: boolean
+    fbclid?: boolean
+    fbp?: boolean
+    fbc?: boolean
+    utmSource?: boolean
+    utmMedium?: boolean
+    utmCampaign?: boolean
+    convertedAt?: boolean
+    conversion?: boolean
+    lastSeenAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LandingVisitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "visitorId" | "landingPath" | "fromAd" | "fbclid" | "fbp" | "fbc" | "utmSource" | "utmMedium" | "utmCampaign" | "convertedAt" | "conversion" | "lastSeenAt" | "createdAt" | "updatedAt", ExtArgs["result"]["landingVisit"]>
+
+  export type $LandingVisitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LandingVisit"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      visitorId: string
+      landingPath: string
+      fromAd: boolean
+      fbclid: string | null
+      fbp: string | null
+      fbc: string | null
+      utmSource: string | null
+      utmMedium: string | null
+      utmCampaign: string | null
+      convertedAt: Date | null
+      conversion: string | null
+      lastSeenAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["landingVisit"]>
+    composites: {}
+  }
+
+  type LandingVisitGetPayload<S extends boolean | null | undefined | LandingVisitDefaultArgs> = $Result.GetResult<Prisma.$LandingVisitPayload, S>
+
+  type LandingVisitCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LandingVisitFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LandingVisitCountAggregateInputType | true
+    }
+
+  export interface LandingVisitDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LandingVisit'], meta: { name: 'LandingVisit' } }
+    /**
+     * Find zero or one LandingVisit that matches the filter.
+     * @param {LandingVisitFindUniqueArgs} args - Arguments to find a LandingVisit
+     * @example
+     * // Get one LandingVisit
+     * const landingVisit = await prisma.landingVisit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LandingVisitFindUniqueArgs>(args: SelectSubset<T, LandingVisitFindUniqueArgs<ExtArgs>>): Prisma__LandingVisitClient<$Result.GetResult<Prisma.$LandingVisitPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LandingVisit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LandingVisitFindUniqueOrThrowArgs} args - Arguments to find a LandingVisit
+     * @example
+     * // Get one LandingVisit
+     * const landingVisit = await prisma.landingVisit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LandingVisitFindUniqueOrThrowArgs>(args: SelectSubset<T, LandingVisitFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LandingVisitClient<$Result.GetResult<Prisma.$LandingVisitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LandingVisit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandingVisitFindFirstArgs} args - Arguments to find a LandingVisit
+     * @example
+     * // Get one LandingVisit
+     * const landingVisit = await prisma.landingVisit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LandingVisitFindFirstArgs>(args?: SelectSubset<T, LandingVisitFindFirstArgs<ExtArgs>>): Prisma__LandingVisitClient<$Result.GetResult<Prisma.$LandingVisitPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LandingVisit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandingVisitFindFirstOrThrowArgs} args - Arguments to find a LandingVisit
+     * @example
+     * // Get one LandingVisit
+     * const landingVisit = await prisma.landingVisit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LandingVisitFindFirstOrThrowArgs>(args?: SelectSubset<T, LandingVisitFindFirstOrThrowArgs<ExtArgs>>): Prisma__LandingVisitClient<$Result.GetResult<Prisma.$LandingVisitPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LandingVisits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandingVisitFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LandingVisits
+     * const landingVisits = await prisma.landingVisit.findMany()
+     * 
+     * // Get first 10 LandingVisits
+     * const landingVisits = await prisma.landingVisit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const landingVisitWithIdOnly = await prisma.landingVisit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LandingVisitFindManyArgs>(args?: SelectSubset<T, LandingVisitFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LandingVisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LandingVisit.
+     * @param {LandingVisitCreateArgs} args - Arguments to create a LandingVisit.
+     * @example
+     * // Create one LandingVisit
+     * const LandingVisit = await prisma.landingVisit.create({
+     *   data: {
+     *     // ... data to create a LandingVisit
+     *   }
+     * })
+     * 
+     */
+    create<T extends LandingVisitCreateArgs>(args: SelectSubset<T, LandingVisitCreateArgs<ExtArgs>>): Prisma__LandingVisitClient<$Result.GetResult<Prisma.$LandingVisitPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LandingVisits.
+     * @param {LandingVisitCreateManyArgs} args - Arguments to create many LandingVisits.
+     * @example
+     * // Create many LandingVisits
+     * const landingVisit = await prisma.landingVisit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LandingVisitCreateManyArgs>(args?: SelectSubset<T, LandingVisitCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LandingVisits and returns the data saved in the database.
+     * @param {LandingVisitCreateManyAndReturnArgs} args - Arguments to create many LandingVisits.
+     * @example
+     * // Create many LandingVisits
+     * const landingVisit = await prisma.landingVisit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LandingVisits and only return the `id`
+     * const landingVisitWithIdOnly = await prisma.landingVisit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LandingVisitCreateManyAndReturnArgs>(args?: SelectSubset<T, LandingVisitCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LandingVisitPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LandingVisit.
+     * @param {LandingVisitDeleteArgs} args - Arguments to delete one LandingVisit.
+     * @example
+     * // Delete one LandingVisit
+     * const LandingVisit = await prisma.landingVisit.delete({
+     *   where: {
+     *     // ... filter to delete one LandingVisit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LandingVisitDeleteArgs>(args: SelectSubset<T, LandingVisitDeleteArgs<ExtArgs>>): Prisma__LandingVisitClient<$Result.GetResult<Prisma.$LandingVisitPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LandingVisit.
+     * @param {LandingVisitUpdateArgs} args - Arguments to update one LandingVisit.
+     * @example
+     * // Update one LandingVisit
+     * const landingVisit = await prisma.landingVisit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LandingVisitUpdateArgs>(args: SelectSubset<T, LandingVisitUpdateArgs<ExtArgs>>): Prisma__LandingVisitClient<$Result.GetResult<Prisma.$LandingVisitPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LandingVisits.
+     * @param {LandingVisitDeleteManyArgs} args - Arguments to filter LandingVisits to delete.
+     * @example
+     * // Delete a few LandingVisits
+     * const { count } = await prisma.landingVisit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LandingVisitDeleteManyArgs>(args?: SelectSubset<T, LandingVisitDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LandingVisits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandingVisitUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LandingVisits
+     * const landingVisit = await prisma.landingVisit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LandingVisitUpdateManyArgs>(args: SelectSubset<T, LandingVisitUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LandingVisits and returns the data updated in the database.
+     * @param {LandingVisitUpdateManyAndReturnArgs} args - Arguments to update many LandingVisits.
+     * @example
+     * // Update many LandingVisits
+     * const landingVisit = await prisma.landingVisit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LandingVisits and only return the `id`
+     * const landingVisitWithIdOnly = await prisma.landingVisit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LandingVisitUpdateManyAndReturnArgs>(args: SelectSubset<T, LandingVisitUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LandingVisitPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LandingVisit.
+     * @param {LandingVisitUpsertArgs} args - Arguments to update or create a LandingVisit.
+     * @example
+     * // Update or create a LandingVisit
+     * const landingVisit = await prisma.landingVisit.upsert({
+     *   create: {
+     *     // ... data to create a LandingVisit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LandingVisit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LandingVisitUpsertArgs>(args: SelectSubset<T, LandingVisitUpsertArgs<ExtArgs>>): Prisma__LandingVisitClient<$Result.GetResult<Prisma.$LandingVisitPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LandingVisits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandingVisitCountArgs} args - Arguments to filter LandingVisits to count.
+     * @example
+     * // Count the number of LandingVisits
+     * const count = await prisma.landingVisit.count({
+     *   where: {
+     *     // ... the filter for the LandingVisits we want to count
+     *   }
+     * })
+    **/
+    count<T extends LandingVisitCountArgs>(
+      args?: Subset<T, LandingVisitCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LandingVisitCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LandingVisit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandingVisitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LandingVisitAggregateArgs>(args: Subset<T, LandingVisitAggregateArgs>): Prisma.PrismaPromise<GetLandingVisitAggregateType<T>>
+
+    /**
+     * Group by LandingVisit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LandingVisitGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LandingVisitGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LandingVisitGroupByArgs['orderBy'] }
+        : { orderBy?: LandingVisitGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LandingVisitGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLandingVisitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LandingVisit model
+   */
+  readonly fields: LandingVisitFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LandingVisit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LandingVisitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LandingVisit model
+   */
+  interface LandingVisitFieldRefs {
+    readonly id: FieldRef<"LandingVisit", 'String'>
+    readonly visitorId: FieldRef<"LandingVisit", 'String'>
+    readonly landingPath: FieldRef<"LandingVisit", 'String'>
+    readonly fromAd: FieldRef<"LandingVisit", 'Boolean'>
+    readonly fbclid: FieldRef<"LandingVisit", 'String'>
+    readonly fbp: FieldRef<"LandingVisit", 'String'>
+    readonly fbc: FieldRef<"LandingVisit", 'String'>
+    readonly utmSource: FieldRef<"LandingVisit", 'String'>
+    readonly utmMedium: FieldRef<"LandingVisit", 'String'>
+    readonly utmCampaign: FieldRef<"LandingVisit", 'String'>
+    readonly convertedAt: FieldRef<"LandingVisit", 'DateTime'>
+    readonly conversion: FieldRef<"LandingVisit", 'String'>
+    readonly lastSeenAt: FieldRef<"LandingVisit", 'DateTime'>
+    readonly createdAt: FieldRef<"LandingVisit", 'DateTime'>
+    readonly updatedAt: FieldRef<"LandingVisit", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LandingVisit findUnique
+   */
+  export type LandingVisitFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandingVisit
+     */
+    select?: LandingVisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LandingVisit
+     */
+    omit?: LandingVisitOmit<ExtArgs> | null
+    /**
+     * Filter, which LandingVisit to fetch.
+     */
+    where: LandingVisitWhereUniqueInput
+  }
+
+  /**
+   * LandingVisit findUniqueOrThrow
+   */
+  export type LandingVisitFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandingVisit
+     */
+    select?: LandingVisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LandingVisit
+     */
+    omit?: LandingVisitOmit<ExtArgs> | null
+    /**
+     * Filter, which LandingVisit to fetch.
+     */
+    where: LandingVisitWhereUniqueInput
+  }
+
+  /**
+   * LandingVisit findFirst
+   */
+  export type LandingVisitFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandingVisit
+     */
+    select?: LandingVisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LandingVisit
+     */
+    omit?: LandingVisitOmit<ExtArgs> | null
+    /**
+     * Filter, which LandingVisit to fetch.
+     */
+    where?: LandingVisitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LandingVisits to fetch.
+     */
+    orderBy?: LandingVisitOrderByWithRelationInput | LandingVisitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LandingVisits.
+     */
+    cursor?: LandingVisitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LandingVisits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LandingVisits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LandingVisits.
+     */
+    distinct?: LandingVisitScalarFieldEnum | LandingVisitScalarFieldEnum[]
+  }
+
+  /**
+   * LandingVisit findFirstOrThrow
+   */
+  export type LandingVisitFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandingVisit
+     */
+    select?: LandingVisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LandingVisit
+     */
+    omit?: LandingVisitOmit<ExtArgs> | null
+    /**
+     * Filter, which LandingVisit to fetch.
+     */
+    where?: LandingVisitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LandingVisits to fetch.
+     */
+    orderBy?: LandingVisitOrderByWithRelationInput | LandingVisitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LandingVisits.
+     */
+    cursor?: LandingVisitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LandingVisits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LandingVisits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LandingVisits.
+     */
+    distinct?: LandingVisitScalarFieldEnum | LandingVisitScalarFieldEnum[]
+  }
+
+  /**
+   * LandingVisit findMany
+   */
+  export type LandingVisitFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandingVisit
+     */
+    select?: LandingVisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LandingVisit
+     */
+    omit?: LandingVisitOmit<ExtArgs> | null
+    /**
+     * Filter, which LandingVisits to fetch.
+     */
+    where?: LandingVisitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LandingVisits to fetch.
+     */
+    orderBy?: LandingVisitOrderByWithRelationInput | LandingVisitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LandingVisits.
+     */
+    cursor?: LandingVisitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LandingVisits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LandingVisits.
+     */
+    skip?: number
+    distinct?: LandingVisitScalarFieldEnum | LandingVisitScalarFieldEnum[]
+  }
+
+  /**
+   * LandingVisit create
+   */
+  export type LandingVisitCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandingVisit
+     */
+    select?: LandingVisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LandingVisit
+     */
+    omit?: LandingVisitOmit<ExtArgs> | null
+    /**
+     * The data needed to create a LandingVisit.
+     */
+    data: XOR<LandingVisitCreateInput, LandingVisitUncheckedCreateInput>
+  }
+
+  /**
+   * LandingVisit createMany
+   */
+  export type LandingVisitCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LandingVisits.
+     */
+    data: LandingVisitCreateManyInput | LandingVisitCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LandingVisit createManyAndReturn
+   */
+  export type LandingVisitCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandingVisit
+     */
+    select?: LandingVisitSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LandingVisit
+     */
+    omit?: LandingVisitOmit<ExtArgs> | null
+    /**
+     * The data used to create many LandingVisits.
+     */
+    data: LandingVisitCreateManyInput | LandingVisitCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LandingVisit update
+   */
+  export type LandingVisitUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandingVisit
+     */
+    select?: LandingVisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LandingVisit
+     */
+    omit?: LandingVisitOmit<ExtArgs> | null
+    /**
+     * The data needed to update a LandingVisit.
+     */
+    data: XOR<LandingVisitUpdateInput, LandingVisitUncheckedUpdateInput>
+    /**
+     * Choose, which LandingVisit to update.
+     */
+    where: LandingVisitWhereUniqueInput
+  }
+
+  /**
+   * LandingVisit updateMany
+   */
+  export type LandingVisitUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LandingVisits.
+     */
+    data: XOR<LandingVisitUpdateManyMutationInput, LandingVisitUncheckedUpdateManyInput>
+    /**
+     * Filter which LandingVisits to update
+     */
+    where?: LandingVisitWhereInput
+    /**
+     * Limit how many LandingVisits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LandingVisit updateManyAndReturn
+   */
+  export type LandingVisitUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandingVisit
+     */
+    select?: LandingVisitSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LandingVisit
+     */
+    omit?: LandingVisitOmit<ExtArgs> | null
+    /**
+     * The data used to update LandingVisits.
+     */
+    data: XOR<LandingVisitUpdateManyMutationInput, LandingVisitUncheckedUpdateManyInput>
+    /**
+     * Filter which LandingVisits to update
+     */
+    where?: LandingVisitWhereInput
+    /**
+     * Limit how many LandingVisits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LandingVisit upsert
+   */
+  export type LandingVisitUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandingVisit
+     */
+    select?: LandingVisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LandingVisit
+     */
+    omit?: LandingVisitOmit<ExtArgs> | null
+    /**
+     * The filter to search for the LandingVisit to update in case it exists.
+     */
+    where: LandingVisitWhereUniqueInput
+    /**
+     * In case the LandingVisit found by the `where` argument doesn't exist, create a new LandingVisit with this data.
+     */
+    create: XOR<LandingVisitCreateInput, LandingVisitUncheckedCreateInput>
+    /**
+     * In case the LandingVisit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LandingVisitUpdateInput, LandingVisitUncheckedUpdateInput>
+  }
+
+  /**
+   * LandingVisit delete
+   */
+  export type LandingVisitDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandingVisit
+     */
+    select?: LandingVisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LandingVisit
+     */
+    omit?: LandingVisitOmit<ExtArgs> | null
+    /**
+     * Filter which LandingVisit to delete.
+     */
+    where: LandingVisitWhereUniqueInput
+  }
+
+  /**
+   * LandingVisit deleteMany
+   */
+  export type LandingVisitDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LandingVisits to delete
+     */
+    where?: LandingVisitWhereInput
+    /**
+     * Limit how many LandingVisits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LandingVisit without action
+   */
+  export type LandingVisitDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LandingVisit
+     */
+    select?: LandingVisitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LandingVisit
+     */
+    omit?: LandingVisitOmit<ExtArgs> | null
   }
 
 
@@ -11798,6 +14290,12532 @@ export namespace Prisma {
 
 
   /**
+   * Model AirbnbLead
+   */
+
+  export type AggregateAirbnbLead = {
+    _count: AirbnbLeadCountAggregateOutputType | null
+    _avg: AirbnbLeadAvgAggregateOutputType | null
+    _sum: AirbnbLeadSumAggregateOutputType | null
+    _min: AirbnbLeadMinAggregateOutputType | null
+    _max: AirbnbLeadMaxAggregateOutputType | null
+  }
+
+  export type AirbnbLeadAvgAggregateOutputType = {
+    totalProperties: number | null
+    botReplyCount: number | null
+  }
+
+  export type AirbnbLeadSumAggregateOutputType = {
+    totalProperties: number | null
+    botReplyCount: number | null
+  }
+
+  export type AirbnbLeadMinAggregateOutputType = {
+    id: string | null
+    hostAirbnbId: string | null
+    threadId: string | null
+    name: string | null
+    hostProfileUrl: string | null
+    primaryListingUrl: string | null
+    primaryListingName: string | null
+    totalProperties: number | null
+    companyName: string | null
+    isSuperhost: boolean | null
+    market: string | null
+    icpSkipReason: $Enums.IcpSkipReason | null
+    status: $Enums.LeadStatus | null
+    businessScale: string | null
+    painPoints: string | null
+    executiveSummary: string | null
+    lastContactedAt: Date | null
+    nextFollowUpAt: Date | null
+    botReplyCount: number | null
+    calLinkSent: boolean | null
+    calBookedAt: Date | null
+    hostEmail: string | null
+    contactId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AirbnbLeadMaxAggregateOutputType = {
+    id: string | null
+    hostAirbnbId: string | null
+    threadId: string | null
+    name: string | null
+    hostProfileUrl: string | null
+    primaryListingUrl: string | null
+    primaryListingName: string | null
+    totalProperties: number | null
+    companyName: string | null
+    isSuperhost: boolean | null
+    market: string | null
+    icpSkipReason: $Enums.IcpSkipReason | null
+    status: $Enums.LeadStatus | null
+    businessScale: string | null
+    painPoints: string | null
+    executiveSummary: string | null
+    lastContactedAt: Date | null
+    nextFollowUpAt: Date | null
+    botReplyCount: number | null
+    calLinkSent: boolean | null
+    calBookedAt: Date | null
+    hostEmail: string | null
+    contactId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AirbnbLeadCountAggregateOutputType = {
+    id: number
+    hostAirbnbId: number
+    threadId: number
+    name: number
+    hostProfileUrl: number
+    primaryListingUrl: number
+    primaryListingName: number
+    totalProperties: number
+    companyName: number
+    isSuperhost: number
+    market: number
+    icpSkipReason: number
+    status: number
+    businessScale: number
+    painPoints: number
+    executiveSummary: number
+    lastContactedAt: number
+    nextFollowUpAt: number
+    botReplyCount: number
+    calLinkSent: number
+    calBookedAt: number
+    hostEmail: number
+    contactId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AirbnbLeadAvgAggregateInputType = {
+    totalProperties?: true
+    botReplyCount?: true
+  }
+
+  export type AirbnbLeadSumAggregateInputType = {
+    totalProperties?: true
+    botReplyCount?: true
+  }
+
+  export type AirbnbLeadMinAggregateInputType = {
+    id?: true
+    hostAirbnbId?: true
+    threadId?: true
+    name?: true
+    hostProfileUrl?: true
+    primaryListingUrl?: true
+    primaryListingName?: true
+    totalProperties?: true
+    companyName?: true
+    isSuperhost?: true
+    market?: true
+    icpSkipReason?: true
+    status?: true
+    businessScale?: true
+    painPoints?: true
+    executiveSummary?: true
+    lastContactedAt?: true
+    nextFollowUpAt?: true
+    botReplyCount?: true
+    calLinkSent?: true
+    calBookedAt?: true
+    hostEmail?: true
+    contactId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AirbnbLeadMaxAggregateInputType = {
+    id?: true
+    hostAirbnbId?: true
+    threadId?: true
+    name?: true
+    hostProfileUrl?: true
+    primaryListingUrl?: true
+    primaryListingName?: true
+    totalProperties?: true
+    companyName?: true
+    isSuperhost?: true
+    market?: true
+    icpSkipReason?: true
+    status?: true
+    businessScale?: true
+    painPoints?: true
+    executiveSummary?: true
+    lastContactedAt?: true
+    nextFollowUpAt?: true
+    botReplyCount?: true
+    calLinkSent?: true
+    calBookedAt?: true
+    hostEmail?: true
+    contactId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AirbnbLeadCountAggregateInputType = {
+    id?: true
+    hostAirbnbId?: true
+    threadId?: true
+    name?: true
+    hostProfileUrl?: true
+    primaryListingUrl?: true
+    primaryListingName?: true
+    totalProperties?: true
+    companyName?: true
+    isSuperhost?: true
+    market?: true
+    icpSkipReason?: true
+    status?: true
+    businessScale?: true
+    painPoints?: true
+    executiveSummary?: true
+    lastContactedAt?: true
+    nextFollowUpAt?: true
+    botReplyCount?: true
+    calLinkSent?: true
+    calBookedAt?: true
+    hostEmail?: true
+    contactId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AirbnbLeadAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AirbnbLead to aggregate.
+     */
+    where?: AirbnbLeadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AirbnbLeads to fetch.
+     */
+    orderBy?: AirbnbLeadOrderByWithRelationInput | AirbnbLeadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AirbnbLeadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AirbnbLeads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AirbnbLeads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AirbnbLeads
+    **/
+    _count?: true | AirbnbLeadCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AirbnbLeadAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AirbnbLeadSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AirbnbLeadMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AirbnbLeadMaxAggregateInputType
+  }
+
+  export type GetAirbnbLeadAggregateType<T extends AirbnbLeadAggregateArgs> = {
+        [P in keyof T & keyof AggregateAirbnbLead]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAirbnbLead[P]>
+      : GetScalarType<T[P], AggregateAirbnbLead[P]>
+  }
+
+
+
+
+  export type AirbnbLeadGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AirbnbLeadWhereInput
+    orderBy?: AirbnbLeadOrderByWithAggregationInput | AirbnbLeadOrderByWithAggregationInput[]
+    by: AirbnbLeadScalarFieldEnum[] | AirbnbLeadScalarFieldEnum
+    having?: AirbnbLeadScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AirbnbLeadCountAggregateInputType | true
+    _avg?: AirbnbLeadAvgAggregateInputType
+    _sum?: AirbnbLeadSumAggregateInputType
+    _min?: AirbnbLeadMinAggregateInputType
+    _max?: AirbnbLeadMaxAggregateInputType
+  }
+
+  export type AirbnbLeadGroupByOutputType = {
+    id: string
+    hostAirbnbId: string
+    threadId: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName: string | null
+    totalProperties: number
+    companyName: string | null
+    isSuperhost: boolean
+    market: string | null
+    icpSkipReason: $Enums.IcpSkipReason | null
+    status: $Enums.LeadStatus
+    businessScale: string | null
+    painPoints: string | null
+    executiveSummary: string | null
+    lastContactedAt: Date | null
+    nextFollowUpAt: Date | null
+    botReplyCount: number
+    calLinkSent: boolean
+    calBookedAt: Date | null
+    hostEmail: string | null
+    contactId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: AirbnbLeadCountAggregateOutputType | null
+    _avg: AirbnbLeadAvgAggregateOutputType | null
+    _sum: AirbnbLeadSumAggregateOutputType | null
+    _min: AirbnbLeadMinAggregateOutputType | null
+    _max: AirbnbLeadMaxAggregateOutputType | null
+  }
+
+  type GetAirbnbLeadGroupByPayload<T extends AirbnbLeadGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AirbnbLeadGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AirbnbLeadGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AirbnbLeadGroupByOutputType[P]>
+            : GetScalarType<T[P], AirbnbLeadGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AirbnbLeadSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hostAirbnbId?: boolean
+    threadId?: boolean
+    name?: boolean
+    hostProfileUrl?: boolean
+    primaryListingUrl?: boolean
+    primaryListingName?: boolean
+    totalProperties?: boolean
+    companyName?: boolean
+    isSuperhost?: boolean
+    market?: boolean
+    icpSkipReason?: boolean
+    status?: boolean
+    businessScale?: boolean
+    painPoints?: boolean
+    executiveSummary?: boolean
+    lastContactedAt?: boolean
+    nextFollowUpAt?: boolean
+    botReplyCount?: boolean
+    calLinkSent?: boolean
+    calBookedAt?: boolean
+    hostEmail?: boolean
+    contactId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contact?: boolean | AirbnbLead$contactArgs<ExtArgs>
+    messages?: boolean | AirbnbLead$messagesArgs<ExtArgs>
+    calBookings?: boolean | AirbnbLead$calBookingsArgs<ExtArgs>
+    hostContact?: boolean | AirbnbLead$hostContactArgs<ExtArgs>
+    commercial?: boolean | AirbnbLead$commercialArgs<ExtArgs>
+    events?: boolean | AirbnbLead$eventsArgs<ExtArgs>
+    _count?: boolean | AirbnbLeadCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["airbnbLead"]>
+
+  export type AirbnbLeadSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hostAirbnbId?: boolean
+    threadId?: boolean
+    name?: boolean
+    hostProfileUrl?: boolean
+    primaryListingUrl?: boolean
+    primaryListingName?: boolean
+    totalProperties?: boolean
+    companyName?: boolean
+    isSuperhost?: boolean
+    market?: boolean
+    icpSkipReason?: boolean
+    status?: boolean
+    businessScale?: boolean
+    painPoints?: boolean
+    executiveSummary?: boolean
+    lastContactedAt?: boolean
+    nextFollowUpAt?: boolean
+    botReplyCount?: boolean
+    calLinkSent?: boolean
+    calBookedAt?: boolean
+    hostEmail?: boolean
+    contactId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contact?: boolean | AirbnbLead$contactArgs<ExtArgs>
+  }, ExtArgs["result"]["airbnbLead"]>
+
+  export type AirbnbLeadSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hostAirbnbId?: boolean
+    threadId?: boolean
+    name?: boolean
+    hostProfileUrl?: boolean
+    primaryListingUrl?: boolean
+    primaryListingName?: boolean
+    totalProperties?: boolean
+    companyName?: boolean
+    isSuperhost?: boolean
+    market?: boolean
+    icpSkipReason?: boolean
+    status?: boolean
+    businessScale?: boolean
+    painPoints?: boolean
+    executiveSummary?: boolean
+    lastContactedAt?: boolean
+    nextFollowUpAt?: boolean
+    botReplyCount?: boolean
+    calLinkSent?: boolean
+    calBookedAt?: boolean
+    hostEmail?: boolean
+    contactId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contact?: boolean | AirbnbLead$contactArgs<ExtArgs>
+  }, ExtArgs["result"]["airbnbLead"]>
+
+  export type AirbnbLeadSelectScalar = {
+    id?: boolean
+    hostAirbnbId?: boolean
+    threadId?: boolean
+    name?: boolean
+    hostProfileUrl?: boolean
+    primaryListingUrl?: boolean
+    primaryListingName?: boolean
+    totalProperties?: boolean
+    companyName?: boolean
+    isSuperhost?: boolean
+    market?: boolean
+    icpSkipReason?: boolean
+    status?: boolean
+    businessScale?: boolean
+    painPoints?: boolean
+    executiveSummary?: boolean
+    lastContactedAt?: boolean
+    nextFollowUpAt?: boolean
+    botReplyCount?: boolean
+    calLinkSent?: boolean
+    calBookedAt?: boolean
+    hostEmail?: boolean
+    contactId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AirbnbLeadOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hostAirbnbId" | "threadId" | "name" | "hostProfileUrl" | "primaryListingUrl" | "primaryListingName" | "totalProperties" | "companyName" | "isSuperhost" | "market" | "icpSkipReason" | "status" | "businessScale" | "painPoints" | "executiveSummary" | "lastContactedAt" | "nextFollowUpAt" | "botReplyCount" | "calLinkSent" | "calBookedAt" | "hostEmail" | "contactId" | "createdAt" | "updatedAt", ExtArgs["result"]["airbnbLead"]>
+  export type AirbnbLeadInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contact?: boolean | AirbnbLead$contactArgs<ExtArgs>
+    messages?: boolean | AirbnbLead$messagesArgs<ExtArgs>
+    calBookings?: boolean | AirbnbLead$calBookingsArgs<ExtArgs>
+    hostContact?: boolean | AirbnbLead$hostContactArgs<ExtArgs>
+    commercial?: boolean | AirbnbLead$commercialArgs<ExtArgs>
+    events?: boolean | AirbnbLead$eventsArgs<ExtArgs>
+    _count?: boolean | AirbnbLeadCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AirbnbLeadIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contact?: boolean | AirbnbLead$contactArgs<ExtArgs>
+  }
+  export type AirbnbLeadIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contact?: boolean | AirbnbLead$contactArgs<ExtArgs>
+  }
+
+  export type $AirbnbLeadPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AirbnbLead"
+    objects: {
+      contact: Prisma.$ContactPayload<ExtArgs> | null
+      messages: Prisma.$AirbnbMessagePayload<ExtArgs>[]
+      calBookings: Prisma.$CalBookingPayload<ExtArgs>[]
+      hostContact: Prisma.$HostContactPayload<ExtArgs> | null
+      commercial: Prisma.$AirbnbCommercialPayload<ExtArgs> | null
+      events: Prisma.$LeadEventPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hostAirbnbId: string
+      threadId: string | null
+      name: string
+      hostProfileUrl: string
+      primaryListingUrl: string
+      primaryListingName: string | null
+      totalProperties: number
+      companyName: string | null
+      isSuperhost: boolean
+      market: string | null
+      icpSkipReason: $Enums.IcpSkipReason | null
+      status: $Enums.LeadStatus
+      businessScale: string | null
+      painPoints: string | null
+      executiveSummary: string | null
+      lastContactedAt: Date | null
+      nextFollowUpAt: Date | null
+      botReplyCount: number
+      calLinkSent: boolean
+      calBookedAt: Date | null
+      hostEmail: string | null
+      contactId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["airbnbLead"]>
+    composites: {}
+  }
+
+  type AirbnbLeadGetPayload<S extends boolean | null | undefined | AirbnbLeadDefaultArgs> = $Result.GetResult<Prisma.$AirbnbLeadPayload, S>
+
+  type AirbnbLeadCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AirbnbLeadFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AirbnbLeadCountAggregateInputType | true
+    }
+
+  export interface AirbnbLeadDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AirbnbLead'], meta: { name: 'AirbnbLead' } }
+    /**
+     * Find zero or one AirbnbLead that matches the filter.
+     * @param {AirbnbLeadFindUniqueArgs} args - Arguments to find a AirbnbLead
+     * @example
+     * // Get one AirbnbLead
+     * const airbnbLead = await prisma.airbnbLead.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AirbnbLeadFindUniqueArgs>(args: SelectSubset<T, AirbnbLeadFindUniqueArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AirbnbLead that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AirbnbLeadFindUniqueOrThrowArgs} args - Arguments to find a AirbnbLead
+     * @example
+     * // Get one AirbnbLead
+     * const airbnbLead = await prisma.airbnbLead.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AirbnbLeadFindUniqueOrThrowArgs>(args: SelectSubset<T, AirbnbLeadFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AirbnbLead that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbLeadFindFirstArgs} args - Arguments to find a AirbnbLead
+     * @example
+     * // Get one AirbnbLead
+     * const airbnbLead = await prisma.airbnbLead.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AirbnbLeadFindFirstArgs>(args?: SelectSubset<T, AirbnbLeadFindFirstArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AirbnbLead that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbLeadFindFirstOrThrowArgs} args - Arguments to find a AirbnbLead
+     * @example
+     * // Get one AirbnbLead
+     * const airbnbLead = await prisma.airbnbLead.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AirbnbLeadFindFirstOrThrowArgs>(args?: SelectSubset<T, AirbnbLeadFindFirstOrThrowArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AirbnbLeads that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbLeadFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AirbnbLeads
+     * const airbnbLeads = await prisma.airbnbLead.findMany()
+     * 
+     * // Get first 10 AirbnbLeads
+     * const airbnbLeads = await prisma.airbnbLead.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const airbnbLeadWithIdOnly = await prisma.airbnbLead.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AirbnbLeadFindManyArgs>(args?: SelectSubset<T, AirbnbLeadFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AirbnbLead.
+     * @param {AirbnbLeadCreateArgs} args - Arguments to create a AirbnbLead.
+     * @example
+     * // Create one AirbnbLead
+     * const AirbnbLead = await prisma.airbnbLead.create({
+     *   data: {
+     *     // ... data to create a AirbnbLead
+     *   }
+     * })
+     * 
+     */
+    create<T extends AirbnbLeadCreateArgs>(args: SelectSubset<T, AirbnbLeadCreateArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AirbnbLeads.
+     * @param {AirbnbLeadCreateManyArgs} args - Arguments to create many AirbnbLeads.
+     * @example
+     * // Create many AirbnbLeads
+     * const airbnbLead = await prisma.airbnbLead.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AirbnbLeadCreateManyArgs>(args?: SelectSubset<T, AirbnbLeadCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AirbnbLeads and returns the data saved in the database.
+     * @param {AirbnbLeadCreateManyAndReturnArgs} args - Arguments to create many AirbnbLeads.
+     * @example
+     * // Create many AirbnbLeads
+     * const airbnbLead = await prisma.airbnbLead.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AirbnbLeads and only return the `id`
+     * const airbnbLeadWithIdOnly = await prisma.airbnbLead.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AirbnbLeadCreateManyAndReturnArgs>(args?: SelectSubset<T, AirbnbLeadCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AirbnbLead.
+     * @param {AirbnbLeadDeleteArgs} args - Arguments to delete one AirbnbLead.
+     * @example
+     * // Delete one AirbnbLead
+     * const AirbnbLead = await prisma.airbnbLead.delete({
+     *   where: {
+     *     // ... filter to delete one AirbnbLead
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AirbnbLeadDeleteArgs>(args: SelectSubset<T, AirbnbLeadDeleteArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AirbnbLead.
+     * @param {AirbnbLeadUpdateArgs} args - Arguments to update one AirbnbLead.
+     * @example
+     * // Update one AirbnbLead
+     * const airbnbLead = await prisma.airbnbLead.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AirbnbLeadUpdateArgs>(args: SelectSubset<T, AirbnbLeadUpdateArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AirbnbLeads.
+     * @param {AirbnbLeadDeleteManyArgs} args - Arguments to filter AirbnbLeads to delete.
+     * @example
+     * // Delete a few AirbnbLeads
+     * const { count } = await prisma.airbnbLead.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AirbnbLeadDeleteManyArgs>(args?: SelectSubset<T, AirbnbLeadDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AirbnbLeads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbLeadUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AirbnbLeads
+     * const airbnbLead = await prisma.airbnbLead.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AirbnbLeadUpdateManyArgs>(args: SelectSubset<T, AirbnbLeadUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AirbnbLeads and returns the data updated in the database.
+     * @param {AirbnbLeadUpdateManyAndReturnArgs} args - Arguments to update many AirbnbLeads.
+     * @example
+     * // Update many AirbnbLeads
+     * const airbnbLead = await prisma.airbnbLead.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AirbnbLeads and only return the `id`
+     * const airbnbLeadWithIdOnly = await prisma.airbnbLead.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AirbnbLeadUpdateManyAndReturnArgs>(args: SelectSubset<T, AirbnbLeadUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AirbnbLead.
+     * @param {AirbnbLeadUpsertArgs} args - Arguments to update or create a AirbnbLead.
+     * @example
+     * // Update or create a AirbnbLead
+     * const airbnbLead = await prisma.airbnbLead.upsert({
+     *   create: {
+     *     // ... data to create a AirbnbLead
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AirbnbLead we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AirbnbLeadUpsertArgs>(args: SelectSubset<T, AirbnbLeadUpsertArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AirbnbLeads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbLeadCountArgs} args - Arguments to filter AirbnbLeads to count.
+     * @example
+     * // Count the number of AirbnbLeads
+     * const count = await prisma.airbnbLead.count({
+     *   where: {
+     *     // ... the filter for the AirbnbLeads we want to count
+     *   }
+     * })
+    **/
+    count<T extends AirbnbLeadCountArgs>(
+      args?: Subset<T, AirbnbLeadCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AirbnbLeadCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AirbnbLead.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbLeadAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AirbnbLeadAggregateArgs>(args: Subset<T, AirbnbLeadAggregateArgs>): Prisma.PrismaPromise<GetAirbnbLeadAggregateType<T>>
+
+    /**
+     * Group by AirbnbLead.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbLeadGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AirbnbLeadGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AirbnbLeadGroupByArgs['orderBy'] }
+        : { orderBy?: AirbnbLeadGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AirbnbLeadGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAirbnbLeadGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AirbnbLead model
+   */
+  readonly fields: AirbnbLeadFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AirbnbLead.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AirbnbLeadClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    contact<T extends AirbnbLead$contactArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLead$contactArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    messages<T extends AirbnbLead$messagesArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLead$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    calBookings<T extends AirbnbLead$calBookingsArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLead$calBookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CalBookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    hostContact<T extends AirbnbLead$hostContactArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLead$hostContactArgs<ExtArgs>>): Prisma__HostContactClient<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    commercial<T extends AirbnbLead$commercialArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLead$commercialArgs<ExtArgs>>): Prisma__AirbnbCommercialClient<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    events<T extends AirbnbLead$eventsArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLead$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AirbnbLead model
+   */
+  interface AirbnbLeadFieldRefs {
+    readonly id: FieldRef<"AirbnbLead", 'String'>
+    readonly hostAirbnbId: FieldRef<"AirbnbLead", 'String'>
+    readonly threadId: FieldRef<"AirbnbLead", 'String'>
+    readonly name: FieldRef<"AirbnbLead", 'String'>
+    readonly hostProfileUrl: FieldRef<"AirbnbLead", 'String'>
+    readonly primaryListingUrl: FieldRef<"AirbnbLead", 'String'>
+    readonly primaryListingName: FieldRef<"AirbnbLead", 'String'>
+    readonly totalProperties: FieldRef<"AirbnbLead", 'Int'>
+    readonly companyName: FieldRef<"AirbnbLead", 'String'>
+    readonly isSuperhost: FieldRef<"AirbnbLead", 'Boolean'>
+    readonly market: FieldRef<"AirbnbLead", 'String'>
+    readonly icpSkipReason: FieldRef<"AirbnbLead", 'IcpSkipReason'>
+    readonly status: FieldRef<"AirbnbLead", 'LeadStatus'>
+    readonly businessScale: FieldRef<"AirbnbLead", 'String'>
+    readonly painPoints: FieldRef<"AirbnbLead", 'String'>
+    readonly executiveSummary: FieldRef<"AirbnbLead", 'String'>
+    readonly lastContactedAt: FieldRef<"AirbnbLead", 'DateTime'>
+    readonly nextFollowUpAt: FieldRef<"AirbnbLead", 'DateTime'>
+    readonly botReplyCount: FieldRef<"AirbnbLead", 'Int'>
+    readonly calLinkSent: FieldRef<"AirbnbLead", 'Boolean'>
+    readonly calBookedAt: FieldRef<"AirbnbLead", 'DateTime'>
+    readonly hostEmail: FieldRef<"AirbnbLead", 'String'>
+    readonly contactId: FieldRef<"AirbnbLead", 'String'>
+    readonly createdAt: FieldRef<"AirbnbLead", 'DateTime'>
+    readonly updatedAt: FieldRef<"AirbnbLead", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AirbnbLead findUnique
+   */
+  export type AirbnbLeadFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbLead to fetch.
+     */
+    where: AirbnbLeadWhereUniqueInput
+  }
+
+  /**
+   * AirbnbLead findUniqueOrThrow
+   */
+  export type AirbnbLeadFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbLead to fetch.
+     */
+    where: AirbnbLeadWhereUniqueInput
+  }
+
+  /**
+   * AirbnbLead findFirst
+   */
+  export type AirbnbLeadFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbLead to fetch.
+     */
+    where?: AirbnbLeadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AirbnbLeads to fetch.
+     */
+    orderBy?: AirbnbLeadOrderByWithRelationInput | AirbnbLeadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AirbnbLeads.
+     */
+    cursor?: AirbnbLeadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AirbnbLeads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AirbnbLeads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AirbnbLeads.
+     */
+    distinct?: AirbnbLeadScalarFieldEnum | AirbnbLeadScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbLead findFirstOrThrow
+   */
+  export type AirbnbLeadFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbLead to fetch.
+     */
+    where?: AirbnbLeadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AirbnbLeads to fetch.
+     */
+    orderBy?: AirbnbLeadOrderByWithRelationInput | AirbnbLeadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AirbnbLeads.
+     */
+    cursor?: AirbnbLeadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AirbnbLeads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AirbnbLeads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AirbnbLeads.
+     */
+    distinct?: AirbnbLeadScalarFieldEnum | AirbnbLeadScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbLead findMany
+   */
+  export type AirbnbLeadFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbLeads to fetch.
+     */
+    where?: AirbnbLeadWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AirbnbLeads to fetch.
+     */
+    orderBy?: AirbnbLeadOrderByWithRelationInput | AirbnbLeadOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AirbnbLeads.
+     */
+    cursor?: AirbnbLeadWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AirbnbLeads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AirbnbLeads.
+     */
+    skip?: number
+    distinct?: AirbnbLeadScalarFieldEnum | AirbnbLeadScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbLead create
+   */
+  export type AirbnbLeadCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AirbnbLead.
+     */
+    data: XOR<AirbnbLeadCreateInput, AirbnbLeadUncheckedCreateInput>
+  }
+
+  /**
+   * AirbnbLead createMany
+   */
+  export type AirbnbLeadCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AirbnbLeads.
+     */
+    data: AirbnbLeadCreateManyInput | AirbnbLeadCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AirbnbLead createManyAndReturn
+   */
+  export type AirbnbLeadCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * The data used to create many AirbnbLeads.
+     */
+    data: AirbnbLeadCreateManyInput | AirbnbLeadCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AirbnbLead update
+   */
+  export type AirbnbLeadUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AirbnbLead.
+     */
+    data: XOR<AirbnbLeadUpdateInput, AirbnbLeadUncheckedUpdateInput>
+    /**
+     * Choose, which AirbnbLead to update.
+     */
+    where: AirbnbLeadWhereUniqueInput
+  }
+
+  /**
+   * AirbnbLead updateMany
+   */
+  export type AirbnbLeadUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AirbnbLeads.
+     */
+    data: XOR<AirbnbLeadUpdateManyMutationInput, AirbnbLeadUncheckedUpdateManyInput>
+    /**
+     * Filter which AirbnbLeads to update
+     */
+    where?: AirbnbLeadWhereInput
+    /**
+     * Limit how many AirbnbLeads to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AirbnbLead updateManyAndReturn
+   */
+  export type AirbnbLeadUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * The data used to update AirbnbLeads.
+     */
+    data: XOR<AirbnbLeadUpdateManyMutationInput, AirbnbLeadUncheckedUpdateManyInput>
+    /**
+     * Filter which AirbnbLeads to update
+     */
+    where?: AirbnbLeadWhereInput
+    /**
+     * Limit how many AirbnbLeads to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AirbnbLead upsert
+   */
+  export type AirbnbLeadUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AirbnbLead to update in case it exists.
+     */
+    where: AirbnbLeadWhereUniqueInput
+    /**
+     * In case the AirbnbLead found by the `where` argument doesn't exist, create a new AirbnbLead with this data.
+     */
+    create: XOR<AirbnbLeadCreateInput, AirbnbLeadUncheckedCreateInput>
+    /**
+     * In case the AirbnbLead was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AirbnbLeadUpdateInput, AirbnbLeadUncheckedUpdateInput>
+  }
+
+  /**
+   * AirbnbLead delete
+   */
+  export type AirbnbLeadDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+    /**
+     * Filter which AirbnbLead to delete.
+     */
+    where: AirbnbLeadWhereUniqueInput
+  }
+
+  /**
+   * AirbnbLead deleteMany
+   */
+  export type AirbnbLeadDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AirbnbLeads to delete
+     */
+    where?: AirbnbLeadWhereInput
+    /**
+     * Limit how many AirbnbLeads to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AirbnbLead.contact
+   */
+  export type AirbnbLead$contactArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Contact
+     */
+    omit?: ContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    where?: ContactWhereInput
+  }
+
+  /**
+   * AirbnbLead.messages
+   */
+  export type AirbnbLead$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageInclude<ExtArgs> | null
+    where?: AirbnbMessageWhereInput
+    orderBy?: AirbnbMessageOrderByWithRelationInput | AirbnbMessageOrderByWithRelationInput[]
+    cursor?: AirbnbMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AirbnbMessageScalarFieldEnum | AirbnbMessageScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbLead.calBookings
+   */
+  export type AirbnbLead$calBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingInclude<ExtArgs> | null
+    where?: CalBookingWhereInput
+    orderBy?: CalBookingOrderByWithRelationInput | CalBookingOrderByWithRelationInput[]
+    cursor?: CalBookingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CalBookingScalarFieldEnum | CalBookingScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbLead.hostContact
+   */
+  export type AirbnbLead$hostContactArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactInclude<ExtArgs> | null
+    where?: HostContactWhereInput
+  }
+
+  /**
+   * AirbnbLead.commercial
+   */
+  export type AirbnbLead$commercialArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialInclude<ExtArgs> | null
+    where?: AirbnbCommercialWhereInput
+  }
+
+  /**
+   * AirbnbLead.events
+   */
+  export type AirbnbLead$eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadEvent
+     */
+    select?: LeadEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadEvent
+     */
+    omit?: LeadEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadEventInclude<ExtArgs> | null
+    where?: LeadEventWhereInput
+    orderBy?: LeadEventOrderByWithRelationInput | LeadEventOrderByWithRelationInput[]
+    cursor?: LeadEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LeadEventScalarFieldEnum | LeadEventScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbLead without action
+   */
+  export type AirbnbLeadDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AirbnbMessage
+   */
+
+  export type AggregateAirbnbMessage = {
+    _count: AirbnbMessageCountAggregateOutputType | null
+    _min: AirbnbMessageMinAggregateOutputType | null
+    _max: AirbnbMessageMaxAggregateOutputType | null
+  }
+
+  export type AirbnbMessageMinAggregateOutputType = {
+    id: string | null
+    leadId: string | null
+    prospectAccountId: string | null
+    direction: $Enums.MessageDirection | null
+    content: string | null
+    aiIntent: string | null
+    sentAt: Date | null
+  }
+
+  export type AirbnbMessageMaxAggregateOutputType = {
+    id: string | null
+    leadId: string | null
+    prospectAccountId: string | null
+    direction: $Enums.MessageDirection | null
+    content: string | null
+    aiIntent: string | null
+    sentAt: Date | null
+  }
+
+  export type AirbnbMessageCountAggregateOutputType = {
+    id: number
+    leadId: number
+    prospectAccountId: number
+    direction: number
+    content: number
+    aiIntent: number
+    sentAt: number
+    _all: number
+  }
+
+
+  export type AirbnbMessageMinAggregateInputType = {
+    id?: true
+    leadId?: true
+    prospectAccountId?: true
+    direction?: true
+    content?: true
+    aiIntent?: true
+    sentAt?: true
+  }
+
+  export type AirbnbMessageMaxAggregateInputType = {
+    id?: true
+    leadId?: true
+    prospectAccountId?: true
+    direction?: true
+    content?: true
+    aiIntent?: true
+    sentAt?: true
+  }
+
+  export type AirbnbMessageCountAggregateInputType = {
+    id?: true
+    leadId?: true
+    prospectAccountId?: true
+    direction?: true
+    content?: true
+    aiIntent?: true
+    sentAt?: true
+    _all?: true
+  }
+
+  export type AirbnbMessageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AirbnbMessage to aggregate.
+     */
+    where?: AirbnbMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AirbnbMessages to fetch.
+     */
+    orderBy?: AirbnbMessageOrderByWithRelationInput | AirbnbMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AirbnbMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AirbnbMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AirbnbMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AirbnbMessages
+    **/
+    _count?: true | AirbnbMessageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AirbnbMessageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AirbnbMessageMaxAggregateInputType
+  }
+
+  export type GetAirbnbMessageAggregateType<T extends AirbnbMessageAggregateArgs> = {
+        [P in keyof T & keyof AggregateAirbnbMessage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAirbnbMessage[P]>
+      : GetScalarType<T[P], AggregateAirbnbMessage[P]>
+  }
+
+
+
+
+  export type AirbnbMessageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AirbnbMessageWhereInput
+    orderBy?: AirbnbMessageOrderByWithAggregationInput | AirbnbMessageOrderByWithAggregationInput[]
+    by: AirbnbMessageScalarFieldEnum[] | AirbnbMessageScalarFieldEnum
+    having?: AirbnbMessageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AirbnbMessageCountAggregateInputType | true
+    _min?: AirbnbMessageMinAggregateInputType
+    _max?: AirbnbMessageMaxAggregateInputType
+  }
+
+  export type AirbnbMessageGroupByOutputType = {
+    id: string
+    leadId: string
+    prospectAccountId: string | null
+    direction: $Enums.MessageDirection
+    content: string
+    aiIntent: string | null
+    sentAt: Date
+    _count: AirbnbMessageCountAggregateOutputType | null
+    _min: AirbnbMessageMinAggregateOutputType | null
+    _max: AirbnbMessageMaxAggregateOutputType | null
+  }
+
+  type GetAirbnbMessageGroupByPayload<T extends AirbnbMessageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AirbnbMessageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AirbnbMessageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AirbnbMessageGroupByOutputType[P]>
+            : GetScalarType<T[P], AirbnbMessageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AirbnbMessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    leadId?: boolean
+    prospectAccountId?: boolean
+    direction?: boolean
+    content?: boolean
+    aiIntent?: boolean
+    sentAt?: boolean
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+    prospectAccount?: boolean | AirbnbMessage$prospectAccountArgs<ExtArgs>
+  }, ExtArgs["result"]["airbnbMessage"]>
+
+  export type AirbnbMessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    leadId?: boolean
+    prospectAccountId?: boolean
+    direction?: boolean
+    content?: boolean
+    aiIntent?: boolean
+    sentAt?: boolean
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+    prospectAccount?: boolean | AirbnbMessage$prospectAccountArgs<ExtArgs>
+  }, ExtArgs["result"]["airbnbMessage"]>
+
+  export type AirbnbMessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    leadId?: boolean
+    prospectAccountId?: boolean
+    direction?: boolean
+    content?: boolean
+    aiIntent?: boolean
+    sentAt?: boolean
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+    prospectAccount?: boolean | AirbnbMessage$prospectAccountArgs<ExtArgs>
+  }, ExtArgs["result"]["airbnbMessage"]>
+
+  export type AirbnbMessageSelectScalar = {
+    id?: boolean
+    leadId?: boolean
+    prospectAccountId?: boolean
+    direction?: boolean
+    content?: boolean
+    aiIntent?: boolean
+    sentAt?: boolean
+  }
+
+  export type AirbnbMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "leadId" | "prospectAccountId" | "direction" | "content" | "aiIntent" | "sentAt", ExtArgs["result"]["airbnbMessage"]>
+  export type AirbnbMessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+    prospectAccount?: boolean | AirbnbMessage$prospectAccountArgs<ExtArgs>
+  }
+  export type AirbnbMessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+    prospectAccount?: boolean | AirbnbMessage$prospectAccountArgs<ExtArgs>
+  }
+  export type AirbnbMessageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+    prospectAccount?: boolean | AirbnbMessage$prospectAccountArgs<ExtArgs>
+  }
+
+  export type $AirbnbMessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AirbnbMessage"
+    objects: {
+      lead: Prisma.$AirbnbLeadPayload<ExtArgs>
+      prospectAccount: Prisma.$ProspectAccountPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      leadId: string
+      prospectAccountId: string | null
+      direction: $Enums.MessageDirection
+      content: string
+      aiIntent: string | null
+      sentAt: Date
+    }, ExtArgs["result"]["airbnbMessage"]>
+    composites: {}
+  }
+
+  type AirbnbMessageGetPayload<S extends boolean | null | undefined | AirbnbMessageDefaultArgs> = $Result.GetResult<Prisma.$AirbnbMessagePayload, S>
+
+  type AirbnbMessageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AirbnbMessageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AirbnbMessageCountAggregateInputType | true
+    }
+
+  export interface AirbnbMessageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AirbnbMessage'], meta: { name: 'AirbnbMessage' } }
+    /**
+     * Find zero or one AirbnbMessage that matches the filter.
+     * @param {AirbnbMessageFindUniqueArgs} args - Arguments to find a AirbnbMessage
+     * @example
+     * // Get one AirbnbMessage
+     * const airbnbMessage = await prisma.airbnbMessage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AirbnbMessageFindUniqueArgs>(args: SelectSubset<T, AirbnbMessageFindUniqueArgs<ExtArgs>>): Prisma__AirbnbMessageClient<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AirbnbMessage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AirbnbMessageFindUniqueOrThrowArgs} args - Arguments to find a AirbnbMessage
+     * @example
+     * // Get one AirbnbMessage
+     * const airbnbMessage = await prisma.airbnbMessage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AirbnbMessageFindUniqueOrThrowArgs>(args: SelectSubset<T, AirbnbMessageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AirbnbMessageClient<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AirbnbMessage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbMessageFindFirstArgs} args - Arguments to find a AirbnbMessage
+     * @example
+     * // Get one AirbnbMessage
+     * const airbnbMessage = await prisma.airbnbMessage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AirbnbMessageFindFirstArgs>(args?: SelectSubset<T, AirbnbMessageFindFirstArgs<ExtArgs>>): Prisma__AirbnbMessageClient<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AirbnbMessage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbMessageFindFirstOrThrowArgs} args - Arguments to find a AirbnbMessage
+     * @example
+     * // Get one AirbnbMessage
+     * const airbnbMessage = await prisma.airbnbMessage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AirbnbMessageFindFirstOrThrowArgs>(args?: SelectSubset<T, AirbnbMessageFindFirstOrThrowArgs<ExtArgs>>): Prisma__AirbnbMessageClient<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AirbnbMessages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbMessageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AirbnbMessages
+     * const airbnbMessages = await prisma.airbnbMessage.findMany()
+     * 
+     * // Get first 10 AirbnbMessages
+     * const airbnbMessages = await prisma.airbnbMessage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const airbnbMessageWithIdOnly = await prisma.airbnbMessage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AirbnbMessageFindManyArgs>(args?: SelectSubset<T, AirbnbMessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AirbnbMessage.
+     * @param {AirbnbMessageCreateArgs} args - Arguments to create a AirbnbMessage.
+     * @example
+     * // Create one AirbnbMessage
+     * const AirbnbMessage = await prisma.airbnbMessage.create({
+     *   data: {
+     *     // ... data to create a AirbnbMessage
+     *   }
+     * })
+     * 
+     */
+    create<T extends AirbnbMessageCreateArgs>(args: SelectSubset<T, AirbnbMessageCreateArgs<ExtArgs>>): Prisma__AirbnbMessageClient<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AirbnbMessages.
+     * @param {AirbnbMessageCreateManyArgs} args - Arguments to create many AirbnbMessages.
+     * @example
+     * // Create many AirbnbMessages
+     * const airbnbMessage = await prisma.airbnbMessage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AirbnbMessageCreateManyArgs>(args?: SelectSubset<T, AirbnbMessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AirbnbMessages and returns the data saved in the database.
+     * @param {AirbnbMessageCreateManyAndReturnArgs} args - Arguments to create many AirbnbMessages.
+     * @example
+     * // Create many AirbnbMessages
+     * const airbnbMessage = await prisma.airbnbMessage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AirbnbMessages and only return the `id`
+     * const airbnbMessageWithIdOnly = await prisma.airbnbMessage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AirbnbMessageCreateManyAndReturnArgs>(args?: SelectSubset<T, AirbnbMessageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AirbnbMessage.
+     * @param {AirbnbMessageDeleteArgs} args - Arguments to delete one AirbnbMessage.
+     * @example
+     * // Delete one AirbnbMessage
+     * const AirbnbMessage = await prisma.airbnbMessage.delete({
+     *   where: {
+     *     // ... filter to delete one AirbnbMessage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AirbnbMessageDeleteArgs>(args: SelectSubset<T, AirbnbMessageDeleteArgs<ExtArgs>>): Prisma__AirbnbMessageClient<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AirbnbMessage.
+     * @param {AirbnbMessageUpdateArgs} args - Arguments to update one AirbnbMessage.
+     * @example
+     * // Update one AirbnbMessage
+     * const airbnbMessage = await prisma.airbnbMessage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AirbnbMessageUpdateArgs>(args: SelectSubset<T, AirbnbMessageUpdateArgs<ExtArgs>>): Prisma__AirbnbMessageClient<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AirbnbMessages.
+     * @param {AirbnbMessageDeleteManyArgs} args - Arguments to filter AirbnbMessages to delete.
+     * @example
+     * // Delete a few AirbnbMessages
+     * const { count } = await prisma.airbnbMessage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AirbnbMessageDeleteManyArgs>(args?: SelectSubset<T, AirbnbMessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AirbnbMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbMessageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AirbnbMessages
+     * const airbnbMessage = await prisma.airbnbMessage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AirbnbMessageUpdateManyArgs>(args: SelectSubset<T, AirbnbMessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AirbnbMessages and returns the data updated in the database.
+     * @param {AirbnbMessageUpdateManyAndReturnArgs} args - Arguments to update many AirbnbMessages.
+     * @example
+     * // Update many AirbnbMessages
+     * const airbnbMessage = await prisma.airbnbMessage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AirbnbMessages and only return the `id`
+     * const airbnbMessageWithIdOnly = await prisma.airbnbMessage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AirbnbMessageUpdateManyAndReturnArgs>(args: SelectSubset<T, AirbnbMessageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AirbnbMessage.
+     * @param {AirbnbMessageUpsertArgs} args - Arguments to update or create a AirbnbMessage.
+     * @example
+     * // Update or create a AirbnbMessage
+     * const airbnbMessage = await prisma.airbnbMessage.upsert({
+     *   create: {
+     *     // ... data to create a AirbnbMessage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AirbnbMessage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AirbnbMessageUpsertArgs>(args: SelectSubset<T, AirbnbMessageUpsertArgs<ExtArgs>>): Prisma__AirbnbMessageClient<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AirbnbMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbMessageCountArgs} args - Arguments to filter AirbnbMessages to count.
+     * @example
+     * // Count the number of AirbnbMessages
+     * const count = await prisma.airbnbMessage.count({
+     *   where: {
+     *     // ... the filter for the AirbnbMessages we want to count
+     *   }
+     * })
+    **/
+    count<T extends AirbnbMessageCountArgs>(
+      args?: Subset<T, AirbnbMessageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AirbnbMessageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AirbnbMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbMessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AirbnbMessageAggregateArgs>(args: Subset<T, AirbnbMessageAggregateArgs>): Prisma.PrismaPromise<GetAirbnbMessageAggregateType<T>>
+
+    /**
+     * Group by AirbnbMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbMessageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AirbnbMessageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AirbnbMessageGroupByArgs['orderBy'] }
+        : { orderBy?: AirbnbMessageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AirbnbMessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAirbnbMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AirbnbMessage model
+   */
+  readonly fields: AirbnbMessageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AirbnbMessage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AirbnbMessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lead<T extends AirbnbLeadDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLeadDefaultArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    prospectAccount<T extends AirbnbMessage$prospectAccountArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbMessage$prospectAccountArgs<ExtArgs>>): Prisma__ProspectAccountClient<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AirbnbMessage model
+   */
+  interface AirbnbMessageFieldRefs {
+    readonly id: FieldRef<"AirbnbMessage", 'String'>
+    readonly leadId: FieldRef<"AirbnbMessage", 'String'>
+    readonly prospectAccountId: FieldRef<"AirbnbMessage", 'String'>
+    readonly direction: FieldRef<"AirbnbMessage", 'MessageDirection'>
+    readonly content: FieldRef<"AirbnbMessage", 'String'>
+    readonly aiIntent: FieldRef<"AirbnbMessage", 'String'>
+    readonly sentAt: FieldRef<"AirbnbMessage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AirbnbMessage findUnique
+   */
+  export type AirbnbMessageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbMessage to fetch.
+     */
+    where: AirbnbMessageWhereUniqueInput
+  }
+
+  /**
+   * AirbnbMessage findUniqueOrThrow
+   */
+  export type AirbnbMessageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbMessage to fetch.
+     */
+    where: AirbnbMessageWhereUniqueInput
+  }
+
+  /**
+   * AirbnbMessage findFirst
+   */
+  export type AirbnbMessageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbMessage to fetch.
+     */
+    where?: AirbnbMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AirbnbMessages to fetch.
+     */
+    orderBy?: AirbnbMessageOrderByWithRelationInput | AirbnbMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AirbnbMessages.
+     */
+    cursor?: AirbnbMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AirbnbMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AirbnbMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AirbnbMessages.
+     */
+    distinct?: AirbnbMessageScalarFieldEnum | AirbnbMessageScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbMessage findFirstOrThrow
+   */
+  export type AirbnbMessageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbMessage to fetch.
+     */
+    where?: AirbnbMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AirbnbMessages to fetch.
+     */
+    orderBy?: AirbnbMessageOrderByWithRelationInput | AirbnbMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AirbnbMessages.
+     */
+    cursor?: AirbnbMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AirbnbMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AirbnbMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AirbnbMessages.
+     */
+    distinct?: AirbnbMessageScalarFieldEnum | AirbnbMessageScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbMessage findMany
+   */
+  export type AirbnbMessageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbMessages to fetch.
+     */
+    where?: AirbnbMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AirbnbMessages to fetch.
+     */
+    orderBy?: AirbnbMessageOrderByWithRelationInput | AirbnbMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AirbnbMessages.
+     */
+    cursor?: AirbnbMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AirbnbMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AirbnbMessages.
+     */
+    skip?: number
+    distinct?: AirbnbMessageScalarFieldEnum | AirbnbMessageScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbMessage create
+   */
+  export type AirbnbMessageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AirbnbMessage.
+     */
+    data: XOR<AirbnbMessageCreateInput, AirbnbMessageUncheckedCreateInput>
+  }
+
+  /**
+   * AirbnbMessage createMany
+   */
+  export type AirbnbMessageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AirbnbMessages.
+     */
+    data: AirbnbMessageCreateManyInput | AirbnbMessageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AirbnbMessage createManyAndReturn
+   */
+  export type AirbnbMessageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * The data used to create many AirbnbMessages.
+     */
+    data: AirbnbMessageCreateManyInput | AirbnbMessageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AirbnbMessage update
+   */
+  export type AirbnbMessageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AirbnbMessage.
+     */
+    data: XOR<AirbnbMessageUpdateInput, AirbnbMessageUncheckedUpdateInput>
+    /**
+     * Choose, which AirbnbMessage to update.
+     */
+    where: AirbnbMessageWhereUniqueInput
+  }
+
+  /**
+   * AirbnbMessage updateMany
+   */
+  export type AirbnbMessageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AirbnbMessages.
+     */
+    data: XOR<AirbnbMessageUpdateManyMutationInput, AirbnbMessageUncheckedUpdateManyInput>
+    /**
+     * Filter which AirbnbMessages to update
+     */
+    where?: AirbnbMessageWhereInput
+    /**
+     * Limit how many AirbnbMessages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AirbnbMessage updateManyAndReturn
+   */
+  export type AirbnbMessageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * The data used to update AirbnbMessages.
+     */
+    data: XOR<AirbnbMessageUpdateManyMutationInput, AirbnbMessageUncheckedUpdateManyInput>
+    /**
+     * Filter which AirbnbMessages to update
+     */
+    where?: AirbnbMessageWhereInput
+    /**
+     * Limit how many AirbnbMessages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AirbnbMessage upsert
+   */
+  export type AirbnbMessageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AirbnbMessage to update in case it exists.
+     */
+    where: AirbnbMessageWhereUniqueInput
+    /**
+     * In case the AirbnbMessage found by the `where` argument doesn't exist, create a new AirbnbMessage with this data.
+     */
+    create: XOR<AirbnbMessageCreateInput, AirbnbMessageUncheckedCreateInput>
+    /**
+     * In case the AirbnbMessage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AirbnbMessageUpdateInput, AirbnbMessageUncheckedUpdateInput>
+  }
+
+  /**
+   * AirbnbMessage delete
+   */
+  export type AirbnbMessageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageInclude<ExtArgs> | null
+    /**
+     * Filter which AirbnbMessage to delete.
+     */
+    where: AirbnbMessageWhereUniqueInput
+  }
+
+  /**
+   * AirbnbMessage deleteMany
+   */
+  export type AirbnbMessageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AirbnbMessages to delete
+     */
+    where?: AirbnbMessageWhereInput
+    /**
+     * Limit how many AirbnbMessages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AirbnbMessage.prospectAccount
+   */
+  export type AirbnbMessage$prospectAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProspectAccountInclude<ExtArgs> | null
+    where?: ProspectAccountWhereInput
+  }
+
+  /**
+   * AirbnbMessage without action
+   */
+  export type AirbnbMessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SystemState
+   */
+
+  export type AggregateSystemState = {
+    _count: SystemStateCountAggregateOutputType | null
+    _min: SystemStateMinAggregateOutputType | null
+    _max: SystemStateMaxAggregateOutputType | null
+  }
+
+  export type SystemStateMinAggregateOutputType = {
+    key: string | null
+    value: string | null
+    updatedAt: Date | null
+  }
+
+  export type SystemStateMaxAggregateOutputType = {
+    key: string | null
+    value: string | null
+    updatedAt: Date | null
+  }
+
+  export type SystemStateCountAggregateOutputType = {
+    key: number
+    value: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SystemStateMinAggregateInputType = {
+    key?: true
+    value?: true
+    updatedAt?: true
+  }
+
+  export type SystemStateMaxAggregateInputType = {
+    key?: true
+    value?: true
+    updatedAt?: true
+  }
+
+  export type SystemStateCountAggregateInputType = {
+    key?: true
+    value?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SystemStateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemState to aggregate.
+     */
+    where?: SystemStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemStates to fetch.
+     */
+    orderBy?: SystemStateOrderByWithRelationInput | SystemStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SystemStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SystemStates
+    **/
+    _count?: true | SystemStateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SystemStateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SystemStateMaxAggregateInputType
+  }
+
+  export type GetSystemStateAggregateType<T extends SystemStateAggregateArgs> = {
+        [P in keyof T & keyof AggregateSystemState]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSystemState[P]>
+      : GetScalarType<T[P], AggregateSystemState[P]>
+  }
+
+
+
+
+  export type SystemStateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemStateWhereInput
+    orderBy?: SystemStateOrderByWithAggregationInput | SystemStateOrderByWithAggregationInput[]
+    by: SystemStateScalarFieldEnum[] | SystemStateScalarFieldEnum
+    having?: SystemStateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SystemStateCountAggregateInputType | true
+    _min?: SystemStateMinAggregateInputType
+    _max?: SystemStateMaxAggregateInputType
+  }
+
+  export type SystemStateGroupByOutputType = {
+    key: string
+    value: string
+    updatedAt: Date
+    _count: SystemStateCountAggregateOutputType | null
+    _min: SystemStateMinAggregateOutputType | null
+    _max: SystemStateMaxAggregateOutputType | null
+  }
+
+  type GetSystemStateGroupByPayload<T extends SystemStateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SystemStateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SystemStateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SystemStateGroupByOutputType[P]>
+            : GetScalarType<T[P], SystemStateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SystemStateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    value?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["systemState"]>
+
+  export type SystemStateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    value?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["systemState"]>
+
+  export type SystemStateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    value?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["systemState"]>
+
+  export type SystemStateSelectScalar = {
+    key?: boolean
+    value?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SystemStateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"key" | "value" | "updatedAt", ExtArgs["result"]["systemState"]>
+
+  export type $SystemStatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SystemState"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      key: string
+      value: string
+      updatedAt: Date
+    }, ExtArgs["result"]["systemState"]>
+    composites: {}
+  }
+
+  type SystemStateGetPayload<S extends boolean | null | undefined | SystemStateDefaultArgs> = $Result.GetResult<Prisma.$SystemStatePayload, S>
+
+  type SystemStateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SystemStateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SystemStateCountAggregateInputType | true
+    }
+
+  export interface SystemStateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SystemState'], meta: { name: 'SystemState' } }
+    /**
+     * Find zero or one SystemState that matches the filter.
+     * @param {SystemStateFindUniqueArgs} args - Arguments to find a SystemState
+     * @example
+     * // Get one SystemState
+     * const systemState = await prisma.systemState.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SystemStateFindUniqueArgs>(args: SelectSubset<T, SystemStateFindUniqueArgs<ExtArgs>>): Prisma__SystemStateClient<$Result.GetResult<Prisma.$SystemStatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SystemState that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SystemStateFindUniqueOrThrowArgs} args - Arguments to find a SystemState
+     * @example
+     * // Get one SystemState
+     * const systemState = await prisma.systemState.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SystemStateFindUniqueOrThrowArgs>(args: SelectSubset<T, SystemStateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SystemStateClient<$Result.GetResult<Prisma.$SystemStatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SystemState that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemStateFindFirstArgs} args - Arguments to find a SystemState
+     * @example
+     * // Get one SystemState
+     * const systemState = await prisma.systemState.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SystemStateFindFirstArgs>(args?: SelectSubset<T, SystemStateFindFirstArgs<ExtArgs>>): Prisma__SystemStateClient<$Result.GetResult<Prisma.$SystemStatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SystemState that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemStateFindFirstOrThrowArgs} args - Arguments to find a SystemState
+     * @example
+     * // Get one SystemState
+     * const systemState = await prisma.systemState.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SystemStateFindFirstOrThrowArgs>(args?: SelectSubset<T, SystemStateFindFirstOrThrowArgs<ExtArgs>>): Prisma__SystemStateClient<$Result.GetResult<Prisma.$SystemStatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SystemStates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemStateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SystemStates
+     * const systemStates = await prisma.systemState.findMany()
+     * 
+     * // Get first 10 SystemStates
+     * const systemStates = await prisma.systemState.findMany({ take: 10 })
+     * 
+     * // Only select the `key`
+     * const systemStateWithKeyOnly = await prisma.systemState.findMany({ select: { key: true } })
+     * 
+     */
+    findMany<T extends SystemStateFindManyArgs>(args?: SelectSubset<T, SystemStateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemStatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SystemState.
+     * @param {SystemStateCreateArgs} args - Arguments to create a SystemState.
+     * @example
+     * // Create one SystemState
+     * const SystemState = await prisma.systemState.create({
+     *   data: {
+     *     // ... data to create a SystemState
+     *   }
+     * })
+     * 
+     */
+    create<T extends SystemStateCreateArgs>(args: SelectSubset<T, SystemStateCreateArgs<ExtArgs>>): Prisma__SystemStateClient<$Result.GetResult<Prisma.$SystemStatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SystemStates.
+     * @param {SystemStateCreateManyArgs} args - Arguments to create many SystemStates.
+     * @example
+     * // Create many SystemStates
+     * const systemState = await prisma.systemState.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SystemStateCreateManyArgs>(args?: SelectSubset<T, SystemStateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SystemStates and returns the data saved in the database.
+     * @param {SystemStateCreateManyAndReturnArgs} args - Arguments to create many SystemStates.
+     * @example
+     * // Create many SystemStates
+     * const systemState = await prisma.systemState.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SystemStates and only return the `key`
+     * const systemStateWithKeyOnly = await prisma.systemState.createManyAndReturn({
+     *   select: { key: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SystemStateCreateManyAndReturnArgs>(args?: SelectSubset<T, SystemStateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemStatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SystemState.
+     * @param {SystemStateDeleteArgs} args - Arguments to delete one SystemState.
+     * @example
+     * // Delete one SystemState
+     * const SystemState = await prisma.systemState.delete({
+     *   where: {
+     *     // ... filter to delete one SystemState
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SystemStateDeleteArgs>(args: SelectSubset<T, SystemStateDeleteArgs<ExtArgs>>): Prisma__SystemStateClient<$Result.GetResult<Prisma.$SystemStatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SystemState.
+     * @param {SystemStateUpdateArgs} args - Arguments to update one SystemState.
+     * @example
+     * // Update one SystemState
+     * const systemState = await prisma.systemState.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SystemStateUpdateArgs>(args: SelectSubset<T, SystemStateUpdateArgs<ExtArgs>>): Prisma__SystemStateClient<$Result.GetResult<Prisma.$SystemStatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SystemStates.
+     * @param {SystemStateDeleteManyArgs} args - Arguments to filter SystemStates to delete.
+     * @example
+     * // Delete a few SystemStates
+     * const { count } = await prisma.systemState.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SystemStateDeleteManyArgs>(args?: SelectSubset<T, SystemStateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SystemStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemStateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SystemStates
+     * const systemState = await prisma.systemState.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SystemStateUpdateManyArgs>(args: SelectSubset<T, SystemStateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SystemStates and returns the data updated in the database.
+     * @param {SystemStateUpdateManyAndReturnArgs} args - Arguments to update many SystemStates.
+     * @example
+     * // Update many SystemStates
+     * const systemState = await prisma.systemState.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SystemStates and only return the `key`
+     * const systemStateWithKeyOnly = await prisma.systemState.updateManyAndReturn({
+     *   select: { key: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SystemStateUpdateManyAndReturnArgs>(args: SelectSubset<T, SystemStateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemStatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SystemState.
+     * @param {SystemStateUpsertArgs} args - Arguments to update or create a SystemState.
+     * @example
+     * // Update or create a SystemState
+     * const systemState = await prisma.systemState.upsert({
+     *   create: {
+     *     // ... data to create a SystemState
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SystemState we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SystemStateUpsertArgs>(args: SelectSubset<T, SystemStateUpsertArgs<ExtArgs>>): Prisma__SystemStateClient<$Result.GetResult<Prisma.$SystemStatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SystemStates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemStateCountArgs} args - Arguments to filter SystemStates to count.
+     * @example
+     * // Count the number of SystemStates
+     * const count = await prisma.systemState.count({
+     *   where: {
+     *     // ... the filter for the SystemStates we want to count
+     *   }
+     * })
+    **/
+    count<T extends SystemStateCountArgs>(
+      args?: Subset<T, SystemStateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SystemStateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SystemState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemStateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SystemStateAggregateArgs>(args: Subset<T, SystemStateAggregateArgs>): Prisma.PrismaPromise<GetSystemStateAggregateType<T>>
+
+    /**
+     * Group by SystemState.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemStateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SystemStateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SystemStateGroupByArgs['orderBy'] }
+        : { orderBy?: SystemStateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SystemStateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSystemStateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SystemState model
+   */
+  readonly fields: SystemStateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SystemState.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SystemStateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SystemState model
+   */
+  interface SystemStateFieldRefs {
+    readonly key: FieldRef<"SystemState", 'String'>
+    readonly value: FieldRef<"SystemState", 'String'>
+    readonly updatedAt: FieldRef<"SystemState", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SystemState findUnique
+   */
+  export type SystemStateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemState
+     */
+    select?: SystemStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemState
+     */
+    omit?: SystemStateOmit<ExtArgs> | null
+    /**
+     * Filter, which SystemState to fetch.
+     */
+    where: SystemStateWhereUniqueInput
+  }
+
+  /**
+   * SystemState findUniqueOrThrow
+   */
+  export type SystemStateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemState
+     */
+    select?: SystemStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemState
+     */
+    omit?: SystemStateOmit<ExtArgs> | null
+    /**
+     * Filter, which SystemState to fetch.
+     */
+    where: SystemStateWhereUniqueInput
+  }
+
+  /**
+   * SystemState findFirst
+   */
+  export type SystemStateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemState
+     */
+    select?: SystemStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemState
+     */
+    omit?: SystemStateOmit<ExtArgs> | null
+    /**
+     * Filter, which SystemState to fetch.
+     */
+    where?: SystemStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemStates to fetch.
+     */
+    orderBy?: SystemStateOrderByWithRelationInput | SystemStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemStates.
+     */
+    cursor?: SystemStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemStates.
+     */
+    distinct?: SystemStateScalarFieldEnum | SystemStateScalarFieldEnum[]
+  }
+
+  /**
+   * SystemState findFirstOrThrow
+   */
+  export type SystemStateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemState
+     */
+    select?: SystemStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemState
+     */
+    omit?: SystemStateOmit<ExtArgs> | null
+    /**
+     * Filter, which SystemState to fetch.
+     */
+    where?: SystemStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemStates to fetch.
+     */
+    orderBy?: SystemStateOrderByWithRelationInput | SystemStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemStates.
+     */
+    cursor?: SystemStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemStates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemStates.
+     */
+    distinct?: SystemStateScalarFieldEnum | SystemStateScalarFieldEnum[]
+  }
+
+  /**
+   * SystemState findMany
+   */
+  export type SystemStateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemState
+     */
+    select?: SystemStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemState
+     */
+    omit?: SystemStateOmit<ExtArgs> | null
+    /**
+     * Filter, which SystemStates to fetch.
+     */
+    where?: SystemStateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemStates to fetch.
+     */
+    orderBy?: SystemStateOrderByWithRelationInput | SystemStateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SystemStates.
+     */
+    cursor?: SystemStateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemStates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemStates.
+     */
+    skip?: number
+    distinct?: SystemStateScalarFieldEnum | SystemStateScalarFieldEnum[]
+  }
+
+  /**
+   * SystemState create
+   */
+  export type SystemStateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemState
+     */
+    select?: SystemStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemState
+     */
+    omit?: SystemStateOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SystemState.
+     */
+    data: XOR<SystemStateCreateInput, SystemStateUncheckedCreateInput>
+  }
+
+  /**
+   * SystemState createMany
+   */
+  export type SystemStateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SystemStates.
+     */
+    data: SystemStateCreateManyInput | SystemStateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SystemState createManyAndReturn
+   */
+  export type SystemStateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemState
+     */
+    select?: SystemStateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemState
+     */
+    omit?: SystemStateOmit<ExtArgs> | null
+    /**
+     * The data used to create many SystemStates.
+     */
+    data: SystemStateCreateManyInput | SystemStateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SystemState update
+   */
+  export type SystemStateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemState
+     */
+    select?: SystemStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemState
+     */
+    omit?: SystemStateOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SystemState.
+     */
+    data: XOR<SystemStateUpdateInput, SystemStateUncheckedUpdateInput>
+    /**
+     * Choose, which SystemState to update.
+     */
+    where: SystemStateWhereUniqueInput
+  }
+
+  /**
+   * SystemState updateMany
+   */
+  export type SystemStateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SystemStates.
+     */
+    data: XOR<SystemStateUpdateManyMutationInput, SystemStateUncheckedUpdateManyInput>
+    /**
+     * Filter which SystemStates to update
+     */
+    where?: SystemStateWhereInput
+    /**
+     * Limit how many SystemStates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SystemState updateManyAndReturn
+   */
+  export type SystemStateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemState
+     */
+    select?: SystemStateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemState
+     */
+    omit?: SystemStateOmit<ExtArgs> | null
+    /**
+     * The data used to update SystemStates.
+     */
+    data: XOR<SystemStateUpdateManyMutationInput, SystemStateUncheckedUpdateManyInput>
+    /**
+     * Filter which SystemStates to update
+     */
+    where?: SystemStateWhereInput
+    /**
+     * Limit how many SystemStates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SystemState upsert
+   */
+  export type SystemStateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemState
+     */
+    select?: SystemStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemState
+     */
+    omit?: SystemStateOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SystemState to update in case it exists.
+     */
+    where: SystemStateWhereUniqueInput
+    /**
+     * In case the SystemState found by the `where` argument doesn't exist, create a new SystemState with this data.
+     */
+    create: XOR<SystemStateCreateInput, SystemStateUncheckedCreateInput>
+    /**
+     * In case the SystemState was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SystemStateUpdateInput, SystemStateUncheckedUpdateInput>
+  }
+
+  /**
+   * SystemState delete
+   */
+  export type SystemStateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemState
+     */
+    select?: SystemStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemState
+     */
+    omit?: SystemStateOmit<ExtArgs> | null
+    /**
+     * Filter which SystemState to delete.
+     */
+    where: SystemStateWhereUniqueInput
+  }
+
+  /**
+   * SystemState deleteMany
+   */
+  export type SystemStateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemStates to delete
+     */
+    where?: SystemStateWhereInput
+    /**
+     * Limit how many SystemStates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SystemState without action
+   */
+  export type SystemStateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemState
+     */
+    select?: SystemStateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemState
+     */
+    omit?: SystemStateOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CalBooking
+   */
+
+  export type AggregateCalBooking = {
+    _count: CalBookingCountAggregateOutputType | null
+    _avg: CalBookingAvgAggregateOutputType | null
+    _sum: CalBookingSumAggregateOutputType | null
+    _min: CalBookingMinAggregateOutputType | null
+    _max: CalBookingMaxAggregateOutputType | null
+  }
+
+  export type CalBookingAvgAggregateOutputType = {
+    calBookingId: number | null
+  }
+
+  export type CalBookingSumAggregateOutputType = {
+    calBookingId: number | null
+  }
+
+  export type CalBookingMinAggregateOutputType = {
+    id: string | null
+    calUid: string | null
+    calBookingId: number | null
+    leadId: string | null
+    triggerEvent: string | null
+    startTime: Date | null
+    endTime: Date | null
+    attendeeEmail: string | null
+    attendeeName: string | null
+    eventTypeSlug: string | null
+    createdAt: Date | null
+  }
+
+  export type CalBookingMaxAggregateOutputType = {
+    id: string | null
+    calUid: string | null
+    calBookingId: number | null
+    leadId: string | null
+    triggerEvent: string | null
+    startTime: Date | null
+    endTime: Date | null
+    attendeeEmail: string | null
+    attendeeName: string | null
+    eventTypeSlug: string | null
+    createdAt: Date | null
+  }
+
+  export type CalBookingCountAggregateOutputType = {
+    id: number
+    calUid: number
+    calBookingId: number
+    leadId: number
+    triggerEvent: number
+    startTime: number
+    endTime: number
+    attendeeEmail: number
+    attendeeName: number
+    eventTypeSlug: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CalBookingAvgAggregateInputType = {
+    calBookingId?: true
+  }
+
+  export type CalBookingSumAggregateInputType = {
+    calBookingId?: true
+  }
+
+  export type CalBookingMinAggregateInputType = {
+    id?: true
+    calUid?: true
+    calBookingId?: true
+    leadId?: true
+    triggerEvent?: true
+    startTime?: true
+    endTime?: true
+    attendeeEmail?: true
+    attendeeName?: true
+    eventTypeSlug?: true
+    createdAt?: true
+  }
+
+  export type CalBookingMaxAggregateInputType = {
+    id?: true
+    calUid?: true
+    calBookingId?: true
+    leadId?: true
+    triggerEvent?: true
+    startTime?: true
+    endTime?: true
+    attendeeEmail?: true
+    attendeeName?: true
+    eventTypeSlug?: true
+    createdAt?: true
+  }
+
+  export type CalBookingCountAggregateInputType = {
+    id?: true
+    calUid?: true
+    calBookingId?: true
+    leadId?: true
+    triggerEvent?: true
+    startTime?: true
+    endTime?: true
+    attendeeEmail?: true
+    attendeeName?: true
+    eventTypeSlug?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CalBookingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CalBooking to aggregate.
+     */
+    where?: CalBookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CalBookings to fetch.
+     */
+    orderBy?: CalBookingOrderByWithRelationInput | CalBookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CalBookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CalBookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CalBookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CalBookings
+    **/
+    _count?: true | CalBookingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CalBookingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CalBookingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CalBookingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CalBookingMaxAggregateInputType
+  }
+
+  export type GetCalBookingAggregateType<T extends CalBookingAggregateArgs> = {
+        [P in keyof T & keyof AggregateCalBooking]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCalBooking[P]>
+      : GetScalarType<T[P], AggregateCalBooking[P]>
+  }
+
+
+
+
+  export type CalBookingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CalBookingWhereInput
+    orderBy?: CalBookingOrderByWithAggregationInput | CalBookingOrderByWithAggregationInput[]
+    by: CalBookingScalarFieldEnum[] | CalBookingScalarFieldEnum
+    having?: CalBookingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CalBookingCountAggregateInputType | true
+    _avg?: CalBookingAvgAggregateInputType
+    _sum?: CalBookingSumAggregateInputType
+    _min?: CalBookingMinAggregateInputType
+    _max?: CalBookingMaxAggregateInputType
+  }
+
+  export type CalBookingGroupByOutputType = {
+    id: string
+    calUid: string
+    calBookingId: number | null
+    leadId: string
+    triggerEvent: string
+    startTime: Date
+    endTime: Date | null
+    attendeeEmail: string | null
+    attendeeName: string | null
+    eventTypeSlug: string | null
+    createdAt: Date
+    _count: CalBookingCountAggregateOutputType | null
+    _avg: CalBookingAvgAggregateOutputType | null
+    _sum: CalBookingSumAggregateOutputType | null
+    _min: CalBookingMinAggregateOutputType | null
+    _max: CalBookingMaxAggregateOutputType | null
+  }
+
+  type GetCalBookingGroupByPayload<T extends CalBookingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CalBookingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CalBookingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CalBookingGroupByOutputType[P]>
+            : GetScalarType<T[P], CalBookingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CalBookingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    calUid?: boolean
+    calBookingId?: boolean
+    leadId?: boolean
+    triggerEvent?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    attendeeEmail?: boolean
+    attendeeName?: boolean
+    eventTypeSlug?: boolean
+    createdAt?: boolean
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["calBooking"]>
+
+  export type CalBookingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    calUid?: boolean
+    calBookingId?: boolean
+    leadId?: boolean
+    triggerEvent?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    attendeeEmail?: boolean
+    attendeeName?: boolean
+    eventTypeSlug?: boolean
+    createdAt?: boolean
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["calBooking"]>
+
+  export type CalBookingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    calUid?: boolean
+    calBookingId?: boolean
+    leadId?: boolean
+    triggerEvent?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    attendeeEmail?: boolean
+    attendeeName?: boolean
+    eventTypeSlug?: boolean
+    createdAt?: boolean
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["calBooking"]>
+
+  export type CalBookingSelectScalar = {
+    id?: boolean
+    calUid?: boolean
+    calBookingId?: boolean
+    leadId?: boolean
+    triggerEvent?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    attendeeEmail?: boolean
+    attendeeName?: boolean
+    eventTypeSlug?: boolean
+    createdAt?: boolean
+  }
+
+  export type CalBookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "calUid" | "calBookingId" | "leadId" | "triggerEvent" | "startTime" | "endTime" | "attendeeEmail" | "attendeeName" | "eventTypeSlug" | "createdAt", ExtArgs["result"]["calBooking"]>
+  export type CalBookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+  }
+  export type CalBookingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+  }
+  export type CalBookingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+  }
+
+  export type $CalBookingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CalBooking"
+    objects: {
+      lead: Prisma.$AirbnbLeadPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      calUid: string
+      calBookingId: number | null
+      leadId: string
+      triggerEvent: string
+      startTime: Date
+      endTime: Date | null
+      attendeeEmail: string | null
+      attendeeName: string | null
+      eventTypeSlug: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["calBooking"]>
+    composites: {}
+  }
+
+  type CalBookingGetPayload<S extends boolean | null | undefined | CalBookingDefaultArgs> = $Result.GetResult<Prisma.$CalBookingPayload, S>
+
+  type CalBookingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CalBookingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CalBookingCountAggregateInputType | true
+    }
+
+  export interface CalBookingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CalBooking'], meta: { name: 'CalBooking' } }
+    /**
+     * Find zero or one CalBooking that matches the filter.
+     * @param {CalBookingFindUniqueArgs} args - Arguments to find a CalBooking
+     * @example
+     * // Get one CalBooking
+     * const calBooking = await prisma.calBooking.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CalBookingFindUniqueArgs>(args: SelectSubset<T, CalBookingFindUniqueArgs<ExtArgs>>): Prisma__CalBookingClient<$Result.GetResult<Prisma.$CalBookingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CalBooking that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CalBookingFindUniqueOrThrowArgs} args - Arguments to find a CalBooking
+     * @example
+     * // Get one CalBooking
+     * const calBooking = await prisma.calBooking.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CalBookingFindUniqueOrThrowArgs>(args: SelectSubset<T, CalBookingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CalBookingClient<$Result.GetResult<Prisma.$CalBookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CalBooking that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalBookingFindFirstArgs} args - Arguments to find a CalBooking
+     * @example
+     * // Get one CalBooking
+     * const calBooking = await prisma.calBooking.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CalBookingFindFirstArgs>(args?: SelectSubset<T, CalBookingFindFirstArgs<ExtArgs>>): Prisma__CalBookingClient<$Result.GetResult<Prisma.$CalBookingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CalBooking that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalBookingFindFirstOrThrowArgs} args - Arguments to find a CalBooking
+     * @example
+     * // Get one CalBooking
+     * const calBooking = await prisma.calBooking.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CalBookingFindFirstOrThrowArgs>(args?: SelectSubset<T, CalBookingFindFirstOrThrowArgs<ExtArgs>>): Prisma__CalBookingClient<$Result.GetResult<Prisma.$CalBookingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CalBookings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalBookingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CalBookings
+     * const calBookings = await prisma.calBooking.findMany()
+     * 
+     * // Get first 10 CalBookings
+     * const calBookings = await prisma.calBooking.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const calBookingWithIdOnly = await prisma.calBooking.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CalBookingFindManyArgs>(args?: SelectSubset<T, CalBookingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CalBookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CalBooking.
+     * @param {CalBookingCreateArgs} args - Arguments to create a CalBooking.
+     * @example
+     * // Create one CalBooking
+     * const CalBooking = await prisma.calBooking.create({
+     *   data: {
+     *     // ... data to create a CalBooking
+     *   }
+     * })
+     * 
+     */
+    create<T extends CalBookingCreateArgs>(args: SelectSubset<T, CalBookingCreateArgs<ExtArgs>>): Prisma__CalBookingClient<$Result.GetResult<Prisma.$CalBookingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CalBookings.
+     * @param {CalBookingCreateManyArgs} args - Arguments to create many CalBookings.
+     * @example
+     * // Create many CalBookings
+     * const calBooking = await prisma.calBooking.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CalBookingCreateManyArgs>(args?: SelectSubset<T, CalBookingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CalBookings and returns the data saved in the database.
+     * @param {CalBookingCreateManyAndReturnArgs} args - Arguments to create many CalBookings.
+     * @example
+     * // Create many CalBookings
+     * const calBooking = await prisma.calBooking.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CalBookings and only return the `id`
+     * const calBookingWithIdOnly = await prisma.calBooking.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CalBookingCreateManyAndReturnArgs>(args?: SelectSubset<T, CalBookingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CalBookingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CalBooking.
+     * @param {CalBookingDeleteArgs} args - Arguments to delete one CalBooking.
+     * @example
+     * // Delete one CalBooking
+     * const CalBooking = await prisma.calBooking.delete({
+     *   where: {
+     *     // ... filter to delete one CalBooking
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CalBookingDeleteArgs>(args: SelectSubset<T, CalBookingDeleteArgs<ExtArgs>>): Prisma__CalBookingClient<$Result.GetResult<Prisma.$CalBookingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CalBooking.
+     * @param {CalBookingUpdateArgs} args - Arguments to update one CalBooking.
+     * @example
+     * // Update one CalBooking
+     * const calBooking = await prisma.calBooking.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CalBookingUpdateArgs>(args: SelectSubset<T, CalBookingUpdateArgs<ExtArgs>>): Prisma__CalBookingClient<$Result.GetResult<Prisma.$CalBookingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CalBookings.
+     * @param {CalBookingDeleteManyArgs} args - Arguments to filter CalBookings to delete.
+     * @example
+     * // Delete a few CalBookings
+     * const { count } = await prisma.calBooking.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CalBookingDeleteManyArgs>(args?: SelectSubset<T, CalBookingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CalBookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalBookingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CalBookings
+     * const calBooking = await prisma.calBooking.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CalBookingUpdateManyArgs>(args: SelectSubset<T, CalBookingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CalBookings and returns the data updated in the database.
+     * @param {CalBookingUpdateManyAndReturnArgs} args - Arguments to update many CalBookings.
+     * @example
+     * // Update many CalBookings
+     * const calBooking = await prisma.calBooking.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CalBookings and only return the `id`
+     * const calBookingWithIdOnly = await prisma.calBooking.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CalBookingUpdateManyAndReturnArgs>(args: SelectSubset<T, CalBookingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CalBookingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CalBooking.
+     * @param {CalBookingUpsertArgs} args - Arguments to update or create a CalBooking.
+     * @example
+     * // Update or create a CalBooking
+     * const calBooking = await prisma.calBooking.upsert({
+     *   create: {
+     *     // ... data to create a CalBooking
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CalBooking we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CalBookingUpsertArgs>(args: SelectSubset<T, CalBookingUpsertArgs<ExtArgs>>): Prisma__CalBookingClient<$Result.GetResult<Prisma.$CalBookingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CalBookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalBookingCountArgs} args - Arguments to filter CalBookings to count.
+     * @example
+     * // Count the number of CalBookings
+     * const count = await prisma.calBooking.count({
+     *   where: {
+     *     // ... the filter for the CalBookings we want to count
+     *   }
+     * })
+    **/
+    count<T extends CalBookingCountArgs>(
+      args?: Subset<T, CalBookingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CalBookingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CalBooking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalBookingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CalBookingAggregateArgs>(args: Subset<T, CalBookingAggregateArgs>): Prisma.PrismaPromise<GetCalBookingAggregateType<T>>
+
+    /**
+     * Group by CalBooking.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CalBookingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CalBookingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CalBookingGroupByArgs['orderBy'] }
+        : { orderBy?: CalBookingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CalBookingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCalBookingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CalBooking model
+   */
+  readonly fields: CalBookingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CalBooking.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CalBookingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lead<T extends AirbnbLeadDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLeadDefaultArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CalBooking model
+   */
+  interface CalBookingFieldRefs {
+    readonly id: FieldRef<"CalBooking", 'String'>
+    readonly calUid: FieldRef<"CalBooking", 'String'>
+    readonly calBookingId: FieldRef<"CalBooking", 'Int'>
+    readonly leadId: FieldRef<"CalBooking", 'String'>
+    readonly triggerEvent: FieldRef<"CalBooking", 'String'>
+    readonly startTime: FieldRef<"CalBooking", 'DateTime'>
+    readonly endTime: FieldRef<"CalBooking", 'DateTime'>
+    readonly attendeeEmail: FieldRef<"CalBooking", 'String'>
+    readonly attendeeName: FieldRef<"CalBooking", 'String'>
+    readonly eventTypeSlug: FieldRef<"CalBooking", 'String'>
+    readonly createdAt: FieldRef<"CalBooking", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CalBooking findUnique
+   */
+  export type CalBookingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which CalBooking to fetch.
+     */
+    where: CalBookingWhereUniqueInput
+  }
+
+  /**
+   * CalBooking findUniqueOrThrow
+   */
+  export type CalBookingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which CalBooking to fetch.
+     */
+    where: CalBookingWhereUniqueInput
+  }
+
+  /**
+   * CalBooking findFirst
+   */
+  export type CalBookingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which CalBooking to fetch.
+     */
+    where?: CalBookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CalBookings to fetch.
+     */
+    orderBy?: CalBookingOrderByWithRelationInput | CalBookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CalBookings.
+     */
+    cursor?: CalBookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CalBookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CalBookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CalBookings.
+     */
+    distinct?: CalBookingScalarFieldEnum | CalBookingScalarFieldEnum[]
+  }
+
+  /**
+   * CalBooking findFirstOrThrow
+   */
+  export type CalBookingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which CalBooking to fetch.
+     */
+    where?: CalBookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CalBookings to fetch.
+     */
+    orderBy?: CalBookingOrderByWithRelationInput | CalBookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CalBookings.
+     */
+    cursor?: CalBookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CalBookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CalBookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CalBookings.
+     */
+    distinct?: CalBookingScalarFieldEnum | CalBookingScalarFieldEnum[]
+  }
+
+  /**
+   * CalBooking findMany
+   */
+  export type CalBookingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingInclude<ExtArgs> | null
+    /**
+     * Filter, which CalBookings to fetch.
+     */
+    where?: CalBookingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CalBookings to fetch.
+     */
+    orderBy?: CalBookingOrderByWithRelationInput | CalBookingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CalBookings.
+     */
+    cursor?: CalBookingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CalBookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CalBookings.
+     */
+    skip?: number
+    distinct?: CalBookingScalarFieldEnum | CalBookingScalarFieldEnum[]
+  }
+
+  /**
+   * CalBooking create
+   */
+  export type CalBookingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CalBooking.
+     */
+    data: XOR<CalBookingCreateInput, CalBookingUncheckedCreateInput>
+  }
+
+  /**
+   * CalBooking createMany
+   */
+  export type CalBookingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CalBookings.
+     */
+    data: CalBookingCreateManyInput | CalBookingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CalBooking createManyAndReturn
+   */
+  export type CalBookingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * The data used to create many CalBookings.
+     */
+    data: CalBookingCreateManyInput | CalBookingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CalBooking update
+   */
+  export type CalBookingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CalBooking.
+     */
+    data: XOR<CalBookingUpdateInput, CalBookingUncheckedUpdateInput>
+    /**
+     * Choose, which CalBooking to update.
+     */
+    where: CalBookingWhereUniqueInput
+  }
+
+  /**
+   * CalBooking updateMany
+   */
+  export type CalBookingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CalBookings.
+     */
+    data: XOR<CalBookingUpdateManyMutationInput, CalBookingUncheckedUpdateManyInput>
+    /**
+     * Filter which CalBookings to update
+     */
+    where?: CalBookingWhereInput
+    /**
+     * Limit how many CalBookings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CalBooking updateManyAndReturn
+   */
+  export type CalBookingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * The data used to update CalBookings.
+     */
+    data: XOR<CalBookingUpdateManyMutationInput, CalBookingUncheckedUpdateManyInput>
+    /**
+     * Filter which CalBookings to update
+     */
+    where?: CalBookingWhereInput
+    /**
+     * Limit how many CalBookings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CalBooking upsert
+   */
+  export type CalBookingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CalBooking to update in case it exists.
+     */
+    where: CalBookingWhereUniqueInput
+    /**
+     * In case the CalBooking found by the `where` argument doesn't exist, create a new CalBooking with this data.
+     */
+    create: XOR<CalBookingCreateInput, CalBookingUncheckedCreateInput>
+    /**
+     * In case the CalBooking was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CalBookingUpdateInput, CalBookingUncheckedUpdateInput>
+  }
+
+  /**
+   * CalBooking delete
+   */
+  export type CalBookingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingInclude<ExtArgs> | null
+    /**
+     * Filter which CalBooking to delete.
+     */
+    where: CalBookingWhereUniqueInput
+  }
+
+  /**
+   * CalBooking deleteMany
+   */
+  export type CalBookingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CalBookings to delete
+     */
+    where?: CalBookingWhereInput
+    /**
+     * Limit how many CalBookings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CalBooking without action
+   */
+  export type CalBookingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CalBooking
+     */
+    select?: CalBookingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CalBooking
+     */
+    omit?: CalBookingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CalBookingInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ProspectAccount
+   */
+
+  export type AggregateProspectAccount = {
+    _count: ProspectAccountCountAggregateOutputType | null
+    _avg: ProspectAccountAvgAggregateOutputType | null
+    _sum: ProspectAccountSumAggregateOutputType | null
+    _min: ProspectAccountMinAggregateOutputType | null
+    _max: ProspectAccountMaxAggregateOutputType | null
+  }
+
+  export type ProspectAccountAvgAggregateOutputType = {
+    proxyPort: number | null
+    messagesSentToday: number | null
+    waveMessagesSent: number | null
+  }
+
+  export type ProspectAccountSumAggregateOutputType = {
+    proxyPort: number | null
+    messagesSentToday: number | null
+    waveMessagesSent: number | null
+  }
+
+  export type ProspectAccountMinAggregateOutputType = {
+    id: string | null
+    label: string | null
+    airbnbEmail: string | null
+    airbnbPasswordEnc: string | null
+    composioUserId: string | null
+    composioConnectionId: string | null
+    composioConnectedAt: Date | null
+    proxyHost: string | null
+    proxyPort: number | null
+    proxyUser: string | null
+    proxyPassEnc: string | null
+    proxyProvider: string | null
+    proxySessionId: string | null
+    proxyCountry: string | null
+    sessionPath: string | null
+    sessionStateEnc: string | null
+    market: string | null
+    messagesSentToday: number | null
+    waveMessagesSent: number | null
+    status: $Enums.AccountStatus | null
+    rateLimitedAt: Date | null
+    cooldownUntil: Date | null
+    lastWaveStartedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProspectAccountMaxAggregateOutputType = {
+    id: string | null
+    label: string | null
+    airbnbEmail: string | null
+    airbnbPasswordEnc: string | null
+    composioUserId: string | null
+    composioConnectionId: string | null
+    composioConnectedAt: Date | null
+    proxyHost: string | null
+    proxyPort: number | null
+    proxyUser: string | null
+    proxyPassEnc: string | null
+    proxyProvider: string | null
+    proxySessionId: string | null
+    proxyCountry: string | null
+    sessionPath: string | null
+    sessionStateEnc: string | null
+    market: string | null
+    messagesSentToday: number | null
+    waveMessagesSent: number | null
+    status: $Enums.AccountStatus | null
+    rateLimitedAt: Date | null
+    cooldownUntil: Date | null
+    lastWaveStartedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProspectAccountCountAggregateOutputType = {
+    id: number
+    label: number
+    airbnbEmail: number
+    airbnbPasswordEnc: number
+    composioUserId: number
+    composioConnectionId: number
+    composioConnectedAt: number
+    proxyHost: number
+    proxyPort: number
+    proxyUser: number
+    proxyPassEnc: number
+    proxyProvider: number
+    proxySessionId: number
+    proxyCountry: number
+    sessionPath: number
+    sessionStateEnc: number
+    market: number
+    messagesSentToday: number
+    waveMessagesSent: number
+    status: number
+    rateLimitedAt: number
+    cooldownUntil: number
+    lastWaveStartedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ProspectAccountAvgAggregateInputType = {
+    proxyPort?: true
+    messagesSentToday?: true
+    waveMessagesSent?: true
+  }
+
+  export type ProspectAccountSumAggregateInputType = {
+    proxyPort?: true
+    messagesSentToday?: true
+    waveMessagesSent?: true
+  }
+
+  export type ProspectAccountMinAggregateInputType = {
+    id?: true
+    label?: true
+    airbnbEmail?: true
+    airbnbPasswordEnc?: true
+    composioUserId?: true
+    composioConnectionId?: true
+    composioConnectedAt?: true
+    proxyHost?: true
+    proxyPort?: true
+    proxyUser?: true
+    proxyPassEnc?: true
+    proxyProvider?: true
+    proxySessionId?: true
+    proxyCountry?: true
+    sessionPath?: true
+    sessionStateEnc?: true
+    market?: true
+    messagesSentToday?: true
+    waveMessagesSent?: true
+    status?: true
+    rateLimitedAt?: true
+    cooldownUntil?: true
+    lastWaveStartedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProspectAccountMaxAggregateInputType = {
+    id?: true
+    label?: true
+    airbnbEmail?: true
+    airbnbPasswordEnc?: true
+    composioUserId?: true
+    composioConnectionId?: true
+    composioConnectedAt?: true
+    proxyHost?: true
+    proxyPort?: true
+    proxyUser?: true
+    proxyPassEnc?: true
+    proxyProvider?: true
+    proxySessionId?: true
+    proxyCountry?: true
+    sessionPath?: true
+    sessionStateEnc?: true
+    market?: true
+    messagesSentToday?: true
+    waveMessagesSent?: true
+    status?: true
+    rateLimitedAt?: true
+    cooldownUntil?: true
+    lastWaveStartedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProspectAccountCountAggregateInputType = {
+    id?: true
+    label?: true
+    airbnbEmail?: true
+    airbnbPasswordEnc?: true
+    composioUserId?: true
+    composioConnectionId?: true
+    composioConnectedAt?: true
+    proxyHost?: true
+    proxyPort?: true
+    proxyUser?: true
+    proxyPassEnc?: true
+    proxyProvider?: true
+    proxySessionId?: true
+    proxyCountry?: true
+    sessionPath?: true
+    sessionStateEnc?: true
+    market?: true
+    messagesSentToday?: true
+    waveMessagesSent?: true
+    status?: true
+    rateLimitedAt?: true
+    cooldownUntil?: true
+    lastWaveStartedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ProspectAccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProspectAccount to aggregate.
+     */
+    where?: ProspectAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProspectAccounts to fetch.
+     */
+    orderBy?: ProspectAccountOrderByWithRelationInput | ProspectAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProspectAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProspectAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProspectAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProspectAccounts
+    **/
+    _count?: true | ProspectAccountCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProspectAccountAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProspectAccountSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProspectAccountMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProspectAccountMaxAggregateInputType
+  }
+
+  export type GetProspectAccountAggregateType<T extends ProspectAccountAggregateArgs> = {
+        [P in keyof T & keyof AggregateProspectAccount]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProspectAccount[P]>
+      : GetScalarType<T[P], AggregateProspectAccount[P]>
+  }
+
+
+
+
+  export type ProspectAccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProspectAccountWhereInput
+    orderBy?: ProspectAccountOrderByWithAggregationInput | ProspectAccountOrderByWithAggregationInput[]
+    by: ProspectAccountScalarFieldEnum[] | ProspectAccountScalarFieldEnum
+    having?: ProspectAccountScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProspectAccountCountAggregateInputType | true
+    _avg?: ProspectAccountAvgAggregateInputType
+    _sum?: ProspectAccountSumAggregateInputType
+    _min?: ProspectAccountMinAggregateInputType
+    _max?: ProspectAccountMaxAggregateInputType
+  }
+
+  export type ProspectAccountGroupByOutputType = {
+    id: string
+    label: string
+    airbnbEmail: string
+    airbnbPasswordEnc: string | null
+    composioUserId: string | null
+    composioConnectionId: string | null
+    composioConnectedAt: Date | null
+    proxyHost: string | null
+    proxyPort: number | null
+    proxyUser: string | null
+    proxyPassEnc: string | null
+    proxyProvider: string | null
+    proxySessionId: string | null
+    proxyCountry: string | null
+    sessionPath: string | null
+    sessionStateEnc: string | null
+    market: string | null
+    messagesSentToday: number
+    waveMessagesSent: number
+    status: $Enums.AccountStatus
+    rateLimitedAt: Date | null
+    cooldownUntil: Date | null
+    lastWaveStartedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ProspectAccountCountAggregateOutputType | null
+    _avg: ProspectAccountAvgAggregateOutputType | null
+    _sum: ProspectAccountSumAggregateOutputType | null
+    _min: ProspectAccountMinAggregateOutputType | null
+    _max: ProspectAccountMaxAggregateOutputType | null
+  }
+
+  type GetProspectAccountGroupByPayload<T extends ProspectAccountGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProspectAccountGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProspectAccountGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProspectAccountGroupByOutputType[P]>
+            : GetScalarType<T[P], ProspectAccountGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProspectAccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    airbnbEmail?: boolean
+    airbnbPasswordEnc?: boolean
+    composioUserId?: boolean
+    composioConnectionId?: boolean
+    composioConnectedAt?: boolean
+    proxyHost?: boolean
+    proxyPort?: boolean
+    proxyUser?: boolean
+    proxyPassEnc?: boolean
+    proxyProvider?: boolean
+    proxySessionId?: boolean
+    proxyCountry?: boolean
+    sessionPath?: boolean
+    sessionStateEnc?: boolean
+    market?: boolean
+    messagesSentToday?: boolean
+    waveMessagesSent?: boolean
+    status?: boolean
+    rateLimitedAt?: boolean
+    cooldownUntil?: boolean
+    lastWaveStartedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    blockEvents?: boolean | ProspectAccount$blockEventsArgs<ExtArgs>
+    messages?: boolean | ProspectAccount$messagesArgs<ExtArgs>
+    hostContacts?: boolean | ProspectAccount$hostContactsArgs<ExtArgs>
+    _count?: boolean | ProspectAccountCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["prospectAccount"]>
+
+  export type ProspectAccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    airbnbEmail?: boolean
+    airbnbPasswordEnc?: boolean
+    composioUserId?: boolean
+    composioConnectionId?: boolean
+    composioConnectedAt?: boolean
+    proxyHost?: boolean
+    proxyPort?: boolean
+    proxyUser?: boolean
+    proxyPassEnc?: boolean
+    proxyProvider?: boolean
+    proxySessionId?: boolean
+    proxyCountry?: boolean
+    sessionPath?: boolean
+    sessionStateEnc?: boolean
+    market?: boolean
+    messagesSentToday?: boolean
+    waveMessagesSent?: boolean
+    status?: boolean
+    rateLimitedAt?: boolean
+    cooldownUntil?: boolean
+    lastWaveStartedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["prospectAccount"]>
+
+  export type ProspectAccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    airbnbEmail?: boolean
+    airbnbPasswordEnc?: boolean
+    composioUserId?: boolean
+    composioConnectionId?: boolean
+    composioConnectedAt?: boolean
+    proxyHost?: boolean
+    proxyPort?: boolean
+    proxyUser?: boolean
+    proxyPassEnc?: boolean
+    proxyProvider?: boolean
+    proxySessionId?: boolean
+    proxyCountry?: boolean
+    sessionPath?: boolean
+    sessionStateEnc?: boolean
+    market?: boolean
+    messagesSentToday?: boolean
+    waveMessagesSent?: boolean
+    status?: boolean
+    rateLimitedAt?: boolean
+    cooldownUntil?: boolean
+    lastWaveStartedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["prospectAccount"]>
+
+  export type ProspectAccountSelectScalar = {
+    id?: boolean
+    label?: boolean
+    airbnbEmail?: boolean
+    airbnbPasswordEnc?: boolean
+    composioUserId?: boolean
+    composioConnectionId?: boolean
+    composioConnectedAt?: boolean
+    proxyHost?: boolean
+    proxyPort?: boolean
+    proxyUser?: boolean
+    proxyPassEnc?: boolean
+    proxyProvider?: boolean
+    proxySessionId?: boolean
+    proxyCountry?: boolean
+    sessionPath?: boolean
+    sessionStateEnc?: boolean
+    market?: boolean
+    messagesSentToday?: boolean
+    waveMessagesSent?: boolean
+    status?: boolean
+    rateLimitedAt?: boolean
+    cooldownUntil?: boolean
+    lastWaveStartedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ProspectAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "label" | "airbnbEmail" | "airbnbPasswordEnc" | "composioUserId" | "composioConnectionId" | "composioConnectedAt" | "proxyHost" | "proxyPort" | "proxyUser" | "proxyPassEnc" | "proxyProvider" | "proxySessionId" | "proxyCountry" | "sessionPath" | "sessionStateEnc" | "market" | "messagesSentToday" | "waveMessagesSent" | "status" | "rateLimitedAt" | "cooldownUntil" | "lastWaveStartedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["prospectAccount"]>
+  export type ProspectAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blockEvents?: boolean | ProspectAccount$blockEventsArgs<ExtArgs>
+    messages?: boolean | ProspectAccount$messagesArgs<ExtArgs>
+    hostContacts?: boolean | ProspectAccount$hostContactsArgs<ExtArgs>
+    _count?: boolean | ProspectAccountCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ProspectAccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ProspectAccountIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ProspectAccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProspectAccount"
+    objects: {
+      blockEvents: Prisma.$AccountBlockEventPayload<ExtArgs>[]
+      messages: Prisma.$AirbnbMessagePayload<ExtArgs>[]
+      hostContacts: Prisma.$HostContactPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      label: string
+      airbnbEmail: string
+      airbnbPasswordEnc: string | null
+      composioUserId: string | null
+      composioConnectionId: string | null
+      composioConnectedAt: Date | null
+      proxyHost: string | null
+      proxyPort: number | null
+      proxyUser: string | null
+      proxyPassEnc: string | null
+      proxyProvider: string | null
+      proxySessionId: string | null
+      proxyCountry: string | null
+      sessionPath: string | null
+      sessionStateEnc: string | null
+      market: string | null
+      messagesSentToday: number
+      waveMessagesSent: number
+      status: $Enums.AccountStatus
+      rateLimitedAt: Date | null
+      cooldownUntil: Date | null
+      lastWaveStartedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["prospectAccount"]>
+    composites: {}
+  }
+
+  type ProspectAccountGetPayload<S extends boolean | null | undefined | ProspectAccountDefaultArgs> = $Result.GetResult<Prisma.$ProspectAccountPayload, S>
+
+  type ProspectAccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProspectAccountFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProspectAccountCountAggregateInputType | true
+    }
+
+  export interface ProspectAccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProspectAccount'], meta: { name: 'ProspectAccount' } }
+    /**
+     * Find zero or one ProspectAccount that matches the filter.
+     * @param {ProspectAccountFindUniqueArgs} args - Arguments to find a ProspectAccount
+     * @example
+     * // Get one ProspectAccount
+     * const prospectAccount = await prisma.prospectAccount.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProspectAccountFindUniqueArgs>(args: SelectSubset<T, ProspectAccountFindUniqueArgs<ExtArgs>>): Prisma__ProspectAccountClient<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ProspectAccount that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProspectAccountFindUniqueOrThrowArgs} args - Arguments to find a ProspectAccount
+     * @example
+     * // Get one ProspectAccount
+     * const prospectAccount = await prisma.prospectAccount.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProspectAccountFindUniqueOrThrowArgs>(args: SelectSubset<T, ProspectAccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProspectAccountClient<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProspectAccount that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProspectAccountFindFirstArgs} args - Arguments to find a ProspectAccount
+     * @example
+     * // Get one ProspectAccount
+     * const prospectAccount = await prisma.prospectAccount.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProspectAccountFindFirstArgs>(args?: SelectSubset<T, ProspectAccountFindFirstArgs<ExtArgs>>): Prisma__ProspectAccountClient<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProspectAccount that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProspectAccountFindFirstOrThrowArgs} args - Arguments to find a ProspectAccount
+     * @example
+     * // Get one ProspectAccount
+     * const prospectAccount = await prisma.prospectAccount.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProspectAccountFindFirstOrThrowArgs>(args?: SelectSubset<T, ProspectAccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProspectAccountClient<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ProspectAccounts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProspectAccountFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProspectAccounts
+     * const prospectAccounts = await prisma.prospectAccount.findMany()
+     * 
+     * // Get first 10 ProspectAccounts
+     * const prospectAccounts = await prisma.prospectAccount.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const prospectAccountWithIdOnly = await prisma.prospectAccount.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProspectAccountFindManyArgs>(args?: SelectSubset<T, ProspectAccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ProspectAccount.
+     * @param {ProspectAccountCreateArgs} args - Arguments to create a ProspectAccount.
+     * @example
+     * // Create one ProspectAccount
+     * const ProspectAccount = await prisma.prospectAccount.create({
+     *   data: {
+     *     // ... data to create a ProspectAccount
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProspectAccountCreateArgs>(args: SelectSubset<T, ProspectAccountCreateArgs<ExtArgs>>): Prisma__ProspectAccountClient<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ProspectAccounts.
+     * @param {ProspectAccountCreateManyArgs} args - Arguments to create many ProspectAccounts.
+     * @example
+     * // Create many ProspectAccounts
+     * const prospectAccount = await prisma.prospectAccount.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProspectAccountCreateManyArgs>(args?: SelectSubset<T, ProspectAccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ProspectAccounts and returns the data saved in the database.
+     * @param {ProspectAccountCreateManyAndReturnArgs} args - Arguments to create many ProspectAccounts.
+     * @example
+     * // Create many ProspectAccounts
+     * const prospectAccount = await prisma.prospectAccount.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ProspectAccounts and only return the `id`
+     * const prospectAccountWithIdOnly = await prisma.prospectAccount.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProspectAccountCreateManyAndReturnArgs>(args?: SelectSubset<T, ProspectAccountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ProspectAccount.
+     * @param {ProspectAccountDeleteArgs} args - Arguments to delete one ProspectAccount.
+     * @example
+     * // Delete one ProspectAccount
+     * const ProspectAccount = await prisma.prospectAccount.delete({
+     *   where: {
+     *     // ... filter to delete one ProspectAccount
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProspectAccountDeleteArgs>(args: SelectSubset<T, ProspectAccountDeleteArgs<ExtArgs>>): Prisma__ProspectAccountClient<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ProspectAccount.
+     * @param {ProspectAccountUpdateArgs} args - Arguments to update one ProspectAccount.
+     * @example
+     * // Update one ProspectAccount
+     * const prospectAccount = await prisma.prospectAccount.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProspectAccountUpdateArgs>(args: SelectSubset<T, ProspectAccountUpdateArgs<ExtArgs>>): Prisma__ProspectAccountClient<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ProspectAccounts.
+     * @param {ProspectAccountDeleteManyArgs} args - Arguments to filter ProspectAccounts to delete.
+     * @example
+     * // Delete a few ProspectAccounts
+     * const { count } = await prisma.prospectAccount.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProspectAccountDeleteManyArgs>(args?: SelectSubset<T, ProspectAccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProspectAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProspectAccountUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProspectAccounts
+     * const prospectAccount = await prisma.prospectAccount.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProspectAccountUpdateManyArgs>(args: SelectSubset<T, ProspectAccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProspectAccounts and returns the data updated in the database.
+     * @param {ProspectAccountUpdateManyAndReturnArgs} args - Arguments to update many ProspectAccounts.
+     * @example
+     * // Update many ProspectAccounts
+     * const prospectAccount = await prisma.prospectAccount.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ProspectAccounts and only return the `id`
+     * const prospectAccountWithIdOnly = await prisma.prospectAccount.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProspectAccountUpdateManyAndReturnArgs>(args: SelectSubset<T, ProspectAccountUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ProspectAccount.
+     * @param {ProspectAccountUpsertArgs} args - Arguments to update or create a ProspectAccount.
+     * @example
+     * // Update or create a ProspectAccount
+     * const prospectAccount = await prisma.prospectAccount.upsert({
+     *   create: {
+     *     // ... data to create a ProspectAccount
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProspectAccount we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProspectAccountUpsertArgs>(args: SelectSubset<T, ProspectAccountUpsertArgs<ExtArgs>>): Prisma__ProspectAccountClient<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ProspectAccounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProspectAccountCountArgs} args - Arguments to filter ProspectAccounts to count.
+     * @example
+     * // Count the number of ProspectAccounts
+     * const count = await prisma.prospectAccount.count({
+     *   where: {
+     *     // ... the filter for the ProspectAccounts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProspectAccountCountArgs>(
+      args?: Subset<T, ProspectAccountCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProspectAccountCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProspectAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProspectAccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProspectAccountAggregateArgs>(args: Subset<T, ProspectAccountAggregateArgs>): Prisma.PrismaPromise<GetProspectAccountAggregateType<T>>
+
+    /**
+     * Group by ProspectAccount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProspectAccountGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProspectAccountGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProspectAccountGroupByArgs['orderBy'] }
+        : { orderBy?: ProspectAccountGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProspectAccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProspectAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProspectAccount model
+   */
+  readonly fields: ProspectAccountFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProspectAccount.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProspectAccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    blockEvents<T extends ProspectAccount$blockEventsArgs<ExtArgs> = {}>(args?: Subset<T, ProspectAccount$blockEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountBlockEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    messages<T extends ProspectAccount$messagesArgs<ExtArgs> = {}>(args?: Subset<T, ProspectAccount$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AirbnbMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    hostContacts<T extends ProspectAccount$hostContactsArgs<ExtArgs> = {}>(args?: Subset<T, ProspectAccount$hostContactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ProspectAccount model
+   */
+  interface ProspectAccountFieldRefs {
+    readonly id: FieldRef<"ProspectAccount", 'String'>
+    readonly label: FieldRef<"ProspectAccount", 'String'>
+    readonly airbnbEmail: FieldRef<"ProspectAccount", 'String'>
+    readonly airbnbPasswordEnc: FieldRef<"ProspectAccount", 'String'>
+    readonly composioUserId: FieldRef<"ProspectAccount", 'String'>
+    readonly composioConnectionId: FieldRef<"ProspectAccount", 'String'>
+    readonly composioConnectedAt: FieldRef<"ProspectAccount", 'DateTime'>
+    readonly proxyHost: FieldRef<"ProspectAccount", 'String'>
+    readonly proxyPort: FieldRef<"ProspectAccount", 'Int'>
+    readonly proxyUser: FieldRef<"ProspectAccount", 'String'>
+    readonly proxyPassEnc: FieldRef<"ProspectAccount", 'String'>
+    readonly proxyProvider: FieldRef<"ProspectAccount", 'String'>
+    readonly proxySessionId: FieldRef<"ProspectAccount", 'String'>
+    readonly proxyCountry: FieldRef<"ProspectAccount", 'String'>
+    readonly sessionPath: FieldRef<"ProspectAccount", 'String'>
+    readonly sessionStateEnc: FieldRef<"ProspectAccount", 'String'>
+    readonly market: FieldRef<"ProspectAccount", 'String'>
+    readonly messagesSentToday: FieldRef<"ProspectAccount", 'Int'>
+    readonly waveMessagesSent: FieldRef<"ProspectAccount", 'Int'>
+    readonly status: FieldRef<"ProspectAccount", 'AccountStatus'>
+    readonly rateLimitedAt: FieldRef<"ProspectAccount", 'DateTime'>
+    readonly cooldownUntil: FieldRef<"ProspectAccount", 'DateTime'>
+    readonly lastWaveStartedAt: FieldRef<"ProspectAccount", 'DateTime'>
+    readonly createdAt: FieldRef<"ProspectAccount", 'DateTime'>
+    readonly updatedAt: FieldRef<"ProspectAccount", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ProspectAccount findUnique
+   */
+  export type ProspectAccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProspectAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ProspectAccount to fetch.
+     */
+    where: ProspectAccountWhereUniqueInput
+  }
+
+  /**
+   * ProspectAccount findUniqueOrThrow
+   */
+  export type ProspectAccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProspectAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ProspectAccount to fetch.
+     */
+    where: ProspectAccountWhereUniqueInput
+  }
+
+  /**
+   * ProspectAccount findFirst
+   */
+  export type ProspectAccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProspectAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ProspectAccount to fetch.
+     */
+    where?: ProspectAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProspectAccounts to fetch.
+     */
+    orderBy?: ProspectAccountOrderByWithRelationInput | ProspectAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProspectAccounts.
+     */
+    cursor?: ProspectAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProspectAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProspectAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProspectAccounts.
+     */
+    distinct?: ProspectAccountScalarFieldEnum | ProspectAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ProspectAccount findFirstOrThrow
+   */
+  export type ProspectAccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProspectAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ProspectAccount to fetch.
+     */
+    where?: ProspectAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProspectAccounts to fetch.
+     */
+    orderBy?: ProspectAccountOrderByWithRelationInput | ProspectAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProspectAccounts.
+     */
+    cursor?: ProspectAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProspectAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProspectAccounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProspectAccounts.
+     */
+    distinct?: ProspectAccountScalarFieldEnum | ProspectAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ProspectAccount findMany
+   */
+  export type ProspectAccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProspectAccountInclude<ExtArgs> | null
+    /**
+     * Filter, which ProspectAccounts to fetch.
+     */
+    where?: ProspectAccountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProspectAccounts to fetch.
+     */
+    orderBy?: ProspectAccountOrderByWithRelationInput | ProspectAccountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProspectAccounts.
+     */
+    cursor?: ProspectAccountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProspectAccounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProspectAccounts.
+     */
+    skip?: number
+    distinct?: ProspectAccountScalarFieldEnum | ProspectAccountScalarFieldEnum[]
+  }
+
+  /**
+   * ProspectAccount create
+   */
+  export type ProspectAccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProspectAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProspectAccount.
+     */
+    data: XOR<ProspectAccountCreateInput, ProspectAccountUncheckedCreateInput>
+  }
+
+  /**
+   * ProspectAccount createMany
+   */
+  export type ProspectAccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProspectAccounts.
+     */
+    data: ProspectAccountCreateManyInput | ProspectAccountCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ProspectAccount createManyAndReturn
+   */
+  export type ProspectAccountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * The data used to create many ProspectAccounts.
+     */
+    data: ProspectAccountCreateManyInput | ProspectAccountCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ProspectAccount update
+   */
+  export type ProspectAccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProspectAccountInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProspectAccount.
+     */
+    data: XOR<ProspectAccountUpdateInput, ProspectAccountUncheckedUpdateInput>
+    /**
+     * Choose, which ProspectAccount to update.
+     */
+    where: ProspectAccountWhereUniqueInput
+  }
+
+  /**
+   * ProspectAccount updateMany
+   */
+  export type ProspectAccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProspectAccounts.
+     */
+    data: XOR<ProspectAccountUpdateManyMutationInput, ProspectAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which ProspectAccounts to update
+     */
+    where?: ProspectAccountWhereInput
+    /**
+     * Limit how many ProspectAccounts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProspectAccount updateManyAndReturn
+   */
+  export type ProspectAccountUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * The data used to update ProspectAccounts.
+     */
+    data: XOR<ProspectAccountUpdateManyMutationInput, ProspectAccountUncheckedUpdateManyInput>
+    /**
+     * Filter which ProspectAccounts to update
+     */
+    where?: ProspectAccountWhereInput
+    /**
+     * Limit how many ProspectAccounts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProspectAccount upsert
+   */
+  export type ProspectAccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProspectAccountInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProspectAccount to update in case it exists.
+     */
+    where: ProspectAccountWhereUniqueInput
+    /**
+     * In case the ProspectAccount found by the `where` argument doesn't exist, create a new ProspectAccount with this data.
+     */
+    create: XOR<ProspectAccountCreateInput, ProspectAccountUncheckedCreateInput>
+    /**
+     * In case the ProspectAccount was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProspectAccountUpdateInput, ProspectAccountUncheckedUpdateInput>
+  }
+
+  /**
+   * ProspectAccount delete
+   */
+  export type ProspectAccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProspectAccountInclude<ExtArgs> | null
+    /**
+     * Filter which ProspectAccount to delete.
+     */
+    where: ProspectAccountWhereUniqueInput
+  }
+
+  /**
+   * ProspectAccount deleteMany
+   */
+  export type ProspectAccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProspectAccounts to delete
+     */
+    where?: ProspectAccountWhereInput
+    /**
+     * Limit how many ProspectAccounts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProspectAccount.blockEvents
+   */
+  export type ProspectAccount$blockEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventInclude<ExtArgs> | null
+    where?: AccountBlockEventWhereInput
+    orderBy?: AccountBlockEventOrderByWithRelationInput | AccountBlockEventOrderByWithRelationInput[]
+    cursor?: AccountBlockEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AccountBlockEventScalarFieldEnum | AccountBlockEventScalarFieldEnum[]
+  }
+
+  /**
+   * ProspectAccount.messages
+   */
+  export type ProspectAccount$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbMessage
+     */
+    select?: AirbnbMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbMessage
+     */
+    omit?: AirbnbMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbMessageInclude<ExtArgs> | null
+    where?: AirbnbMessageWhereInput
+    orderBy?: AirbnbMessageOrderByWithRelationInput | AirbnbMessageOrderByWithRelationInput[]
+    cursor?: AirbnbMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AirbnbMessageScalarFieldEnum | AirbnbMessageScalarFieldEnum[]
+  }
+
+  /**
+   * ProspectAccount.hostContacts
+   */
+  export type ProspectAccount$hostContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactInclude<ExtArgs> | null
+    where?: HostContactWhereInput
+    orderBy?: HostContactOrderByWithRelationInput | HostContactOrderByWithRelationInput[]
+    cursor?: HostContactWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HostContactScalarFieldEnum | HostContactScalarFieldEnum[]
+  }
+
+  /**
+   * ProspectAccount without action
+   */
+  export type ProspectAccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProspectAccountInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model HostContact
+   */
+
+  export type AggregateHostContact = {
+    _count: HostContactCountAggregateOutputType | null
+    _min: HostContactMinAggregateOutputType | null
+    _max: HostContactMaxAggregateOutputType | null
+  }
+
+  export type HostContactMinAggregateOutputType = {
+    id: string | null
+    hostAirbnbId: string | null
+    leadId: string | null
+    firstContactedAt: Date | null
+    firstContactAccountId: string | null
+    source: $Enums.ContactSource | null
+    createdAt: Date | null
+  }
+
+  export type HostContactMaxAggregateOutputType = {
+    id: string | null
+    hostAirbnbId: string | null
+    leadId: string | null
+    firstContactedAt: Date | null
+    firstContactAccountId: string | null
+    source: $Enums.ContactSource | null
+    createdAt: Date | null
+  }
+
+  export type HostContactCountAggregateOutputType = {
+    id: number
+    hostAirbnbId: number
+    leadId: number
+    firstContactedAt: number
+    firstContactAccountId: number
+    source: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type HostContactMinAggregateInputType = {
+    id?: true
+    hostAirbnbId?: true
+    leadId?: true
+    firstContactedAt?: true
+    firstContactAccountId?: true
+    source?: true
+    createdAt?: true
+  }
+
+  export type HostContactMaxAggregateInputType = {
+    id?: true
+    hostAirbnbId?: true
+    leadId?: true
+    firstContactedAt?: true
+    firstContactAccountId?: true
+    source?: true
+    createdAt?: true
+  }
+
+  export type HostContactCountAggregateInputType = {
+    id?: true
+    hostAirbnbId?: true
+    leadId?: true
+    firstContactedAt?: true
+    firstContactAccountId?: true
+    source?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type HostContactAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HostContact to aggregate.
+     */
+    where?: HostContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HostContacts to fetch.
+     */
+    orderBy?: HostContactOrderByWithRelationInput | HostContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HostContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HostContacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HostContacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned HostContacts
+    **/
+    _count?: true | HostContactCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HostContactMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HostContactMaxAggregateInputType
+  }
+
+  export type GetHostContactAggregateType<T extends HostContactAggregateArgs> = {
+        [P in keyof T & keyof AggregateHostContact]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHostContact[P]>
+      : GetScalarType<T[P], AggregateHostContact[P]>
+  }
+
+
+
+
+  export type HostContactGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HostContactWhereInput
+    orderBy?: HostContactOrderByWithAggregationInput | HostContactOrderByWithAggregationInput[]
+    by: HostContactScalarFieldEnum[] | HostContactScalarFieldEnum
+    having?: HostContactScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HostContactCountAggregateInputType | true
+    _min?: HostContactMinAggregateInputType
+    _max?: HostContactMaxAggregateInputType
+  }
+
+  export type HostContactGroupByOutputType = {
+    id: string
+    hostAirbnbId: string
+    leadId: string
+    firstContactedAt: Date
+    firstContactAccountId: string | null
+    source: $Enums.ContactSource
+    createdAt: Date
+    _count: HostContactCountAggregateOutputType | null
+    _min: HostContactMinAggregateOutputType | null
+    _max: HostContactMaxAggregateOutputType | null
+  }
+
+  type GetHostContactGroupByPayload<T extends HostContactGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HostContactGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HostContactGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HostContactGroupByOutputType[P]>
+            : GetScalarType<T[P], HostContactGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HostContactSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hostAirbnbId?: boolean
+    leadId?: boolean
+    firstContactedAt?: boolean
+    firstContactAccountId?: boolean
+    source?: boolean
+    createdAt?: boolean
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+    firstContactAccount?: boolean | HostContact$firstContactAccountArgs<ExtArgs>
+  }, ExtArgs["result"]["hostContact"]>
+
+  export type HostContactSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hostAirbnbId?: boolean
+    leadId?: boolean
+    firstContactedAt?: boolean
+    firstContactAccountId?: boolean
+    source?: boolean
+    createdAt?: boolean
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+    firstContactAccount?: boolean | HostContact$firstContactAccountArgs<ExtArgs>
+  }, ExtArgs["result"]["hostContact"]>
+
+  export type HostContactSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hostAirbnbId?: boolean
+    leadId?: boolean
+    firstContactedAt?: boolean
+    firstContactAccountId?: boolean
+    source?: boolean
+    createdAt?: boolean
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+    firstContactAccount?: boolean | HostContact$firstContactAccountArgs<ExtArgs>
+  }, ExtArgs["result"]["hostContact"]>
+
+  export type HostContactSelectScalar = {
+    id?: boolean
+    hostAirbnbId?: boolean
+    leadId?: boolean
+    firstContactedAt?: boolean
+    firstContactAccountId?: boolean
+    source?: boolean
+    createdAt?: boolean
+  }
+
+  export type HostContactOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hostAirbnbId" | "leadId" | "firstContactedAt" | "firstContactAccountId" | "source" | "createdAt", ExtArgs["result"]["hostContact"]>
+  export type HostContactInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+    firstContactAccount?: boolean | HostContact$firstContactAccountArgs<ExtArgs>
+  }
+  export type HostContactIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+    firstContactAccount?: boolean | HostContact$firstContactAccountArgs<ExtArgs>
+  }
+  export type HostContactIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+    firstContactAccount?: boolean | HostContact$firstContactAccountArgs<ExtArgs>
+  }
+
+  export type $HostContactPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "HostContact"
+    objects: {
+      lead: Prisma.$AirbnbLeadPayload<ExtArgs>
+      firstContactAccount: Prisma.$ProspectAccountPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hostAirbnbId: string
+      leadId: string
+      firstContactedAt: Date
+      firstContactAccountId: string | null
+      source: $Enums.ContactSource
+      createdAt: Date
+    }, ExtArgs["result"]["hostContact"]>
+    composites: {}
+  }
+
+  type HostContactGetPayload<S extends boolean | null | undefined | HostContactDefaultArgs> = $Result.GetResult<Prisma.$HostContactPayload, S>
+
+  type HostContactCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HostContactFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HostContactCountAggregateInputType | true
+    }
+
+  export interface HostContactDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HostContact'], meta: { name: 'HostContact' } }
+    /**
+     * Find zero or one HostContact that matches the filter.
+     * @param {HostContactFindUniqueArgs} args - Arguments to find a HostContact
+     * @example
+     * // Get one HostContact
+     * const hostContact = await prisma.hostContact.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HostContactFindUniqueArgs>(args: SelectSubset<T, HostContactFindUniqueArgs<ExtArgs>>): Prisma__HostContactClient<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one HostContact that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HostContactFindUniqueOrThrowArgs} args - Arguments to find a HostContact
+     * @example
+     * // Get one HostContact
+     * const hostContact = await prisma.hostContact.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HostContactFindUniqueOrThrowArgs>(args: SelectSubset<T, HostContactFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HostContactClient<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HostContact that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HostContactFindFirstArgs} args - Arguments to find a HostContact
+     * @example
+     * // Get one HostContact
+     * const hostContact = await prisma.hostContact.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HostContactFindFirstArgs>(args?: SelectSubset<T, HostContactFindFirstArgs<ExtArgs>>): Prisma__HostContactClient<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first HostContact that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HostContactFindFirstOrThrowArgs} args - Arguments to find a HostContact
+     * @example
+     * // Get one HostContact
+     * const hostContact = await prisma.hostContact.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HostContactFindFirstOrThrowArgs>(args?: SelectSubset<T, HostContactFindFirstOrThrowArgs<ExtArgs>>): Prisma__HostContactClient<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more HostContacts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HostContactFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all HostContacts
+     * const hostContacts = await prisma.hostContact.findMany()
+     * 
+     * // Get first 10 HostContacts
+     * const hostContacts = await prisma.hostContact.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const hostContactWithIdOnly = await prisma.hostContact.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HostContactFindManyArgs>(args?: SelectSubset<T, HostContactFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a HostContact.
+     * @param {HostContactCreateArgs} args - Arguments to create a HostContact.
+     * @example
+     * // Create one HostContact
+     * const HostContact = await prisma.hostContact.create({
+     *   data: {
+     *     // ... data to create a HostContact
+     *   }
+     * })
+     * 
+     */
+    create<T extends HostContactCreateArgs>(args: SelectSubset<T, HostContactCreateArgs<ExtArgs>>): Prisma__HostContactClient<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many HostContacts.
+     * @param {HostContactCreateManyArgs} args - Arguments to create many HostContacts.
+     * @example
+     * // Create many HostContacts
+     * const hostContact = await prisma.hostContact.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HostContactCreateManyArgs>(args?: SelectSubset<T, HostContactCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many HostContacts and returns the data saved in the database.
+     * @param {HostContactCreateManyAndReturnArgs} args - Arguments to create many HostContacts.
+     * @example
+     * // Create many HostContacts
+     * const hostContact = await prisma.hostContact.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many HostContacts and only return the `id`
+     * const hostContactWithIdOnly = await prisma.hostContact.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HostContactCreateManyAndReturnArgs>(args?: SelectSubset<T, HostContactCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a HostContact.
+     * @param {HostContactDeleteArgs} args - Arguments to delete one HostContact.
+     * @example
+     * // Delete one HostContact
+     * const HostContact = await prisma.hostContact.delete({
+     *   where: {
+     *     // ... filter to delete one HostContact
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HostContactDeleteArgs>(args: SelectSubset<T, HostContactDeleteArgs<ExtArgs>>): Prisma__HostContactClient<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one HostContact.
+     * @param {HostContactUpdateArgs} args - Arguments to update one HostContact.
+     * @example
+     * // Update one HostContact
+     * const hostContact = await prisma.hostContact.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HostContactUpdateArgs>(args: SelectSubset<T, HostContactUpdateArgs<ExtArgs>>): Prisma__HostContactClient<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more HostContacts.
+     * @param {HostContactDeleteManyArgs} args - Arguments to filter HostContacts to delete.
+     * @example
+     * // Delete a few HostContacts
+     * const { count } = await prisma.hostContact.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HostContactDeleteManyArgs>(args?: SelectSubset<T, HostContactDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HostContacts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HostContactUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many HostContacts
+     * const hostContact = await prisma.hostContact.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HostContactUpdateManyArgs>(args: SelectSubset<T, HostContactUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more HostContacts and returns the data updated in the database.
+     * @param {HostContactUpdateManyAndReturnArgs} args - Arguments to update many HostContacts.
+     * @example
+     * // Update many HostContacts
+     * const hostContact = await prisma.hostContact.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more HostContacts and only return the `id`
+     * const hostContactWithIdOnly = await prisma.hostContact.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends HostContactUpdateManyAndReturnArgs>(args: SelectSubset<T, HostContactUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one HostContact.
+     * @param {HostContactUpsertArgs} args - Arguments to update or create a HostContact.
+     * @example
+     * // Update or create a HostContact
+     * const hostContact = await prisma.hostContact.upsert({
+     *   create: {
+     *     // ... data to create a HostContact
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the HostContact we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HostContactUpsertArgs>(args: SelectSubset<T, HostContactUpsertArgs<ExtArgs>>): Prisma__HostContactClient<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of HostContacts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HostContactCountArgs} args - Arguments to filter HostContacts to count.
+     * @example
+     * // Count the number of HostContacts
+     * const count = await prisma.hostContact.count({
+     *   where: {
+     *     // ... the filter for the HostContacts we want to count
+     *   }
+     * })
+    **/
+    count<T extends HostContactCountArgs>(
+      args?: Subset<T, HostContactCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HostContactCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a HostContact.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HostContactAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HostContactAggregateArgs>(args: Subset<T, HostContactAggregateArgs>): Prisma.PrismaPromise<GetHostContactAggregateType<T>>
+
+    /**
+     * Group by HostContact.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HostContactGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HostContactGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HostContactGroupByArgs['orderBy'] }
+        : { orderBy?: HostContactGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HostContactGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHostContactGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the HostContact model
+   */
+  readonly fields: HostContactFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for HostContact.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HostContactClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lead<T extends AirbnbLeadDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLeadDefaultArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    firstContactAccount<T extends HostContact$firstContactAccountArgs<ExtArgs> = {}>(args?: Subset<T, HostContact$firstContactAccountArgs<ExtArgs>>): Prisma__ProspectAccountClient<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the HostContact model
+   */
+  interface HostContactFieldRefs {
+    readonly id: FieldRef<"HostContact", 'String'>
+    readonly hostAirbnbId: FieldRef<"HostContact", 'String'>
+    readonly leadId: FieldRef<"HostContact", 'String'>
+    readonly firstContactedAt: FieldRef<"HostContact", 'DateTime'>
+    readonly firstContactAccountId: FieldRef<"HostContact", 'String'>
+    readonly source: FieldRef<"HostContact", 'ContactSource'>
+    readonly createdAt: FieldRef<"HostContact", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * HostContact findUnique
+   */
+  export type HostContactFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactInclude<ExtArgs> | null
+    /**
+     * Filter, which HostContact to fetch.
+     */
+    where: HostContactWhereUniqueInput
+  }
+
+  /**
+   * HostContact findUniqueOrThrow
+   */
+  export type HostContactFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactInclude<ExtArgs> | null
+    /**
+     * Filter, which HostContact to fetch.
+     */
+    where: HostContactWhereUniqueInput
+  }
+
+  /**
+   * HostContact findFirst
+   */
+  export type HostContactFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactInclude<ExtArgs> | null
+    /**
+     * Filter, which HostContact to fetch.
+     */
+    where?: HostContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HostContacts to fetch.
+     */
+    orderBy?: HostContactOrderByWithRelationInput | HostContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HostContacts.
+     */
+    cursor?: HostContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HostContacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HostContacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HostContacts.
+     */
+    distinct?: HostContactScalarFieldEnum | HostContactScalarFieldEnum[]
+  }
+
+  /**
+   * HostContact findFirstOrThrow
+   */
+  export type HostContactFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactInclude<ExtArgs> | null
+    /**
+     * Filter, which HostContact to fetch.
+     */
+    where?: HostContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HostContacts to fetch.
+     */
+    orderBy?: HostContactOrderByWithRelationInput | HostContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for HostContacts.
+     */
+    cursor?: HostContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HostContacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HostContacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of HostContacts.
+     */
+    distinct?: HostContactScalarFieldEnum | HostContactScalarFieldEnum[]
+  }
+
+  /**
+   * HostContact findMany
+   */
+  export type HostContactFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactInclude<ExtArgs> | null
+    /**
+     * Filter, which HostContacts to fetch.
+     */
+    where?: HostContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of HostContacts to fetch.
+     */
+    orderBy?: HostContactOrderByWithRelationInput | HostContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing HostContacts.
+     */
+    cursor?: HostContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` HostContacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` HostContacts.
+     */
+    skip?: number
+    distinct?: HostContactScalarFieldEnum | HostContactScalarFieldEnum[]
+  }
+
+  /**
+   * HostContact create
+   */
+  export type HostContactCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactInclude<ExtArgs> | null
+    /**
+     * The data needed to create a HostContact.
+     */
+    data: XOR<HostContactCreateInput, HostContactUncheckedCreateInput>
+  }
+
+  /**
+   * HostContact createMany
+   */
+  export type HostContactCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many HostContacts.
+     */
+    data: HostContactCreateManyInput | HostContactCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * HostContact createManyAndReturn
+   */
+  export type HostContactCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * The data used to create many HostContacts.
+     */
+    data: HostContactCreateManyInput | HostContactCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * HostContact update
+   */
+  export type HostContactUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactInclude<ExtArgs> | null
+    /**
+     * The data needed to update a HostContact.
+     */
+    data: XOR<HostContactUpdateInput, HostContactUncheckedUpdateInput>
+    /**
+     * Choose, which HostContact to update.
+     */
+    where: HostContactWhereUniqueInput
+  }
+
+  /**
+   * HostContact updateMany
+   */
+  export type HostContactUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update HostContacts.
+     */
+    data: XOR<HostContactUpdateManyMutationInput, HostContactUncheckedUpdateManyInput>
+    /**
+     * Filter which HostContacts to update
+     */
+    where?: HostContactWhereInput
+    /**
+     * Limit how many HostContacts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * HostContact updateManyAndReturn
+   */
+  export type HostContactUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * The data used to update HostContacts.
+     */
+    data: XOR<HostContactUpdateManyMutationInput, HostContactUncheckedUpdateManyInput>
+    /**
+     * Filter which HostContacts to update
+     */
+    where?: HostContactWhereInput
+    /**
+     * Limit how many HostContacts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * HostContact upsert
+   */
+  export type HostContactUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactInclude<ExtArgs> | null
+    /**
+     * The filter to search for the HostContact to update in case it exists.
+     */
+    where: HostContactWhereUniqueInput
+    /**
+     * In case the HostContact found by the `where` argument doesn't exist, create a new HostContact with this data.
+     */
+    create: XOR<HostContactCreateInput, HostContactUncheckedCreateInput>
+    /**
+     * In case the HostContact was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HostContactUpdateInput, HostContactUncheckedUpdateInput>
+  }
+
+  /**
+   * HostContact delete
+   */
+  export type HostContactDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactInclude<ExtArgs> | null
+    /**
+     * Filter which HostContact to delete.
+     */
+    where: HostContactWhereUniqueInput
+  }
+
+  /**
+   * HostContact deleteMany
+   */
+  export type HostContactDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which HostContacts to delete
+     */
+    where?: HostContactWhereInput
+    /**
+     * Limit how many HostContacts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * HostContact.firstContactAccount
+   */
+  export type HostContact$firstContactAccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProspectAccount
+     */
+    select?: ProspectAccountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProspectAccount
+     */
+    omit?: ProspectAccountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProspectAccountInclude<ExtArgs> | null
+    where?: ProspectAccountWhereInput
+  }
+
+  /**
+   * HostContact without action
+   */
+  export type HostContactDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the HostContact
+     */
+    select?: HostContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the HostContact
+     */
+    omit?: HostContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HostContactInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LeadIdentityAlias
+   */
+
+  export type AggregateLeadIdentityAlias = {
+    _count: LeadIdentityAliasCountAggregateOutputType | null
+    _min: LeadIdentityAliasMinAggregateOutputType | null
+    _max: LeadIdentityAliasMaxAggregateOutputType | null
+  }
+
+  export type LeadIdentityAliasMinAggregateOutputType = {
+    id: string | null
+    aliasId: string | null
+    canonicalId: string | null
+    leadId: string | null
+  }
+
+  export type LeadIdentityAliasMaxAggregateOutputType = {
+    id: string | null
+    aliasId: string | null
+    canonicalId: string | null
+    leadId: string | null
+  }
+
+  export type LeadIdentityAliasCountAggregateOutputType = {
+    id: number
+    aliasId: number
+    canonicalId: number
+    leadId: number
+    _all: number
+  }
+
+
+  export type LeadIdentityAliasMinAggregateInputType = {
+    id?: true
+    aliasId?: true
+    canonicalId?: true
+    leadId?: true
+  }
+
+  export type LeadIdentityAliasMaxAggregateInputType = {
+    id?: true
+    aliasId?: true
+    canonicalId?: true
+    leadId?: true
+  }
+
+  export type LeadIdentityAliasCountAggregateInputType = {
+    id?: true
+    aliasId?: true
+    canonicalId?: true
+    leadId?: true
+    _all?: true
+  }
+
+  export type LeadIdentityAliasAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LeadIdentityAlias to aggregate.
+     */
+    where?: LeadIdentityAliasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadIdentityAliases to fetch.
+     */
+    orderBy?: LeadIdentityAliasOrderByWithRelationInput | LeadIdentityAliasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LeadIdentityAliasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadIdentityAliases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadIdentityAliases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LeadIdentityAliases
+    **/
+    _count?: true | LeadIdentityAliasCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LeadIdentityAliasMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LeadIdentityAliasMaxAggregateInputType
+  }
+
+  export type GetLeadIdentityAliasAggregateType<T extends LeadIdentityAliasAggregateArgs> = {
+        [P in keyof T & keyof AggregateLeadIdentityAlias]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLeadIdentityAlias[P]>
+      : GetScalarType<T[P], AggregateLeadIdentityAlias[P]>
+  }
+
+
+
+
+  export type LeadIdentityAliasGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeadIdentityAliasWhereInput
+    orderBy?: LeadIdentityAliasOrderByWithAggregationInput | LeadIdentityAliasOrderByWithAggregationInput[]
+    by: LeadIdentityAliasScalarFieldEnum[] | LeadIdentityAliasScalarFieldEnum
+    having?: LeadIdentityAliasScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LeadIdentityAliasCountAggregateInputType | true
+    _min?: LeadIdentityAliasMinAggregateInputType
+    _max?: LeadIdentityAliasMaxAggregateInputType
+  }
+
+  export type LeadIdentityAliasGroupByOutputType = {
+    id: string
+    aliasId: string
+    canonicalId: string
+    leadId: string | null
+    _count: LeadIdentityAliasCountAggregateOutputType | null
+    _min: LeadIdentityAliasMinAggregateOutputType | null
+    _max: LeadIdentityAliasMaxAggregateOutputType | null
+  }
+
+  type GetLeadIdentityAliasGroupByPayload<T extends LeadIdentityAliasGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LeadIdentityAliasGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LeadIdentityAliasGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LeadIdentityAliasGroupByOutputType[P]>
+            : GetScalarType<T[P], LeadIdentityAliasGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LeadIdentityAliasSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    aliasId?: boolean
+    canonicalId?: boolean
+    leadId?: boolean
+  }, ExtArgs["result"]["leadIdentityAlias"]>
+
+  export type LeadIdentityAliasSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    aliasId?: boolean
+    canonicalId?: boolean
+    leadId?: boolean
+  }, ExtArgs["result"]["leadIdentityAlias"]>
+
+  export type LeadIdentityAliasSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    aliasId?: boolean
+    canonicalId?: boolean
+    leadId?: boolean
+  }, ExtArgs["result"]["leadIdentityAlias"]>
+
+  export type LeadIdentityAliasSelectScalar = {
+    id?: boolean
+    aliasId?: boolean
+    canonicalId?: boolean
+    leadId?: boolean
+  }
+
+  export type LeadIdentityAliasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "aliasId" | "canonicalId" | "leadId", ExtArgs["result"]["leadIdentityAlias"]>
+
+  export type $LeadIdentityAliasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LeadIdentityAlias"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      aliasId: string
+      canonicalId: string
+      leadId: string | null
+    }, ExtArgs["result"]["leadIdentityAlias"]>
+    composites: {}
+  }
+
+  type LeadIdentityAliasGetPayload<S extends boolean | null | undefined | LeadIdentityAliasDefaultArgs> = $Result.GetResult<Prisma.$LeadIdentityAliasPayload, S>
+
+  type LeadIdentityAliasCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LeadIdentityAliasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LeadIdentityAliasCountAggregateInputType | true
+    }
+
+  export interface LeadIdentityAliasDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LeadIdentityAlias'], meta: { name: 'LeadIdentityAlias' } }
+    /**
+     * Find zero or one LeadIdentityAlias that matches the filter.
+     * @param {LeadIdentityAliasFindUniqueArgs} args - Arguments to find a LeadIdentityAlias
+     * @example
+     * // Get one LeadIdentityAlias
+     * const leadIdentityAlias = await prisma.leadIdentityAlias.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LeadIdentityAliasFindUniqueArgs>(args: SelectSubset<T, LeadIdentityAliasFindUniqueArgs<ExtArgs>>): Prisma__LeadIdentityAliasClient<$Result.GetResult<Prisma.$LeadIdentityAliasPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LeadIdentityAlias that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LeadIdentityAliasFindUniqueOrThrowArgs} args - Arguments to find a LeadIdentityAlias
+     * @example
+     * // Get one LeadIdentityAlias
+     * const leadIdentityAlias = await prisma.leadIdentityAlias.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LeadIdentityAliasFindUniqueOrThrowArgs>(args: SelectSubset<T, LeadIdentityAliasFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LeadIdentityAliasClient<$Result.GetResult<Prisma.$LeadIdentityAliasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LeadIdentityAlias that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadIdentityAliasFindFirstArgs} args - Arguments to find a LeadIdentityAlias
+     * @example
+     * // Get one LeadIdentityAlias
+     * const leadIdentityAlias = await prisma.leadIdentityAlias.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LeadIdentityAliasFindFirstArgs>(args?: SelectSubset<T, LeadIdentityAliasFindFirstArgs<ExtArgs>>): Prisma__LeadIdentityAliasClient<$Result.GetResult<Prisma.$LeadIdentityAliasPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LeadIdentityAlias that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadIdentityAliasFindFirstOrThrowArgs} args - Arguments to find a LeadIdentityAlias
+     * @example
+     * // Get one LeadIdentityAlias
+     * const leadIdentityAlias = await prisma.leadIdentityAlias.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LeadIdentityAliasFindFirstOrThrowArgs>(args?: SelectSubset<T, LeadIdentityAliasFindFirstOrThrowArgs<ExtArgs>>): Prisma__LeadIdentityAliasClient<$Result.GetResult<Prisma.$LeadIdentityAliasPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LeadIdentityAliases that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadIdentityAliasFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LeadIdentityAliases
+     * const leadIdentityAliases = await prisma.leadIdentityAlias.findMany()
+     * 
+     * // Get first 10 LeadIdentityAliases
+     * const leadIdentityAliases = await prisma.leadIdentityAlias.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const leadIdentityAliasWithIdOnly = await prisma.leadIdentityAlias.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LeadIdentityAliasFindManyArgs>(args?: SelectSubset<T, LeadIdentityAliasFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadIdentityAliasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LeadIdentityAlias.
+     * @param {LeadIdentityAliasCreateArgs} args - Arguments to create a LeadIdentityAlias.
+     * @example
+     * // Create one LeadIdentityAlias
+     * const LeadIdentityAlias = await prisma.leadIdentityAlias.create({
+     *   data: {
+     *     // ... data to create a LeadIdentityAlias
+     *   }
+     * })
+     * 
+     */
+    create<T extends LeadIdentityAliasCreateArgs>(args: SelectSubset<T, LeadIdentityAliasCreateArgs<ExtArgs>>): Prisma__LeadIdentityAliasClient<$Result.GetResult<Prisma.$LeadIdentityAliasPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LeadIdentityAliases.
+     * @param {LeadIdentityAliasCreateManyArgs} args - Arguments to create many LeadIdentityAliases.
+     * @example
+     * // Create many LeadIdentityAliases
+     * const leadIdentityAlias = await prisma.leadIdentityAlias.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LeadIdentityAliasCreateManyArgs>(args?: SelectSubset<T, LeadIdentityAliasCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LeadIdentityAliases and returns the data saved in the database.
+     * @param {LeadIdentityAliasCreateManyAndReturnArgs} args - Arguments to create many LeadIdentityAliases.
+     * @example
+     * // Create many LeadIdentityAliases
+     * const leadIdentityAlias = await prisma.leadIdentityAlias.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LeadIdentityAliases and only return the `id`
+     * const leadIdentityAliasWithIdOnly = await prisma.leadIdentityAlias.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LeadIdentityAliasCreateManyAndReturnArgs>(args?: SelectSubset<T, LeadIdentityAliasCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadIdentityAliasPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LeadIdentityAlias.
+     * @param {LeadIdentityAliasDeleteArgs} args - Arguments to delete one LeadIdentityAlias.
+     * @example
+     * // Delete one LeadIdentityAlias
+     * const LeadIdentityAlias = await prisma.leadIdentityAlias.delete({
+     *   where: {
+     *     // ... filter to delete one LeadIdentityAlias
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LeadIdentityAliasDeleteArgs>(args: SelectSubset<T, LeadIdentityAliasDeleteArgs<ExtArgs>>): Prisma__LeadIdentityAliasClient<$Result.GetResult<Prisma.$LeadIdentityAliasPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LeadIdentityAlias.
+     * @param {LeadIdentityAliasUpdateArgs} args - Arguments to update one LeadIdentityAlias.
+     * @example
+     * // Update one LeadIdentityAlias
+     * const leadIdentityAlias = await prisma.leadIdentityAlias.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LeadIdentityAliasUpdateArgs>(args: SelectSubset<T, LeadIdentityAliasUpdateArgs<ExtArgs>>): Prisma__LeadIdentityAliasClient<$Result.GetResult<Prisma.$LeadIdentityAliasPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LeadIdentityAliases.
+     * @param {LeadIdentityAliasDeleteManyArgs} args - Arguments to filter LeadIdentityAliases to delete.
+     * @example
+     * // Delete a few LeadIdentityAliases
+     * const { count } = await prisma.leadIdentityAlias.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LeadIdentityAliasDeleteManyArgs>(args?: SelectSubset<T, LeadIdentityAliasDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LeadIdentityAliases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadIdentityAliasUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LeadIdentityAliases
+     * const leadIdentityAlias = await prisma.leadIdentityAlias.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LeadIdentityAliasUpdateManyArgs>(args: SelectSubset<T, LeadIdentityAliasUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LeadIdentityAliases and returns the data updated in the database.
+     * @param {LeadIdentityAliasUpdateManyAndReturnArgs} args - Arguments to update many LeadIdentityAliases.
+     * @example
+     * // Update many LeadIdentityAliases
+     * const leadIdentityAlias = await prisma.leadIdentityAlias.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LeadIdentityAliases and only return the `id`
+     * const leadIdentityAliasWithIdOnly = await prisma.leadIdentityAlias.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LeadIdentityAliasUpdateManyAndReturnArgs>(args: SelectSubset<T, LeadIdentityAliasUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadIdentityAliasPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LeadIdentityAlias.
+     * @param {LeadIdentityAliasUpsertArgs} args - Arguments to update or create a LeadIdentityAlias.
+     * @example
+     * // Update or create a LeadIdentityAlias
+     * const leadIdentityAlias = await prisma.leadIdentityAlias.upsert({
+     *   create: {
+     *     // ... data to create a LeadIdentityAlias
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LeadIdentityAlias we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LeadIdentityAliasUpsertArgs>(args: SelectSubset<T, LeadIdentityAliasUpsertArgs<ExtArgs>>): Prisma__LeadIdentityAliasClient<$Result.GetResult<Prisma.$LeadIdentityAliasPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LeadIdentityAliases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadIdentityAliasCountArgs} args - Arguments to filter LeadIdentityAliases to count.
+     * @example
+     * // Count the number of LeadIdentityAliases
+     * const count = await prisma.leadIdentityAlias.count({
+     *   where: {
+     *     // ... the filter for the LeadIdentityAliases we want to count
+     *   }
+     * })
+    **/
+    count<T extends LeadIdentityAliasCountArgs>(
+      args?: Subset<T, LeadIdentityAliasCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LeadIdentityAliasCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LeadIdentityAlias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadIdentityAliasAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LeadIdentityAliasAggregateArgs>(args: Subset<T, LeadIdentityAliasAggregateArgs>): Prisma.PrismaPromise<GetLeadIdentityAliasAggregateType<T>>
+
+    /**
+     * Group by LeadIdentityAlias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadIdentityAliasGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LeadIdentityAliasGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LeadIdentityAliasGroupByArgs['orderBy'] }
+        : { orderBy?: LeadIdentityAliasGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LeadIdentityAliasGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLeadIdentityAliasGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LeadIdentityAlias model
+   */
+  readonly fields: LeadIdentityAliasFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LeadIdentityAlias.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LeadIdentityAliasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LeadIdentityAlias model
+   */
+  interface LeadIdentityAliasFieldRefs {
+    readonly id: FieldRef<"LeadIdentityAlias", 'String'>
+    readonly aliasId: FieldRef<"LeadIdentityAlias", 'String'>
+    readonly canonicalId: FieldRef<"LeadIdentityAlias", 'String'>
+    readonly leadId: FieldRef<"LeadIdentityAlias", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LeadIdentityAlias findUnique
+   */
+  export type LeadIdentityAliasFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadIdentityAlias
+     */
+    select?: LeadIdentityAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadIdentityAlias
+     */
+    omit?: LeadIdentityAliasOmit<ExtArgs> | null
+    /**
+     * Filter, which LeadIdentityAlias to fetch.
+     */
+    where: LeadIdentityAliasWhereUniqueInput
+  }
+
+  /**
+   * LeadIdentityAlias findUniqueOrThrow
+   */
+  export type LeadIdentityAliasFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadIdentityAlias
+     */
+    select?: LeadIdentityAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadIdentityAlias
+     */
+    omit?: LeadIdentityAliasOmit<ExtArgs> | null
+    /**
+     * Filter, which LeadIdentityAlias to fetch.
+     */
+    where: LeadIdentityAliasWhereUniqueInput
+  }
+
+  /**
+   * LeadIdentityAlias findFirst
+   */
+  export type LeadIdentityAliasFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadIdentityAlias
+     */
+    select?: LeadIdentityAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadIdentityAlias
+     */
+    omit?: LeadIdentityAliasOmit<ExtArgs> | null
+    /**
+     * Filter, which LeadIdentityAlias to fetch.
+     */
+    where?: LeadIdentityAliasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadIdentityAliases to fetch.
+     */
+    orderBy?: LeadIdentityAliasOrderByWithRelationInput | LeadIdentityAliasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LeadIdentityAliases.
+     */
+    cursor?: LeadIdentityAliasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadIdentityAliases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadIdentityAliases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeadIdentityAliases.
+     */
+    distinct?: LeadIdentityAliasScalarFieldEnum | LeadIdentityAliasScalarFieldEnum[]
+  }
+
+  /**
+   * LeadIdentityAlias findFirstOrThrow
+   */
+  export type LeadIdentityAliasFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadIdentityAlias
+     */
+    select?: LeadIdentityAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadIdentityAlias
+     */
+    omit?: LeadIdentityAliasOmit<ExtArgs> | null
+    /**
+     * Filter, which LeadIdentityAlias to fetch.
+     */
+    where?: LeadIdentityAliasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadIdentityAliases to fetch.
+     */
+    orderBy?: LeadIdentityAliasOrderByWithRelationInput | LeadIdentityAliasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LeadIdentityAliases.
+     */
+    cursor?: LeadIdentityAliasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadIdentityAliases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadIdentityAliases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeadIdentityAliases.
+     */
+    distinct?: LeadIdentityAliasScalarFieldEnum | LeadIdentityAliasScalarFieldEnum[]
+  }
+
+  /**
+   * LeadIdentityAlias findMany
+   */
+  export type LeadIdentityAliasFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadIdentityAlias
+     */
+    select?: LeadIdentityAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadIdentityAlias
+     */
+    omit?: LeadIdentityAliasOmit<ExtArgs> | null
+    /**
+     * Filter, which LeadIdentityAliases to fetch.
+     */
+    where?: LeadIdentityAliasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadIdentityAliases to fetch.
+     */
+    orderBy?: LeadIdentityAliasOrderByWithRelationInput | LeadIdentityAliasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LeadIdentityAliases.
+     */
+    cursor?: LeadIdentityAliasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadIdentityAliases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadIdentityAliases.
+     */
+    skip?: number
+    distinct?: LeadIdentityAliasScalarFieldEnum | LeadIdentityAliasScalarFieldEnum[]
+  }
+
+  /**
+   * LeadIdentityAlias create
+   */
+  export type LeadIdentityAliasCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadIdentityAlias
+     */
+    select?: LeadIdentityAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadIdentityAlias
+     */
+    omit?: LeadIdentityAliasOmit<ExtArgs> | null
+    /**
+     * The data needed to create a LeadIdentityAlias.
+     */
+    data: XOR<LeadIdentityAliasCreateInput, LeadIdentityAliasUncheckedCreateInput>
+  }
+
+  /**
+   * LeadIdentityAlias createMany
+   */
+  export type LeadIdentityAliasCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LeadIdentityAliases.
+     */
+    data: LeadIdentityAliasCreateManyInput | LeadIdentityAliasCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LeadIdentityAlias createManyAndReturn
+   */
+  export type LeadIdentityAliasCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadIdentityAlias
+     */
+    select?: LeadIdentityAliasSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadIdentityAlias
+     */
+    omit?: LeadIdentityAliasOmit<ExtArgs> | null
+    /**
+     * The data used to create many LeadIdentityAliases.
+     */
+    data: LeadIdentityAliasCreateManyInput | LeadIdentityAliasCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LeadIdentityAlias update
+   */
+  export type LeadIdentityAliasUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadIdentityAlias
+     */
+    select?: LeadIdentityAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadIdentityAlias
+     */
+    omit?: LeadIdentityAliasOmit<ExtArgs> | null
+    /**
+     * The data needed to update a LeadIdentityAlias.
+     */
+    data: XOR<LeadIdentityAliasUpdateInput, LeadIdentityAliasUncheckedUpdateInput>
+    /**
+     * Choose, which LeadIdentityAlias to update.
+     */
+    where: LeadIdentityAliasWhereUniqueInput
+  }
+
+  /**
+   * LeadIdentityAlias updateMany
+   */
+  export type LeadIdentityAliasUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LeadIdentityAliases.
+     */
+    data: XOR<LeadIdentityAliasUpdateManyMutationInput, LeadIdentityAliasUncheckedUpdateManyInput>
+    /**
+     * Filter which LeadIdentityAliases to update
+     */
+    where?: LeadIdentityAliasWhereInput
+    /**
+     * Limit how many LeadIdentityAliases to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeadIdentityAlias updateManyAndReturn
+   */
+  export type LeadIdentityAliasUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadIdentityAlias
+     */
+    select?: LeadIdentityAliasSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadIdentityAlias
+     */
+    omit?: LeadIdentityAliasOmit<ExtArgs> | null
+    /**
+     * The data used to update LeadIdentityAliases.
+     */
+    data: XOR<LeadIdentityAliasUpdateManyMutationInput, LeadIdentityAliasUncheckedUpdateManyInput>
+    /**
+     * Filter which LeadIdentityAliases to update
+     */
+    where?: LeadIdentityAliasWhereInput
+    /**
+     * Limit how many LeadIdentityAliases to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeadIdentityAlias upsert
+   */
+  export type LeadIdentityAliasUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadIdentityAlias
+     */
+    select?: LeadIdentityAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadIdentityAlias
+     */
+    omit?: LeadIdentityAliasOmit<ExtArgs> | null
+    /**
+     * The filter to search for the LeadIdentityAlias to update in case it exists.
+     */
+    where: LeadIdentityAliasWhereUniqueInput
+    /**
+     * In case the LeadIdentityAlias found by the `where` argument doesn't exist, create a new LeadIdentityAlias with this data.
+     */
+    create: XOR<LeadIdentityAliasCreateInput, LeadIdentityAliasUncheckedCreateInput>
+    /**
+     * In case the LeadIdentityAlias was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LeadIdentityAliasUpdateInput, LeadIdentityAliasUncheckedUpdateInput>
+  }
+
+  /**
+   * LeadIdentityAlias delete
+   */
+  export type LeadIdentityAliasDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadIdentityAlias
+     */
+    select?: LeadIdentityAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadIdentityAlias
+     */
+    omit?: LeadIdentityAliasOmit<ExtArgs> | null
+    /**
+     * Filter which LeadIdentityAlias to delete.
+     */
+    where: LeadIdentityAliasWhereUniqueInput
+  }
+
+  /**
+   * LeadIdentityAlias deleteMany
+   */
+  export type LeadIdentityAliasDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LeadIdentityAliases to delete
+     */
+    where?: LeadIdentityAliasWhereInput
+    /**
+     * Limit how many LeadIdentityAliases to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeadIdentityAlias without action
+   */
+  export type LeadIdentityAliasDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadIdentityAlias
+     */
+    select?: LeadIdentityAliasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadIdentityAlias
+     */
+    omit?: LeadIdentityAliasOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DailyOutboundStats
+   */
+
+  export type AggregateDailyOutboundStats = {
+    _count: DailyOutboundStatsCountAggregateOutputType | null
+    _avg: DailyOutboundStatsAvgAggregateOutputType | null
+    _sum: DailyOutboundStatsSumAggregateOutputType | null
+    _min: DailyOutboundStatsMinAggregateOutputType | null
+    _max: DailyOutboundStatsMaxAggregateOutputType | null
+  }
+
+  export type DailyOutboundStatsAvgAggregateOutputType = {
+    coldMessagesSent: number | null
+  }
+
+  export type DailyOutboundStatsSumAggregateOutputType = {
+    coldMessagesSent: number | null
+  }
+
+  export type DailyOutboundStatsMinAggregateOutputType = {
+    id: string | null
+    date: Date | null
+    market: string | null
+    coldMessagesSent: number | null
+  }
+
+  export type DailyOutboundStatsMaxAggregateOutputType = {
+    id: string | null
+    date: Date | null
+    market: string | null
+    coldMessagesSent: number | null
+  }
+
+  export type DailyOutboundStatsCountAggregateOutputType = {
+    id: number
+    date: number
+    market: number
+    coldMessagesSent: number
+    _all: number
+  }
+
+
+  export type DailyOutboundStatsAvgAggregateInputType = {
+    coldMessagesSent?: true
+  }
+
+  export type DailyOutboundStatsSumAggregateInputType = {
+    coldMessagesSent?: true
+  }
+
+  export type DailyOutboundStatsMinAggregateInputType = {
+    id?: true
+    date?: true
+    market?: true
+    coldMessagesSent?: true
+  }
+
+  export type DailyOutboundStatsMaxAggregateInputType = {
+    id?: true
+    date?: true
+    market?: true
+    coldMessagesSent?: true
+  }
+
+  export type DailyOutboundStatsCountAggregateInputType = {
+    id?: true
+    date?: true
+    market?: true
+    coldMessagesSent?: true
+    _all?: true
+  }
+
+  export type DailyOutboundStatsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyOutboundStats to aggregate.
+     */
+    where?: DailyOutboundStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyOutboundStats to fetch.
+     */
+    orderBy?: DailyOutboundStatsOrderByWithRelationInput | DailyOutboundStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DailyOutboundStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyOutboundStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyOutboundStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DailyOutboundStats
+    **/
+    _count?: true | DailyOutboundStatsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DailyOutboundStatsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DailyOutboundStatsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DailyOutboundStatsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DailyOutboundStatsMaxAggregateInputType
+  }
+
+  export type GetDailyOutboundStatsAggregateType<T extends DailyOutboundStatsAggregateArgs> = {
+        [P in keyof T & keyof AggregateDailyOutboundStats]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDailyOutboundStats[P]>
+      : GetScalarType<T[P], AggregateDailyOutboundStats[P]>
+  }
+
+
+
+
+  export type DailyOutboundStatsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyOutboundStatsWhereInput
+    orderBy?: DailyOutboundStatsOrderByWithAggregationInput | DailyOutboundStatsOrderByWithAggregationInput[]
+    by: DailyOutboundStatsScalarFieldEnum[] | DailyOutboundStatsScalarFieldEnum
+    having?: DailyOutboundStatsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DailyOutboundStatsCountAggregateInputType | true
+    _avg?: DailyOutboundStatsAvgAggregateInputType
+    _sum?: DailyOutboundStatsSumAggregateInputType
+    _min?: DailyOutboundStatsMinAggregateInputType
+    _max?: DailyOutboundStatsMaxAggregateInputType
+  }
+
+  export type DailyOutboundStatsGroupByOutputType = {
+    id: string
+    date: Date
+    market: string
+    coldMessagesSent: number
+    _count: DailyOutboundStatsCountAggregateOutputType | null
+    _avg: DailyOutboundStatsAvgAggregateOutputType | null
+    _sum: DailyOutboundStatsSumAggregateOutputType | null
+    _min: DailyOutboundStatsMinAggregateOutputType | null
+    _max: DailyOutboundStatsMaxAggregateOutputType | null
+  }
+
+  type GetDailyOutboundStatsGroupByPayload<T extends DailyOutboundStatsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DailyOutboundStatsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DailyOutboundStatsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DailyOutboundStatsGroupByOutputType[P]>
+            : GetScalarType<T[P], DailyOutboundStatsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DailyOutboundStatsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    market?: boolean
+    coldMessagesSent?: boolean
+  }, ExtArgs["result"]["dailyOutboundStats"]>
+
+  export type DailyOutboundStatsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    market?: boolean
+    coldMessagesSent?: boolean
+  }, ExtArgs["result"]["dailyOutboundStats"]>
+
+  export type DailyOutboundStatsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    market?: boolean
+    coldMessagesSent?: boolean
+  }, ExtArgs["result"]["dailyOutboundStats"]>
+
+  export type DailyOutboundStatsSelectScalar = {
+    id?: boolean
+    date?: boolean
+    market?: boolean
+    coldMessagesSent?: boolean
+  }
+
+  export type DailyOutboundStatsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "market" | "coldMessagesSent", ExtArgs["result"]["dailyOutboundStats"]>
+
+  export type $DailyOutboundStatsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DailyOutboundStats"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      date: Date
+      market: string
+      coldMessagesSent: number
+    }, ExtArgs["result"]["dailyOutboundStats"]>
+    composites: {}
+  }
+
+  type DailyOutboundStatsGetPayload<S extends boolean | null | undefined | DailyOutboundStatsDefaultArgs> = $Result.GetResult<Prisma.$DailyOutboundStatsPayload, S>
+
+  type DailyOutboundStatsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DailyOutboundStatsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DailyOutboundStatsCountAggregateInputType | true
+    }
+
+  export interface DailyOutboundStatsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DailyOutboundStats'], meta: { name: 'DailyOutboundStats' } }
+    /**
+     * Find zero or one DailyOutboundStats that matches the filter.
+     * @param {DailyOutboundStatsFindUniqueArgs} args - Arguments to find a DailyOutboundStats
+     * @example
+     * // Get one DailyOutboundStats
+     * const dailyOutboundStats = await prisma.dailyOutboundStats.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DailyOutboundStatsFindUniqueArgs>(args: SelectSubset<T, DailyOutboundStatsFindUniqueArgs<ExtArgs>>): Prisma__DailyOutboundStatsClient<$Result.GetResult<Prisma.$DailyOutboundStatsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DailyOutboundStats that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DailyOutboundStatsFindUniqueOrThrowArgs} args - Arguments to find a DailyOutboundStats
+     * @example
+     * // Get one DailyOutboundStats
+     * const dailyOutboundStats = await prisma.dailyOutboundStats.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DailyOutboundStatsFindUniqueOrThrowArgs>(args: SelectSubset<T, DailyOutboundStatsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DailyOutboundStatsClient<$Result.GetResult<Prisma.$DailyOutboundStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DailyOutboundStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyOutboundStatsFindFirstArgs} args - Arguments to find a DailyOutboundStats
+     * @example
+     * // Get one DailyOutboundStats
+     * const dailyOutboundStats = await prisma.dailyOutboundStats.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DailyOutboundStatsFindFirstArgs>(args?: SelectSubset<T, DailyOutboundStatsFindFirstArgs<ExtArgs>>): Prisma__DailyOutboundStatsClient<$Result.GetResult<Prisma.$DailyOutboundStatsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DailyOutboundStats that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyOutboundStatsFindFirstOrThrowArgs} args - Arguments to find a DailyOutboundStats
+     * @example
+     * // Get one DailyOutboundStats
+     * const dailyOutboundStats = await prisma.dailyOutboundStats.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DailyOutboundStatsFindFirstOrThrowArgs>(args?: SelectSubset<T, DailyOutboundStatsFindFirstOrThrowArgs<ExtArgs>>): Prisma__DailyOutboundStatsClient<$Result.GetResult<Prisma.$DailyOutboundStatsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DailyOutboundStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyOutboundStatsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DailyOutboundStats
+     * const dailyOutboundStats = await prisma.dailyOutboundStats.findMany()
+     * 
+     * // Get first 10 DailyOutboundStats
+     * const dailyOutboundStats = await prisma.dailyOutboundStats.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dailyOutboundStatsWithIdOnly = await prisma.dailyOutboundStats.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DailyOutboundStatsFindManyArgs>(args?: SelectSubset<T, DailyOutboundStatsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyOutboundStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DailyOutboundStats.
+     * @param {DailyOutboundStatsCreateArgs} args - Arguments to create a DailyOutboundStats.
+     * @example
+     * // Create one DailyOutboundStats
+     * const DailyOutboundStats = await prisma.dailyOutboundStats.create({
+     *   data: {
+     *     // ... data to create a DailyOutboundStats
+     *   }
+     * })
+     * 
+     */
+    create<T extends DailyOutboundStatsCreateArgs>(args: SelectSubset<T, DailyOutboundStatsCreateArgs<ExtArgs>>): Prisma__DailyOutboundStatsClient<$Result.GetResult<Prisma.$DailyOutboundStatsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DailyOutboundStats.
+     * @param {DailyOutboundStatsCreateManyArgs} args - Arguments to create many DailyOutboundStats.
+     * @example
+     * // Create many DailyOutboundStats
+     * const dailyOutboundStats = await prisma.dailyOutboundStats.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DailyOutboundStatsCreateManyArgs>(args?: SelectSubset<T, DailyOutboundStatsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DailyOutboundStats and returns the data saved in the database.
+     * @param {DailyOutboundStatsCreateManyAndReturnArgs} args - Arguments to create many DailyOutboundStats.
+     * @example
+     * // Create many DailyOutboundStats
+     * const dailyOutboundStats = await prisma.dailyOutboundStats.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DailyOutboundStats and only return the `id`
+     * const dailyOutboundStatsWithIdOnly = await prisma.dailyOutboundStats.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DailyOutboundStatsCreateManyAndReturnArgs>(args?: SelectSubset<T, DailyOutboundStatsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyOutboundStatsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DailyOutboundStats.
+     * @param {DailyOutboundStatsDeleteArgs} args - Arguments to delete one DailyOutboundStats.
+     * @example
+     * // Delete one DailyOutboundStats
+     * const DailyOutboundStats = await prisma.dailyOutboundStats.delete({
+     *   where: {
+     *     // ... filter to delete one DailyOutboundStats
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DailyOutboundStatsDeleteArgs>(args: SelectSubset<T, DailyOutboundStatsDeleteArgs<ExtArgs>>): Prisma__DailyOutboundStatsClient<$Result.GetResult<Prisma.$DailyOutboundStatsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DailyOutboundStats.
+     * @param {DailyOutboundStatsUpdateArgs} args - Arguments to update one DailyOutboundStats.
+     * @example
+     * // Update one DailyOutboundStats
+     * const dailyOutboundStats = await prisma.dailyOutboundStats.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DailyOutboundStatsUpdateArgs>(args: SelectSubset<T, DailyOutboundStatsUpdateArgs<ExtArgs>>): Prisma__DailyOutboundStatsClient<$Result.GetResult<Prisma.$DailyOutboundStatsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DailyOutboundStats.
+     * @param {DailyOutboundStatsDeleteManyArgs} args - Arguments to filter DailyOutboundStats to delete.
+     * @example
+     * // Delete a few DailyOutboundStats
+     * const { count } = await prisma.dailyOutboundStats.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DailyOutboundStatsDeleteManyArgs>(args?: SelectSubset<T, DailyOutboundStatsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DailyOutboundStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyOutboundStatsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DailyOutboundStats
+     * const dailyOutboundStats = await prisma.dailyOutboundStats.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DailyOutboundStatsUpdateManyArgs>(args: SelectSubset<T, DailyOutboundStatsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DailyOutboundStats and returns the data updated in the database.
+     * @param {DailyOutboundStatsUpdateManyAndReturnArgs} args - Arguments to update many DailyOutboundStats.
+     * @example
+     * // Update many DailyOutboundStats
+     * const dailyOutboundStats = await prisma.dailyOutboundStats.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DailyOutboundStats and only return the `id`
+     * const dailyOutboundStatsWithIdOnly = await prisma.dailyOutboundStats.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DailyOutboundStatsUpdateManyAndReturnArgs>(args: SelectSubset<T, DailyOutboundStatsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyOutboundStatsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DailyOutboundStats.
+     * @param {DailyOutboundStatsUpsertArgs} args - Arguments to update or create a DailyOutboundStats.
+     * @example
+     * // Update or create a DailyOutboundStats
+     * const dailyOutboundStats = await prisma.dailyOutboundStats.upsert({
+     *   create: {
+     *     // ... data to create a DailyOutboundStats
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DailyOutboundStats we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DailyOutboundStatsUpsertArgs>(args: SelectSubset<T, DailyOutboundStatsUpsertArgs<ExtArgs>>): Prisma__DailyOutboundStatsClient<$Result.GetResult<Prisma.$DailyOutboundStatsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DailyOutboundStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyOutboundStatsCountArgs} args - Arguments to filter DailyOutboundStats to count.
+     * @example
+     * // Count the number of DailyOutboundStats
+     * const count = await prisma.dailyOutboundStats.count({
+     *   where: {
+     *     // ... the filter for the DailyOutboundStats we want to count
+     *   }
+     * })
+    **/
+    count<T extends DailyOutboundStatsCountArgs>(
+      args?: Subset<T, DailyOutboundStatsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DailyOutboundStatsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DailyOutboundStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyOutboundStatsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DailyOutboundStatsAggregateArgs>(args: Subset<T, DailyOutboundStatsAggregateArgs>): Prisma.PrismaPromise<GetDailyOutboundStatsAggregateType<T>>
+
+    /**
+     * Group by DailyOutboundStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyOutboundStatsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DailyOutboundStatsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DailyOutboundStatsGroupByArgs['orderBy'] }
+        : { orderBy?: DailyOutboundStatsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DailyOutboundStatsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDailyOutboundStatsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DailyOutboundStats model
+   */
+  readonly fields: DailyOutboundStatsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DailyOutboundStats.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DailyOutboundStatsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DailyOutboundStats model
+   */
+  interface DailyOutboundStatsFieldRefs {
+    readonly id: FieldRef<"DailyOutboundStats", 'String'>
+    readonly date: FieldRef<"DailyOutboundStats", 'DateTime'>
+    readonly market: FieldRef<"DailyOutboundStats", 'String'>
+    readonly coldMessagesSent: FieldRef<"DailyOutboundStats", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DailyOutboundStats findUnique
+   */
+  export type DailyOutboundStatsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyOutboundStats
+     */
+    select?: DailyOutboundStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyOutboundStats
+     */
+    omit?: DailyOutboundStatsOmit<ExtArgs> | null
+    /**
+     * Filter, which DailyOutboundStats to fetch.
+     */
+    where: DailyOutboundStatsWhereUniqueInput
+  }
+
+  /**
+   * DailyOutboundStats findUniqueOrThrow
+   */
+  export type DailyOutboundStatsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyOutboundStats
+     */
+    select?: DailyOutboundStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyOutboundStats
+     */
+    omit?: DailyOutboundStatsOmit<ExtArgs> | null
+    /**
+     * Filter, which DailyOutboundStats to fetch.
+     */
+    where: DailyOutboundStatsWhereUniqueInput
+  }
+
+  /**
+   * DailyOutboundStats findFirst
+   */
+  export type DailyOutboundStatsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyOutboundStats
+     */
+    select?: DailyOutboundStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyOutboundStats
+     */
+    omit?: DailyOutboundStatsOmit<ExtArgs> | null
+    /**
+     * Filter, which DailyOutboundStats to fetch.
+     */
+    where?: DailyOutboundStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyOutboundStats to fetch.
+     */
+    orderBy?: DailyOutboundStatsOrderByWithRelationInput | DailyOutboundStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyOutboundStats.
+     */
+    cursor?: DailyOutboundStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyOutboundStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyOutboundStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyOutboundStats.
+     */
+    distinct?: DailyOutboundStatsScalarFieldEnum | DailyOutboundStatsScalarFieldEnum[]
+  }
+
+  /**
+   * DailyOutboundStats findFirstOrThrow
+   */
+  export type DailyOutboundStatsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyOutboundStats
+     */
+    select?: DailyOutboundStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyOutboundStats
+     */
+    omit?: DailyOutboundStatsOmit<ExtArgs> | null
+    /**
+     * Filter, which DailyOutboundStats to fetch.
+     */
+    where?: DailyOutboundStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyOutboundStats to fetch.
+     */
+    orderBy?: DailyOutboundStatsOrderByWithRelationInput | DailyOutboundStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyOutboundStats.
+     */
+    cursor?: DailyOutboundStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyOutboundStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyOutboundStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyOutboundStats.
+     */
+    distinct?: DailyOutboundStatsScalarFieldEnum | DailyOutboundStatsScalarFieldEnum[]
+  }
+
+  /**
+   * DailyOutboundStats findMany
+   */
+  export type DailyOutboundStatsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyOutboundStats
+     */
+    select?: DailyOutboundStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyOutboundStats
+     */
+    omit?: DailyOutboundStatsOmit<ExtArgs> | null
+    /**
+     * Filter, which DailyOutboundStats to fetch.
+     */
+    where?: DailyOutboundStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyOutboundStats to fetch.
+     */
+    orderBy?: DailyOutboundStatsOrderByWithRelationInput | DailyOutboundStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DailyOutboundStats.
+     */
+    cursor?: DailyOutboundStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyOutboundStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyOutboundStats.
+     */
+    skip?: number
+    distinct?: DailyOutboundStatsScalarFieldEnum | DailyOutboundStatsScalarFieldEnum[]
+  }
+
+  /**
+   * DailyOutboundStats create
+   */
+  export type DailyOutboundStatsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyOutboundStats
+     */
+    select?: DailyOutboundStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyOutboundStats
+     */
+    omit?: DailyOutboundStatsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a DailyOutboundStats.
+     */
+    data: XOR<DailyOutboundStatsCreateInput, DailyOutboundStatsUncheckedCreateInput>
+  }
+
+  /**
+   * DailyOutboundStats createMany
+   */
+  export type DailyOutboundStatsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DailyOutboundStats.
+     */
+    data: DailyOutboundStatsCreateManyInput | DailyOutboundStatsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DailyOutboundStats createManyAndReturn
+   */
+  export type DailyOutboundStatsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyOutboundStats
+     */
+    select?: DailyOutboundStatsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyOutboundStats
+     */
+    omit?: DailyOutboundStatsOmit<ExtArgs> | null
+    /**
+     * The data used to create many DailyOutboundStats.
+     */
+    data: DailyOutboundStatsCreateManyInput | DailyOutboundStatsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DailyOutboundStats update
+   */
+  export type DailyOutboundStatsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyOutboundStats
+     */
+    select?: DailyOutboundStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyOutboundStats
+     */
+    omit?: DailyOutboundStatsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a DailyOutboundStats.
+     */
+    data: XOR<DailyOutboundStatsUpdateInput, DailyOutboundStatsUncheckedUpdateInput>
+    /**
+     * Choose, which DailyOutboundStats to update.
+     */
+    where: DailyOutboundStatsWhereUniqueInput
+  }
+
+  /**
+   * DailyOutboundStats updateMany
+   */
+  export type DailyOutboundStatsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DailyOutboundStats.
+     */
+    data: XOR<DailyOutboundStatsUpdateManyMutationInput, DailyOutboundStatsUncheckedUpdateManyInput>
+    /**
+     * Filter which DailyOutboundStats to update
+     */
+    where?: DailyOutboundStatsWhereInput
+    /**
+     * Limit how many DailyOutboundStats to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DailyOutboundStats updateManyAndReturn
+   */
+  export type DailyOutboundStatsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyOutboundStats
+     */
+    select?: DailyOutboundStatsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyOutboundStats
+     */
+    omit?: DailyOutboundStatsOmit<ExtArgs> | null
+    /**
+     * The data used to update DailyOutboundStats.
+     */
+    data: XOR<DailyOutboundStatsUpdateManyMutationInput, DailyOutboundStatsUncheckedUpdateManyInput>
+    /**
+     * Filter which DailyOutboundStats to update
+     */
+    where?: DailyOutboundStatsWhereInput
+    /**
+     * Limit how many DailyOutboundStats to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DailyOutboundStats upsert
+   */
+  export type DailyOutboundStatsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyOutboundStats
+     */
+    select?: DailyOutboundStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyOutboundStats
+     */
+    omit?: DailyOutboundStatsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the DailyOutboundStats to update in case it exists.
+     */
+    where: DailyOutboundStatsWhereUniqueInput
+    /**
+     * In case the DailyOutboundStats found by the `where` argument doesn't exist, create a new DailyOutboundStats with this data.
+     */
+    create: XOR<DailyOutboundStatsCreateInput, DailyOutboundStatsUncheckedCreateInput>
+    /**
+     * In case the DailyOutboundStats was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DailyOutboundStatsUpdateInput, DailyOutboundStatsUncheckedUpdateInput>
+  }
+
+  /**
+   * DailyOutboundStats delete
+   */
+  export type DailyOutboundStatsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyOutboundStats
+     */
+    select?: DailyOutboundStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyOutboundStats
+     */
+    omit?: DailyOutboundStatsOmit<ExtArgs> | null
+    /**
+     * Filter which DailyOutboundStats to delete.
+     */
+    where: DailyOutboundStatsWhereUniqueInput
+  }
+
+  /**
+   * DailyOutboundStats deleteMany
+   */
+  export type DailyOutboundStatsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyOutboundStats to delete
+     */
+    where?: DailyOutboundStatsWhereInput
+    /**
+     * Limit how many DailyOutboundStats to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DailyOutboundStats without action
+   */
+  export type DailyOutboundStatsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyOutboundStats
+     */
+    select?: DailyOutboundStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyOutboundStats
+     */
+    omit?: DailyOutboundStatsOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AccountBlockEvent
+   */
+
+  export type AggregateAccountBlockEvent = {
+    _count: AccountBlockEventCountAggregateOutputType | null
+    _min: AccountBlockEventMinAggregateOutputType | null
+    _max: AccountBlockEventMaxAggregateOutputType | null
+  }
+
+  export type AccountBlockEventMinAggregateOutputType = {
+    id: string | null
+    accountId: string | null
+    type: $Enums.BlockType | null
+    message: string | null
+    occurredAt: Date | null
+  }
+
+  export type AccountBlockEventMaxAggregateOutputType = {
+    id: string | null
+    accountId: string | null
+    type: $Enums.BlockType | null
+    message: string | null
+    occurredAt: Date | null
+  }
+
+  export type AccountBlockEventCountAggregateOutputType = {
+    id: number
+    accountId: number
+    type: number
+    message: number
+    occurredAt: number
+    _all: number
+  }
+
+
+  export type AccountBlockEventMinAggregateInputType = {
+    id?: true
+    accountId?: true
+    type?: true
+    message?: true
+    occurredAt?: true
+  }
+
+  export type AccountBlockEventMaxAggregateInputType = {
+    id?: true
+    accountId?: true
+    type?: true
+    message?: true
+    occurredAt?: true
+  }
+
+  export type AccountBlockEventCountAggregateInputType = {
+    id?: true
+    accountId?: true
+    type?: true
+    message?: true
+    occurredAt?: true
+    _all?: true
+  }
+
+  export type AccountBlockEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AccountBlockEvent to aggregate.
+     */
+    where?: AccountBlockEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountBlockEvents to fetch.
+     */
+    orderBy?: AccountBlockEventOrderByWithRelationInput | AccountBlockEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AccountBlockEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountBlockEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountBlockEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AccountBlockEvents
+    **/
+    _count?: true | AccountBlockEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AccountBlockEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AccountBlockEventMaxAggregateInputType
+  }
+
+  export type GetAccountBlockEventAggregateType<T extends AccountBlockEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateAccountBlockEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAccountBlockEvent[P]>
+      : GetScalarType<T[P], AggregateAccountBlockEvent[P]>
+  }
+
+
+
+
+  export type AccountBlockEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountBlockEventWhereInput
+    orderBy?: AccountBlockEventOrderByWithAggregationInput | AccountBlockEventOrderByWithAggregationInput[]
+    by: AccountBlockEventScalarFieldEnum[] | AccountBlockEventScalarFieldEnum
+    having?: AccountBlockEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AccountBlockEventCountAggregateInputType | true
+    _min?: AccountBlockEventMinAggregateInputType
+    _max?: AccountBlockEventMaxAggregateInputType
+  }
+
+  export type AccountBlockEventGroupByOutputType = {
+    id: string
+    accountId: string
+    type: $Enums.BlockType
+    message: string
+    occurredAt: Date
+    _count: AccountBlockEventCountAggregateOutputType | null
+    _min: AccountBlockEventMinAggregateOutputType | null
+    _max: AccountBlockEventMaxAggregateOutputType | null
+  }
+
+  type GetAccountBlockEventGroupByPayload<T extends AccountBlockEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AccountBlockEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AccountBlockEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AccountBlockEventGroupByOutputType[P]>
+            : GetScalarType<T[P], AccountBlockEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AccountBlockEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    accountId?: boolean
+    type?: boolean
+    message?: boolean
+    occurredAt?: boolean
+    account?: boolean | ProspectAccountDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["accountBlockEvent"]>
+
+  export type AccountBlockEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    accountId?: boolean
+    type?: boolean
+    message?: boolean
+    occurredAt?: boolean
+    account?: boolean | ProspectAccountDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["accountBlockEvent"]>
+
+  export type AccountBlockEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    accountId?: boolean
+    type?: boolean
+    message?: boolean
+    occurredAt?: boolean
+    account?: boolean | ProspectAccountDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["accountBlockEvent"]>
+
+  export type AccountBlockEventSelectScalar = {
+    id?: boolean
+    accountId?: boolean
+    type?: boolean
+    message?: boolean
+    occurredAt?: boolean
+  }
+
+  export type AccountBlockEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "accountId" | "type" | "message" | "occurredAt", ExtArgs["result"]["accountBlockEvent"]>
+  export type AccountBlockEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    account?: boolean | ProspectAccountDefaultArgs<ExtArgs>
+  }
+  export type AccountBlockEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    account?: boolean | ProspectAccountDefaultArgs<ExtArgs>
+  }
+  export type AccountBlockEventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    account?: boolean | ProspectAccountDefaultArgs<ExtArgs>
+  }
+
+  export type $AccountBlockEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AccountBlockEvent"
+    objects: {
+      account: Prisma.$ProspectAccountPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      accountId: string
+      type: $Enums.BlockType
+      message: string
+      occurredAt: Date
+    }, ExtArgs["result"]["accountBlockEvent"]>
+    composites: {}
+  }
+
+  type AccountBlockEventGetPayload<S extends boolean | null | undefined | AccountBlockEventDefaultArgs> = $Result.GetResult<Prisma.$AccountBlockEventPayload, S>
+
+  type AccountBlockEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AccountBlockEventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AccountBlockEventCountAggregateInputType | true
+    }
+
+  export interface AccountBlockEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AccountBlockEvent'], meta: { name: 'AccountBlockEvent' } }
+    /**
+     * Find zero or one AccountBlockEvent that matches the filter.
+     * @param {AccountBlockEventFindUniqueArgs} args - Arguments to find a AccountBlockEvent
+     * @example
+     * // Get one AccountBlockEvent
+     * const accountBlockEvent = await prisma.accountBlockEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AccountBlockEventFindUniqueArgs>(args: SelectSubset<T, AccountBlockEventFindUniqueArgs<ExtArgs>>): Prisma__AccountBlockEventClient<$Result.GetResult<Prisma.$AccountBlockEventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AccountBlockEvent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AccountBlockEventFindUniqueOrThrowArgs} args - Arguments to find a AccountBlockEvent
+     * @example
+     * // Get one AccountBlockEvent
+     * const accountBlockEvent = await prisma.accountBlockEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AccountBlockEventFindUniqueOrThrowArgs>(args: SelectSubset<T, AccountBlockEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AccountBlockEventClient<$Result.GetResult<Prisma.$AccountBlockEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AccountBlockEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBlockEventFindFirstArgs} args - Arguments to find a AccountBlockEvent
+     * @example
+     * // Get one AccountBlockEvent
+     * const accountBlockEvent = await prisma.accountBlockEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AccountBlockEventFindFirstArgs>(args?: SelectSubset<T, AccountBlockEventFindFirstArgs<ExtArgs>>): Prisma__AccountBlockEventClient<$Result.GetResult<Prisma.$AccountBlockEventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AccountBlockEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBlockEventFindFirstOrThrowArgs} args - Arguments to find a AccountBlockEvent
+     * @example
+     * // Get one AccountBlockEvent
+     * const accountBlockEvent = await prisma.accountBlockEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AccountBlockEventFindFirstOrThrowArgs>(args?: SelectSubset<T, AccountBlockEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__AccountBlockEventClient<$Result.GetResult<Prisma.$AccountBlockEventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AccountBlockEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBlockEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AccountBlockEvents
+     * const accountBlockEvents = await prisma.accountBlockEvent.findMany()
+     * 
+     * // Get first 10 AccountBlockEvents
+     * const accountBlockEvents = await prisma.accountBlockEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const accountBlockEventWithIdOnly = await prisma.accountBlockEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AccountBlockEventFindManyArgs>(args?: SelectSubset<T, AccountBlockEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountBlockEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AccountBlockEvent.
+     * @param {AccountBlockEventCreateArgs} args - Arguments to create a AccountBlockEvent.
+     * @example
+     * // Create one AccountBlockEvent
+     * const AccountBlockEvent = await prisma.accountBlockEvent.create({
+     *   data: {
+     *     // ... data to create a AccountBlockEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends AccountBlockEventCreateArgs>(args: SelectSubset<T, AccountBlockEventCreateArgs<ExtArgs>>): Prisma__AccountBlockEventClient<$Result.GetResult<Prisma.$AccountBlockEventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AccountBlockEvents.
+     * @param {AccountBlockEventCreateManyArgs} args - Arguments to create many AccountBlockEvents.
+     * @example
+     * // Create many AccountBlockEvents
+     * const accountBlockEvent = await prisma.accountBlockEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AccountBlockEventCreateManyArgs>(args?: SelectSubset<T, AccountBlockEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AccountBlockEvents and returns the data saved in the database.
+     * @param {AccountBlockEventCreateManyAndReturnArgs} args - Arguments to create many AccountBlockEvents.
+     * @example
+     * // Create many AccountBlockEvents
+     * const accountBlockEvent = await prisma.accountBlockEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AccountBlockEvents and only return the `id`
+     * const accountBlockEventWithIdOnly = await prisma.accountBlockEvent.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AccountBlockEventCreateManyAndReturnArgs>(args?: SelectSubset<T, AccountBlockEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountBlockEventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AccountBlockEvent.
+     * @param {AccountBlockEventDeleteArgs} args - Arguments to delete one AccountBlockEvent.
+     * @example
+     * // Delete one AccountBlockEvent
+     * const AccountBlockEvent = await prisma.accountBlockEvent.delete({
+     *   where: {
+     *     // ... filter to delete one AccountBlockEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AccountBlockEventDeleteArgs>(args: SelectSubset<T, AccountBlockEventDeleteArgs<ExtArgs>>): Prisma__AccountBlockEventClient<$Result.GetResult<Prisma.$AccountBlockEventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AccountBlockEvent.
+     * @param {AccountBlockEventUpdateArgs} args - Arguments to update one AccountBlockEvent.
+     * @example
+     * // Update one AccountBlockEvent
+     * const accountBlockEvent = await prisma.accountBlockEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AccountBlockEventUpdateArgs>(args: SelectSubset<T, AccountBlockEventUpdateArgs<ExtArgs>>): Prisma__AccountBlockEventClient<$Result.GetResult<Prisma.$AccountBlockEventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AccountBlockEvents.
+     * @param {AccountBlockEventDeleteManyArgs} args - Arguments to filter AccountBlockEvents to delete.
+     * @example
+     * // Delete a few AccountBlockEvents
+     * const { count } = await prisma.accountBlockEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AccountBlockEventDeleteManyArgs>(args?: SelectSubset<T, AccountBlockEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AccountBlockEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBlockEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AccountBlockEvents
+     * const accountBlockEvent = await prisma.accountBlockEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AccountBlockEventUpdateManyArgs>(args: SelectSubset<T, AccountBlockEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AccountBlockEvents and returns the data updated in the database.
+     * @param {AccountBlockEventUpdateManyAndReturnArgs} args - Arguments to update many AccountBlockEvents.
+     * @example
+     * // Update many AccountBlockEvents
+     * const accountBlockEvent = await prisma.accountBlockEvent.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AccountBlockEvents and only return the `id`
+     * const accountBlockEventWithIdOnly = await prisma.accountBlockEvent.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AccountBlockEventUpdateManyAndReturnArgs>(args: SelectSubset<T, AccountBlockEventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountBlockEventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AccountBlockEvent.
+     * @param {AccountBlockEventUpsertArgs} args - Arguments to update or create a AccountBlockEvent.
+     * @example
+     * // Update or create a AccountBlockEvent
+     * const accountBlockEvent = await prisma.accountBlockEvent.upsert({
+     *   create: {
+     *     // ... data to create a AccountBlockEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AccountBlockEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AccountBlockEventUpsertArgs>(args: SelectSubset<T, AccountBlockEventUpsertArgs<ExtArgs>>): Prisma__AccountBlockEventClient<$Result.GetResult<Prisma.$AccountBlockEventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AccountBlockEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBlockEventCountArgs} args - Arguments to filter AccountBlockEvents to count.
+     * @example
+     * // Count the number of AccountBlockEvents
+     * const count = await prisma.accountBlockEvent.count({
+     *   where: {
+     *     // ... the filter for the AccountBlockEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends AccountBlockEventCountArgs>(
+      args?: Subset<T, AccountBlockEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AccountBlockEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AccountBlockEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBlockEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AccountBlockEventAggregateArgs>(args: Subset<T, AccountBlockEventAggregateArgs>): Prisma.PrismaPromise<GetAccountBlockEventAggregateType<T>>
+
+    /**
+     * Group by AccountBlockEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AccountBlockEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AccountBlockEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AccountBlockEventGroupByArgs['orderBy'] }
+        : { orderBy?: AccountBlockEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AccountBlockEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAccountBlockEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AccountBlockEvent model
+   */
+  readonly fields: AccountBlockEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AccountBlockEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AccountBlockEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    account<T extends ProspectAccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProspectAccountDefaultArgs<ExtArgs>>): Prisma__ProspectAccountClient<$Result.GetResult<Prisma.$ProspectAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AccountBlockEvent model
+   */
+  interface AccountBlockEventFieldRefs {
+    readonly id: FieldRef<"AccountBlockEvent", 'String'>
+    readonly accountId: FieldRef<"AccountBlockEvent", 'String'>
+    readonly type: FieldRef<"AccountBlockEvent", 'BlockType'>
+    readonly message: FieldRef<"AccountBlockEvent", 'String'>
+    readonly occurredAt: FieldRef<"AccountBlockEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AccountBlockEvent findUnique
+   */
+  export type AccountBlockEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountBlockEvent to fetch.
+     */
+    where: AccountBlockEventWhereUniqueInput
+  }
+
+  /**
+   * AccountBlockEvent findUniqueOrThrow
+   */
+  export type AccountBlockEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountBlockEvent to fetch.
+     */
+    where: AccountBlockEventWhereUniqueInput
+  }
+
+  /**
+   * AccountBlockEvent findFirst
+   */
+  export type AccountBlockEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountBlockEvent to fetch.
+     */
+    where?: AccountBlockEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountBlockEvents to fetch.
+     */
+    orderBy?: AccountBlockEventOrderByWithRelationInput | AccountBlockEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AccountBlockEvents.
+     */
+    cursor?: AccountBlockEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountBlockEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountBlockEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AccountBlockEvents.
+     */
+    distinct?: AccountBlockEventScalarFieldEnum | AccountBlockEventScalarFieldEnum[]
+  }
+
+  /**
+   * AccountBlockEvent findFirstOrThrow
+   */
+  export type AccountBlockEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountBlockEvent to fetch.
+     */
+    where?: AccountBlockEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountBlockEvents to fetch.
+     */
+    orderBy?: AccountBlockEventOrderByWithRelationInput | AccountBlockEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AccountBlockEvents.
+     */
+    cursor?: AccountBlockEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountBlockEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountBlockEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AccountBlockEvents.
+     */
+    distinct?: AccountBlockEventScalarFieldEnum | AccountBlockEventScalarFieldEnum[]
+  }
+
+  /**
+   * AccountBlockEvent findMany
+   */
+  export type AccountBlockEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventInclude<ExtArgs> | null
+    /**
+     * Filter, which AccountBlockEvents to fetch.
+     */
+    where?: AccountBlockEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AccountBlockEvents to fetch.
+     */
+    orderBy?: AccountBlockEventOrderByWithRelationInput | AccountBlockEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AccountBlockEvents.
+     */
+    cursor?: AccountBlockEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AccountBlockEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AccountBlockEvents.
+     */
+    skip?: number
+    distinct?: AccountBlockEventScalarFieldEnum | AccountBlockEventScalarFieldEnum[]
+  }
+
+  /**
+   * AccountBlockEvent create
+   */
+  export type AccountBlockEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AccountBlockEvent.
+     */
+    data: XOR<AccountBlockEventCreateInput, AccountBlockEventUncheckedCreateInput>
+  }
+
+  /**
+   * AccountBlockEvent createMany
+   */
+  export type AccountBlockEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AccountBlockEvents.
+     */
+    data: AccountBlockEventCreateManyInput | AccountBlockEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AccountBlockEvent createManyAndReturn
+   */
+  export type AccountBlockEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * The data used to create many AccountBlockEvents.
+     */
+    data: AccountBlockEventCreateManyInput | AccountBlockEventCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AccountBlockEvent update
+   */
+  export type AccountBlockEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AccountBlockEvent.
+     */
+    data: XOR<AccountBlockEventUpdateInput, AccountBlockEventUncheckedUpdateInput>
+    /**
+     * Choose, which AccountBlockEvent to update.
+     */
+    where: AccountBlockEventWhereUniqueInput
+  }
+
+  /**
+   * AccountBlockEvent updateMany
+   */
+  export type AccountBlockEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AccountBlockEvents.
+     */
+    data: XOR<AccountBlockEventUpdateManyMutationInput, AccountBlockEventUncheckedUpdateManyInput>
+    /**
+     * Filter which AccountBlockEvents to update
+     */
+    where?: AccountBlockEventWhereInput
+    /**
+     * Limit how many AccountBlockEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AccountBlockEvent updateManyAndReturn
+   */
+  export type AccountBlockEventUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * The data used to update AccountBlockEvents.
+     */
+    data: XOR<AccountBlockEventUpdateManyMutationInput, AccountBlockEventUncheckedUpdateManyInput>
+    /**
+     * Filter which AccountBlockEvents to update
+     */
+    where?: AccountBlockEventWhereInput
+    /**
+     * Limit how many AccountBlockEvents to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AccountBlockEvent upsert
+   */
+  export type AccountBlockEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AccountBlockEvent to update in case it exists.
+     */
+    where: AccountBlockEventWhereUniqueInput
+    /**
+     * In case the AccountBlockEvent found by the `where` argument doesn't exist, create a new AccountBlockEvent with this data.
+     */
+    create: XOR<AccountBlockEventCreateInput, AccountBlockEventUncheckedCreateInput>
+    /**
+     * In case the AccountBlockEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AccountBlockEventUpdateInput, AccountBlockEventUncheckedUpdateInput>
+  }
+
+  /**
+   * AccountBlockEvent delete
+   */
+  export type AccountBlockEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventInclude<ExtArgs> | null
+    /**
+     * Filter which AccountBlockEvent to delete.
+     */
+    where: AccountBlockEventWhereUniqueInput
+  }
+
+  /**
+   * AccountBlockEvent deleteMany
+   */
+  export type AccountBlockEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AccountBlockEvents to delete
+     */
+    where?: AccountBlockEventWhereInput
+    /**
+     * Limit how many AccountBlockEvents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AccountBlockEvent without action
+   */
+  export type AccountBlockEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountBlockEvent
+     */
+    select?: AccountBlockEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AccountBlockEvent
+     */
+    omit?: AccountBlockEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AccountBlockEventInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AirbnbCommercial
+   */
+
+  export type AggregateAirbnbCommercial = {
+    _count: AirbnbCommercialCountAggregateOutputType | null
+    _avg: AirbnbCommercialAvgAggregateOutputType | null
+    _sum: AirbnbCommercialSumAggregateOutputType | null
+    _min: AirbnbCommercialMinAggregateOutputType | null
+    _max: AirbnbCommercialMaxAggregateOutputType | null
+  }
+
+  export type AirbnbCommercialAvgAggregateOutputType = {
+    contractValueUsd: Decimal | null
+  }
+
+  export type AirbnbCommercialSumAggregateOutputType = {
+    contractValueUsd: Decimal | null
+  }
+
+  export type AirbnbCommercialMinAggregateOutputType = {
+    id: string | null
+    leadId: string | null
+    stage: $Enums.AirbnbCommercialStage | null
+    hostEmail: string | null
+    meetingTime: Date | null
+    meetLink: string | null
+    meetingId: string | null
+    contractValueUsd: Decimal | null
+    contractPlan: $Enums.ContractPlan | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AirbnbCommercialMaxAggregateOutputType = {
+    id: string | null
+    leadId: string | null
+    stage: $Enums.AirbnbCommercialStage | null
+    hostEmail: string | null
+    meetingTime: Date | null
+    meetLink: string | null
+    meetingId: string | null
+    contractValueUsd: Decimal | null
+    contractPlan: $Enums.ContractPlan | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AirbnbCommercialCountAggregateOutputType = {
+    id: number
+    leadId: number
+    stage: number
+    hostEmail: number
+    meetingTime: number
+    meetLink: number
+    meetingId: number
+    contractValueUsd: number
+    contractPlan: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AirbnbCommercialAvgAggregateInputType = {
+    contractValueUsd?: true
+  }
+
+  export type AirbnbCommercialSumAggregateInputType = {
+    contractValueUsd?: true
+  }
+
+  export type AirbnbCommercialMinAggregateInputType = {
+    id?: true
+    leadId?: true
+    stage?: true
+    hostEmail?: true
+    meetingTime?: true
+    meetLink?: true
+    meetingId?: true
+    contractValueUsd?: true
+    contractPlan?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AirbnbCommercialMaxAggregateInputType = {
+    id?: true
+    leadId?: true
+    stage?: true
+    hostEmail?: true
+    meetingTime?: true
+    meetLink?: true
+    meetingId?: true
+    contractValueUsd?: true
+    contractPlan?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AirbnbCommercialCountAggregateInputType = {
+    id?: true
+    leadId?: true
+    stage?: true
+    hostEmail?: true
+    meetingTime?: true
+    meetLink?: true
+    meetingId?: true
+    contractValueUsd?: true
+    contractPlan?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AirbnbCommercialAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AirbnbCommercial to aggregate.
+     */
+    where?: AirbnbCommercialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AirbnbCommercials to fetch.
+     */
+    orderBy?: AirbnbCommercialOrderByWithRelationInput | AirbnbCommercialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AirbnbCommercialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AirbnbCommercials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AirbnbCommercials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AirbnbCommercials
+    **/
+    _count?: true | AirbnbCommercialCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AirbnbCommercialAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AirbnbCommercialSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AirbnbCommercialMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AirbnbCommercialMaxAggregateInputType
+  }
+
+  export type GetAirbnbCommercialAggregateType<T extends AirbnbCommercialAggregateArgs> = {
+        [P in keyof T & keyof AggregateAirbnbCommercial]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAirbnbCommercial[P]>
+      : GetScalarType<T[P], AggregateAirbnbCommercial[P]>
+  }
+
+
+
+
+  export type AirbnbCommercialGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AirbnbCommercialWhereInput
+    orderBy?: AirbnbCommercialOrderByWithAggregationInput | AirbnbCommercialOrderByWithAggregationInput[]
+    by: AirbnbCommercialScalarFieldEnum[] | AirbnbCommercialScalarFieldEnum
+    having?: AirbnbCommercialScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AirbnbCommercialCountAggregateInputType | true
+    _avg?: AirbnbCommercialAvgAggregateInputType
+    _sum?: AirbnbCommercialSumAggregateInputType
+    _min?: AirbnbCommercialMinAggregateInputType
+    _max?: AirbnbCommercialMaxAggregateInputType
+  }
+
+  export type AirbnbCommercialGroupByOutputType = {
+    id: string
+    leadId: string
+    stage: $Enums.AirbnbCommercialStage
+    hostEmail: string | null
+    meetingTime: Date | null
+    meetLink: string | null
+    meetingId: string | null
+    contractValueUsd: Decimal | null
+    contractPlan: $Enums.ContractPlan | null
+    createdAt: Date
+    updatedAt: Date
+    _count: AirbnbCommercialCountAggregateOutputType | null
+    _avg: AirbnbCommercialAvgAggregateOutputType | null
+    _sum: AirbnbCommercialSumAggregateOutputType | null
+    _min: AirbnbCommercialMinAggregateOutputType | null
+    _max: AirbnbCommercialMaxAggregateOutputType | null
+  }
+
+  type GetAirbnbCommercialGroupByPayload<T extends AirbnbCommercialGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AirbnbCommercialGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AirbnbCommercialGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AirbnbCommercialGroupByOutputType[P]>
+            : GetScalarType<T[P], AirbnbCommercialGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AirbnbCommercialSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    leadId?: boolean
+    stage?: boolean
+    hostEmail?: boolean
+    meetingTime?: boolean
+    meetLink?: boolean
+    meetingId?: boolean
+    contractValueUsd?: boolean
+    contractPlan?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["airbnbCommercial"]>
+
+  export type AirbnbCommercialSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    leadId?: boolean
+    stage?: boolean
+    hostEmail?: boolean
+    meetingTime?: boolean
+    meetLink?: boolean
+    meetingId?: boolean
+    contractValueUsd?: boolean
+    contractPlan?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["airbnbCommercial"]>
+
+  export type AirbnbCommercialSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    leadId?: boolean
+    stage?: boolean
+    hostEmail?: boolean
+    meetingTime?: boolean
+    meetLink?: boolean
+    meetingId?: boolean
+    contractValueUsd?: boolean
+    contractPlan?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["airbnbCommercial"]>
+
+  export type AirbnbCommercialSelectScalar = {
+    id?: boolean
+    leadId?: boolean
+    stage?: boolean
+    hostEmail?: boolean
+    meetingTime?: boolean
+    meetLink?: boolean
+    meetingId?: boolean
+    contractValueUsd?: boolean
+    contractPlan?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AirbnbCommercialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "leadId" | "stage" | "hostEmail" | "meetingTime" | "meetLink" | "meetingId" | "contractValueUsd" | "contractPlan" | "createdAt" | "updatedAt", ExtArgs["result"]["airbnbCommercial"]>
+  export type AirbnbCommercialInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+  }
+  export type AirbnbCommercialIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+  }
+  export type AirbnbCommercialIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lead?: boolean | AirbnbLeadDefaultArgs<ExtArgs>
+  }
+
+  export type $AirbnbCommercialPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AirbnbCommercial"
+    objects: {
+      lead: Prisma.$AirbnbLeadPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      leadId: string
+      stage: $Enums.AirbnbCommercialStage
+      hostEmail: string | null
+      meetingTime: Date | null
+      meetLink: string | null
+      meetingId: string | null
+      contractValueUsd: Prisma.Decimal | null
+      contractPlan: $Enums.ContractPlan | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["airbnbCommercial"]>
+    composites: {}
+  }
+
+  type AirbnbCommercialGetPayload<S extends boolean | null | undefined | AirbnbCommercialDefaultArgs> = $Result.GetResult<Prisma.$AirbnbCommercialPayload, S>
+
+  type AirbnbCommercialCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AirbnbCommercialFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AirbnbCommercialCountAggregateInputType | true
+    }
+
+  export interface AirbnbCommercialDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AirbnbCommercial'], meta: { name: 'AirbnbCommercial' } }
+    /**
+     * Find zero or one AirbnbCommercial that matches the filter.
+     * @param {AirbnbCommercialFindUniqueArgs} args - Arguments to find a AirbnbCommercial
+     * @example
+     * // Get one AirbnbCommercial
+     * const airbnbCommercial = await prisma.airbnbCommercial.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AirbnbCommercialFindUniqueArgs>(args: SelectSubset<T, AirbnbCommercialFindUniqueArgs<ExtArgs>>): Prisma__AirbnbCommercialClient<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AirbnbCommercial that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AirbnbCommercialFindUniqueOrThrowArgs} args - Arguments to find a AirbnbCommercial
+     * @example
+     * // Get one AirbnbCommercial
+     * const airbnbCommercial = await prisma.airbnbCommercial.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AirbnbCommercialFindUniqueOrThrowArgs>(args: SelectSubset<T, AirbnbCommercialFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AirbnbCommercialClient<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AirbnbCommercial that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbCommercialFindFirstArgs} args - Arguments to find a AirbnbCommercial
+     * @example
+     * // Get one AirbnbCommercial
+     * const airbnbCommercial = await prisma.airbnbCommercial.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AirbnbCommercialFindFirstArgs>(args?: SelectSubset<T, AirbnbCommercialFindFirstArgs<ExtArgs>>): Prisma__AirbnbCommercialClient<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AirbnbCommercial that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbCommercialFindFirstOrThrowArgs} args - Arguments to find a AirbnbCommercial
+     * @example
+     * // Get one AirbnbCommercial
+     * const airbnbCommercial = await prisma.airbnbCommercial.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AirbnbCommercialFindFirstOrThrowArgs>(args?: SelectSubset<T, AirbnbCommercialFindFirstOrThrowArgs<ExtArgs>>): Prisma__AirbnbCommercialClient<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AirbnbCommercials that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbCommercialFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AirbnbCommercials
+     * const airbnbCommercials = await prisma.airbnbCommercial.findMany()
+     * 
+     * // Get first 10 AirbnbCommercials
+     * const airbnbCommercials = await prisma.airbnbCommercial.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const airbnbCommercialWithIdOnly = await prisma.airbnbCommercial.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AirbnbCommercialFindManyArgs>(args?: SelectSubset<T, AirbnbCommercialFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AirbnbCommercial.
+     * @param {AirbnbCommercialCreateArgs} args - Arguments to create a AirbnbCommercial.
+     * @example
+     * // Create one AirbnbCommercial
+     * const AirbnbCommercial = await prisma.airbnbCommercial.create({
+     *   data: {
+     *     // ... data to create a AirbnbCommercial
+     *   }
+     * })
+     * 
+     */
+    create<T extends AirbnbCommercialCreateArgs>(args: SelectSubset<T, AirbnbCommercialCreateArgs<ExtArgs>>): Prisma__AirbnbCommercialClient<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AirbnbCommercials.
+     * @param {AirbnbCommercialCreateManyArgs} args - Arguments to create many AirbnbCommercials.
+     * @example
+     * // Create many AirbnbCommercials
+     * const airbnbCommercial = await prisma.airbnbCommercial.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AirbnbCommercialCreateManyArgs>(args?: SelectSubset<T, AirbnbCommercialCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AirbnbCommercials and returns the data saved in the database.
+     * @param {AirbnbCommercialCreateManyAndReturnArgs} args - Arguments to create many AirbnbCommercials.
+     * @example
+     * // Create many AirbnbCommercials
+     * const airbnbCommercial = await prisma.airbnbCommercial.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AirbnbCommercials and only return the `id`
+     * const airbnbCommercialWithIdOnly = await prisma.airbnbCommercial.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AirbnbCommercialCreateManyAndReturnArgs>(args?: SelectSubset<T, AirbnbCommercialCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AirbnbCommercial.
+     * @param {AirbnbCommercialDeleteArgs} args - Arguments to delete one AirbnbCommercial.
+     * @example
+     * // Delete one AirbnbCommercial
+     * const AirbnbCommercial = await prisma.airbnbCommercial.delete({
+     *   where: {
+     *     // ... filter to delete one AirbnbCommercial
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AirbnbCommercialDeleteArgs>(args: SelectSubset<T, AirbnbCommercialDeleteArgs<ExtArgs>>): Prisma__AirbnbCommercialClient<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AirbnbCommercial.
+     * @param {AirbnbCommercialUpdateArgs} args - Arguments to update one AirbnbCommercial.
+     * @example
+     * // Update one AirbnbCommercial
+     * const airbnbCommercial = await prisma.airbnbCommercial.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AirbnbCommercialUpdateArgs>(args: SelectSubset<T, AirbnbCommercialUpdateArgs<ExtArgs>>): Prisma__AirbnbCommercialClient<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AirbnbCommercials.
+     * @param {AirbnbCommercialDeleteManyArgs} args - Arguments to filter AirbnbCommercials to delete.
+     * @example
+     * // Delete a few AirbnbCommercials
+     * const { count } = await prisma.airbnbCommercial.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AirbnbCommercialDeleteManyArgs>(args?: SelectSubset<T, AirbnbCommercialDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AirbnbCommercials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbCommercialUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AirbnbCommercials
+     * const airbnbCommercial = await prisma.airbnbCommercial.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AirbnbCommercialUpdateManyArgs>(args: SelectSubset<T, AirbnbCommercialUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AirbnbCommercials and returns the data updated in the database.
+     * @param {AirbnbCommercialUpdateManyAndReturnArgs} args - Arguments to update many AirbnbCommercials.
+     * @example
+     * // Update many AirbnbCommercials
+     * const airbnbCommercial = await prisma.airbnbCommercial.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AirbnbCommercials and only return the `id`
+     * const airbnbCommercialWithIdOnly = await prisma.airbnbCommercial.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AirbnbCommercialUpdateManyAndReturnArgs>(args: SelectSubset<T, AirbnbCommercialUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AirbnbCommercial.
+     * @param {AirbnbCommercialUpsertArgs} args - Arguments to update or create a AirbnbCommercial.
+     * @example
+     * // Update or create a AirbnbCommercial
+     * const airbnbCommercial = await prisma.airbnbCommercial.upsert({
+     *   create: {
+     *     // ... data to create a AirbnbCommercial
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AirbnbCommercial we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AirbnbCommercialUpsertArgs>(args: SelectSubset<T, AirbnbCommercialUpsertArgs<ExtArgs>>): Prisma__AirbnbCommercialClient<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AirbnbCommercials.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbCommercialCountArgs} args - Arguments to filter AirbnbCommercials to count.
+     * @example
+     * // Count the number of AirbnbCommercials
+     * const count = await prisma.airbnbCommercial.count({
+     *   where: {
+     *     // ... the filter for the AirbnbCommercials we want to count
+     *   }
+     * })
+    **/
+    count<T extends AirbnbCommercialCountArgs>(
+      args?: Subset<T, AirbnbCommercialCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AirbnbCommercialCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AirbnbCommercial.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbCommercialAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AirbnbCommercialAggregateArgs>(args: Subset<T, AirbnbCommercialAggregateArgs>): Prisma.PrismaPromise<GetAirbnbCommercialAggregateType<T>>
+
+    /**
+     * Group by AirbnbCommercial.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AirbnbCommercialGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AirbnbCommercialGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AirbnbCommercialGroupByArgs['orderBy'] }
+        : { orderBy?: AirbnbCommercialGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AirbnbCommercialGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAirbnbCommercialGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AirbnbCommercial model
+   */
+  readonly fields: AirbnbCommercialFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AirbnbCommercial.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AirbnbCommercialClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lead<T extends AirbnbLeadDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLeadDefaultArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AirbnbCommercial model
+   */
+  interface AirbnbCommercialFieldRefs {
+    readonly id: FieldRef<"AirbnbCommercial", 'String'>
+    readonly leadId: FieldRef<"AirbnbCommercial", 'String'>
+    readonly stage: FieldRef<"AirbnbCommercial", 'AirbnbCommercialStage'>
+    readonly hostEmail: FieldRef<"AirbnbCommercial", 'String'>
+    readonly meetingTime: FieldRef<"AirbnbCommercial", 'DateTime'>
+    readonly meetLink: FieldRef<"AirbnbCommercial", 'String'>
+    readonly meetingId: FieldRef<"AirbnbCommercial", 'String'>
+    readonly contractValueUsd: FieldRef<"AirbnbCommercial", 'Decimal'>
+    readonly contractPlan: FieldRef<"AirbnbCommercial", 'ContractPlan'>
+    readonly createdAt: FieldRef<"AirbnbCommercial", 'DateTime'>
+    readonly updatedAt: FieldRef<"AirbnbCommercial", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AirbnbCommercial findUnique
+   */
+  export type AirbnbCommercialFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbCommercial to fetch.
+     */
+    where: AirbnbCommercialWhereUniqueInput
+  }
+
+  /**
+   * AirbnbCommercial findUniqueOrThrow
+   */
+  export type AirbnbCommercialFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbCommercial to fetch.
+     */
+    where: AirbnbCommercialWhereUniqueInput
+  }
+
+  /**
+   * AirbnbCommercial findFirst
+   */
+  export type AirbnbCommercialFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbCommercial to fetch.
+     */
+    where?: AirbnbCommercialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AirbnbCommercials to fetch.
+     */
+    orderBy?: AirbnbCommercialOrderByWithRelationInput | AirbnbCommercialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AirbnbCommercials.
+     */
+    cursor?: AirbnbCommercialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AirbnbCommercials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AirbnbCommercials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AirbnbCommercials.
+     */
+    distinct?: AirbnbCommercialScalarFieldEnum | AirbnbCommercialScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbCommercial findFirstOrThrow
+   */
+  export type AirbnbCommercialFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbCommercial to fetch.
+     */
+    where?: AirbnbCommercialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AirbnbCommercials to fetch.
+     */
+    orderBy?: AirbnbCommercialOrderByWithRelationInput | AirbnbCommercialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AirbnbCommercials.
+     */
+    cursor?: AirbnbCommercialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AirbnbCommercials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AirbnbCommercials.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AirbnbCommercials.
+     */
+    distinct?: AirbnbCommercialScalarFieldEnum | AirbnbCommercialScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbCommercial findMany
+   */
+  export type AirbnbCommercialFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialInclude<ExtArgs> | null
+    /**
+     * Filter, which AirbnbCommercials to fetch.
+     */
+    where?: AirbnbCommercialWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AirbnbCommercials to fetch.
+     */
+    orderBy?: AirbnbCommercialOrderByWithRelationInput | AirbnbCommercialOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AirbnbCommercials.
+     */
+    cursor?: AirbnbCommercialWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AirbnbCommercials from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AirbnbCommercials.
+     */
+    skip?: number
+    distinct?: AirbnbCommercialScalarFieldEnum | AirbnbCommercialScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbCommercial create
+   */
+  export type AirbnbCommercialCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AirbnbCommercial.
+     */
+    data: XOR<AirbnbCommercialCreateInput, AirbnbCommercialUncheckedCreateInput>
+  }
+
+  /**
+   * AirbnbCommercial createMany
+   */
+  export type AirbnbCommercialCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AirbnbCommercials.
+     */
+    data: AirbnbCommercialCreateManyInput | AirbnbCommercialCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AirbnbCommercial createManyAndReturn
+   */
+  export type AirbnbCommercialCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * The data used to create many AirbnbCommercials.
+     */
+    data: AirbnbCommercialCreateManyInput | AirbnbCommercialCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AirbnbCommercial update
+   */
+  export type AirbnbCommercialUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AirbnbCommercial.
+     */
+    data: XOR<AirbnbCommercialUpdateInput, AirbnbCommercialUncheckedUpdateInput>
+    /**
+     * Choose, which AirbnbCommercial to update.
+     */
+    where: AirbnbCommercialWhereUniqueInput
+  }
+
+  /**
+   * AirbnbCommercial updateMany
+   */
+  export type AirbnbCommercialUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AirbnbCommercials.
+     */
+    data: XOR<AirbnbCommercialUpdateManyMutationInput, AirbnbCommercialUncheckedUpdateManyInput>
+    /**
+     * Filter which AirbnbCommercials to update
+     */
+    where?: AirbnbCommercialWhereInput
+    /**
+     * Limit how many AirbnbCommercials to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AirbnbCommercial updateManyAndReturn
+   */
+  export type AirbnbCommercialUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * The data used to update AirbnbCommercials.
+     */
+    data: XOR<AirbnbCommercialUpdateManyMutationInput, AirbnbCommercialUncheckedUpdateManyInput>
+    /**
+     * Filter which AirbnbCommercials to update
+     */
+    where?: AirbnbCommercialWhereInput
+    /**
+     * Limit how many AirbnbCommercials to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AirbnbCommercial upsert
+   */
+  export type AirbnbCommercialUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AirbnbCommercial to update in case it exists.
+     */
+    where: AirbnbCommercialWhereUniqueInput
+    /**
+     * In case the AirbnbCommercial found by the `where` argument doesn't exist, create a new AirbnbCommercial with this data.
+     */
+    create: XOR<AirbnbCommercialCreateInput, AirbnbCommercialUncheckedCreateInput>
+    /**
+     * In case the AirbnbCommercial was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AirbnbCommercialUpdateInput, AirbnbCommercialUncheckedUpdateInput>
+  }
+
+  /**
+   * AirbnbCommercial delete
+   */
+  export type AirbnbCommercialDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialInclude<ExtArgs> | null
+    /**
+     * Filter which AirbnbCommercial to delete.
+     */
+    where: AirbnbCommercialWhereUniqueInput
+  }
+
+  /**
+   * AirbnbCommercial deleteMany
+   */
+  export type AirbnbCommercialDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AirbnbCommercials to delete
+     */
+    where?: AirbnbCommercialWhereInput
+    /**
+     * Limit how many AirbnbCommercials to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AirbnbCommercial without action
+   */
+  export type AirbnbCommercialDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbCommercial
+     */
+    select?: AirbnbCommercialSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbCommercial
+     */
+    omit?: AirbnbCommercialOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbCommercialInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OperationalDiagnosis
+   */
+
+  export type AggregateOperationalDiagnosis = {
+    _count: OperationalDiagnosisCountAggregateOutputType | null
+    _min: OperationalDiagnosisMinAggregateOutputType | null
+    _max: OperationalDiagnosisMaxAggregateOutputType | null
+  }
+
+  export type OperationalDiagnosisMinAggregateOutputType = {
+    id: string | null
+    slug: string | null
+    clientName: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OperationalDiagnosisMaxAggregateOutputType = {
+    id: string | null
+    slug: string | null
+    clientName: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OperationalDiagnosisCountAggregateOutputType = {
+    id: number
+    slug: number
+    clientName: number
+    payload: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type OperationalDiagnosisMinAggregateInputType = {
+    id?: true
+    slug?: true
+    clientName?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OperationalDiagnosisMaxAggregateInputType = {
+    id?: true
+    slug?: true
+    clientName?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OperationalDiagnosisCountAggregateInputType = {
+    id?: true
+    slug?: true
+    clientName?: true
+    payload?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type OperationalDiagnosisAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OperationalDiagnosis to aggregate.
+     */
+    where?: OperationalDiagnosisWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OperationalDiagnoses to fetch.
+     */
+    orderBy?: OperationalDiagnosisOrderByWithRelationInput | OperationalDiagnosisOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OperationalDiagnosisWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OperationalDiagnoses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OperationalDiagnoses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OperationalDiagnoses
+    **/
+    _count?: true | OperationalDiagnosisCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OperationalDiagnosisMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OperationalDiagnosisMaxAggregateInputType
+  }
+
+  export type GetOperationalDiagnosisAggregateType<T extends OperationalDiagnosisAggregateArgs> = {
+        [P in keyof T & keyof AggregateOperationalDiagnosis]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOperationalDiagnosis[P]>
+      : GetScalarType<T[P], AggregateOperationalDiagnosis[P]>
+  }
+
+
+
+
+  export type OperationalDiagnosisGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OperationalDiagnosisWhereInput
+    orderBy?: OperationalDiagnosisOrderByWithAggregationInput | OperationalDiagnosisOrderByWithAggregationInput[]
+    by: OperationalDiagnosisScalarFieldEnum[] | OperationalDiagnosisScalarFieldEnum
+    having?: OperationalDiagnosisScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OperationalDiagnosisCountAggregateInputType | true
+    _min?: OperationalDiagnosisMinAggregateInputType
+    _max?: OperationalDiagnosisMaxAggregateInputType
+  }
+
+  export type OperationalDiagnosisGroupByOutputType = {
+    id: string
+    slug: string
+    clientName: string
+    payload: JsonValue
+    createdAt: Date
+    updatedAt: Date
+    _count: OperationalDiagnosisCountAggregateOutputType | null
+    _min: OperationalDiagnosisMinAggregateOutputType | null
+    _max: OperationalDiagnosisMaxAggregateOutputType | null
+  }
+
+  type GetOperationalDiagnosisGroupByPayload<T extends OperationalDiagnosisGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OperationalDiagnosisGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OperationalDiagnosisGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OperationalDiagnosisGroupByOutputType[P]>
+            : GetScalarType<T[P], OperationalDiagnosisGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OperationalDiagnosisSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    slug?: boolean
+    clientName?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["operationalDiagnosis"]>
+
+  export type OperationalDiagnosisSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    slug?: boolean
+    clientName?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["operationalDiagnosis"]>
+
+  export type OperationalDiagnosisSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    slug?: boolean
+    clientName?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["operationalDiagnosis"]>
+
+  export type OperationalDiagnosisSelectScalar = {
+    id?: boolean
+    slug?: boolean
+    clientName?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type OperationalDiagnosisOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "clientName" | "payload" | "createdAt" | "updatedAt", ExtArgs["result"]["operationalDiagnosis"]>
+
+  export type $OperationalDiagnosisPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OperationalDiagnosis"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      slug: string
+      clientName: string
+      payload: Prisma.JsonValue
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["operationalDiagnosis"]>
+    composites: {}
+  }
+
+  type OperationalDiagnosisGetPayload<S extends boolean | null | undefined | OperationalDiagnosisDefaultArgs> = $Result.GetResult<Prisma.$OperationalDiagnosisPayload, S>
+
+  type OperationalDiagnosisCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OperationalDiagnosisFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OperationalDiagnosisCountAggregateInputType | true
+    }
+
+  export interface OperationalDiagnosisDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OperationalDiagnosis'], meta: { name: 'OperationalDiagnosis' } }
+    /**
+     * Find zero or one OperationalDiagnosis that matches the filter.
+     * @param {OperationalDiagnosisFindUniqueArgs} args - Arguments to find a OperationalDiagnosis
+     * @example
+     * // Get one OperationalDiagnosis
+     * const operationalDiagnosis = await prisma.operationalDiagnosis.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OperationalDiagnosisFindUniqueArgs>(args: SelectSubset<T, OperationalDiagnosisFindUniqueArgs<ExtArgs>>): Prisma__OperationalDiagnosisClient<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OperationalDiagnosis that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OperationalDiagnosisFindUniqueOrThrowArgs} args - Arguments to find a OperationalDiagnosis
+     * @example
+     * // Get one OperationalDiagnosis
+     * const operationalDiagnosis = await prisma.operationalDiagnosis.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OperationalDiagnosisFindUniqueOrThrowArgs>(args: SelectSubset<T, OperationalDiagnosisFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OperationalDiagnosisClient<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OperationalDiagnosis that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OperationalDiagnosisFindFirstArgs} args - Arguments to find a OperationalDiagnosis
+     * @example
+     * // Get one OperationalDiagnosis
+     * const operationalDiagnosis = await prisma.operationalDiagnosis.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OperationalDiagnosisFindFirstArgs>(args?: SelectSubset<T, OperationalDiagnosisFindFirstArgs<ExtArgs>>): Prisma__OperationalDiagnosisClient<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OperationalDiagnosis that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OperationalDiagnosisFindFirstOrThrowArgs} args - Arguments to find a OperationalDiagnosis
+     * @example
+     * // Get one OperationalDiagnosis
+     * const operationalDiagnosis = await prisma.operationalDiagnosis.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OperationalDiagnosisFindFirstOrThrowArgs>(args?: SelectSubset<T, OperationalDiagnosisFindFirstOrThrowArgs<ExtArgs>>): Prisma__OperationalDiagnosisClient<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OperationalDiagnoses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OperationalDiagnosisFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OperationalDiagnoses
+     * const operationalDiagnoses = await prisma.operationalDiagnosis.findMany()
+     * 
+     * // Get first 10 OperationalDiagnoses
+     * const operationalDiagnoses = await prisma.operationalDiagnosis.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const operationalDiagnosisWithIdOnly = await prisma.operationalDiagnosis.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OperationalDiagnosisFindManyArgs>(args?: SelectSubset<T, OperationalDiagnosisFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OperationalDiagnosis.
+     * @param {OperationalDiagnosisCreateArgs} args - Arguments to create a OperationalDiagnosis.
+     * @example
+     * // Create one OperationalDiagnosis
+     * const OperationalDiagnosis = await prisma.operationalDiagnosis.create({
+     *   data: {
+     *     // ... data to create a OperationalDiagnosis
+     *   }
+     * })
+     * 
+     */
+    create<T extends OperationalDiagnosisCreateArgs>(args: SelectSubset<T, OperationalDiagnosisCreateArgs<ExtArgs>>): Prisma__OperationalDiagnosisClient<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OperationalDiagnoses.
+     * @param {OperationalDiagnosisCreateManyArgs} args - Arguments to create many OperationalDiagnoses.
+     * @example
+     * // Create many OperationalDiagnoses
+     * const operationalDiagnosis = await prisma.operationalDiagnosis.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OperationalDiagnosisCreateManyArgs>(args?: SelectSubset<T, OperationalDiagnosisCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OperationalDiagnoses and returns the data saved in the database.
+     * @param {OperationalDiagnosisCreateManyAndReturnArgs} args - Arguments to create many OperationalDiagnoses.
+     * @example
+     * // Create many OperationalDiagnoses
+     * const operationalDiagnosis = await prisma.operationalDiagnosis.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OperationalDiagnoses and only return the `id`
+     * const operationalDiagnosisWithIdOnly = await prisma.operationalDiagnosis.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OperationalDiagnosisCreateManyAndReturnArgs>(args?: SelectSubset<T, OperationalDiagnosisCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OperationalDiagnosis.
+     * @param {OperationalDiagnosisDeleteArgs} args - Arguments to delete one OperationalDiagnosis.
+     * @example
+     * // Delete one OperationalDiagnosis
+     * const OperationalDiagnosis = await prisma.operationalDiagnosis.delete({
+     *   where: {
+     *     // ... filter to delete one OperationalDiagnosis
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OperationalDiagnosisDeleteArgs>(args: SelectSubset<T, OperationalDiagnosisDeleteArgs<ExtArgs>>): Prisma__OperationalDiagnosisClient<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OperationalDiagnosis.
+     * @param {OperationalDiagnosisUpdateArgs} args - Arguments to update one OperationalDiagnosis.
+     * @example
+     * // Update one OperationalDiagnosis
+     * const operationalDiagnosis = await prisma.operationalDiagnosis.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OperationalDiagnosisUpdateArgs>(args: SelectSubset<T, OperationalDiagnosisUpdateArgs<ExtArgs>>): Prisma__OperationalDiagnosisClient<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OperationalDiagnoses.
+     * @param {OperationalDiagnosisDeleteManyArgs} args - Arguments to filter OperationalDiagnoses to delete.
+     * @example
+     * // Delete a few OperationalDiagnoses
+     * const { count } = await prisma.operationalDiagnosis.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OperationalDiagnosisDeleteManyArgs>(args?: SelectSubset<T, OperationalDiagnosisDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OperationalDiagnoses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OperationalDiagnosisUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OperationalDiagnoses
+     * const operationalDiagnosis = await prisma.operationalDiagnosis.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OperationalDiagnosisUpdateManyArgs>(args: SelectSubset<T, OperationalDiagnosisUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OperationalDiagnoses and returns the data updated in the database.
+     * @param {OperationalDiagnosisUpdateManyAndReturnArgs} args - Arguments to update many OperationalDiagnoses.
+     * @example
+     * // Update many OperationalDiagnoses
+     * const operationalDiagnosis = await prisma.operationalDiagnosis.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OperationalDiagnoses and only return the `id`
+     * const operationalDiagnosisWithIdOnly = await prisma.operationalDiagnosis.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OperationalDiagnosisUpdateManyAndReturnArgs>(args: SelectSubset<T, OperationalDiagnosisUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OperationalDiagnosis.
+     * @param {OperationalDiagnosisUpsertArgs} args - Arguments to update or create a OperationalDiagnosis.
+     * @example
+     * // Update or create a OperationalDiagnosis
+     * const operationalDiagnosis = await prisma.operationalDiagnosis.upsert({
+     *   create: {
+     *     // ... data to create a OperationalDiagnosis
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OperationalDiagnosis we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OperationalDiagnosisUpsertArgs>(args: SelectSubset<T, OperationalDiagnosisUpsertArgs<ExtArgs>>): Prisma__OperationalDiagnosisClient<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OperationalDiagnoses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OperationalDiagnosisCountArgs} args - Arguments to filter OperationalDiagnoses to count.
+     * @example
+     * // Count the number of OperationalDiagnoses
+     * const count = await prisma.operationalDiagnosis.count({
+     *   where: {
+     *     // ... the filter for the OperationalDiagnoses we want to count
+     *   }
+     * })
+    **/
+    count<T extends OperationalDiagnosisCountArgs>(
+      args?: Subset<T, OperationalDiagnosisCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OperationalDiagnosisCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OperationalDiagnosis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OperationalDiagnosisAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OperationalDiagnosisAggregateArgs>(args: Subset<T, OperationalDiagnosisAggregateArgs>): Prisma.PrismaPromise<GetOperationalDiagnosisAggregateType<T>>
+
+    /**
+     * Group by OperationalDiagnosis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OperationalDiagnosisGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OperationalDiagnosisGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OperationalDiagnosisGroupByArgs['orderBy'] }
+        : { orderBy?: OperationalDiagnosisGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OperationalDiagnosisGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOperationalDiagnosisGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OperationalDiagnosis model
+   */
+  readonly fields: OperationalDiagnosisFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OperationalDiagnosis.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OperationalDiagnosisClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OperationalDiagnosis model
+   */
+  interface OperationalDiagnosisFieldRefs {
+    readonly id: FieldRef<"OperationalDiagnosis", 'String'>
+    readonly slug: FieldRef<"OperationalDiagnosis", 'String'>
+    readonly clientName: FieldRef<"OperationalDiagnosis", 'String'>
+    readonly payload: FieldRef<"OperationalDiagnosis", 'Json'>
+    readonly createdAt: FieldRef<"OperationalDiagnosis", 'DateTime'>
+    readonly updatedAt: FieldRef<"OperationalDiagnosis", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OperationalDiagnosis findUnique
+   */
+  export type OperationalDiagnosisFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * Filter, which OperationalDiagnosis to fetch.
+     */
+    where: OperationalDiagnosisWhereUniqueInput
+  }
+
+  /**
+   * OperationalDiagnosis findUniqueOrThrow
+   */
+  export type OperationalDiagnosisFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * Filter, which OperationalDiagnosis to fetch.
+     */
+    where: OperationalDiagnosisWhereUniqueInput
+  }
+
+  /**
+   * OperationalDiagnosis findFirst
+   */
+  export type OperationalDiagnosisFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * Filter, which OperationalDiagnosis to fetch.
+     */
+    where?: OperationalDiagnosisWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OperationalDiagnoses to fetch.
+     */
+    orderBy?: OperationalDiagnosisOrderByWithRelationInput | OperationalDiagnosisOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OperationalDiagnoses.
+     */
+    cursor?: OperationalDiagnosisWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OperationalDiagnoses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OperationalDiagnoses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OperationalDiagnoses.
+     */
+    distinct?: OperationalDiagnosisScalarFieldEnum | OperationalDiagnosisScalarFieldEnum[]
+  }
+
+  /**
+   * OperationalDiagnosis findFirstOrThrow
+   */
+  export type OperationalDiagnosisFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * Filter, which OperationalDiagnosis to fetch.
+     */
+    where?: OperationalDiagnosisWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OperationalDiagnoses to fetch.
+     */
+    orderBy?: OperationalDiagnosisOrderByWithRelationInput | OperationalDiagnosisOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OperationalDiagnoses.
+     */
+    cursor?: OperationalDiagnosisWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OperationalDiagnoses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OperationalDiagnoses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OperationalDiagnoses.
+     */
+    distinct?: OperationalDiagnosisScalarFieldEnum | OperationalDiagnosisScalarFieldEnum[]
+  }
+
+  /**
+   * OperationalDiagnosis findMany
+   */
+  export type OperationalDiagnosisFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * Filter, which OperationalDiagnoses to fetch.
+     */
+    where?: OperationalDiagnosisWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OperationalDiagnoses to fetch.
+     */
+    orderBy?: OperationalDiagnosisOrderByWithRelationInput | OperationalDiagnosisOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OperationalDiagnoses.
+     */
+    cursor?: OperationalDiagnosisWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OperationalDiagnoses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OperationalDiagnoses.
+     */
+    skip?: number
+    distinct?: OperationalDiagnosisScalarFieldEnum | OperationalDiagnosisScalarFieldEnum[]
+  }
+
+  /**
+   * OperationalDiagnosis create
+   */
+  export type OperationalDiagnosisCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * The data needed to create a OperationalDiagnosis.
+     */
+    data: XOR<OperationalDiagnosisCreateInput, OperationalDiagnosisUncheckedCreateInput>
+  }
+
+  /**
+   * OperationalDiagnosis createMany
+   */
+  export type OperationalDiagnosisCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OperationalDiagnoses.
+     */
+    data: OperationalDiagnosisCreateManyInput | OperationalDiagnosisCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OperationalDiagnosis createManyAndReturn
+   */
+  export type OperationalDiagnosisCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * The data used to create many OperationalDiagnoses.
+     */
+    data: OperationalDiagnosisCreateManyInput | OperationalDiagnosisCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OperationalDiagnosis update
+   */
+  export type OperationalDiagnosisUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * The data needed to update a OperationalDiagnosis.
+     */
+    data: XOR<OperationalDiagnosisUpdateInput, OperationalDiagnosisUncheckedUpdateInput>
+    /**
+     * Choose, which OperationalDiagnosis to update.
+     */
+    where: OperationalDiagnosisWhereUniqueInput
+  }
+
+  /**
+   * OperationalDiagnosis updateMany
+   */
+  export type OperationalDiagnosisUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OperationalDiagnoses.
+     */
+    data: XOR<OperationalDiagnosisUpdateManyMutationInput, OperationalDiagnosisUncheckedUpdateManyInput>
+    /**
+     * Filter which OperationalDiagnoses to update
+     */
+    where?: OperationalDiagnosisWhereInput
+    /**
+     * Limit how many OperationalDiagnoses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OperationalDiagnosis updateManyAndReturn
+   */
+  export type OperationalDiagnosisUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * The data used to update OperationalDiagnoses.
+     */
+    data: XOR<OperationalDiagnosisUpdateManyMutationInput, OperationalDiagnosisUncheckedUpdateManyInput>
+    /**
+     * Filter which OperationalDiagnoses to update
+     */
+    where?: OperationalDiagnosisWhereInput
+    /**
+     * Limit how many OperationalDiagnoses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OperationalDiagnosis upsert
+   */
+  export type OperationalDiagnosisUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * The filter to search for the OperationalDiagnosis to update in case it exists.
+     */
+    where: OperationalDiagnosisWhereUniqueInput
+    /**
+     * In case the OperationalDiagnosis found by the `where` argument doesn't exist, create a new OperationalDiagnosis with this data.
+     */
+    create: XOR<OperationalDiagnosisCreateInput, OperationalDiagnosisUncheckedCreateInput>
+    /**
+     * In case the OperationalDiagnosis was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OperationalDiagnosisUpdateInput, OperationalDiagnosisUncheckedUpdateInput>
+  }
+
+  /**
+   * OperationalDiagnosis delete
+   */
+  export type OperationalDiagnosisDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * Filter which OperationalDiagnosis to delete.
+     */
+    where: OperationalDiagnosisWhereUniqueInput
+  }
+
+  /**
+   * OperationalDiagnosis deleteMany
+   */
+  export type OperationalDiagnosisDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OperationalDiagnoses to delete
+     */
+    where?: OperationalDiagnosisWhereInput
+    /**
+     * Limit how many OperationalDiagnoses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * OperationalDiagnosis without action
+   */
+  export type OperationalDiagnosisDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -11878,6 +26896,7 @@ export namespace Prisma {
   export const LeadEventScalarFieldEnum: {
     id: 'id',
     submissionId: 'submissionId',
+    airbnbLeadId: 'airbnbLeadId',
     eventName: 'eventName',
     eventTime: 'eventTime',
     eventSourceUrl: 'eventSourceUrl',
@@ -11913,6 +26932,27 @@ export namespace Prisma {
   };
 
   export type VideoWatchSessionScalarFieldEnum = (typeof VideoWatchSessionScalarFieldEnum)[keyof typeof VideoWatchSessionScalarFieldEnum]
+
+
+  export const LandingVisitScalarFieldEnum: {
+    id: 'id',
+    visitorId: 'visitorId',
+    landingPath: 'landingPath',
+    fromAd: 'fromAd',
+    fbclid: 'fbclid',
+    fbp: 'fbp',
+    fbc: 'fbc',
+    utmSource: 'utmSource',
+    utmMedium: 'utmMedium',
+    utmCampaign: 'utmCampaign',
+    convertedAt: 'convertedAt',
+    conversion: 'conversion',
+    lastSeenAt: 'lastSeenAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LandingVisitScalarFieldEnum = (typeof LandingVisitScalarFieldEnum)[keyof typeof LandingVisitScalarFieldEnum]
 
 
   export const LeadPipelineScalarFieldEnum: {
@@ -11987,6 +27027,180 @@ export namespace Prisma {
   export type PipelineJobScalarFieldEnum = (typeof PipelineJobScalarFieldEnum)[keyof typeof PipelineJobScalarFieldEnum]
 
 
+  export const AirbnbLeadScalarFieldEnum: {
+    id: 'id',
+    hostAirbnbId: 'hostAirbnbId',
+    threadId: 'threadId',
+    name: 'name',
+    hostProfileUrl: 'hostProfileUrl',
+    primaryListingUrl: 'primaryListingUrl',
+    primaryListingName: 'primaryListingName',
+    totalProperties: 'totalProperties',
+    companyName: 'companyName',
+    isSuperhost: 'isSuperhost',
+    market: 'market',
+    icpSkipReason: 'icpSkipReason',
+    status: 'status',
+    businessScale: 'businessScale',
+    painPoints: 'painPoints',
+    executiveSummary: 'executiveSummary',
+    lastContactedAt: 'lastContactedAt',
+    nextFollowUpAt: 'nextFollowUpAt',
+    botReplyCount: 'botReplyCount',
+    calLinkSent: 'calLinkSent',
+    calBookedAt: 'calBookedAt',
+    hostEmail: 'hostEmail',
+    contactId: 'contactId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AirbnbLeadScalarFieldEnum = (typeof AirbnbLeadScalarFieldEnum)[keyof typeof AirbnbLeadScalarFieldEnum]
+
+
+  export const AirbnbMessageScalarFieldEnum: {
+    id: 'id',
+    leadId: 'leadId',
+    prospectAccountId: 'prospectAccountId',
+    direction: 'direction',
+    content: 'content',
+    aiIntent: 'aiIntent',
+    sentAt: 'sentAt'
+  };
+
+  export type AirbnbMessageScalarFieldEnum = (typeof AirbnbMessageScalarFieldEnum)[keyof typeof AirbnbMessageScalarFieldEnum]
+
+
+  export const SystemStateScalarFieldEnum: {
+    key: 'key',
+    value: 'value',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SystemStateScalarFieldEnum = (typeof SystemStateScalarFieldEnum)[keyof typeof SystemStateScalarFieldEnum]
+
+
+  export const CalBookingScalarFieldEnum: {
+    id: 'id',
+    calUid: 'calUid',
+    calBookingId: 'calBookingId',
+    leadId: 'leadId',
+    triggerEvent: 'triggerEvent',
+    startTime: 'startTime',
+    endTime: 'endTime',
+    attendeeEmail: 'attendeeEmail',
+    attendeeName: 'attendeeName',
+    eventTypeSlug: 'eventTypeSlug',
+    createdAt: 'createdAt'
+  };
+
+  export type CalBookingScalarFieldEnum = (typeof CalBookingScalarFieldEnum)[keyof typeof CalBookingScalarFieldEnum]
+
+
+  export const ProspectAccountScalarFieldEnum: {
+    id: 'id',
+    label: 'label',
+    airbnbEmail: 'airbnbEmail',
+    airbnbPasswordEnc: 'airbnbPasswordEnc',
+    composioUserId: 'composioUserId',
+    composioConnectionId: 'composioConnectionId',
+    composioConnectedAt: 'composioConnectedAt',
+    proxyHost: 'proxyHost',
+    proxyPort: 'proxyPort',
+    proxyUser: 'proxyUser',
+    proxyPassEnc: 'proxyPassEnc',
+    proxyProvider: 'proxyProvider',
+    proxySessionId: 'proxySessionId',
+    proxyCountry: 'proxyCountry',
+    sessionPath: 'sessionPath',
+    sessionStateEnc: 'sessionStateEnc',
+    market: 'market',
+    messagesSentToday: 'messagesSentToday',
+    waveMessagesSent: 'waveMessagesSent',
+    status: 'status',
+    rateLimitedAt: 'rateLimitedAt',
+    cooldownUntil: 'cooldownUntil',
+    lastWaveStartedAt: 'lastWaveStartedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ProspectAccountScalarFieldEnum = (typeof ProspectAccountScalarFieldEnum)[keyof typeof ProspectAccountScalarFieldEnum]
+
+
+  export const HostContactScalarFieldEnum: {
+    id: 'id',
+    hostAirbnbId: 'hostAirbnbId',
+    leadId: 'leadId',
+    firstContactedAt: 'firstContactedAt',
+    firstContactAccountId: 'firstContactAccountId',
+    source: 'source',
+    createdAt: 'createdAt'
+  };
+
+  export type HostContactScalarFieldEnum = (typeof HostContactScalarFieldEnum)[keyof typeof HostContactScalarFieldEnum]
+
+
+  export const LeadIdentityAliasScalarFieldEnum: {
+    id: 'id',
+    aliasId: 'aliasId',
+    canonicalId: 'canonicalId',
+    leadId: 'leadId'
+  };
+
+  export type LeadIdentityAliasScalarFieldEnum = (typeof LeadIdentityAliasScalarFieldEnum)[keyof typeof LeadIdentityAliasScalarFieldEnum]
+
+
+  export const DailyOutboundStatsScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    market: 'market',
+    coldMessagesSent: 'coldMessagesSent'
+  };
+
+  export type DailyOutboundStatsScalarFieldEnum = (typeof DailyOutboundStatsScalarFieldEnum)[keyof typeof DailyOutboundStatsScalarFieldEnum]
+
+
+  export const AccountBlockEventScalarFieldEnum: {
+    id: 'id',
+    accountId: 'accountId',
+    type: 'type',
+    message: 'message',
+    occurredAt: 'occurredAt'
+  };
+
+  export type AccountBlockEventScalarFieldEnum = (typeof AccountBlockEventScalarFieldEnum)[keyof typeof AccountBlockEventScalarFieldEnum]
+
+
+  export const AirbnbCommercialScalarFieldEnum: {
+    id: 'id',
+    leadId: 'leadId',
+    stage: 'stage',
+    hostEmail: 'hostEmail',
+    meetingTime: 'meetingTime',
+    meetLink: 'meetLink',
+    meetingId: 'meetingId',
+    contractValueUsd: 'contractValueUsd',
+    contractPlan: 'contractPlan',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AirbnbCommercialScalarFieldEnum = (typeof AirbnbCommercialScalarFieldEnum)[keyof typeof AirbnbCommercialScalarFieldEnum]
+
+
+  export const OperationalDiagnosisScalarFieldEnum: {
+    id: 'id',
+    slug: 'slug',
+    clientName: 'clientName',
+    payload: 'payload',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type OperationalDiagnosisScalarFieldEnum = (typeof OperationalDiagnosisScalarFieldEnum)[keyof typeof OperationalDiagnosisScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -12001,6 +27215,13 @@ export namespace Prisma {
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -12419,6 +27640,90 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'IcpSkipReason'
+   */
+  export type EnumIcpSkipReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IcpSkipReason'>
+    
+
+
+  /**
+   * Reference to a field of type 'IcpSkipReason[]'
+   */
+  export type ListEnumIcpSkipReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IcpSkipReason[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'LeadStatus'
+   */
+  export type EnumLeadStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeadStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'LeadStatus[]'
+   */
+  export type ListEnumLeadStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeadStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AccountStatus'
+   */
+  export type EnumAccountStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'AccountStatus[]'
+   */
+  export type ListEnumAccountStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AccountStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContactSource'
+   */
+  export type EnumContactSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactSource'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContactSource[]'
+   */
+  export type ListEnumContactSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactSource[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BlockType'
+   */
+  export type EnumBlockTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockType'>
+    
+
+
+  /**
+   * Reference to a field of type 'BlockType[]'
+   */
+  export type ListEnumBlockTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AirbnbCommercialStage'
+   */
+  export type EnumAirbnbCommercialStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AirbnbCommercialStage'>
+    
+
+
+  /**
+   * Reference to a field of type 'AirbnbCommercialStage[]'
+   */
+  export type ListEnumAirbnbCommercialStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AirbnbCommercialStage[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -12454,6 +27759,7 @@ export namespace Prisma {
     submissions?: FormSubmissionListRelationFilter
     pipeline?: XOR<LeadPipelineNullableScalarRelationFilter, LeadPipelineWhereInput> | null
     conversations?: ConversationListRelationFilter
+    airbnbLead?: XOR<AirbnbLeadNullableScalarRelationFilter, AirbnbLeadWhereInput> | null
   }
 
   export type ContactOrderByWithRelationInput = {
@@ -12472,6 +27778,7 @@ export namespace Prisma {
     submissions?: FormSubmissionOrderByRelationAggregateInput
     pipeline?: LeadPipelineOrderByWithRelationInput
     conversations?: ConversationOrderByRelationAggregateInput
+    airbnbLead?: AirbnbLeadOrderByWithRelationInput
   }
 
   export type ContactWhereUniqueInput = Prisma.AtLeast<{
@@ -12493,6 +27800,7 @@ export namespace Prisma {
     submissions?: FormSubmissionListRelationFilter
     pipeline?: XOR<LeadPipelineNullableScalarRelationFilter, LeadPipelineWhereInput> | null
     conversations?: ConversationListRelationFilter
+    airbnbLead?: XOR<AirbnbLeadNullableScalarRelationFilter, AirbnbLeadWhereInput> | null
   }, "id" | "phoneE164" | "waId">
 
   export type ContactOrderByWithAggregationInput = {
@@ -12771,7 +28079,8 @@ export namespace Prisma {
     OR?: LeadEventWhereInput[]
     NOT?: LeadEventWhereInput | LeadEventWhereInput[]
     id?: StringFilter<"LeadEvent"> | string
-    submissionId?: StringFilter<"LeadEvent"> | string
+    submissionId?: StringNullableFilter<"LeadEvent"> | string | null
+    airbnbLeadId?: StringNullableFilter<"LeadEvent"> | string | null
     eventName?: EnumMarketingEventNameFilter<"LeadEvent"> | $Enums.MarketingEventName
     eventTime?: DateTimeFilter<"LeadEvent"> | Date | string
     eventSourceUrl?: StringNullableFilter<"LeadEvent"> | string | null
@@ -12785,12 +28094,14 @@ export namespace Prisma {
     clientIp?: StringNullableFilter<"LeadEvent"> | string | null
     clientUserAgent?: StringNullableFilter<"LeadEvent"> | string | null
     createdAt?: DateTimeFilter<"LeadEvent"> | Date | string
-    submission?: XOR<FormSubmissionScalarRelationFilter, FormSubmissionWhereInput>
+    submission?: XOR<FormSubmissionNullableScalarRelationFilter, FormSubmissionWhereInput> | null
+    airbnbLead?: XOR<AirbnbLeadNullableScalarRelationFilter, AirbnbLeadWhereInput> | null
   }
 
   export type LeadEventOrderByWithRelationInput = {
     id?: SortOrder
-    submissionId?: SortOrder
+    submissionId?: SortOrderInput | SortOrder
+    airbnbLeadId?: SortOrderInput | SortOrder
     eventName?: SortOrder
     eventTime?: SortOrder
     eventSourceUrl?: SortOrderInput | SortOrder
@@ -12805,15 +28116,18 @@ export namespace Prisma {
     clientUserAgent?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     submission?: FormSubmissionOrderByWithRelationInput
+    airbnbLead?: AirbnbLeadOrderByWithRelationInput
   }
 
   export type LeadEventWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     submissionId_eventName?: LeadEventSubmissionIdEventNameCompoundUniqueInput
+    airbnbLeadId_eventName?: LeadEventAirbnbLeadIdEventNameCompoundUniqueInput
     AND?: LeadEventWhereInput | LeadEventWhereInput[]
     OR?: LeadEventWhereInput[]
     NOT?: LeadEventWhereInput | LeadEventWhereInput[]
-    submissionId?: StringFilter<"LeadEvent"> | string
+    submissionId?: StringNullableFilter<"LeadEvent"> | string | null
+    airbnbLeadId?: StringNullableFilter<"LeadEvent"> | string | null
     eventName?: EnumMarketingEventNameFilter<"LeadEvent"> | $Enums.MarketingEventName
     eventTime?: DateTimeFilter<"LeadEvent"> | Date | string
     eventSourceUrl?: StringNullableFilter<"LeadEvent"> | string | null
@@ -12827,12 +28141,14 @@ export namespace Prisma {
     clientIp?: StringNullableFilter<"LeadEvent"> | string | null
     clientUserAgent?: StringNullableFilter<"LeadEvent"> | string | null
     createdAt?: DateTimeFilter<"LeadEvent"> | Date | string
-    submission?: XOR<FormSubmissionScalarRelationFilter, FormSubmissionWhereInput>
-  }, "id" | "submissionId_eventName">
+    submission?: XOR<FormSubmissionNullableScalarRelationFilter, FormSubmissionWhereInput> | null
+    airbnbLead?: XOR<AirbnbLeadNullableScalarRelationFilter, AirbnbLeadWhereInput> | null
+  }, "id" | "submissionId_eventName" | "airbnbLeadId_eventName">
 
   export type LeadEventOrderByWithAggregationInput = {
     id?: SortOrder
-    submissionId?: SortOrder
+    submissionId?: SortOrderInput | SortOrder
+    airbnbLeadId?: SortOrderInput | SortOrder
     eventName?: SortOrder
     eventTime?: SortOrder
     eventSourceUrl?: SortOrderInput | SortOrder
@@ -12858,7 +28174,8 @@ export namespace Prisma {
     OR?: LeadEventScalarWhereWithAggregatesInput[]
     NOT?: LeadEventScalarWhereWithAggregatesInput | LeadEventScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"LeadEvent"> | string
-    submissionId?: StringWithAggregatesFilter<"LeadEvent"> | string
+    submissionId?: StringNullableWithAggregatesFilter<"LeadEvent"> | string | null
+    airbnbLeadId?: StringNullableWithAggregatesFilter<"LeadEvent"> | string | null
     eventName?: EnumMarketingEventNameWithAggregatesFilter<"LeadEvent"> | $Enums.MarketingEventName
     eventTime?: DateTimeWithAggregatesFilter<"LeadEvent"> | Date | string
     eventSourceUrl?: StringNullableWithAggregatesFilter<"LeadEvent"> | string | null
@@ -12966,6 +28283,109 @@ export namespace Prisma {
     dropReason?: EnumVideoDropReasonNullableWithAggregatesFilter<"VideoWatchSession"> | $Enums.VideoDropReason | null
     createdAt?: DateTimeWithAggregatesFilter<"VideoWatchSession"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"VideoWatchSession"> | Date | string
+  }
+
+  export type LandingVisitWhereInput = {
+    AND?: LandingVisitWhereInput | LandingVisitWhereInput[]
+    OR?: LandingVisitWhereInput[]
+    NOT?: LandingVisitWhereInput | LandingVisitWhereInput[]
+    id?: StringFilter<"LandingVisit"> | string
+    visitorId?: StringFilter<"LandingVisit"> | string
+    landingPath?: StringFilter<"LandingVisit"> | string
+    fromAd?: BoolFilter<"LandingVisit"> | boolean
+    fbclid?: StringNullableFilter<"LandingVisit"> | string | null
+    fbp?: StringNullableFilter<"LandingVisit"> | string | null
+    fbc?: StringNullableFilter<"LandingVisit"> | string | null
+    utmSource?: StringNullableFilter<"LandingVisit"> | string | null
+    utmMedium?: StringNullableFilter<"LandingVisit"> | string | null
+    utmCampaign?: StringNullableFilter<"LandingVisit"> | string | null
+    convertedAt?: DateTimeNullableFilter<"LandingVisit"> | Date | string | null
+    conversion?: StringNullableFilter<"LandingVisit"> | string | null
+    lastSeenAt?: DateTimeFilter<"LandingVisit"> | Date | string
+    createdAt?: DateTimeFilter<"LandingVisit"> | Date | string
+    updatedAt?: DateTimeFilter<"LandingVisit"> | Date | string
+  }
+
+  export type LandingVisitOrderByWithRelationInput = {
+    id?: SortOrder
+    visitorId?: SortOrder
+    landingPath?: SortOrder
+    fromAd?: SortOrder
+    fbclid?: SortOrderInput | SortOrder
+    fbp?: SortOrderInput | SortOrder
+    fbc?: SortOrderInput | SortOrder
+    utmSource?: SortOrderInput | SortOrder
+    utmMedium?: SortOrderInput | SortOrder
+    utmCampaign?: SortOrderInput | SortOrder
+    convertedAt?: SortOrderInput | SortOrder
+    conversion?: SortOrderInput | SortOrder
+    lastSeenAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LandingVisitWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    visitorId_landingPath?: LandingVisitVisitorIdLandingPathCompoundUniqueInput
+    AND?: LandingVisitWhereInput | LandingVisitWhereInput[]
+    OR?: LandingVisitWhereInput[]
+    NOT?: LandingVisitWhereInput | LandingVisitWhereInput[]
+    visitorId?: StringFilter<"LandingVisit"> | string
+    landingPath?: StringFilter<"LandingVisit"> | string
+    fromAd?: BoolFilter<"LandingVisit"> | boolean
+    fbclid?: StringNullableFilter<"LandingVisit"> | string | null
+    fbp?: StringNullableFilter<"LandingVisit"> | string | null
+    fbc?: StringNullableFilter<"LandingVisit"> | string | null
+    utmSource?: StringNullableFilter<"LandingVisit"> | string | null
+    utmMedium?: StringNullableFilter<"LandingVisit"> | string | null
+    utmCampaign?: StringNullableFilter<"LandingVisit"> | string | null
+    convertedAt?: DateTimeNullableFilter<"LandingVisit"> | Date | string | null
+    conversion?: StringNullableFilter<"LandingVisit"> | string | null
+    lastSeenAt?: DateTimeFilter<"LandingVisit"> | Date | string
+    createdAt?: DateTimeFilter<"LandingVisit"> | Date | string
+    updatedAt?: DateTimeFilter<"LandingVisit"> | Date | string
+  }, "id" | "visitorId_landingPath">
+
+  export type LandingVisitOrderByWithAggregationInput = {
+    id?: SortOrder
+    visitorId?: SortOrder
+    landingPath?: SortOrder
+    fromAd?: SortOrder
+    fbclid?: SortOrderInput | SortOrder
+    fbp?: SortOrderInput | SortOrder
+    fbc?: SortOrderInput | SortOrder
+    utmSource?: SortOrderInput | SortOrder
+    utmMedium?: SortOrderInput | SortOrder
+    utmCampaign?: SortOrderInput | SortOrder
+    convertedAt?: SortOrderInput | SortOrder
+    conversion?: SortOrderInput | SortOrder
+    lastSeenAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LandingVisitCountOrderByAggregateInput
+    _max?: LandingVisitMaxOrderByAggregateInput
+    _min?: LandingVisitMinOrderByAggregateInput
+  }
+
+  export type LandingVisitScalarWhereWithAggregatesInput = {
+    AND?: LandingVisitScalarWhereWithAggregatesInput | LandingVisitScalarWhereWithAggregatesInput[]
+    OR?: LandingVisitScalarWhereWithAggregatesInput[]
+    NOT?: LandingVisitScalarWhereWithAggregatesInput | LandingVisitScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LandingVisit"> | string
+    visitorId?: StringWithAggregatesFilter<"LandingVisit"> | string
+    landingPath?: StringWithAggregatesFilter<"LandingVisit"> | string
+    fromAd?: BoolWithAggregatesFilter<"LandingVisit"> | boolean
+    fbclid?: StringNullableWithAggregatesFilter<"LandingVisit"> | string | null
+    fbp?: StringNullableWithAggregatesFilter<"LandingVisit"> | string | null
+    fbc?: StringNullableWithAggregatesFilter<"LandingVisit"> | string | null
+    utmSource?: StringNullableWithAggregatesFilter<"LandingVisit"> | string | null
+    utmMedium?: StringNullableWithAggregatesFilter<"LandingVisit"> | string | null
+    utmCampaign?: StringNullableWithAggregatesFilter<"LandingVisit"> | string | null
+    convertedAt?: DateTimeNullableWithAggregatesFilter<"LandingVisit"> | Date | string | null
+    conversion?: StringNullableWithAggregatesFilter<"LandingVisit"> | string | null
+    lastSeenAt?: DateTimeWithAggregatesFilter<"LandingVisit"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"LandingVisit"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"LandingVisit"> | Date | string
   }
 
   export type LeadPipelineWhereInput = {
@@ -13335,6 +28755,902 @@ export namespace Prisma {
     executedAt?: DateTimeNullableWithAggregatesFilter<"PipelineJob"> | Date | string | null
   }
 
+  export type AirbnbLeadWhereInput = {
+    AND?: AirbnbLeadWhereInput | AirbnbLeadWhereInput[]
+    OR?: AirbnbLeadWhereInput[]
+    NOT?: AirbnbLeadWhereInput | AirbnbLeadWhereInput[]
+    id?: StringFilter<"AirbnbLead"> | string
+    hostAirbnbId?: StringFilter<"AirbnbLead"> | string
+    threadId?: StringNullableFilter<"AirbnbLead"> | string | null
+    name?: StringFilter<"AirbnbLead"> | string
+    hostProfileUrl?: StringFilter<"AirbnbLead"> | string
+    primaryListingUrl?: StringFilter<"AirbnbLead"> | string
+    primaryListingName?: StringNullableFilter<"AirbnbLead"> | string | null
+    totalProperties?: IntFilter<"AirbnbLead"> | number
+    companyName?: StringNullableFilter<"AirbnbLead"> | string | null
+    isSuperhost?: BoolFilter<"AirbnbLead"> | boolean
+    market?: StringNullableFilter<"AirbnbLead"> | string | null
+    icpSkipReason?: EnumIcpSkipReasonNullableFilter<"AirbnbLead"> | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFilter<"AirbnbLead"> | $Enums.LeadStatus
+    businessScale?: StringNullableFilter<"AirbnbLead"> | string | null
+    painPoints?: StringNullableFilter<"AirbnbLead"> | string | null
+    executiveSummary?: StringNullableFilter<"AirbnbLead"> | string | null
+    lastContactedAt?: DateTimeNullableFilter<"AirbnbLead"> | Date | string | null
+    nextFollowUpAt?: DateTimeNullableFilter<"AirbnbLead"> | Date | string | null
+    botReplyCount?: IntFilter<"AirbnbLead"> | number
+    calLinkSent?: BoolFilter<"AirbnbLead"> | boolean
+    calBookedAt?: DateTimeNullableFilter<"AirbnbLead"> | Date | string | null
+    hostEmail?: StringNullableFilter<"AirbnbLead"> | string | null
+    contactId?: StringNullableFilter<"AirbnbLead"> | string | null
+    createdAt?: DateTimeFilter<"AirbnbLead"> | Date | string
+    updatedAt?: DateTimeFilter<"AirbnbLead"> | Date | string
+    contact?: XOR<ContactNullableScalarRelationFilter, ContactWhereInput> | null
+    messages?: AirbnbMessageListRelationFilter
+    calBookings?: CalBookingListRelationFilter
+    hostContact?: XOR<HostContactNullableScalarRelationFilter, HostContactWhereInput> | null
+    commercial?: XOR<AirbnbCommercialNullableScalarRelationFilter, AirbnbCommercialWhereInput> | null
+    events?: LeadEventListRelationFilter
+  }
+
+  export type AirbnbLeadOrderByWithRelationInput = {
+    id?: SortOrder
+    hostAirbnbId?: SortOrder
+    threadId?: SortOrderInput | SortOrder
+    name?: SortOrder
+    hostProfileUrl?: SortOrder
+    primaryListingUrl?: SortOrder
+    primaryListingName?: SortOrderInput | SortOrder
+    totalProperties?: SortOrder
+    companyName?: SortOrderInput | SortOrder
+    isSuperhost?: SortOrder
+    market?: SortOrderInput | SortOrder
+    icpSkipReason?: SortOrderInput | SortOrder
+    status?: SortOrder
+    businessScale?: SortOrderInput | SortOrder
+    painPoints?: SortOrderInput | SortOrder
+    executiveSummary?: SortOrderInput | SortOrder
+    lastContactedAt?: SortOrderInput | SortOrder
+    nextFollowUpAt?: SortOrderInput | SortOrder
+    botReplyCount?: SortOrder
+    calLinkSent?: SortOrder
+    calBookedAt?: SortOrderInput | SortOrder
+    hostEmail?: SortOrderInput | SortOrder
+    contactId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    contact?: ContactOrderByWithRelationInput
+    messages?: AirbnbMessageOrderByRelationAggregateInput
+    calBookings?: CalBookingOrderByRelationAggregateInput
+    hostContact?: HostContactOrderByWithRelationInput
+    commercial?: AirbnbCommercialOrderByWithRelationInput
+    events?: LeadEventOrderByRelationAggregateInput
+  }
+
+  export type AirbnbLeadWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    hostAirbnbId?: string
+    threadId?: string
+    contactId?: string
+    AND?: AirbnbLeadWhereInput | AirbnbLeadWhereInput[]
+    OR?: AirbnbLeadWhereInput[]
+    NOT?: AirbnbLeadWhereInput | AirbnbLeadWhereInput[]
+    name?: StringFilter<"AirbnbLead"> | string
+    hostProfileUrl?: StringFilter<"AirbnbLead"> | string
+    primaryListingUrl?: StringFilter<"AirbnbLead"> | string
+    primaryListingName?: StringNullableFilter<"AirbnbLead"> | string | null
+    totalProperties?: IntFilter<"AirbnbLead"> | number
+    companyName?: StringNullableFilter<"AirbnbLead"> | string | null
+    isSuperhost?: BoolFilter<"AirbnbLead"> | boolean
+    market?: StringNullableFilter<"AirbnbLead"> | string | null
+    icpSkipReason?: EnumIcpSkipReasonNullableFilter<"AirbnbLead"> | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFilter<"AirbnbLead"> | $Enums.LeadStatus
+    businessScale?: StringNullableFilter<"AirbnbLead"> | string | null
+    painPoints?: StringNullableFilter<"AirbnbLead"> | string | null
+    executiveSummary?: StringNullableFilter<"AirbnbLead"> | string | null
+    lastContactedAt?: DateTimeNullableFilter<"AirbnbLead"> | Date | string | null
+    nextFollowUpAt?: DateTimeNullableFilter<"AirbnbLead"> | Date | string | null
+    botReplyCount?: IntFilter<"AirbnbLead"> | number
+    calLinkSent?: BoolFilter<"AirbnbLead"> | boolean
+    calBookedAt?: DateTimeNullableFilter<"AirbnbLead"> | Date | string | null
+    hostEmail?: StringNullableFilter<"AirbnbLead"> | string | null
+    createdAt?: DateTimeFilter<"AirbnbLead"> | Date | string
+    updatedAt?: DateTimeFilter<"AirbnbLead"> | Date | string
+    contact?: XOR<ContactNullableScalarRelationFilter, ContactWhereInput> | null
+    messages?: AirbnbMessageListRelationFilter
+    calBookings?: CalBookingListRelationFilter
+    hostContact?: XOR<HostContactNullableScalarRelationFilter, HostContactWhereInput> | null
+    commercial?: XOR<AirbnbCommercialNullableScalarRelationFilter, AirbnbCommercialWhereInput> | null
+    events?: LeadEventListRelationFilter
+  }, "id" | "hostAirbnbId" | "threadId" | "contactId">
+
+  export type AirbnbLeadOrderByWithAggregationInput = {
+    id?: SortOrder
+    hostAirbnbId?: SortOrder
+    threadId?: SortOrderInput | SortOrder
+    name?: SortOrder
+    hostProfileUrl?: SortOrder
+    primaryListingUrl?: SortOrder
+    primaryListingName?: SortOrderInput | SortOrder
+    totalProperties?: SortOrder
+    companyName?: SortOrderInput | SortOrder
+    isSuperhost?: SortOrder
+    market?: SortOrderInput | SortOrder
+    icpSkipReason?: SortOrderInput | SortOrder
+    status?: SortOrder
+    businessScale?: SortOrderInput | SortOrder
+    painPoints?: SortOrderInput | SortOrder
+    executiveSummary?: SortOrderInput | SortOrder
+    lastContactedAt?: SortOrderInput | SortOrder
+    nextFollowUpAt?: SortOrderInput | SortOrder
+    botReplyCount?: SortOrder
+    calLinkSent?: SortOrder
+    calBookedAt?: SortOrderInput | SortOrder
+    hostEmail?: SortOrderInput | SortOrder
+    contactId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AirbnbLeadCountOrderByAggregateInput
+    _avg?: AirbnbLeadAvgOrderByAggregateInput
+    _max?: AirbnbLeadMaxOrderByAggregateInput
+    _min?: AirbnbLeadMinOrderByAggregateInput
+    _sum?: AirbnbLeadSumOrderByAggregateInput
+  }
+
+  export type AirbnbLeadScalarWhereWithAggregatesInput = {
+    AND?: AirbnbLeadScalarWhereWithAggregatesInput | AirbnbLeadScalarWhereWithAggregatesInput[]
+    OR?: AirbnbLeadScalarWhereWithAggregatesInput[]
+    NOT?: AirbnbLeadScalarWhereWithAggregatesInput | AirbnbLeadScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AirbnbLead"> | string
+    hostAirbnbId?: StringWithAggregatesFilter<"AirbnbLead"> | string
+    threadId?: StringNullableWithAggregatesFilter<"AirbnbLead"> | string | null
+    name?: StringWithAggregatesFilter<"AirbnbLead"> | string
+    hostProfileUrl?: StringWithAggregatesFilter<"AirbnbLead"> | string
+    primaryListingUrl?: StringWithAggregatesFilter<"AirbnbLead"> | string
+    primaryListingName?: StringNullableWithAggregatesFilter<"AirbnbLead"> | string | null
+    totalProperties?: IntWithAggregatesFilter<"AirbnbLead"> | number
+    companyName?: StringNullableWithAggregatesFilter<"AirbnbLead"> | string | null
+    isSuperhost?: BoolWithAggregatesFilter<"AirbnbLead"> | boolean
+    market?: StringNullableWithAggregatesFilter<"AirbnbLead"> | string | null
+    icpSkipReason?: EnumIcpSkipReasonNullableWithAggregatesFilter<"AirbnbLead"> | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusWithAggregatesFilter<"AirbnbLead"> | $Enums.LeadStatus
+    businessScale?: StringNullableWithAggregatesFilter<"AirbnbLead"> | string | null
+    painPoints?: StringNullableWithAggregatesFilter<"AirbnbLead"> | string | null
+    executiveSummary?: StringNullableWithAggregatesFilter<"AirbnbLead"> | string | null
+    lastContactedAt?: DateTimeNullableWithAggregatesFilter<"AirbnbLead"> | Date | string | null
+    nextFollowUpAt?: DateTimeNullableWithAggregatesFilter<"AirbnbLead"> | Date | string | null
+    botReplyCount?: IntWithAggregatesFilter<"AirbnbLead"> | number
+    calLinkSent?: BoolWithAggregatesFilter<"AirbnbLead"> | boolean
+    calBookedAt?: DateTimeNullableWithAggregatesFilter<"AirbnbLead"> | Date | string | null
+    hostEmail?: StringNullableWithAggregatesFilter<"AirbnbLead"> | string | null
+    contactId?: StringNullableWithAggregatesFilter<"AirbnbLead"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AirbnbLead"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AirbnbLead"> | Date | string
+  }
+
+  export type AirbnbMessageWhereInput = {
+    AND?: AirbnbMessageWhereInput | AirbnbMessageWhereInput[]
+    OR?: AirbnbMessageWhereInput[]
+    NOT?: AirbnbMessageWhereInput | AirbnbMessageWhereInput[]
+    id?: StringFilter<"AirbnbMessage"> | string
+    leadId?: StringFilter<"AirbnbMessage"> | string
+    prospectAccountId?: StringNullableFilter<"AirbnbMessage"> | string | null
+    direction?: EnumMessageDirectionFilter<"AirbnbMessage"> | $Enums.MessageDirection
+    content?: StringFilter<"AirbnbMessage"> | string
+    aiIntent?: StringNullableFilter<"AirbnbMessage"> | string | null
+    sentAt?: DateTimeFilter<"AirbnbMessage"> | Date | string
+    lead?: XOR<AirbnbLeadScalarRelationFilter, AirbnbLeadWhereInput>
+    prospectAccount?: XOR<ProspectAccountNullableScalarRelationFilter, ProspectAccountWhereInput> | null
+  }
+
+  export type AirbnbMessageOrderByWithRelationInput = {
+    id?: SortOrder
+    leadId?: SortOrder
+    prospectAccountId?: SortOrderInput | SortOrder
+    direction?: SortOrder
+    content?: SortOrder
+    aiIntent?: SortOrderInput | SortOrder
+    sentAt?: SortOrder
+    lead?: AirbnbLeadOrderByWithRelationInput
+    prospectAccount?: ProspectAccountOrderByWithRelationInput
+  }
+
+  export type AirbnbMessageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AirbnbMessageWhereInput | AirbnbMessageWhereInput[]
+    OR?: AirbnbMessageWhereInput[]
+    NOT?: AirbnbMessageWhereInput | AirbnbMessageWhereInput[]
+    leadId?: StringFilter<"AirbnbMessage"> | string
+    prospectAccountId?: StringNullableFilter<"AirbnbMessage"> | string | null
+    direction?: EnumMessageDirectionFilter<"AirbnbMessage"> | $Enums.MessageDirection
+    content?: StringFilter<"AirbnbMessage"> | string
+    aiIntent?: StringNullableFilter<"AirbnbMessage"> | string | null
+    sentAt?: DateTimeFilter<"AirbnbMessage"> | Date | string
+    lead?: XOR<AirbnbLeadScalarRelationFilter, AirbnbLeadWhereInput>
+    prospectAccount?: XOR<ProspectAccountNullableScalarRelationFilter, ProspectAccountWhereInput> | null
+  }, "id">
+
+  export type AirbnbMessageOrderByWithAggregationInput = {
+    id?: SortOrder
+    leadId?: SortOrder
+    prospectAccountId?: SortOrderInput | SortOrder
+    direction?: SortOrder
+    content?: SortOrder
+    aiIntent?: SortOrderInput | SortOrder
+    sentAt?: SortOrder
+    _count?: AirbnbMessageCountOrderByAggregateInput
+    _max?: AirbnbMessageMaxOrderByAggregateInput
+    _min?: AirbnbMessageMinOrderByAggregateInput
+  }
+
+  export type AirbnbMessageScalarWhereWithAggregatesInput = {
+    AND?: AirbnbMessageScalarWhereWithAggregatesInput | AirbnbMessageScalarWhereWithAggregatesInput[]
+    OR?: AirbnbMessageScalarWhereWithAggregatesInput[]
+    NOT?: AirbnbMessageScalarWhereWithAggregatesInput | AirbnbMessageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AirbnbMessage"> | string
+    leadId?: StringWithAggregatesFilter<"AirbnbMessage"> | string
+    prospectAccountId?: StringNullableWithAggregatesFilter<"AirbnbMessage"> | string | null
+    direction?: EnumMessageDirectionWithAggregatesFilter<"AirbnbMessage"> | $Enums.MessageDirection
+    content?: StringWithAggregatesFilter<"AirbnbMessage"> | string
+    aiIntent?: StringNullableWithAggregatesFilter<"AirbnbMessage"> | string | null
+    sentAt?: DateTimeWithAggregatesFilter<"AirbnbMessage"> | Date | string
+  }
+
+  export type SystemStateWhereInput = {
+    AND?: SystemStateWhereInput | SystemStateWhereInput[]
+    OR?: SystemStateWhereInput[]
+    NOT?: SystemStateWhereInput | SystemStateWhereInput[]
+    key?: StringFilter<"SystemState"> | string
+    value?: StringFilter<"SystemState"> | string
+    updatedAt?: DateTimeFilter<"SystemState"> | Date | string
+  }
+
+  export type SystemStateOrderByWithRelationInput = {
+    key?: SortOrder
+    value?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SystemStateWhereUniqueInput = Prisma.AtLeast<{
+    key?: string
+    AND?: SystemStateWhereInput | SystemStateWhereInput[]
+    OR?: SystemStateWhereInput[]
+    NOT?: SystemStateWhereInput | SystemStateWhereInput[]
+    value?: StringFilter<"SystemState"> | string
+    updatedAt?: DateTimeFilter<"SystemState"> | Date | string
+  }, "key">
+
+  export type SystemStateOrderByWithAggregationInput = {
+    key?: SortOrder
+    value?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SystemStateCountOrderByAggregateInput
+    _max?: SystemStateMaxOrderByAggregateInput
+    _min?: SystemStateMinOrderByAggregateInput
+  }
+
+  export type SystemStateScalarWhereWithAggregatesInput = {
+    AND?: SystemStateScalarWhereWithAggregatesInput | SystemStateScalarWhereWithAggregatesInput[]
+    OR?: SystemStateScalarWhereWithAggregatesInput[]
+    NOT?: SystemStateScalarWhereWithAggregatesInput | SystemStateScalarWhereWithAggregatesInput[]
+    key?: StringWithAggregatesFilter<"SystemState"> | string
+    value?: StringWithAggregatesFilter<"SystemState"> | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SystemState"> | Date | string
+  }
+
+  export type CalBookingWhereInput = {
+    AND?: CalBookingWhereInput | CalBookingWhereInput[]
+    OR?: CalBookingWhereInput[]
+    NOT?: CalBookingWhereInput | CalBookingWhereInput[]
+    id?: StringFilter<"CalBooking"> | string
+    calUid?: StringFilter<"CalBooking"> | string
+    calBookingId?: IntNullableFilter<"CalBooking"> | number | null
+    leadId?: StringFilter<"CalBooking"> | string
+    triggerEvent?: StringFilter<"CalBooking"> | string
+    startTime?: DateTimeFilter<"CalBooking"> | Date | string
+    endTime?: DateTimeNullableFilter<"CalBooking"> | Date | string | null
+    attendeeEmail?: StringNullableFilter<"CalBooking"> | string | null
+    attendeeName?: StringNullableFilter<"CalBooking"> | string | null
+    eventTypeSlug?: StringNullableFilter<"CalBooking"> | string | null
+    createdAt?: DateTimeFilter<"CalBooking"> | Date | string
+    lead?: XOR<AirbnbLeadScalarRelationFilter, AirbnbLeadWhereInput>
+  }
+
+  export type CalBookingOrderByWithRelationInput = {
+    id?: SortOrder
+    calUid?: SortOrder
+    calBookingId?: SortOrderInput | SortOrder
+    leadId?: SortOrder
+    triggerEvent?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrderInput | SortOrder
+    attendeeEmail?: SortOrderInput | SortOrder
+    attendeeName?: SortOrderInput | SortOrder
+    eventTypeSlug?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    lead?: AirbnbLeadOrderByWithRelationInput
+  }
+
+  export type CalBookingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    calUid?: string
+    AND?: CalBookingWhereInput | CalBookingWhereInput[]
+    OR?: CalBookingWhereInput[]
+    NOT?: CalBookingWhereInput | CalBookingWhereInput[]
+    calBookingId?: IntNullableFilter<"CalBooking"> | number | null
+    leadId?: StringFilter<"CalBooking"> | string
+    triggerEvent?: StringFilter<"CalBooking"> | string
+    startTime?: DateTimeFilter<"CalBooking"> | Date | string
+    endTime?: DateTimeNullableFilter<"CalBooking"> | Date | string | null
+    attendeeEmail?: StringNullableFilter<"CalBooking"> | string | null
+    attendeeName?: StringNullableFilter<"CalBooking"> | string | null
+    eventTypeSlug?: StringNullableFilter<"CalBooking"> | string | null
+    createdAt?: DateTimeFilter<"CalBooking"> | Date | string
+    lead?: XOR<AirbnbLeadScalarRelationFilter, AirbnbLeadWhereInput>
+  }, "id" | "calUid">
+
+  export type CalBookingOrderByWithAggregationInput = {
+    id?: SortOrder
+    calUid?: SortOrder
+    calBookingId?: SortOrderInput | SortOrder
+    leadId?: SortOrder
+    triggerEvent?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrderInput | SortOrder
+    attendeeEmail?: SortOrderInput | SortOrder
+    attendeeName?: SortOrderInput | SortOrder
+    eventTypeSlug?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: CalBookingCountOrderByAggregateInput
+    _avg?: CalBookingAvgOrderByAggregateInput
+    _max?: CalBookingMaxOrderByAggregateInput
+    _min?: CalBookingMinOrderByAggregateInput
+    _sum?: CalBookingSumOrderByAggregateInput
+  }
+
+  export type CalBookingScalarWhereWithAggregatesInput = {
+    AND?: CalBookingScalarWhereWithAggregatesInput | CalBookingScalarWhereWithAggregatesInput[]
+    OR?: CalBookingScalarWhereWithAggregatesInput[]
+    NOT?: CalBookingScalarWhereWithAggregatesInput | CalBookingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CalBooking"> | string
+    calUid?: StringWithAggregatesFilter<"CalBooking"> | string
+    calBookingId?: IntNullableWithAggregatesFilter<"CalBooking"> | number | null
+    leadId?: StringWithAggregatesFilter<"CalBooking"> | string
+    triggerEvent?: StringWithAggregatesFilter<"CalBooking"> | string
+    startTime?: DateTimeWithAggregatesFilter<"CalBooking"> | Date | string
+    endTime?: DateTimeNullableWithAggregatesFilter<"CalBooking"> | Date | string | null
+    attendeeEmail?: StringNullableWithAggregatesFilter<"CalBooking"> | string | null
+    attendeeName?: StringNullableWithAggregatesFilter<"CalBooking"> | string | null
+    eventTypeSlug?: StringNullableWithAggregatesFilter<"CalBooking"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CalBooking"> | Date | string
+  }
+
+  export type ProspectAccountWhereInput = {
+    AND?: ProspectAccountWhereInput | ProspectAccountWhereInput[]
+    OR?: ProspectAccountWhereInput[]
+    NOT?: ProspectAccountWhereInput | ProspectAccountWhereInput[]
+    id?: StringFilter<"ProspectAccount"> | string
+    label?: StringFilter<"ProspectAccount"> | string
+    airbnbEmail?: StringFilter<"ProspectAccount"> | string
+    airbnbPasswordEnc?: StringNullableFilter<"ProspectAccount"> | string | null
+    composioUserId?: StringNullableFilter<"ProspectAccount"> | string | null
+    composioConnectionId?: StringNullableFilter<"ProspectAccount"> | string | null
+    composioConnectedAt?: DateTimeNullableFilter<"ProspectAccount"> | Date | string | null
+    proxyHost?: StringNullableFilter<"ProspectAccount"> | string | null
+    proxyPort?: IntNullableFilter<"ProspectAccount"> | number | null
+    proxyUser?: StringNullableFilter<"ProspectAccount"> | string | null
+    proxyPassEnc?: StringNullableFilter<"ProspectAccount"> | string | null
+    proxyProvider?: StringNullableFilter<"ProspectAccount"> | string | null
+    proxySessionId?: StringNullableFilter<"ProspectAccount"> | string | null
+    proxyCountry?: StringNullableFilter<"ProspectAccount"> | string | null
+    sessionPath?: StringNullableFilter<"ProspectAccount"> | string | null
+    sessionStateEnc?: StringNullableFilter<"ProspectAccount"> | string | null
+    market?: StringNullableFilter<"ProspectAccount"> | string | null
+    messagesSentToday?: IntFilter<"ProspectAccount"> | number
+    waveMessagesSent?: IntFilter<"ProspectAccount"> | number
+    status?: EnumAccountStatusFilter<"ProspectAccount"> | $Enums.AccountStatus
+    rateLimitedAt?: DateTimeNullableFilter<"ProspectAccount"> | Date | string | null
+    cooldownUntil?: DateTimeNullableFilter<"ProspectAccount"> | Date | string | null
+    lastWaveStartedAt?: DateTimeNullableFilter<"ProspectAccount"> | Date | string | null
+    createdAt?: DateTimeFilter<"ProspectAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"ProspectAccount"> | Date | string
+    blockEvents?: AccountBlockEventListRelationFilter
+    messages?: AirbnbMessageListRelationFilter
+    hostContacts?: HostContactListRelationFilter
+  }
+
+  export type ProspectAccountOrderByWithRelationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    airbnbEmail?: SortOrder
+    airbnbPasswordEnc?: SortOrderInput | SortOrder
+    composioUserId?: SortOrderInput | SortOrder
+    composioConnectionId?: SortOrderInput | SortOrder
+    composioConnectedAt?: SortOrderInput | SortOrder
+    proxyHost?: SortOrderInput | SortOrder
+    proxyPort?: SortOrderInput | SortOrder
+    proxyUser?: SortOrderInput | SortOrder
+    proxyPassEnc?: SortOrderInput | SortOrder
+    proxyProvider?: SortOrderInput | SortOrder
+    proxySessionId?: SortOrderInput | SortOrder
+    proxyCountry?: SortOrderInput | SortOrder
+    sessionPath?: SortOrderInput | SortOrder
+    sessionStateEnc?: SortOrderInput | SortOrder
+    market?: SortOrderInput | SortOrder
+    messagesSentToday?: SortOrder
+    waveMessagesSent?: SortOrder
+    status?: SortOrder
+    rateLimitedAt?: SortOrderInput | SortOrder
+    cooldownUntil?: SortOrderInput | SortOrder
+    lastWaveStartedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    blockEvents?: AccountBlockEventOrderByRelationAggregateInput
+    messages?: AirbnbMessageOrderByRelationAggregateInput
+    hostContacts?: HostContactOrderByRelationAggregateInput
+  }
+
+  export type ProspectAccountWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    airbnbEmail?: string
+    AND?: ProspectAccountWhereInput | ProspectAccountWhereInput[]
+    OR?: ProspectAccountWhereInput[]
+    NOT?: ProspectAccountWhereInput | ProspectAccountWhereInput[]
+    label?: StringFilter<"ProspectAccount"> | string
+    airbnbPasswordEnc?: StringNullableFilter<"ProspectAccount"> | string | null
+    composioUserId?: StringNullableFilter<"ProspectAccount"> | string | null
+    composioConnectionId?: StringNullableFilter<"ProspectAccount"> | string | null
+    composioConnectedAt?: DateTimeNullableFilter<"ProspectAccount"> | Date | string | null
+    proxyHost?: StringNullableFilter<"ProspectAccount"> | string | null
+    proxyPort?: IntNullableFilter<"ProspectAccount"> | number | null
+    proxyUser?: StringNullableFilter<"ProspectAccount"> | string | null
+    proxyPassEnc?: StringNullableFilter<"ProspectAccount"> | string | null
+    proxyProvider?: StringNullableFilter<"ProspectAccount"> | string | null
+    proxySessionId?: StringNullableFilter<"ProspectAccount"> | string | null
+    proxyCountry?: StringNullableFilter<"ProspectAccount"> | string | null
+    sessionPath?: StringNullableFilter<"ProspectAccount"> | string | null
+    sessionStateEnc?: StringNullableFilter<"ProspectAccount"> | string | null
+    market?: StringNullableFilter<"ProspectAccount"> | string | null
+    messagesSentToday?: IntFilter<"ProspectAccount"> | number
+    waveMessagesSent?: IntFilter<"ProspectAccount"> | number
+    status?: EnumAccountStatusFilter<"ProspectAccount"> | $Enums.AccountStatus
+    rateLimitedAt?: DateTimeNullableFilter<"ProspectAccount"> | Date | string | null
+    cooldownUntil?: DateTimeNullableFilter<"ProspectAccount"> | Date | string | null
+    lastWaveStartedAt?: DateTimeNullableFilter<"ProspectAccount"> | Date | string | null
+    createdAt?: DateTimeFilter<"ProspectAccount"> | Date | string
+    updatedAt?: DateTimeFilter<"ProspectAccount"> | Date | string
+    blockEvents?: AccountBlockEventListRelationFilter
+    messages?: AirbnbMessageListRelationFilter
+    hostContacts?: HostContactListRelationFilter
+  }, "id" | "airbnbEmail">
+
+  export type ProspectAccountOrderByWithAggregationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    airbnbEmail?: SortOrder
+    airbnbPasswordEnc?: SortOrderInput | SortOrder
+    composioUserId?: SortOrderInput | SortOrder
+    composioConnectionId?: SortOrderInput | SortOrder
+    composioConnectedAt?: SortOrderInput | SortOrder
+    proxyHost?: SortOrderInput | SortOrder
+    proxyPort?: SortOrderInput | SortOrder
+    proxyUser?: SortOrderInput | SortOrder
+    proxyPassEnc?: SortOrderInput | SortOrder
+    proxyProvider?: SortOrderInput | SortOrder
+    proxySessionId?: SortOrderInput | SortOrder
+    proxyCountry?: SortOrderInput | SortOrder
+    sessionPath?: SortOrderInput | SortOrder
+    sessionStateEnc?: SortOrderInput | SortOrder
+    market?: SortOrderInput | SortOrder
+    messagesSentToday?: SortOrder
+    waveMessagesSent?: SortOrder
+    status?: SortOrder
+    rateLimitedAt?: SortOrderInput | SortOrder
+    cooldownUntil?: SortOrderInput | SortOrder
+    lastWaveStartedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ProspectAccountCountOrderByAggregateInput
+    _avg?: ProspectAccountAvgOrderByAggregateInput
+    _max?: ProspectAccountMaxOrderByAggregateInput
+    _min?: ProspectAccountMinOrderByAggregateInput
+    _sum?: ProspectAccountSumOrderByAggregateInput
+  }
+
+  export type ProspectAccountScalarWhereWithAggregatesInput = {
+    AND?: ProspectAccountScalarWhereWithAggregatesInput | ProspectAccountScalarWhereWithAggregatesInput[]
+    OR?: ProspectAccountScalarWhereWithAggregatesInput[]
+    NOT?: ProspectAccountScalarWhereWithAggregatesInput | ProspectAccountScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ProspectAccount"> | string
+    label?: StringWithAggregatesFilter<"ProspectAccount"> | string
+    airbnbEmail?: StringWithAggregatesFilter<"ProspectAccount"> | string
+    airbnbPasswordEnc?: StringNullableWithAggregatesFilter<"ProspectAccount"> | string | null
+    composioUserId?: StringNullableWithAggregatesFilter<"ProspectAccount"> | string | null
+    composioConnectionId?: StringNullableWithAggregatesFilter<"ProspectAccount"> | string | null
+    composioConnectedAt?: DateTimeNullableWithAggregatesFilter<"ProspectAccount"> | Date | string | null
+    proxyHost?: StringNullableWithAggregatesFilter<"ProspectAccount"> | string | null
+    proxyPort?: IntNullableWithAggregatesFilter<"ProspectAccount"> | number | null
+    proxyUser?: StringNullableWithAggregatesFilter<"ProspectAccount"> | string | null
+    proxyPassEnc?: StringNullableWithAggregatesFilter<"ProspectAccount"> | string | null
+    proxyProvider?: StringNullableWithAggregatesFilter<"ProspectAccount"> | string | null
+    proxySessionId?: StringNullableWithAggregatesFilter<"ProspectAccount"> | string | null
+    proxyCountry?: StringNullableWithAggregatesFilter<"ProspectAccount"> | string | null
+    sessionPath?: StringNullableWithAggregatesFilter<"ProspectAccount"> | string | null
+    sessionStateEnc?: StringNullableWithAggregatesFilter<"ProspectAccount"> | string | null
+    market?: StringNullableWithAggregatesFilter<"ProspectAccount"> | string | null
+    messagesSentToday?: IntWithAggregatesFilter<"ProspectAccount"> | number
+    waveMessagesSent?: IntWithAggregatesFilter<"ProspectAccount"> | number
+    status?: EnumAccountStatusWithAggregatesFilter<"ProspectAccount"> | $Enums.AccountStatus
+    rateLimitedAt?: DateTimeNullableWithAggregatesFilter<"ProspectAccount"> | Date | string | null
+    cooldownUntil?: DateTimeNullableWithAggregatesFilter<"ProspectAccount"> | Date | string | null
+    lastWaveStartedAt?: DateTimeNullableWithAggregatesFilter<"ProspectAccount"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ProspectAccount"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ProspectAccount"> | Date | string
+  }
+
+  export type HostContactWhereInput = {
+    AND?: HostContactWhereInput | HostContactWhereInput[]
+    OR?: HostContactWhereInput[]
+    NOT?: HostContactWhereInput | HostContactWhereInput[]
+    id?: StringFilter<"HostContact"> | string
+    hostAirbnbId?: StringFilter<"HostContact"> | string
+    leadId?: StringFilter<"HostContact"> | string
+    firstContactedAt?: DateTimeFilter<"HostContact"> | Date | string
+    firstContactAccountId?: StringNullableFilter<"HostContact"> | string | null
+    source?: EnumContactSourceFilter<"HostContact"> | $Enums.ContactSource
+    createdAt?: DateTimeFilter<"HostContact"> | Date | string
+    lead?: XOR<AirbnbLeadScalarRelationFilter, AirbnbLeadWhereInput>
+    firstContactAccount?: XOR<ProspectAccountNullableScalarRelationFilter, ProspectAccountWhereInput> | null
+  }
+
+  export type HostContactOrderByWithRelationInput = {
+    id?: SortOrder
+    hostAirbnbId?: SortOrder
+    leadId?: SortOrder
+    firstContactedAt?: SortOrder
+    firstContactAccountId?: SortOrderInput | SortOrder
+    source?: SortOrder
+    createdAt?: SortOrder
+    lead?: AirbnbLeadOrderByWithRelationInput
+    firstContactAccount?: ProspectAccountOrderByWithRelationInput
+  }
+
+  export type HostContactWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    hostAirbnbId?: string
+    leadId?: string
+    AND?: HostContactWhereInput | HostContactWhereInput[]
+    OR?: HostContactWhereInput[]
+    NOT?: HostContactWhereInput | HostContactWhereInput[]
+    firstContactedAt?: DateTimeFilter<"HostContact"> | Date | string
+    firstContactAccountId?: StringNullableFilter<"HostContact"> | string | null
+    source?: EnumContactSourceFilter<"HostContact"> | $Enums.ContactSource
+    createdAt?: DateTimeFilter<"HostContact"> | Date | string
+    lead?: XOR<AirbnbLeadScalarRelationFilter, AirbnbLeadWhereInput>
+    firstContactAccount?: XOR<ProspectAccountNullableScalarRelationFilter, ProspectAccountWhereInput> | null
+  }, "id" | "hostAirbnbId" | "leadId">
+
+  export type HostContactOrderByWithAggregationInput = {
+    id?: SortOrder
+    hostAirbnbId?: SortOrder
+    leadId?: SortOrder
+    firstContactedAt?: SortOrder
+    firstContactAccountId?: SortOrderInput | SortOrder
+    source?: SortOrder
+    createdAt?: SortOrder
+    _count?: HostContactCountOrderByAggregateInput
+    _max?: HostContactMaxOrderByAggregateInput
+    _min?: HostContactMinOrderByAggregateInput
+  }
+
+  export type HostContactScalarWhereWithAggregatesInput = {
+    AND?: HostContactScalarWhereWithAggregatesInput | HostContactScalarWhereWithAggregatesInput[]
+    OR?: HostContactScalarWhereWithAggregatesInput[]
+    NOT?: HostContactScalarWhereWithAggregatesInput | HostContactScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"HostContact"> | string
+    hostAirbnbId?: StringWithAggregatesFilter<"HostContact"> | string
+    leadId?: StringWithAggregatesFilter<"HostContact"> | string
+    firstContactedAt?: DateTimeWithAggregatesFilter<"HostContact"> | Date | string
+    firstContactAccountId?: StringNullableWithAggregatesFilter<"HostContact"> | string | null
+    source?: EnumContactSourceWithAggregatesFilter<"HostContact"> | $Enums.ContactSource
+    createdAt?: DateTimeWithAggregatesFilter<"HostContact"> | Date | string
+  }
+
+  export type LeadIdentityAliasWhereInput = {
+    AND?: LeadIdentityAliasWhereInput | LeadIdentityAliasWhereInput[]
+    OR?: LeadIdentityAliasWhereInput[]
+    NOT?: LeadIdentityAliasWhereInput | LeadIdentityAliasWhereInput[]
+    id?: StringFilter<"LeadIdentityAlias"> | string
+    aliasId?: StringFilter<"LeadIdentityAlias"> | string
+    canonicalId?: StringFilter<"LeadIdentityAlias"> | string
+    leadId?: StringNullableFilter<"LeadIdentityAlias"> | string | null
+  }
+
+  export type LeadIdentityAliasOrderByWithRelationInput = {
+    id?: SortOrder
+    aliasId?: SortOrder
+    canonicalId?: SortOrder
+    leadId?: SortOrderInput | SortOrder
+  }
+
+  export type LeadIdentityAliasWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    aliasId?: string
+    AND?: LeadIdentityAliasWhereInput | LeadIdentityAliasWhereInput[]
+    OR?: LeadIdentityAliasWhereInput[]
+    NOT?: LeadIdentityAliasWhereInput | LeadIdentityAliasWhereInput[]
+    canonicalId?: StringFilter<"LeadIdentityAlias"> | string
+    leadId?: StringNullableFilter<"LeadIdentityAlias"> | string | null
+  }, "id" | "aliasId">
+
+  export type LeadIdentityAliasOrderByWithAggregationInput = {
+    id?: SortOrder
+    aliasId?: SortOrder
+    canonicalId?: SortOrder
+    leadId?: SortOrderInput | SortOrder
+    _count?: LeadIdentityAliasCountOrderByAggregateInput
+    _max?: LeadIdentityAliasMaxOrderByAggregateInput
+    _min?: LeadIdentityAliasMinOrderByAggregateInput
+  }
+
+  export type LeadIdentityAliasScalarWhereWithAggregatesInput = {
+    AND?: LeadIdentityAliasScalarWhereWithAggregatesInput | LeadIdentityAliasScalarWhereWithAggregatesInput[]
+    OR?: LeadIdentityAliasScalarWhereWithAggregatesInput[]
+    NOT?: LeadIdentityAliasScalarWhereWithAggregatesInput | LeadIdentityAliasScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LeadIdentityAlias"> | string
+    aliasId?: StringWithAggregatesFilter<"LeadIdentityAlias"> | string
+    canonicalId?: StringWithAggregatesFilter<"LeadIdentityAlias"> | string
+    leadId?: StringNullableWithAggregatesFilter<"LeadIdentityAlias"> | string | null
+  }
+
+  export type DailyOutboundStatsWhereInput = {
+    AND?: DailyOutboundStatsWhereInput | DailyOutboundStatsWhereInput[]
+    OR?: DailyOutboundStatsWhereInput[]
+    NOT?: DailyOutboundStatsWhereInput | DailyOutboundStatsWhereInput[]
+    id?: StringFilter<"DailyOutboundStats"> | string
+    date?: DateTimeFilter<"DailyOutboundStats"> | Date | string
+    market?: StringFilter<"DailyOutboundStats"> | string
+    coldMessagesSent?: IntFilter<"DailyOutboundStats"> | number
+  }
+
+  export type DailyOutboundStatsOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    market?: SortOrder
+    coldMessagesSent?: SortOrder
+  }
+
+  export type DailyOutboundStatsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    date_market?: DailyOutboundStatsDateMarketCompoundUniqueInput
+    AND?: DailyOutboundStatsWhereInput | DailyOutboundStatsWhereInput[]
+    OR?: DailyOutboundStatsWhereInput[]
+    NOT?: DailyOutboundStatsWhereInput | DailyOutboundStatsWhereInput[]
+    date?: DateTimeFilter<"DailyOutboundStats"> | Date | string
+    market?: StringFilter<"DailyOutboundStats"> | string
+    coldMessagesSent?: IntFilter<"DailyOutboundStats"> | number
+  }, "id" | "date_market">
+
+  export type DailyOutboundStatsOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    market?: SortOrder
+    coldMessagesSent?: SortOrder
+    _count?: DailyOutboundStatsCountOrderByAggregateInput
+    _avg?: DailyOutboundStatsAvgOrderByAggregateInput
+    _max?: DailyOutboundStatsMaxOrderByAggregateInput
+    _min?: DailyOutboundStatsMinOrderByAggregateInput
+    _sum?: DailyOutboundStatsSumOrderByAggregateInput
+  }
+
+  export type DailyOutboundStatsScalarWhereWithAggregatesInput = {
+    AND?: DailyOutboundStatsScalarWhereWithAggregatesInput | DailyOutboundStatsScalarWhereWithAggregatesInput[]
+    OR?: DailyOutboundStatsScalarWhereWithAggregatesInput[]
+    NOT?: DailyOutboundStatsScalarWhereWithAggregatesInput | DailyOutboundStatsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DailyOutboundStats"> | string
+    date?: DateTimeWithAggregatesFilter<"DailyOutboundStats"> | Date | string
+    market?: StringWithAggregatesFilter<"DailyOutboundStats"> | string
+    coldMessagesSent?: IntWithAggregatesFilter<"DailyOutboundStats"> | number
+  }
+
+  export type AccountBlockEventWhereInput = {
+    AND?: AccountBlockEventWhereInput | AccountBlockEventWhereInput[]
+    OR?: AccountBlockEventWhereInput[]
+    NOT?: AccountBlockEventWhereInput | AccountBlockEventWhereInput[]
+    id?: StringFilter<"AccountBlockEvent"> | string
+    accountId?: StringFilter<"AccountBlockEvent"> | string
+    type?: EnumBlockTypeFilter<"AccountBlockEvent"> | $Enums.BlockType
+    message?: StringFilter<"AccountBlockEvent"> | string
+    occurredAt?: DateTimeFilter<"AccountBlockEvent"> | Date | string
+    account?: XOR<ProspectAccountScalarRelationFilter, ProspectAccountWhereInput>
+  }
+
+  export type AccountBlockEventOrderByWithRelationInput = {
+    id?: SortOrder
+    accountId?: SortOrder
+    type?: SortOrder
+    message?: SortOrder
+    occurredAt?: SortOrder
+    account?: ProspectAccountOrderByWithRelationInput
+  }
+
+  export type AccountBlockEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AccountBlockEventWhereInput | AccountBlockEventWhereInput[]
+    OR?: AccountBlockEventWhereInput[]
+    NOT?: AccountBlockEventWhereInput | AccountBlockEventWhereInput[]
+    accountId?: StringFilter<"AccountBlockEvent"> | string
+    type?: EnumBlockTypeFilter<"AccountBlockEvent"> | $Enums.BlockType
+    message?: StringFilter<"AccountBlockEvent"> | string
+    occurredAt?: DateTimeFilter<"AccountBlockEvent"> | Date | string
+    account?: XOR<ProspectAccountScalarRelationFilter, ProspectAccountWhereInput>
+  }, "id">
+
+  export type AccountBlockEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    accountId?: SortOrder
+    type?: SortOrder
+    message?: SortOrder
+    occurredAt?: SortOrder
+    _count?: AccountBlockEventCountOrderByAggregateInput
+    _max?: AccountBlockEventMaxOrderByAggregateInput
+    _min?: AccountBlockEventMinOrderByAggregateInput
+  }
+
+  export type AccountBlockEventScalarWhereWithAggregatesInput = {
+    AND?: AccountBlockEventScalarWhereWithAggregatesInput | AccountBlockEventScalarWhereWithAggregatesInput[]
+    OR?: AccountBlockEventScalarWhereWithAggregatesInput[]
+    NOT?: AccountBlockEventScalarWhereWithAggregatesInput | AccountBlockEventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AccountBlockEvent"> | string
+    accountId?: StringWithAggregatesFilter<"AccountBlockEvent"> | string
+    type?: EnumBlockTypeWithAggregatesFilter<"AccountBlockEvent"> | $Enums.BlockType
+    message?: StringWithAggregatesFilter<"AccountBlockEvent"> | string
+    occurredAt?: DateTimeWithAggregatesFilter<"AccountBlockEvent"> | Date | string
+  }
+
+  export type AirbnbCommercialWhereInput = {
+    AND?: AirbnbCommercialWhereInput | AirbnbCommercialWhereInput[]
+    OR?: AirbnbCommercialWhereInput[]
+    NOT?: AirbnbCommercialWhereInput | AirbnbCommercialWhereInput[]
+    id?: StringFilter<"AirbnbCommercial"> | string
+    leadId?: StringFilter<"AirbnbCommercial"> | string
+    stage?: EnumAirbnbCommercialStageFilter<"AirbnbCommercial"> | $Enums.AirbnbCommercialStage
+    hostEmail?: StringNullableFilter<"AirbnbCommercial"> | string | null
+    meetingTime?: DateTimeNullableFilter<"AirbnbCommercial"> | Date | string | null
+    meetLink?: StringNullableFilter<"AirbnbCommercial"> | string | null
+    meetingId?: StringNullableFilter<"AirbnbCommercial"> | string | null
+    contractValueUsd?: DecimalNullableFilter<"AirbnbCommercial"> | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: EnumContractPlanNullableFilter<"AirbnbCommercial"> | $Enums.ContractPlan | null
+    createdAt?: DateTimeFilter<"AirbnbCommercial"> | Date | string
+    updatedAt?: DateTimeFilter<"AirbnbCommercial"> | Date | string
+    lead?: XOR<AirbnbLeadScalarRelationFilter, AirbnbLeadWhereInput>
+  }
+
+  export type AirbnbCommercialOrderByWithRelationInput = {
+    id?: SortOrder
+    leadId?: SortOrder
+    stage?: SortOrder
+    hostEmail?: SortOrderInput | SortOrder
+    meetingTime?: SortOrderInput | SortOrder
+    meetLink?: SortOrderInput | SortOrder
+    meetingId?: SortOrderInput | SortOrder
+    contractValueUsd?: SortOrderInput | SortOrder
+    contractPlan?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lead?: AirbnbLeadOrderByWithRelationInput
+  }
+
+  export type AirbnbCommercialWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    leadId?: string
+    AND?: AirbnbCommercialWhereInput | AirbnbCommercialWhereInput[]
+    OR?: AirbnbCommercialWhereInput[]
+    NOT?: AirbnbCommercialWhereInput | AirbnbCommercialWhereInput[]
+    stage?: EnumAirbnbCommercialStageFilter<"AirbnbCommercial"> | $Enums.AirbnbCommercialStage
+    hostEmail?: StringNullableFilter<"AirbnbCommercial"> | string | null
+    meetingTime?: DateTimeNullableFilter<"AirbnbCommercial"> | Date | string | null
+    meetLink?: StringNullableFilter<"AirbnbCommercial"> | string | null
+    meetingId?: StringNullableFilter<"AirbnbCommercial"> | string | null
+    contractValueUsd?: DecimalNullableFilter<"AirbnbCommercial"> | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: EnumContractPlanNullableFilter<"AirbnbCommercial"> | $Enums.ContractPlan | null
+    createdAt?: DateTimeFilter<"AirbnbCommercial"> | Date | string
+    updatedAt?: DateTimeFilter<"AirbnbCommercial"> | Date | string
+    lead?: XOR<AirbnbLeadScalarRelationFilter, AirbnbLeadWhereInput>
+  }, "id" | "leadId">
+
+  export type AirbnbCommercialOrderByWithAggregationInput = {
+    id?: SortOrder
+    leadId?: SortOrder
+    stage?: SortOrder
+    hostEmail?: SortOrderInput | SortOrder
+    meetingTime?: SortOrderInput | SortOrder
+    meetLink?: SortOrderInput | SortOrder
+    meetingId?: SortOrderInput | SortOrder
+    contractValueUsd?: SortOrderInput | SortOrder
+    contractPlan?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AirbnbCommercialCountOrderByAggregateInput
+    _avg?: AirbnbCommercialAvgOrderByAggregateInput
+    _max?: AirbnbCommercialMaxOrderByAggregateInput
+    _min?: AirbnbCommercialMinOrderByAggregateInput
+    _sum?: AirbnbCommercialSumOrderByAggregateInput
+  }
+
+  export type AirbnbCommercialScalarWhereWithAggregatesInput = {
+    AND?: AirbnbCommercialScalarWhereWithAggregatesInput | AirbnbCommercialScalarWhereWithAggregatesInput[]
+    OR?: AirbnbCommercialScalarWhereWithAggregatesInput[]
+    NOT?: AirbnbCommercialScalarWhereWithAggregatesInput | AirbnbCommercialScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AirbnbCommercial"> | string
+    leadId?: StringWithAggregatesFilter<"AirbnbCommercial"> | string
+    stage?: EnumAirbnbCommercialStageWithAggregatesFilter<"AirbnbCommercial"> | $Enums.AirbnbCommercialStage
+    hostEmail?: StringNullableWithAggregatesFilter<"AirbnbCommercial"> | string | null
+    meetingTime?: DateTimeNullableWithAggregatesFilter<"AirbnbCommercial"> | Date | string | null
+    meetLink?: StringNullableWithAggregatesFilter<"AirbnbCommercial"> | string | null
+    meetingId?: StringNullableWithAggregatesFilter<"AirbnbCommercial"> | string | null
+    contractValueUsd?: DecimalNullableWithAggregatesFilter<"AirbnbCommercial"> | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: EnumContractPlanNullableWithAggregatesFilter<"AirbnbCommercial"> | $Enums.ContractPlan | null
+    createdAt?: DateTimeWithAggregatesFilter<"AirbnbCommercial"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AirbnbCommercial"> | Date | string
+  }
+
+  export type OperationalDiagnosisWhereInput = {
+    AND?: OperationalDiagnosisWhereInput | OperationalDiagnosisWhereInput[]
+    OR?: OperationalDiagnosisWhereInput[]
+    NOT?: OperationalDiagnosisWhereInput | OperationalDiagnosisWhereInput[]
+    id?: StringFilter<"OperationalDiagnosis"> | string
+    slug?: StringFilter<"OperationalDiagnosis"> | string
+    clientName?: StringFilter<"OperationalDiagnosis"> | string
+    payload?: JsonFilter<"OperationalDiagnosis">
+    createdAt?: DateTimeFilter<"OperationalDiagnosis"> | Date | string
+    updatedAt?: DateTimeFilter<"OperationalDiagnosis"> | Date | string
+  }
+
+  export type OperationalDiagnosisOrderByWithRelationInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    clientName?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OperationalDiagnosisWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: OperationalDiagnosisWhereInput | OperationalDiagnosisWhereInput[]
+    OR?: OperationalDiagnosisWhereInput[]
+    NOT?: OperationalDiagnosisWhereInput | OperationalDiagnosisWhereInput[]
+    clientName?: StringFilter<"OperationalDiagnosis"> | string
+    payload?: JsonFilter<"OperationalDiagnosis">
+    createdAt?: DateTimeFilter<"OperationalDiagnosis"> | Date | string
+    updatedAt?: DateTimeFilter<"OperationalDiagnosis"> | Date | string
+  }, "id" | "slug">
+
+  export type OperationalDiagnosisOrderByWithAggregationInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    clientName?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: OperationalDiagnosisCountOrderByAggregateInput
+    _max?: OperationalDiagnosisMaxOrderByAggregateInput
+    _min?: OperationalDiagnosisMinOrderByAggregateInput
+  }
+
+  export type OperationalDiagnosisScalarWhereWithAggregatesInput = {
+    AND?: OperationalDiagnosisScalarWhereWithAggregatesInput | OperationalDiagnosisScalarWhereWithAggregatesInput[]
+    OR?: OperationalDiagnosisScalarWhereWithAggregatesInput[]
+    NOT?: OperationalDiagnosisScalarWhereWithAggregatesInput | OperationalDiagnosisScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OperationalDiagnosis"> | string
+    slug?: StringWithAggregatesFilter<"OperationalDiagnosis"> | string
+    clientName?: StringWithAggregatesFilter<"OperationalDiagnosis"> | string
+    payload?: JsonWithAggregatesFilter<"OperationalDiagnosis">
+    createdAt?: DateTimeWithAggregatesFilter<"OperationalDiagnosis"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"OperationalDiagnosis"> | Date | string
+  }
+
   export type ContactCreateInput = {
     id?: string
     fullName: string
@@ -13351,6 +29667,7 @@ export namespace Prisma {
     submissions?: FormSubmissionCreateNestedManyWithoutContactInput
     pipeline?: LeadPipelineCreateNestedOneWithoutContactInput
     conversations?: ConversationCreateNestedManyWithoutContactInput
+    airbnbLead?: AirbnbLeadCreateNestedOneWithoutContactInput
   }
 
   export type ContactUncheckedCreateInput = {
@@ -13369,6 +29686,7 @@ export namespace Prisma {
     submissions?: FormSubmissionUncheckedCreateNestedManyWithoutContactInput
     pipeline?: LeadPipelineUncheckedCreateNestedOneWithoutContactInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutContactInput
+    airbnbLead?: AirbnbLeadUncheckedCreateNestedOneWithoutContactInput
   }
 
   export type ContactUpdateInput = {
@@ -13387,6 +29705,7 @@ export namespace Prisma {
     submissions?: FormSubmissionUpdateManyWithoutContactNestedInput
     pipeline?: LeadPipelineUpdateOneWithoutContactNestedInput
     conversations?: ConversationUpdateManyWithoutContactNestedInput
+    airbnbLead?: AirbnbLeadUpdateOneWithoutContactNestedInput
   }
 
   export type ContactUncheckedUpdateInput = {
@@ -13405,6 +29724,7 @@ export namespace Prisma {
     submissions?: FormSubmissionUncheckedUpdateManyWithoutContactNestedInput
     pipeline?: LeadPipelineUncheckedUpdateOneWithoutContactNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutContactNestedInput
+    airbnbLead?: AirbnbLeadUncheckedUpdateOneWithoutContactNestedInput
   }
 
   export type ContactCreateManyInput = {
@@ -13771,12 +30091,14 @@ export namespace Prisma {
     clientIp?: string | null
     clientUserAgent?: string | null
     createdAt?: Date | string
-    submission: FormSubmissionCreateNestedOneWithoutEventsInput
+    submission?: FormSubmissionCreateNestedOneWithoutEventsInput
+    airbnbLead?: AirbnbLeadCreateNestedOneWithoutEventsInput
   }
 
   export type LeadEventUncheckedCreateInput = {
     id: string
-    submissionId: string
+    submissionId?: string | null
+    airbnbLeadId?: string | null
     eventName: $Enums.MarketingEventName
     eventTime?: Date | string
     eventSourceUrl?: string | null
@@ -13807,12 +30129,14 @@ export namespace Prisma {
     clientIp?: NullableStringFieldUpdateOperationsInput | string | null
     clientUserAgent?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    submission?: FormSubmissionUpdateOneRequiredWithoutEventsNestedInput
+    submission?: FormSubmissionUpdateOneWithoutEventsNestedInput
+    airbnbLead?: AirbnbLeadUpdateOneWithoutEventsNestedInput
   }
 
   export type LeadEventUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    submissionId?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    airbnbLeadId?: NullableStringFieldUpdateOperationsInput | string | null
     eventName?: EnumMarketingEventNameFieldUpdateOperationsInput | $Enums.MarketingEventName
     eventTime?: DateTimeFieldUpdateOperationsInput | Date | string
     eventSourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13830,7 +30154,8 @@ export namespace Prisma {
 
   export type LeadEventCreateManyInput = {
     id: string
-    submissionId: string
+    submissionId?: string | null
+    airbnbLeadId?: string | null
     eventName: $Enums.MarketingEventName
     eventTime?: Date | string
     eventSourceUrl?: string | null
@@ -13865,7 +30190,8 @@ export namespace Prisma {
 
   export type LeadEventUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    submissionId?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    airbnbLeadId?: NullableStringFieldUpdateOperationsInput | string | null
     eventName?: EnumMarketingEventNameFieldUpdateOperationsInput | $Enums.MarketingEventName
     eventTime?: DateTimeFieldUpdateOperationsInput | Date | string
     eventSourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13989,6 +30315,132 @@ export namespace Prisma {
     completed?: BoolFieldUpdateOperationsInput | boolean
     droppedAtSecond?: NullableIntFieldUpdateOperationsInput | number | null
     dropReason?: NullableEnumVideoDropReasonFieldUpdateOperationsInput | $Enums.VideoDropReason | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LandingVisitCreateInput = {
+    id?: string
+    visitorId: string
+    landingPath: string
+    fromAd?: boolean
+    fbclid?: string | null
+    fbp?: string | null
+    fbc?: string | null
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    convertedAt?: Date | string | null
+    conversion?: string | null
+    lastSeenAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LandingVisitUncheckedCreateInput = {
+    id?: string
+    visitorId: string
+    landingPath: string
+    fromAd?: boolean
+    fbclid?: string | null
+    fbp?: string | null
+    fbc?: string | null
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    convertedAt?: Date | string | null
+    conversion?: string | null
+    lastSeenAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LandingVisitUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    visitorId?: StringFieldUpdateOperationsInput | string
+    landingPath?: StringFieldUpdateOperationsInput | string
+    fromAd?: BoolFieldUpdateOperationsInput | boolean
+    fbclid?: NullableStringFieldUpdateOperationsInput | string | null
+    fbp?: NullableStringFieldUpdateOperationsInput | string | null
+    fbc?: NullableStringFieldUpdateOperationsInput | string | null
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    conversion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LandingVisitUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    visitorId?: StringFieldUpdateOperationsInput | string
+    landingPath?: StringFieldUpdateOperationsInput | string
+    fromAd?: BoolFieldUpdateOperationsInput | boolean
+    fbclid?: NullableStringFieldUpdateOperationsInput | string | null
+    fbp?: NullableStringFieldUpdateOperationsInput | string | null
+    fbc?: NullableStringFieldUpdateOperationsInput | string | null
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    conversion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LandingVisitCreateManyInput = {
+    id?: string
+    visitorId: string
+    landingPath: string
+    fromAd?: boolean
+    fbclid?: string | null
+    fbp?: string | null
+    fbc?: string | null
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    convertedAt?: Date | string | null
+    conversion?: string | null
+    lastSeenAt?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LandingVisitUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    visitorId?: StringFieldUpdateOperationsInput | string
+    landingPath?: StringFieldUpdateOperationsInput | string
+    fromAd?: BoolFieldUpdateOperationsInput | boolean
+    fbclid?: NullableStringFieldUpdateOperationsInput | string | null
+    fbp?: NullableStringFieldUpdateOperationsInput | string | null
+    fbc?: NullableStringFieldUpdateOperationsInput | string | null
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    conversion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LandingVisitUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    visitorId?: StringFieldUpdateOperationsInput | string
+    landingPath?: StringFieldUpdateOperationsInput | string
+    fromAd?: BoolFieldUpdateOperationsInput | boolean
+    fbclid?: NullableStringFieldUpdateOperationsInput | string | null
+    fbp?: NullableStringFieldUpdateOperationsInput | string | null
+    fbc?: NullableStringFieldUpdateOperationsInput | string | null
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    convertedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    conversion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14417,6 +30869,1017 @@ export namespace Prisma {
     executedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type AirbnbLeadCreateInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact?: ContactCreateNestedOneWithoutAirbnbLeadInput
+    messages?: AirbnbMessageCreateNestedManyWithoutLeadInput
+    calBookings?: CalBookingCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactCreateNestedOneWithoutLeadInput
+    commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
+    events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadUncheckedCreateInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    contactId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: AirbnbMessageUncheckedCreateNestedManyWithoutLeadInput
+    calBookings?: CalBookingUncheckedCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
+    commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
+    events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: ContactUpdateOneWithoutAirbnbLeadNestedInput
+    messages?: AirbnbMessageUpdateManyWithoutLeadNestedInput
+    calBookings?: CalBookingUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUpdateOneWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
+  export type AirbnbLeadUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: AirbnbMessageUncheckedUpdateManyWithoutLeadNestedInput
+    calBookings?: CalBookingUncheckedUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
+  export type AirbnbLeadCreateManyInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    contactId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AirbnbLeadUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbLeadUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbMessageCreateInput = {
+    id?: string
+    direction: $Enums.MessageDirection
+    content: string
+    aiIntent?: string | null
+    sentAt?: Date | string
+    lead: AirbnbLeadCreateNestedOneWithoutMessagesInput
+    prospectAccount?: ProspectAccountCreateNestedOneWithoutMessagesInput
+  }
+
+  export type AirbnbMessageUncheckedCreateInput = {
+    id?: string
+    leadId: string
+    prospectAccountId?: string | null
+    direction: $Enums.MessageDirection
+    content: string
+    aiIntent?: string | null
+    sentAt?: Date | string
+  }
+
+  export type AirbnbMessageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    direction?: EnumMessageDirectionFieldUpdateOperationsInput | $Enums.MessageDirection
+    content?: StringFieldUpdateOperationsInput | string
+    aiIntent?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lead?: AirbnbLeadUpdateOneRequiredWithoutMessagesNestedInput
+    prospectAccount?: ProspectAccountUpdateOneWithoutMessagesNestedInput
+  }
+
+  export type AirbnbMessageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    leadId?: StringFieldUpdateOperationsInput | string
+    prospectAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    direction?: EnumMessageDirectionFieldUpdateOperationsInput | $Enums.MessageDirection
+    content?: StringFieldUpdateOperationsInput | string
+    aiIntent?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbMessageCreateManyInput = {
+    id?: string
+    leadId: string
+    prospectAccountId?: string | null
+    direction: $Enums.MessageDirection
+    content: string
+    aiIntent?: string | null
+    sentAt?: Date | string
+  }
+
+  export type AirbnbMessageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    direction?: EnumMessageDirectionFieldUpdateOperationsInput | $Enums.MessageDirection
+    content?: StringFieldUpdateOperationsInput | string
+    aiIntent?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbMessageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    leadId?: StringFieldUpdateOperationsInput | string
+    prospectAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    direction?: EnumMessageDirectionFieldUpdateOperationsInput | $Enums.MessageDirection
+    content?: StringFieldUpdateOperationsInput | string
+    aiIntent?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemStateCreateInput = {
+    key: string
+    value: string
+    updatedAt?: Date | string
+  }
+
+  export type SystemStateUncheckedCreateInput = {
+    key: string
+    value: string
+    updatedAt?: Date | string
+  }
+
+  export type SystemStateUpdateInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemStateUncheckedUpdateInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemStateCreateManyInput = {
+    key: string
+    value: string
+    updatedAt?: Date | string
+  }
+
+  export type SystemStateUpdateManyMutationInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SystemStateUncheckedUpdateManyInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CalBookingCreateInput = {
+    id?: string
+    calUid: string
+    calBookingId?: number | null
+    triggerEvent: string
+    startTime: Date | string
+    endTime?: Date | string | null
+    attendeeEmail?: string | null
+    attendeeName?: string | null
+    eventTypeSlug?: string | null
+    createdAt?: Date | string
+    lead: AirbnbLeadCreateNestedOneWithoutCalBookingsInput
+  }
+
+  export type CalBookingUncheckedCreateInput = {
+    id?: string
+    calUid: string
+    calBookingId?: number | null
+    leadId: string
+    triggerEvent: string
+    startTime: Date | string
+    endTime?: Date | string | null
+    attendeeEmail?: string | null
+    attendeeName?: string | null
+    eventTypeSlug?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CalBookingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calUid?: StringFieldUpdateOperationsInput | string
+    calBookingId?: NullableIntFieldUpdateOperationsInput | number | null
+    triggerEvent?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    eventTypeSlug?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lead?: AirbnbLeadUpdateOneRequiredWithoutCalBookingsNestedInput
+  }
+
+  export type CalBookingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calUid?: StringFieldUpdateOperationsInput | string
+    calBookingId?: NullableIntFieldUpdateOperationsInput | number | null
+    leadId?: StringFieldUpdateOperationsInput | string
+    triggerEvent?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    eventTypeSlug?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CalBookingCreateManyInput = {
+    id?: string
+    calUid: string
+    calBookingId?: number | null
+    leadId: string
+    triggerEvent: string
+    startTime: Date | string
+    endTime?: Date | string | null
+    attendeeEmail?: string | null
+    attendeeName?: string | null
+    eventTypeSlug?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CalBookingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calUid?: StringFieldUpdateOperationsInput | string
+    calBookingId?: NullableIntFieldUpdateOperationsInput | number | null
+    triggerEvent?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    eventTypeSlug?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CalBookingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calUid?: StringFieldUpdateOperationsInput | string
+    calBookingId?: NullableIntFieldUpdateOperationsInput | number | null
+    leadId?: StringFieldUpdateOperationsInput | string
+    triggerEvent?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    eventTypeSlug?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProspectAccountCreateInput = {
+    id?: string
+    label: string
+    airbnbEmail: string
+    airbnbPasswordEnc?: string | null
+    composioUserId?: string | null
+    composioConnectionId?: string | null
+    composioConnectedAt?: Date | string | null
+    proxyHost?: string | null
+    proxyPort?: number | null
+    proxyUser?: string | null
+    proxyPassEnc?: string | null
+    proxyProvider?: string | null
+    proxySessionId?: string | null
+    proxyCountry?: string | null
+    sessionPath?: string | null
+    sessionStateEnc?: string | null
+    market?: string | null
+    messagesSentToday?: number
+    waveMessagesSent?: number
+    status?: $Enums.AccountStatus
+    rateLimitedAt?: Date | string | null
+    cooldownUntil?: Date | string | null
+    lastWaveStartedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    blockEvents?: AccountBlockEventCreateNestedManyWithoutAccountInput
+    messages?: AirbnbMessageCreateNestedManyWithoutProspectAccountInput
+    hostContacts?: HostContactCreateNestedManyWithoutFirstContactAccountInput
+  }
+
+  export type ProspectAccountUncheckedCreateInput = {
+    id?: string
+    label: string
+    airbnbEmail: string
+    airbnbPasswordEnc?: string | null
+    composioUserId?: string | null
+    composioConnectionId?: string | null
+    composioConnectedAt?: Date | string | null
+    proxyHost?: string | null
+    proxyPort?: number | null
+    proxyUser?: string | null
+    proxyPassEnc?: string | null
+    proxyProvider?: string | null
+    proxySessionId?: string | null
+    proxyCountry?: string | null
+    sessionPath?: string | null
+    sessionStateEnc?: string | null
+    market?: string | null
+    messagesSentToday?: number
+    waveMessagesSent?: number
+    status?: $Enums.AccountStatus
+    rateLimitedAt?: Date | string | null
+    cooldownUntil?: Date | string | null
+    lastWaveStartedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    blockEvents?: AccountBlockEventUncheckedCreateNestedManyWithoutAccountInput
+    messages?: AirbnbMessageUncheckedCreateNestedManyWithoutProspectAccountInput
+    hostContacts?: HostContactUncheckedCreateNestedManyWithoutFirstContactAccountInput
+  }
+
+  export type ProspectAccountUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    airbnbEmail?: StringFieldUpdateOperationsInput | string
+    airbnbPasswordEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    composioUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proxyHost?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPort?: NullableIntFieldUpdateOperationsInput | number | null
+    proxyUser?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPassEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    proxySessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionPath?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionStateEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    messagesSentToday?: IntFieldUpdateOperationsInput | number
+    waveMessagesSent?: IntFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+    rateLimitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cooldownUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastWaveStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockEvents?: AccountBlockEventUpdateManyWithoutAccountNestedInput
+    messages?: AirbnbMessageUpdateManyWithoutProspectAccountNestedInput
+    hostContacts?: HostContactUpdateManyWithoutFirstContactAccountNestedInput
+  }
+
+  export type ProspectAccountUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    airbnbEmail?: StringFieldUpdateOperationsInput | string
+    airbnbPasswordEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    composioUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proxyHost?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPort?: NullableIntFieldUpdateOperationsInput | number | null
+    proxyUser?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPassEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    proxySessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionPath?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionStateEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    messagesSentToday?: IntFieldUpdateOperationsInput | number
+    waveMessagesSent?: IntFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+    rateLimitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cooldownUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastWaveStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockEvents?: AccountBlockEventUncheckedUpdateManyWithoutAccountNestedInput
+    messages?: AirbnbMessageUncheckedUpdateManyWithoutProspectAccountNestedInput
+    hostContacts?: HostContactUncheckedUpdateManyWithoutFirstContactAccountNestedInput
+  }
+
+  export type ProspectAccountCreateManyInput = {
+    id?: string
+    label: string
+    airbnbEmail: string
+    airbnbPasswordEnc?: string | null
+    composioUserId?: string | null
+    composioConnectionId?: string | null
+    composioConnectedAt?: Date | string | null
+    proxyHost?: string | null
+    proxyPort?: number | null
+    proxyUser?: string | null
+    proxyPassEnc?: string | null
+    proxyProvider?: string | null
+    proxySessionId?: string | null
+    proxyCountry?: string | null
+    sessionPath?: string | null
+    sessionStateEnc?: string | null
+    market?: string | null
+    messagesSentToday?: number
+    waveMessagesSent?: number
+    status?: $Enums.AccountStatus
+    rateLimitedAt?: Date | string | null
+    cooldownUntil?: Date | string | null
+    lastWaveStartedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProspectAccountUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    airbnbEmail?: StringFieldUpdateOperationsInput | string
+    airbnbPasswordEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    composioUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proxyHost?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPort?: NullableIntFieldUpdateOperationsInput | number | null
+    proxyUser?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPassEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    proxySessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionPath?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionStateEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    messagesSentToday?: IntFieldUpdateOperationsInput | number
+    waveMessagesSent?: IntFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+    rateLimitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cooldownUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastWaveStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProspectAccountUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    airbnbEmail?: StringFieldUpdateOperationsInput | string
+    airbnbPasswordEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    composioUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proxyHost?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPort?: NullableIntFieldUpdateOperationsInput | number | null
+    proxyUser?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPassEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    proxySessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionPath?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionStateEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    messagesSentToday?: IntFieldUpdateOperationsInput | number
+    waveMessagesSent?: IntFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+    rateLimitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cooldownUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastWaveStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HostContactCreateInput = {
+    id?: string
+    hostAirbnbId: string
+    firstContactedAt: Date | string
+    source: $Enums.ContactSource
+    createdAt?: Date | string
+    lead: AirbnbLeadCreateNestedOneWithoutHostContactInput
+    firstContactAccount?: ProspectAccountCreateNestedOneWithoutHostContactsInput
+  }
+
+  export type HostContactUncheckedCreateInput = {
+    id?: string
+    hostAirbnbId: string
+    leadId: string
+    firstContactedAt: Date | string
+    firstContactAccountId?: string | null
+    source: $Enums.ContactSource
+    createdAt?: Date | string
+  }
+
+  export type HostContactUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    firstContactedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lead?: AirbnbLeadUpdateOneRequiredWithoutHostContactNestedInput
+    firstContactAccount?: ProspectAccountUpdateOneWithoutHostContactsNestedInput
+  }
+
+  export type HostContactUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    leadId?: StringFieldUpdateOperationsInput | string
+    firstContactedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstContactAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HostContactCreateManyInput = {
+    id?: string
+    hostAirbnbId: string
+    leadId: string
+    firstContactedAt: Date | string
+    firstContactAccountId?: string | null
+    source: $Enums.ContactSource
+    createdAt?: Date | string
+  }
+
+  export type HostContactUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    firstContactedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HostContactUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    leadId?: StringFieldUpdateOperationsInput | string
+    firstContactedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstContactAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadIdentityAliasCreateInput = {
+    id?: string
+    aliasId: string
+    canonicalId: string
+    leadId?: string | null
+  }
+
+  export type LeadIdentityAliasUncheckedCreateInput = {
+    id?: string
+    aliasId: string
+    canonicalId: string
+    leadId?: string | null
+  }
+
+  export type LeadIdentityAliasUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    aliasId?: StringFieldUpdateOperationsInput | string
+    canonicalId?: StringFieldUpdateOperationsInput | string
+    leadId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LeadIdentityAliasUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    aliasId?: StringFieldUpdateOperationsInput | string
+    canonicalId?: StringFieldUpdateOperationsInput | string
+    leadId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LeadIdentityAliasCreateManyInput = {
+    id?: string
+    aliasId: string
+    canonicalId: string
+    leadId?: string | null
+  }
+
+  export type LeadIdentityAliasUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    aliasId?: StringFieldUpdateOperationsInput | string
+    canonicalId?: StringFieldUpdateOperationsInput | string
+    leadId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LeadIdentityAliasUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    aliasId?: StringFieldUpdateOperationsInput | string
+    canonicalId?: StringFieldUpdateOperationsInput | string
+    leadId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DailyOutboundStatsCreateInput = {
+    id?: string
+    date: Date | string
+    market: string
+    coldMessagesSent?: number
+  }
+
+  export type DailyOutboundStatsUncheckedCreateInput = {
+    id?: string
+    date: Date | string
+    market: string
+    coldMessagesSent?: number
+  }
+
+  export type DailyOutboundStatsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    market?: StringFieldUpdateOperationsInput | string
+    coldMessagesSent?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DailyOutboundStatsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    market?: StringFieldUpdateOperationsInput | string
+    coldMessagesSent?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DailyOutboundStatsCreateManyInput = {
+    id?: string
+    date: Date | string
+    market: string
+    coldMessagesSent?: number
+  }
+
+  export type DailyOutboundStatsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    market?: StringFieldUpdateOperationsInput | string
+    coldMessagesSent?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DailyOutboundStatsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    market?: StringFieldUpdateOperationsInput | string
+    coldMessagesSent?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AccountBlockEventCreateInput = {
+    id?: string
+    type: $Enums.BlockType
+    message: string
+    occurredAt?: Date | string
+    account: ProspectAccountCreateNestedOneWithoutBlockEventsInput
+  }
+
+  export type AccountBlockEventUncheckedCreateInput = {
+    id?: string
+    accountId: string
+    type: $Enums.BlockType
+    message: string
+    occurredAt?: Date | string
+  }
+
+  export type AccountBlockEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    message?: StringFieldUpdateOperationsInput | string
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    account?: ProspectAccountUpdateOneRequiredWithoutBlockEventsNestedInput
+  }
+
+  export type AccountBlockEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    message?: StringFieldUpdateOperationsInput | string
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountBlockEventCreateManyInput = {
+    id?: string
+    accountId: string
+    type: $Enums.BlockType
+    message: string
+    occurredAt?: Date | string
+  }
+
+  export type AccountBlockEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    message?: StringFieldUpdateOperationsInput | string
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountBlockEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    accountId?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    message?: StringFieldUpdateOperationsInput | string
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbCommercialCreateInput = {
+    id?: string
+    stage: $Enums.AirbnbCommercialStage
+    hostEmail?: string | null
+    meetingTime?: Date | string | null
+    meetLink?: string | null
+    meetingId?: string | null
+    contractValueUsd?: Decimal | DecimalJsLike | number | string | null
+    contractPlan?: $Enums.ContractPlan | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lead: AirbnbLeadCreateNestedOneWithoutCommercialInput
+  }
+
+  export type AirbnbCommercialUncheckedCreateInput = {
+    id?: string
+    leadId: string
+    stage: $Enums.AirbnbCommercialStage
+    hostEmail?: string | null
+    meetingTime?: Date | string | null
+    meetLink?: string | null
+    meetingId?: string | null
+    contractValueUsd?: Decimal | DecimalJsLike | number | string | null
+    contractPlan?: $Enums.ContractPlan | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AirbnbCommercialUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stage?: EnumAirbnbCommercialStageFieldUpdateOperationsInput | $Enums.AirbnbCommercialStage
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lead?: AirbnbLeadUpdateOneRequiredWithoutCommercialNestedInput
+  }
+
+  export type AirbnbCommercialUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    leadId?: StringFieldUpdateOperationsInput | string
+    stage?: EnumAirbnbCommercialStageFieldUpdateOperationsInput | $Enums.AirbnbCommercialStage
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbCommercialCreateManyInput = {
+    id?: string
+    leadId: string
+    stage: $Enums.AirbnbCommercialStage
+    hostEmail?: string | null
+    meetingTime?: Date | string | null
+    meetLink?: string | null
+    meetingId?: string | null
+    contractValueUsd?: Decimal | DecimalJsLike | number | string | null
+    contractPlan?: $Enums.ContractPlan | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AirbnbCommercialUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stage?: EnumAirbnbCommercialStageFieldUpdateOperationsInput | $Enums.AirbnbCommercialStage
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbCommercialUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    leadId?: StringFieldUpdateOperationsInput | string
+    stage?: EnumAirbnbCommercialStageFieldUpdateOperationsInput | $Enums.AirbnbCommercialStage
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OperationalDiagnosisCreateInput = {
+    id?: string
+    slug: string
+    clientName: string
+    payload: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OperationalDiagnosisUncheckedCreateInput = {
+    id?: string
+    slug: string
+    clientName: string
+    payload: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OperationalDiagnosisUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    clientName?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OperationalDiagnosisUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    clientName?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OperationalDiagnosisCreateManyInput = {
+    id?: string
+    slug: string
+    clientName: string
+    payload: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OperationalDiagnosisUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    clientName?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OperationalDiagnosisUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    clientName?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -14473,6 +31936,11 @@ export namespace Prisma {
     every?: ConversationWhereInput
     some?: ConversationWhereInput
     none?: ConversationWhereInput
+  }
+
+  export type AirbnbLeadNullableScalarRelationFilter = {
+    is?: AirbnbLeadWhereInput | null
+    isNot?: AirbnbLeadWhereInput | null
   }
 
   export type SortOrderInput = {
@@ -15101,9 +32569,9 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type FormSubmissionScalarRelationFilter = {
-    is?: FormSubmissionWhereInput
-    isNot?: FormSubmissionWhereInput
+  export type FormSubmissionNullableScalarRelationFilter = {
+    is?: FormSubmissionWhereInput | null
+    isNot?: FormSubmissionWhereInput | null
   }
 
   export type LeadEventSubmissionIdEventNameCompoundUniqueInput = {
@@ -15111,9 +32579,15 @@ export namespace Prisma {
     eventName: $Enums.MarketingEventName
   }
 
+  export type LeadEventAirbnbLeadIdEventNameCompoundUniqueInput = {
+    airbnbLeadId: string
+    eventName: $Enums.MarketingEventName
+  }
+
   export type LeadEventCountOrderByAggregateInput = {
     id?: SortOrder
     submissionId?: SortOrder
+    airbnbLeadId?: SortOrder
     eventName?: SortOrder
     eventTime?: SortOrder
     eventSourceUrl?: SortOrder
@@ -15137,6 +32611,7 @@ export namespace Prisma {
   export type LeadEventMaxOrderByAggregateInput = {
     id?: SortOrder
     submissionId?: SortOrder
+    airbnbLeadId?: SortOrder
     eventName?: SortOrder
     eventTime?: SortOrder
     eventSourceUrl?: SortOrder
@@ -15154,6 +32629,7 @@ export namespace Prisma {
   export type LeadEventMinOrderByAggregateInput = {
     id?: SortOrder
     submissionId?: SortOrder
+    airbnbLeadId?: SortOrder
     eventName?: SortOrder
     eventTime?: SortOrder
     eventSourceUrl?: SortOrder
@@ -15298,6 +32774,65 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumVideoDropReasonNullableFilter<$PrismaModel>
     _max?: NestedEnumVideoDropReasonNullableFilter<$PrismaModel>
+  }
+
+  export type LandingVisitVisitorIdLandingPathCompoundUniqueInput = {
+    visitorId: string
+    landingPath: string
+  }
+
+  export type LandingVisitCountOrderByAggregateInput = {
+    id?: SortOrder
+    visitorId?: SortOrder
+    landingPath?: SortOrder
+    fromAd?: SortOrder
+    fbclid?: SortOrder
+    fbp?: SortOrder
+    fbc?: SortOrder
+    utmSource?: SortOrder
+    utmMedium?: SortOrder
+    utmCampaign?: SortOrder
+    convertedAt?: SortOrder
+    conversion?: SortOrder
+    lastSeenAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LandingVisitMaxOrderByAggregateInput = {
+    id?: SortOrder
+    visitorId?: SortOrder
+    landingPath?: SortOrder
+    fromAd?: SortOrder
+    fbclid?: SortOrder
+    fbp?: SortOrder
+    fbc?: SortOrder
+    utmSource?: SortOrder
+    utmMedium?: SortOrder
+    utmCampaign?: SortOrder
+    convertedAt?: SortOrder
+    conversion?: SortOrder
+    lastSeenAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LandingVisitMinOrderByAggregateInput = {
+    id?: SortOrder
+    visitorId?: SortOrder
+    landingPath?: SortOrder
+    fromAd?: SortOrder
+    fbclid?: SortOrder
+    fbp?: SortOrder
+    fbc?: SortOrder
+    utmSource?: SortOrder
+    utmMedium?: SortOrder
+    utmCampaign?: SortOrder
+    convertedAt?: SortOrder
+    conversion?: SortOrder
+    lastSeenAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type EnumFunnelOriginFilter<$PrismaModel = never> = {
@@ -15669,6 +33204,694 @@ export namespace Prisma {
     _max?: NestedEnumPipelineJobStatusFilter<$PrismaModel>
   }
 
+  export type EnumIcpSkipReasonNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.IcpSkipReason | EnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
+    in?: $Enums.IcpSkipReason[] | ListEnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.IcpSkipReason[] | ListEnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumIcpSkipReasonNullableFilter<$PrismaModel> | $Enums.IcpSkipReason | null
+  }
+
+  export type EnumLeadStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.LeadStatus | EnumLeadStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LeadStatus[] | ListEnumLeadStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LeadStatus[] | ListEnumLeadStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLeadStatusFilter<$PrismaModel> | $Enums.LeadStatus
+  }
+
+  export type AirbnbMessageListRelationFilter = {
+    every?: AirbnbMessageWhereInput
+    some?: AirbnbMessageWhereInput
+    none?: AirbnbMessageWhereInput
+  }
+
+  export type CalBookingListRelationFilter = {
+    every?: CalBookingWhereInput
+    some?: CalBookingWhereInput
+    none?: CalBookingWhereInput
+  }
+
+  export type HostContactNullableScalarRelationFilter = {
+    is?: HostContactWhereInput | null
+    isNot?: HostContactWhereInput | null
+  }
+
+  export type AirbnbCommercialNullableScalarRelationFilter = {
+    is?: AirbnbCommercialWhereInput | null
+    isNot?: AirbnbCommercialWhereInput | null
+  }
+
+  export type AirbnbMessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CalBookingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AirbnbLeadCountOrderByAggregateInput = {
+    id?: SortOrder
+    hostAirbnbId?: SortOrder
+    threadId?: SortOrder
+    name?: SortOrder
+    hostProfileUrl?: SortOrder
+    primaryListingUrl?: SortOrder
+    primaryListingName?: SortOrder
+    totalProperties?: SortOrder
+    companyName?: SortOrder
+    isSuperhost?: SortOrder
+    market?: SortOrder
+    icpSkipReason?: SortOrder
+    status?: SortOrder
+    businessScale?: SortOrder
+    painPoints?: SortOrder
+    executiveSummary?: SortOrder
+    lastContactedAt?: SortOrder
+    nextFollowUpAt?: SortOrder
+    botReplyCount?: SortOrder
+    calLinkSent?: SortOrder
+    calBookedAt?: SortOrder
+    hostEmail?: SortOrder
+    contactId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AirbnbLeadAvgOrderByAggregateInput = {
+    totalProperties?: SortOrder
+    botReplyCount?: SortOrder
+  }
+
+  export type AirbnbLeadMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hostAirbnbId?: SortOrder
+    threadId?: SortOrder
+    name?: SortOrder
+    hostProfileUrl?: SortOrder
+    primaryListingUrl?: SortOrder
+    primaryListingName?: SortOrder
+    totalProperties?: SortOrder
+    companyName?: SortOrder
+    isSuperhost?: SortOrder
+    market?: SortOrder
+    icpSkipReason?: SortOrder
+    status?: SortOrder
+    businessScale?: SortOrder
+    painPoints?: SortOrder
+    executiveSummary?: SortOrder
+    lastContactedAt?: SortOrder
+    nextFollowUpAt?: SortOrder
+    botReplyCount?: SortOrder
+    calLinkSent?: SortOrder
+    calBookedAt?: SortOrder
+    hostEmail?: SortOrder
+    contactId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AirbnbLeadMinOrderByAggregateInput = {
+    id?: SortOrder
+    hostAirbnbId?: SortOrder
+    threadId?: SortOrder
+    name?: SortOrder
+    hostProfileUrl?: SortOrder
+    primaryListingUrl?: SortOrder
+    primaryListingName?: SortOrder
+    totalProperties?: SortOrder
+    companyName?: SortOrder
+    isSuperhost?: SortOrder
+    market?: SortOrder
+    icpSkipReason?: SortOrder
+    status?: SortOrder
+    businessScale?: SortOrder
+    painPoints?: SortOrder
+    executiveSummary?: SortOrder
+    lastContactedAt?: SortOrder
+    nextFollowUpAt?: SortOrder
+    botReplyCount?: SortOrder
+    calLinkSent?: SortOrder
+    calBookedAt?: SortOrder
+    hostEmail?: SortOrder
+    contactId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AirbnbLeadSumOrderByAggregateInput = {
+    totalProperties?: SortOrder
+    botReplyCount?: SortOrder
+  }
+
+  export type EnumIcpSkipReasonNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.IcpSkipReason | EnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
+    in?: $Enums.IcpSkipReason[] | ListEnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.IcpSkipReason[] | ListEnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumIcpSkipReasonNullableWithAggregatesFilter<$PrismaModel> | $Enums.IcpSkipReason | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumIcpSkipReasonNullableFilter<$PrismaModel>
+    _max?: NestedEnumIcpSkipReasonNullableFilter<$PrismaModel>
+  }
+
+  export type EnumLeadStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LeadStatus | EnumLeadStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LeadStatus[] | ListEnumLeadStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LeadStatus[] | ListEnumLeadStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLeadStatusWithAggregatesFilter<$PrismaModel> | $Enums.LeadStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLeadStatusFilter<$PrismaModel>
+    _max?: NestedEnumLeadStatusFilter<$PrismaModel>
+  }
+
+  export type AirbnbLeadScalarRelationFilter = {
+    is?: AirbnbLeadWhereInput
+    isNot?: AirbnbLeadWhereInput
+  }
+
+  export type ProspectAccountNullableScalarRelationFilter = {
+    is?: ProspectAccountWhereInput | null
+    isNot?: ProspectAccountWhereInput | null
+  }
+
+  export type AirbnbMessageCountOrderByAggregateInput = {
+    id?: SortOrder
+    leadId?: SortOrder
+    prospectAccountId?: SortOrder
+    direction?: SortOrder
+    content?: SortOrder
+    aiIntent?: SortOrder
+    sentAt?: SortOrder
+  }
+
+  export type AirbnbMessageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    leadId?: SortOrder
+    prospectAccountId?: SortOrder
+    direction?: SortOrder
+    content?: SortOrder
+    aiIntent?: SortOrder
+    sentAt?: SortOrder
+  }
+
+  export type AirbnbMessageMinOrderByAggregateInput = {
+    id?: SortOrder
+    leadId?: SortOrder
+    prospectAccountId?: SortOrder
+    direction?: SortOrder
+    content?: SortOrder
+    aiIntent?: SortOrder
+    sentAt?: SortOrder
+  }
+
+  export type SystemStateCountOrderByAggregateInput = {
+    key?: SortOrder
+    value?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SystemStateMaxOrderByAggregateInput = {
+    key?: SortOrder
+    value?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SystemStateMinOrderByAggregateInput = {
+    key?: SortOrder
+    value?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CalBookingCountOrderByAggregateInput = {
+    id?: SortOrder
+    calUid?: SortOrder
+    calBookingId?: SortOrder
+    leadId?: SortOrder
+    triggerEvent?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    attendeeEmail?: SortOrder
+    attendeeName?: SortOrder
+    eventTypeSlug?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CalBookingAvgOrderByAggregateInput = {
+    calBookingId?: SortOrder
+  }
+
+  export type CalBookingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    calUid?: SortOrder
+    calBookingId?: SortOrder
+    leadId?: SortOrder
+    triggerEvent?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    attendeeEmail?: SortOrder
+    attendeeName?: SortOrder
+    eventTypeSlug?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CalBookingMinOrderByAggregateInput = {
+    id?: SortOrder
+    calUid?: SortOrder
+    calBookingId?: SortOrder
+    leadId?: SortOrder
+    triggerEvent?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    attendeeEmail?: SortOrder
+    attendeeName?: SortOrder
+    eventTypeSlug?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CalBookingSumOrderByAggregateInput = {
+    calBookingId?: SortOrder
+  }
+
+  export type EnumAccountStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AccountStatus | EnumAccountStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AccountStatus[] | ListEnumAccountStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AccountStatus[] | ListEnumAccountStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAccountStatusFilter<$PrismaModel> | $Enums.AccountStatus
+  }
+
+  export type AccountBlockEventListRelationFilter = {
+    every?: AccountBlockEventWhereInput
+    some?: AccountBlockEventWhereInput
+    none?: AccountBlockEventWhereInput
+  }
+
+  export type HostContactListRelationFilter = {
+    every?: HostContactWhereInput
+    some?: HostContactWhereInput
+    none?: HostContactWhereInput
+  }
+
+  export type AccountBlockEventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HostContactOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProspectAccountCountOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    airbnbEmail?: SortOrder
+    airbnbPasswordEnc?: SortOrder
+    composioUserId?: SortOrder
+    composioConnectionId?: SortOrder
+    composioConnectedAt?: SortOrder
+    proxyHost?: SortOrder
+    proxyPort?: SortOrder
+    proxyUser?: SortOrder
+    proxyPassEnc?: SortOrder
+    proxyProvider?: SortOrder
+    proxySessionId?: SortOrder
+    proxyCountry?: SortOrder
+    sessionPath?: SortOrder
+    sessionStateEnc?: SortOrder
+    market?: SortOrder
+    messagesSentToday?: SortOrder
+    waveMessagesSent?: SortOrder
+    status?: SortOrder
+    rateLimitedAt?: SortOrder
+    cooldownUntil?: SortOrder
+    lastWaveStartedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProspectAccountAvgOrderByAggregateInput = {
+    proxyPort?: SortOrder
+    messagesSentToday?: SortOrder
+    waveMessagesSent?: SortOrder
+  }
+
+  export type ProspectAccountMaxOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    airbnbEmail?: SortOrder
+    airbnbPasswordEnc?: SortOrder
+    composioUserId?: SortOrder
+    composioConnectionId?: SortOrder
+    composioConnectedAt?: SortOrder
+    proxyHost?: SortOrder
+    proxyPort?: SortOrder
+    proxyUser?: SortOrder
+    proxyPassEnc?: SortOrder
+    proxyProvider?: SortOrder
+    proxySessionId?: SortOrder
+    proxyCountry?: SortOrder
+    sessionPath?: SortOrder
+    sessionStateEnc?: SortOrder
+    market?: SortOrder
+    messagesSentToday?: SortOrder
+    waveMessagesSent?: SortOrder
+    status?: SortOrder
+    rateLimitedAt?: SortOrder
+    cooldownUntil?: SortOrder
+    lastWaveStartedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProspectAccountMinOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    airbnbEmail?: SortOrder
+    airbnbPasswordEnc?: SortOrder
+    composioUserId?: SortOrder
+    composioConnectionId?: SortOrder
+    composioConnectedAt?: SortOrder
+    proxyHost?: SortOrder
+    proxyPort?: SortOrder
+    proxyUser?: SortOrder
+    proxyPassEnc?: SortOrder
+    proxyProvider?: SortOrder
+    proxySessionId?: SortOrder
+    proxyCountry?: SortOrder
+    sessionPath?: SortOrder
+    sessionStateEnc?: SortOrder
+    market?: SortOrder
+    messagesSentToday?: SortOrder
+    waveMessagesSent?: SortOrder
+    status?: SortOrder
+    rateLimitedAt?: SortOrder
+    cooldownUntil?: SortOrder
+    lastWaveStartedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProspectAccountSumOrderByAggregateInput = {
+    proxyPort?: SortOrder
+    messagesSentToday?: SortOrder
+    waveMessagesSent?: SortOrder
+  }
+
+  export type EnumAccountStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AccountStatus | EnumAccountStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AccountStatus[] | ListEnumAccountStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AccountStatus[] | ListEnumAccountStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAccountStatusWithAggregatesFilter<$PrismaModel> | $Enums.AccountStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAccountStatusFilter<$PrismaModel>
+    _max?: NestedEnumAccountStatusFilter<$PrismaModel>
+  }
+
+  export type EnumContactSourceFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactSource | EnumContactSourceFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactSource[] | ListEnumContactSourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactSource[] | ListEnumContactSourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactSourceFilter<$PrismaModel> | $Enums.ContactSource
+  }
+
+  export type HostContactCountOrderByAggregateInput = {
+    id?: SortOrder
+    hostAirbnbId?: SortOrder
+    leadId?: SortOrder
+    firstContactedAt?: SortOrder
+    firstContactAccountId?: SortOrder
+    source?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type HostContactMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hostAirbnbId?: SortOrder
+    leadId?: SortOrder
+    firstContactedAt?: SortOrder
+    firstContactAccountId?: SortOrder
+    source?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type HostContactMinOrderByAggregateInput = {
+    id?: SortOrder
+    hostAirbnbId?: SortOrder
+    leadId?: SortOrder
+    firstContactedAt?: SortOrder
+    firstContactAccountId?: SortOrder
+    source?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumContactSourceWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactSource | EnumContactSourceFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactSource[] | ListEnumContactSourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactSource[] | ListEnumContactSourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactSourceWithAggregatesFilter<$PrismaModel> | $Enums.ContactSource
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContactSourceFilter<$PrismaModel>
+    _max?: NestedEnumContactSourceFilter<$PrismaModel>
+  }
+
+  export type LeadIdentityAliasCountOrderByAggregateInput = {
+    id?: SortOrder
+    aliasId?: SortOrder
+    canonicalId?: SortOrder
+    leadId?: SortOrder
+  }
+
+  export type LeadIdentityAliasMaxOrderByAggregateInput = {
+    id?: SortOrder
+    aliasId?: SortOrder
+    canonicalId?: SortOrder
+    leadId?: SortOrder
+  }
+
+  export type LeadIdentityAliasMinOrderByAggregateInput = {
+    id?: SortOrder
+    aliasId?: SortOrder
+    canonicalId?: SortOrder
+    leadId?: SortOrder
+  }
+
+  export type DailyOutboundStatsDateMarketCompoundUniqueInput = {
+    date: Date | string
+    market: string
+  }
+
+  export type DailyOutboundStatsCountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    market?: SortOrder
+    coldMessagesSent?: SortOrder
+  }
+
+  export type DailyOutboundStatsAvgOrderByAggregateInput = {
+    coldMessagesSent?: SortOrder
+  }
+
+  export type DailyOutboundStatsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    market?: SortOrder
+    coldMessagesSent?: SortOrder
+  }
+
+  export type DailyOutboundStatsMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    market?: SortOrder
+    coldMessagesSent?: SortOrder
+  }
+
+  export type DailyOutboundStatsSumOrderByAggregateInput = {
+    coldMessagesSent?: SortOrder
+  }
+
+  export type EnumBlockTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockType | EnumBlockTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockTypeFilter<$PrismaModel> | $Enums.BlockType
+  }
+
+  export type ProspectAccountScalarRelationFilter = {
+    is?: ProspectAccountWhereInput
+    isNot?: ProspectAccountWhereInput
+  }
+
+  export type AccountBlockEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    accountId?: SortOrder
+    type?: SortOrder
+    message?: SortOrder
+    occurredAt?: SortOrder
+  }
+
+  export type AccountBlockEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    accountId?: SortOrder
+    type?: SortOrder
+    message?: SortOrder
+    occurredAt?: SortOrder
+  }
+
+  export type AccountBlockEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    accountId?: SortOrder
+    type?: SortOrder
+    message?: SortOrder
+    occurredAt?: SortOrder
+  }
+
+  export type EnumBlockTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockType | EnumBlockTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockTypeWithAggregatesFilter<$PrismaModel> | $Enums.BlockType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBlockTypeFilter<$PrismaModel>
+    _max?: NestedEnumBlockTypeFilter<$PrismaModel>
+  }
+
+  export type EnumAirbnbCommercialStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.AirbnbCommercialStage | EnumAirbnbCommercialStageFieldRefInput<$PrismaModel>
+    in?: $Enums.AirbnbCommercialStage[] | ListEnumAirbnbCommercialStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AirbnbCommercialStage[] | ListEnumAirbnbCommercialStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumAirbnbCommercialStageFilter<$PrismaModel> | $Enums.AirbnbCommercialStage
+  }
+
+  export type AirbnbCommercialCountOrderByAggregateInput = {
+    id?: SortOrder
+    leadId?: SortOrder
+    stage?: SortOrder
+    hostEmail?: SortOrder
+    meetingTime?: SortOrder
+    meetLink?: SortOrder
+    meetingId?: SortOrder
+    contractValueUsd?: SortOrder
+    contractPlan?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AirbnbCommercialAvgOrderByAggregateInput = {
+    contractValueUsd?: SortOrder
+  }
+
+  export type AirbnbCommercialMaxOrderByAggregateInput = {
+    id?: SortOrder
+    leadId?: SortOrder
+    stage?: SortOrder
+    hostEmail?: SortOrder
+    meetingTime?: SortOrder
+    meetLink?: SortOrder
+    meetingId?: SortOrder
+    contractValueUsd?: SortOrder
+    contractPlan?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AirbnbCommercialMinOrderByAggregateInput = {
+    id?: SortOrder
+    leadId?: SortOrder
+    stage?: SortOrder
+    hostEmail?: SortOrder
+    meetingTime?: SortOrder
+    meetLink?: SortOrder
+    meetingId?: SortOrder
+    contractValueUsd?: SortOrder
+    contractPlan?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AirbnbCommercialSumOrderByAggregateInput = {
+    contractValueUsd?: SortOrder
+  }
+
+  export type EnumAirbnbCommercialStageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AirbnbCommercialStage | EnumAirbnbCommercialStageFieldRefInput<$PrismaModel>
+    in?: $Enums.AirbnbCommercialStage[] | ListEnumAirbnbCommercialStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AirbnbCommercialStage[] | ListEnumAirbnbCommercialStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumAirbnbCommercialStageWithAggregatesFilter<$PrismaModel> | $Enums.AirbnbCommercialStage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAirbnbCommercialStageFilter<$PrismaModel>
+    _max?: NestedEnumAirbnbCommercialStageFilter<$PrismaModel>
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type OperationalDiagnosisCountOrderByAggregateInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    clientName?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OperationalDiagnosisMaxOrderByAggregateInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    clientName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OperationalDiagnosisMinOrderByAggregateInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    clientName?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
   export type FormSubmissionCreateNestedManyWithoutContactInput = {
     create?: XOR<FormSubmissionCreateWithoutContactInput, FormSubmissionUncheckedCreateWithoutContactInput> | FormSubmissionCreateWithoutContactInput[] | FormSubmissionUncheckedCreateWithoutContactInput[]
     connectOrCreate?: FormSubmissionCreateOrConnectWithoutContactInput | FormSubmissionCreateOrConnectWithoutContactInput[]
@@ -15689,6 +33912,12 @@ export namespace Prisma {
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
   }
 
+  export type AirbnbLeadCreateNestedOneWithoutContactInput = {
+    create?: XOR<AirbnbLeadCreateWithoutContactInput, AirbnbLeadUncheckedCreateWithoutContactInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutContactInput
+    connect?: AirbnbLeadWhereUniqueInput
+  }
+
   export type FormSubmissionUncheckedCreateNestedManyWithoutContactInput = {
     create?: XOR<FormSubmissionCreateWithoutContactInput, FormSubmissionUncheckedCreateWithoutContactInput> | FormSubmissionCreateWithoutContactInput[] | FormSubmissionUncheckedCreateWithoutContactInput[]
     connectOrCreate?: FormSubmissionCreateOrConnectWithoutContactInput | FormSubmissionCreateOrConnectWithoutContactInput[]
@@ -15707,6 +33936,12 @@ export namespace Prisma {
     connectOrCreate?: ConversationCreateOrConnectWithoutContactInput | ConversationCreateOrConnectWithoutContactInput[]
     createMany?: ConversationCreateManyContactInputEnvelope
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+  }
+
+  export type AirbnbLeadUncheckedCreateNestedOneWithoutContactInput = {
+    create?: XOR<AirbnbLeadCreateWithoutContactInput, AirbnbLeadUncheckedCreateWithoutContactInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutContactInput
+    connect?: AirbnbLeadWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -15759,6 +33994,16 @@ export namespace Prisma {
     deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
   }
 
+  export type AirbnbLeadUpdateOneWithoutContactNestedInput = {
+    create?: XOR<AirbnbLeadCreateWithoutContactInput, AirbnbLeadUncheckedCreateWithoutContactInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutContactInput
+    upsert?: AirbnbLeadUpsertWithoutContactInput
+    disconnect?: AirbnbLeadWhereInput | boolean
+    delete?: AirbnbLeadWhereInput | boolean
+    connect?: AirbnbLeadWhereUniqueInput
+    update?: XOR<XOR<AirbnbLeadUpdateToOneWithWhereWithoutContactInput, AirbnbLeadUpdateWithoutContactInput>, AirbnbLeadUncheckedUpdateWithoutContactInput>
+  }
+
   export type FormSubmissionUncheckedUpdateManyWithoutContactNestedInput = {
     create?: XOR<FormSubmissionCreateWithoutContactInput, FormSubmissionUncheckedCreateWithoutContactInput> | FormSubmissionCreateWithoutContactInput[] | FormSubmissionUncheckedCreateWithoutContactInput[]
     connectOrCreate?: FormSubmissionCreateOrConnectWithoutContactInput | FormSubmissionCreateOrConnectWithoutContactInput[]
@@ -15795,6 +34040,16 @@ export namespace Prisma {
     update?: ConversationUpdateWithWhereUniqueWithoutContactInput | ConversationUpdateWithWhereUniqueWithoutContactInput[]
     updateMany?: ConversationUpdateManyWithWhereWithoutContactInput | ConversationUpdateManyWithWhereWithoutContactInput[]
     deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+  }
+
+  export type AirbnbLeadUncheckedUpdateOneWithoutContactNestedInput = {
+    create?: XOR<AirbnbLeadCreateWithoutContactInput, AirbnbLeadUncheckedCreateWithoutContactInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutContactInput
+    upsert?: AirbnbLeadUpsertWithoutContactInput
+    disconnect?: AirbnbLeadWhereInput | boolean
+    delete?: AirbnbLeadWhereInput | boolean
+    connect?: AirbnbLeadWhereUniqueInput
+    update?: XOR<XOR<AirbnbLeadUpdateToOneWithWhereWithoutContactInput, AirbnbLeadUpdateWithoutContactInput>, AirbnbLeadUncheckedUpdateWithoutContactInput>
   }
 
   export type ContactCreateNestedOneWithoutSubmissionsInput = {
@@ -15929,6 +34184,12 @@ export namespace Prisma {
     connect?: FormSubmissionWhereUniqueInput
   }
 
+  export type AirbnbLeadCreateNestedOneWithoutEventsInput = {
+    create?: XOR<AirbnbLeadCreateWithoutEventsInput, AirbnbLeadUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutEventsInput
+    connect?: AirbnbLeadWhereUniqueInput
+  }
+
   export type EnumMarketingEventNameFieldUpdateOperationsInput = {
     set?: $Enums.MarketingEventName
   }
@@ -15953,12 +34214,24 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type FormSubmissionUpdateOneRequiredWithoutEventsNestedInput = {
+  export type FormSubmissionUpdateOneWithoutEventsNestedInput = {
     create?: XOR<FormSubmissionCreateWithoutEventsInput, FormSubmissionUncheckedCreateWithoutEventsInput>
     connectOrCreate?: FormSubmissionCreateOrConnectWithoutEventsInput
     upsert?: FormSubmissionUpsertWithoutEventsInput
+    disconnect?: FormSubmissionWhereInput | boolean
+    delete?: FormSubmissionWhereInput | boolean
     connect?: FormSubmissionWhereUniqueInput
     update?: XOR<XOR<FormSubmissionUpdateToOneWithWhereWithoutEventsInput, FormSubmissionUpdateWithoutEventsInput>, FormSubmissionUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type AirbnbLeadUpdateOneWithoutEventsNestedInput = {
+    create?: XOR<AirbnbLeadCreateWithoutEventsInput, AirbnbLeadUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutEventsInput
+    upsert?: AirbnbLeadUpsertWithoutEventsInput
+    disconnect?: AirbnbLeadWhereInput | boolean
+    delete?: AirbnbLeadWhereInput | boolean
+    connect?: AirbnbLeadWhereUniqueInput
+    update?: XOR<XOR<AirbnbLeadUpdateToOneWithWhereWithoutEventsInput, AirbnbLeadUpdateWithoutEventsInput>, AirbnbLeadUncheckedUpdateWithoutEventsInput>
   }
 
   export type NullableEnumVideoDropReasonFieldUpdateOperationsInput = {
@@ -16139,6 +34412,464 @@ export namespace Prisma {
     upsert?: LeadPipelineUpsertWithoutJobsInput
     connect?: LeadPipelineWhereUniqueInput
     update?: XOR<XOR<LeadPipelineUpdateToOneWithWhereWithoutJobsInput, LeadPipelineUpdateWithoutJobsInput>, LeadPipelineUncheckedUpdateWithoutJobsInput>
+  }
+
+  export type ContactCreateNestedOneWithoutAirbnbLeadInput = {
+    create?: XOR<ContactCreateWithoutAirbnbLeadInput, ContactUncheckedCreateWithoutAirbnbLeadInput>
+    connectOrCreate?: ContactCreateOrConnectWithoutAirbnbLeadInput
+    connect?: ContactWhereUniqueInput
+  }
+
+  export type AirbnbMessageCreateNestedManyWithoutLeadInput = {
+    create?: XOR<AirbnbMessageCreateWithoutLeadInput, AirbnbMessageUncheckedCreateWithoutLeadInput> | AirbnbMessageCreateWithoutLeadInput[] | AirbnbMessageUncheckedCreateWithoutLeadInput[]
+    connectOrCreate?: AirbnbMessageCreateOrConnectWithoutLeadInput | AirbnbMessageCreateOrConnectWithoutLeadInput[]
+    createMany?: AirbnbMessageCreateManyLeadInputEnvelope
+    connect?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+  }
+
+  export type CalBookingCreateNestedManyWithoutLeadInput = {
+    create?: XOR<CalBookingCreateWithoutLeadInput, CalBookingUncheckedCreateWithoutLeadInput> | CalBookingCreateWithoutLeadInput[] | CalBookingUncheckedCreateWithoutLeadInput[]
+    connectOrCreate?: CalBookingCreateOrConnectWithoutLeadInput | CalBookingCreateOrConnectWithoutLeadInput[]
+    createMany?: CalBookingCreateManyLeadInputEnvelope
+    connect?: CalBookingWhereUniqueInput | CalBookingWhereUniqueInput[]
+  }
+
+  export type HostContactCreateNestedOneWithoutLeadInput = {
+    create?: XOR<HostContactCreateWithoutLeadInput, HostContactUncheckedCreateWithoutLeadInput>
+    connectOrCreate?: HostContactCreateOrConnectWithoutLeadInput
+    connect?: HostContactWhereUniqueInput
+  }
+
+  export type AirbnbCommercialCreateNestedOneWithoutLeadInput = {
+    create?: XOR<AirbnbCommercialCreateWithoutLeadInput, AirbnbCommercialUncheckedCreateWithoutLeadInput>
+    connectOrCreate?: AirbnbCommercialCreateOrConnectWithoutLeadInput
+    connect?: AirbnbCommercialWhereUniqueInput
+  }
+
+  export type LeadEventCreateNestedManyWithoutAirbnbLeadInput = {
+    create?: XOR<LeadEventCreateWithoutAirbnbLeadInput, LeadEventUncheckedCreateWithoutAirbnbLeadInput> | LeadEventCreateWithoutAirbnbLeadInput[] | LeadEventUncheckedCreateWithoutAirbnbLeadInput[]
+    connectOrCreate?: LeadEventCreateOrConnectWithoutAirbnbLeadInput | LeadEventCreateOrConnectWithoutAirbnbLeadInput[]
+    createMany?: LeadEventCreateManyAirbnbLeadInputEnvelope
+    connect?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
+  }
+
+  export type AirbnbMessageUncheckedCreateNestedManyWithoutLeadInput = {
+    create?: XOR<AirbnbMessageCreateWithoutLeadInput, AirbnbMessageUncheckedCreateWithoutLeadInput> | AirbnbMessageCreateWithoutLeadInput[] | AirbnbMessageUncheckedCreateWithoutLeadInput[]
+    connectOrCreate?: AirbnbMessageCreateOrConnectWithoutLeadInput | AirbnbMessageCreateOrConnectWithoutLeadInput[]
+    createMany?: AirbnbMessageCreateManyLeadInputEnvelope
+    connect?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+  }
+
+  export type CalBookingUncheckedCreateNestedManyWithoutLeadInput = {
+    create?: XOR<CalBookingCreateWithoutLeadInput, CalBookingUncheckedCreateWithoutLeadInput> | CalBookingCreateWithoutLeadInput[] | CalBookingUncheckedCreateWithoutLeadInput[]
+    connectOrCreate?: CalBookingCreateOrConnectWithoutLeadInput | CalBookingCreateOrConnectWithoutLeadInput[]
+    createMany?: CalBookingCreateManyLeadInputEnvelope
+    connect?: CalBookingWhereUniqueInput | CalBookingWhereUniqueInput[]
+  }
+
+  export type HostContactUncheckedCreateNestedOneWithoutLeadInput = {
+    create?: XOR<HostContactCreateWithoutLeadInput, HostContactUncheckedCreateWithoutLeadInput>
+    connectOrCreate?: HostContactCreateOrConnectWithoutLeadInput
+    connect?: HostContactWhereUniqueInput
+  }
+
+  export type AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput = {
+    create?: XOR<AirbnbCommercialCreateWithoutLeadInput, AirbnbCommercialUncheckedCreateWithoutLeadInput>
+    connectOrCreate?: AirbnbCommercialCreateOrConnectWithoutLeadInput
+    connect?: AirbnbCommercialWhereUniqueInput
+  }
+
+  export type LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput = {
+    create?: XOR<LeadEventCreateWithoutAirbnbLeadInput, LeadEventUncheckedCreateWithoutAirbnbLeadInput> | LeadEventCreateWithoutAirbnbLeadInput[] | LeadEventUncheckedCreateWithoutAirbnbLeadInput[]
+    connectOrCreate?: LeadEventCreateOrConnectWithoutAirbnbLeadInput | LeadEventCreateOrConnectWithoutAirbnbLeadInput[]
+    createMany?: LeadEventCreateManyAirbnbLeadInputEnvelope
+    connect?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
+  }
+
+  export type NullableEnumIcpSkipReasonFieldUpdateOperationsInput = {
+    set?: $Enums.IcpSkipReason | null
+  }
+
+  export type EnumLeadStatusFieldUpdateOperationsInput = {
+    set?: $Enums.LeadStatus
+  }
+
+  export type ContactUpdateOneWithoutAirbnbLeadNestedInput = {
+    create?: XOR<ContactCreateWithoutAirbnbLeadInput, ContactUncheckedCreateWithoutAirbnbLeadInput>
+    connectOrCreate?: ContactCreateOrConnectWithoutAirbnbLeadInput
+    upsert?: ContactUpsertWithoutAirbnbLeadInput
+    disconnect?: ContactWhereInput | boolean
+    delete?: ContactWhereInput | boolean
+    connect?: ContactWhereUniqueInput
+    update?: XOR<XOR<ContactUpdateToOneWithWhereWithoutAirbnbLeadInput, ContactUpdateWithoutAirbnbLeadInput>, ContactUncheckedUpdateWithoutAirbnbLeadInput>
+  }
+
+  export type AirbnbMessageUpdateManyWithoutLeadNestedInput = {
+    create?: XOR<AirbnbMessageCreateWithoutLeadInput, AirbnbMessageUncheckedCreateWithoutLeadInput> | AirbnbMessageCreateWithoutLeadInput[] | AirbnbMessageUncheckedCreateWithoutLeadInput[]
+    connectOrCreate?: AirbnbMessageCreateOrConnectWithoutLeadInput | AirbnbMessageCreateOrConnectWithoutLeadInput[]
+    upsert?: AirbnbMessageUpsertWithWhereUniqueWithoutLeadInput | AirbnbMessageUpsertWithWhereUniqueWithoutLeadInput[]
+    createMany?: AirbnbMessageCreateManyLeadInputEnvelope
+    set?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    disconnect?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    delete?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    connect?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    update?: AirbnbMessageUpdateWithWhereUniqueWithoutLeadInput | AirbnbMessageUpdateWithWhereUniqueWithoutLeadInput[]
+    updateMany?: AirbnbMessageUpdateManyWithWhereWithoutLeadInput | AirbnbMessageUpdateManyWithWhereWithoutLeadInput[]
+    deleteMany?: AirbnbMessageScalarWhereInput | AirbnbMessageScalarWhereInput[]
+  }
+
+  export type CalBookingUpdateManyWithoutLeadNestedInput = {
+    create?: XOR<CalBookingCreateWithoutLeadInput, CalBookingUncheckedCreateWithoutLeadInput> | CalBookingCreateWithoutLeadInput[] | CalBookingUncheckedCreateWithoutLeadInput[]
+    connectOrCreate?: CalBookingCreateOrConnectWithoutLeadInput | CalBookingCreateOrConnectWithoutLeadInput[]
+    upsert?: CalBookingUpsertWithWhereUniqueWithoutLeadInput | CalBookingUpsertWithWhereUniqueWithoutLeadInput[]
+    createMany?: CalBookingCreateManyLeadInputEnvelope
+    set?: CalBookingWhereUniqueInput | CalBookingWhereUniqueInput[]
+    disconnect?: CalBookingWhereUniqueInput | CalBookingWhereUniqueInput[]
+    delete?: CalBookingWhereUniqueInput | CalBookingWhereUniqueInput[]
+    connect?: CalBookingWhereUniqueInput | CalBookingWhereUniqueInput[]
+    update?: CalBookingUpdateWithWhereUniqueWithoutLeadInput | CalBookingUpdateWithWhereUniqueWithoutLeadInput[]
+    updateMany?: CalBookingUpdateManyWithWhereWithoutLeadInput | CalBookingUpdateManyWithWhereWithoutLeadInput[]
+    deleteMany?: CalBookingScalarWhereInput | CalBookingScalarWhereInput[]
+  }
+
+  export type HostContactUpdateOneWithoutLeadNestedInput = {
+    create?: XOR<HostContactCreateWithoutLeadInput, HostContactUncheckedCreateWithoutLeadInput>
+    connectOrCreate?: HostContactCreateOrConnectWithoutLeadInput
+    upsert?: HostContactUpsertWithoutLeadInput
+    disconnect?: HostContactWhereInput | boolean
+    delete?: HostContactWhereInput | boolean
+    connect?: HostContactWhereUniqueInput
+    update?: XOR<XOR<HostContactUpdateToOneWithWhereWithoutLeadInput, HostContactUpdateWithoutLeadInput>, HostContactUncheckedUpdateWithoutLeadInput>
+  }
+
+  export type AirbnbCommercialUpdateOneWithoutLeadNestedInput = {
+    create?: XOR<AirbnbCommercialCreateWithoutLeadInput, AirbnbCommercialUncheckedCreateWithoutLeadInput>
+    connectOrCreate?: AirbnbCommercialCreateOrConnectWithoutLeadInput
+    upsert?: AirbnbCommercialUpsertWithoutLeadInput
+    disconnect?: AirbnbCommercialWhereInput | boolean
+    delete?: AirbnbCommercialWhereInput | boolean
+    connect?: AirbnbCommercialWhereUniqueInput
+    update?: XOR<XOR<AirbnbCommercialUpdateToOneWithWhereWithoutLeadInput, AirbnbCommercialUpdateWithoutLeadInput>, AirbnbCommercialUncheckedUpdateWithoutLeadInput>
+  }
+
+  export type LeadEventUpdateManyWithoutAirbnbLeadNestedInput = {
+    create?: XOR<LeadEventCreateWithoutAirbnbLeadInput, LeadEventUncheckedCreateWithoutAirbnbLeadInput> | LeadEventCreateWithoutAirbnbLeadInput[] | LeadEventUncheckedCreateWithoutAirbnbLeadInput[]
+    connectOrCreate?: LeadEventCreateOrConnectWithoutAirbnbLeadInput | LeadEventCreateOrConnectWithoutAirbnbLeadInput[]
+    upsert?: LeadEventUpsertWithWhereUniqueWithoutAirbnbLeadInput | LeadEventUpsertWithWhereUniqueWithoutAirbnbLeadInput[]
+    createMany?: LeadEventCreateManyAirbnbLeadInputEnvelope
+    set?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
+    disconnect?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
+    delete?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
+    connect?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
+    update?: LeadEventUpdateWithWhereUniqueWithoutAirbnbLeadInput | LeadEventUpdateWithWhereUniqueWithoutAirbnbLeadInput[]
+    updateMany?: LeadEventUpdateManyWithWhereWithoutAirbnbLeadInput | LeadEventUpdateManyWithWhereWithoutAirbnbLeadInput[]
+    deleteMany?: LeadEventScalarWhereInput | LeadEventScalarWhereInput[]
+  }
+
+  export type AirbnbMessageUncheckedUpdateManyWithoutLeadNestedInput = {
+    create?: XOR<AirbnbMessageCreateWithoutLeadInput, AirbnbMessageUncheckedCreateWithoutLeadInput> | AirbnbMessageCreateWithoutLeadInput[] | AirbnbMessageUncheckedCreateWithoutLeadInput[]
+    connectOrCreate?: AirbnbMessageCreateOrConnectWithoutLeadInput | AirbnbMessageCreateOrConnectWithoutLeadInput[]
+    upsert?: AirbnbMessageUpsertWithWhereUniqueWithoutLeadInput | AirbnbMessageUpsertWithWhereUniqueWithoutLeadInput[]
+    createMany?: AirbnbMessageCreateManyLeadInputEnvelope
+    set?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    disconnect?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    delete?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    connect?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    update?: AirbnbMessageUpdateWithWhereUniqueWithoutLeadInput | AirbnbMessageUpdateWithWhereUniqueWithoutLeadInput[]
+    updateMany?: AirbnbMessageUpdateManyWithWhereWithoutLeadInput | AirbnbMessageUpdateManyWithWhereWithoutLeadInput[]
+    deleteMany?: AirbnbMessageScalarWhereInput | AirbnbMessageScalarWhereInput[]
+  }
+
+  export type CalBookingUncheckedUpdateManyWithoutLeadNestedInput = {
+    create?: XOR<CalBookingCreateWithoutLeadInput, CalBookingUncheckedCreateWithoutLeadInput> | CalBookingCreateWithoutLeadInput[] | CalBookingUncheckedCreateWithoutLeadInput[]
+    connectOrCreate?: CalBookingCreateOrConnectWithoutLeadInput | CalBookingCreateOrConnectWithoutLeadInput[]
+    upsert?: CalBookingUpsertWithWhereUniqueWithoutLeadInput | CalBookingUpsertWithWhereUniqueWithoutLeadInput[]
+    createMany?: CalBookingCreateManyLeadInputEnvelope
+    set?: CalBookingWhereUniqueInput | CalBookingWhereUniqueInput[]
+    disconnect?: CalBookingWhereUniqueInput | CalBookingWhereUniqueInput[]
+    delete?: CalBookingWhereUniqueInput | CalBookingWhereUniqueInput[]
+    connect?: CalBookingWhereUniqueInput | CalBookingWhereUniqueInput[]
+    update?: CalBookingUpdateWithWhereUniqueWithoutLeadInput | CalBookingUpdateWithWhereUniqueWithoutLeadInput[]
+    updateMany?: CalBookingUpdateManyWithWhereWithoutLeadInput | CalBookingUpdateManyWithWhereWithoutLeadInput[]
+    deleteMany?: CalBookingScalarWhereInput | CalBookingScalarWhereInput[]
+  }
+
+  export type HostContactUncheckedUpdateOneWithoutLeadNestedInput = {
+    create?: XOR<HostContactCreateWithoutLeadInput, HostContactUncheckedCreateWithoutLeadInput>
+    connectOrCreate?: HostContactCreateOrConnectWithoutLeadInput
+    upsert?: HostContactUpsertWithoutLeadInput
+    disconnect?: HostContactWhereInput | boolean
+    delete?: HostContactWhereInput | boolean
+    connect?: HostContactWhereUniqueInput
+    update?: XOR<XOR<HostContactUpdateToOneWithWhereWithoutLeadInput, HostContactUpdateWithoutLeadInput>, HostContactUncheckedUpdateWithoutLeadInput>
+  }
+
+  export type AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput = {
+    create?: XOR<AirbnbCommercialCreateWithoutLeadInput, AirbnbCommercialUncheckedCreateWithoutLeadInput>
+    connectOrCreate?: AirbnbCommercialCreateOrConnectWithoutLeadInput
+    upsert?: AirbnbCommercialUpsertWithoutLeadInput
+    disconnect?: AirbnbCommercialWhereInput | boolean
+    delete?: AirbnbCommercialWhereInput | boolean
+    connect?: AirbnbCommercialWhereUniqueInput
+    update?: XOR<XOR<AirbnbCommercialUpdateToOneWithWhereWithoutLeadInput, AirbnbCommercialUpdateWithoutLeadInput>, AirbnbCommercialUncheckedUpdateWithoutLeadInput>
+  }
+
+  export type LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput = {
+    create?: XOR<LeadEventCreateWithoutAirbnbLeadInput, LeadEventUncheckedCreateWithoutAirbnbLeadInput> | LeadEventCreateWithoutAirbnbLeadInput[] | LeadEventUncheckedCreateWithoutAirbnbLeadInput[]
+    connectOrCreate?: LeadEventCreateOrConnectWithoutAirbnbLeadInput | LeadEventCreateOrConnectWithoutAirbnbLeadInput[]
+    upsert?: LeadEventUpsertWithWhereUniqueWithoutAirbnbLeadInput | LeadEventUpsertWithWhereUniqueWithoutAirbnbLeadInput[]
+    createMany?: LeadEventCreateManyAirbnbLeadInputEnvelope
+    set?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
+    disconnect?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
+    delete?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
+    connect?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
+    update?: LeadEventUpdateWithWhereUniqueWithoutAirbnbLeadInput | LeadEventUpdateWithWhereUniqueWithoutAirbnbLeadInput[]
+    updateMany?: LeadEventUpdateManyWithWhereWithoutAirbnbLeadInput | LeadEventUpdateManyWithWhereWithoutAirbnbLeadInput[]
+    deleteMany?: LeadEventScalarWhereInput | LeadEventScalarWhereInput[]
+  }
+
+  export type AirbnbLeadCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<AirbnbLeadCreateWithoutMessagesInput, AirbnbLeadUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutMessagesInput
+    connect?: AirbnbLeadWhereUniqueInput
+  }
+
+  export type ProspectAccountCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<ProspectAccountCreateWithoutMessagesInput, ProspectAccountUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: ProspectAccountCreateOrConnectWithoutMessagesInput
+    connect?: ProspectAccountWhereUniqueInput
+  }
+
+  export type AirbnbLeadUpdateOneRequiredWithoutMessagesNestedInput = {
+    create?: XOR<AirbnbLeadCreateWithoutMessagesInput, AirbnbLeadUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutMessagesInput
+    upsert?: AirbnbLeadUpsertWithoutMessagesInput
+    connect?: AirbnbLeadWhereUniqueInput
+    update?: XOR<XOR<AirbnbLeadUpdateToOneWithWhereWithoutMessagesInput, AirbnbLeadUpdateWithoutMessagesInput>, AirbnbLeadUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type ProspectAccountUpdateOneWithoutMessagesNestedInput = {
+    create?: XOR<ProspectAccountCreateWithoutMessagesInput, ProspectAccountUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: ProspectAccountCreateOrConnectWithoutMessagesInput
+    upsert?: ProspectAccountUpsertWithoutMessagesInput
+    disconnect?: ProspectAccountWhereInput | boolean
+    delete?: ProspectAccountWhereInput | boolean
+    connect?: ProspectAccountWhereUniqueInput
+    update?: XOR<XOR<ProspectAccountUpdateToOneWithWhereWithoutMessagesInput, ProspectAccountUpdateWithoutMessagesInput>, ProspectAccountUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type AirbnbLeadCreateNestedOneWithoutCalBookingsInput = {
+    create?: XOR<AirbnbLeadCreateWithoutCalBookingsInput, AirbnbLeadUncheckedCreateWithoutCalBookingsInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutCalBookingsInput
+    connect?: AirbnbLeadWhereUniqueInput
+  }
+
+  export type AirbnbLeadUpdateOneRequiredWithoutCalBookingsNestedInput = {
+    create?: XOR<AirbnbLeadCreateWithoutCalBookingsInput, AirbnbLeadUncheckedCreateWithoutCalBookingsInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutCalBookingsInput
+    upsert?: AirbnbLeadUpsertWithoutCalBookingsInput
+    connect?: AirbnbLeadWhereUniqueInput
+    update?: XOR<XOR<AirbnbLeadUpdateToOneWithWhereWithoutCalBookingsInput, AirbnbLeadUpdateWithoutCalBookingsInput>, AirbnbLeadUncheckedUpdateWithoutCalBookingsInput>
+  }
+
+  export type AccountBlockEventCreateNestedManyWithoutAccountInput = {
+    create?: XOR<AccountBlockEventCreateWithoutAccountInput, AccountBlockEventUncheckedCreateWithoutAccountInput> | AccountBlockEventCreateWithoutAccountInput[] | AccountBlockEventUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: AccountBlockEventCreateOrConnectWithoutAccountInput | AccountBlockEventCreateOrConnectWithoutAccountInput[]
+    createMany?: AccountBlockEventCreateManyAccountInputEnvelope
+    connect?: AccountBlockEventWhereUniqueInput | AccountBlockEventWhereUniqueInput[]
+  }
+
+  export type AirbnbMessageCreateNestedManyWithoutProspectAccountInput = {
+    create?: XOR<AirbnbMessageCreateWithoutProspectAccountInput, AirbnbMessageUncheckedCreateWithoutProspectAccountInput> | AirbnbMessageCreateWithoutProspectAccountInput[] | AirbnbMessageUncheckedCreateWithoutProspectAccountInput[]
+    connectOrCreate?: AirbnbMessageCreateOrConnectWithoutProspectAccountInput | AirbnbMessageCreateOrConnectWithoutProspectAccountInput[]
+    createMany?: AirbnbMessageCreateManyProspectAccountInputEnvelope
+    connect?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+  }
+
+  export type HostContactCreateNestedManyWithoutFirstContactAccountInput = {
+    create?: XOR<HostContactCreateWithoutFirstContactAccountInput, HostContactUncheckedCreateWithoutFirstContactAccountInput> | HostContactCreateWithoutFirstContactAccountInput[] | HostContactUncheckedCreateWithoutFirstContactAccountInput[]
+    connectOrCreate?: HostContactCreateOrConnectWithoutFirstContactAccountInput | HostContactCreateOrConnectWithoutFirstContactAccountInput[]
+    createMany?: HostContactCreateManyFirstContactAccountInputEnvelope
+    connect?: HostContactWhereUniqueInput | HostContactWhereUniqueInput[]
+  }
+
+  export type AccountBlockEventUncheckedCreateNestedManyWithoutAccountInput = {
+    create?: XOR<AccountBlockEventCreateWithoutAccountInput, AccountBlockEventUncheckedCreateWithoutAccountInput> | AccountBlockEventCreateWithoutAccountInput[] | AccountBlockEventUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: AccountBlockEventCreateOrConnectWithoutAccountInput | AccountBlockEventCreateOrConnectWithoutAccountInput[]
+    createMany?: AccountBlockEventCreateManyAccountInputEnvelope
+    connect?: AccountBlockEventWhereUniqueInput | AccountBlockEventWhereUniqueInput[]
+  }
+
+  export type AirbnbMessageUncheckedCreateNestedManyWithoutProspectAccountInput = {
+    create?: XOR<AirbnbMessageCreateWithoutProspectAccountInput, AirbnbMessageUncheckedCreateWithoutProspectAccountInput> | AirbnbMessageCreateWithoutProspectAccountInput[] | AirbnbMessageUncheckedCreateWithoutProspectAccountInput[]
+    connectOrCreate?: AirbnbMessageCreateOrConnectWithoutProspectAccountInput | AirbnbMessageCreateOrConnectWithoutProspectAccountInput[]
+    createMany?: AirbnbMessageCreateManyProspectAccountInputEnvelope
+    connect?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+  }
+
+  export type HostContactUncheckedCreateNestedManyWithoutFirstContactAccountInput = {
+    create?: XOR<HostContactCreateWithoutFirstContactAccountInput, HostContactUncheckedCreateWithoutFirstContactAccountInput> | HostContactCreateWithoutFirstContactAccountInput[] | HostContactUncheckedCreateWithoutFirstContactAccountInput[]
+    connectOrCreate?: HostContactCreateOrConnectWithoutFirstContactAccountInput | HostContactCreateOrConnectWithoutFirstContactAccountInput[]
+    createMany?: HostContactCreateManyFirstContactAccountInputEnvelope
+    connect?: HostContactWhereUniqueInput | HostContactWhereUniqueInput[]
+  }
+
+  export type EnumAccountStatusFieldUpdateOperationsInput = {
+    set?: $Enums.AccountStatus
+  }
+
+  export type AccountBlockEventUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<AccountBlockEventCreateWithoutAccountInput, AccountBlockEventUncheckedCreateWithoutAccountInput> | AccountBlockEventCreateWithoutAccountInput[] | AccountBlockEventUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: AccountBlockEventCreateOrConnectWithoutAccountInput | AccountBlockEventCreateOrConnectWithoutAccountInput[]
+    upsert?: AccountBlockEventUpsertWithWhereUniqueWithoutAccountInput | AccountBlockEventUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: AccountBlockEventCreateManyAccountInputEnvelope
+    set?: AccountBlockEventWhereUniqueInput | AccountBlockEventWhereUniqueInput[]
+    disconnect?: AccountBlockEventWhereUniqueInput | AccountBlockEventWhereUniqueInput[]
+    delete?: AccountBlockEventWhereUniqueInput | AccountBlockEventWhereUniqueInput[]
+    connect?: AccountBlockEventWhereUniqueInput | AccountBlockEventWhereUniqueInput[]
+    update?: AccountBlockEventUpdateWithWhereUniqueWithoutAccountInput | AccountBlockEventUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: AccountBlockEventUpdateManyWithWhereWithoutAccountInput | AccountBlockEventUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: AccountBlockEventScalarWhereInput | AccountBlockEventScalarWhereInput[]
+  }
+
+  export type AirbnbMessageUpdateManyWithoutProspectAccountNestedInput = {
+    create?: XOR<AirbnbMessageCreateWithoutProspectAccountInput, AirbnbMessageUncheckedCreateWithoutProspectAccountInput> | AirbnbMessageCreateWithoutProspectAccountInput[] | AirbnbMessageUncheckedCreateWithoutProspectAccountInput[]
+    connectOrCreate?: AirbnbMessageCreateOrConnectWithoutProspectAccountInput | AirbnbMessageCreateOrConnectWithoutProspectAccountInput[]
+    upsert?: AirbnbMessageUpsertWithWhereUniqueWithoutProspectAccountInput | AirbnbMessageUpsertWithWhereUniqueWithoutProspectAccountInput[]
+    createMany?: AirbnbMessageCreateManyProspectAccountInputEnvelope
+    set?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    disconnect?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    delete?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    connect?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    update?: AirbnbMessageUpdateWithWhereUniqueWithoutProspectAccountInput | AirbnbMessageUpdateWithWhereUniqueWithoutProspectAccountInput[]
+    updateMany?: AirbnbMessageUpdateManyWithWhereWithoutProspectAccountInput | AirbnbMessageUpdateManyWithWhereWithoutProspectAccountInput[]
+    deleteMany?: AirbnbMessageScalarWhereInput | AirbnbMessageScalarWhereInput[]
+  }
+
+  export type HostContactUpdateManyWithoutFirstContactAccountNestedInput = {
+    create?: XOR<HostContactCreateWithoutFirstContactAccountInput, HostContactUncheckedCreateWithoutFirstContactAccountInput> | HostContactCreateWithoutFirstContactAccountInput[] | HostContactUncheckedCreateWithoutFirstContactAccountInput[]
+    connectOrCreate?: HostContactCreateOrConnectWithoutFirstContactAccountInput | HostContactCreateOrConnectWithoutFirstContactAccountInput[]
+    upsert?: HostContactUpsertWithWhereUniqueWithoutFirstContactAccountInput | HostContactUpsertWithWhereUniqueWithoutFirstContactAccountInput[]
+    createMany?: HostContactCreateManyFirstContactAccountInputEnvelope
+    set?: HostContactWhereUniqueInput | HostContactWhereUniqueInput[]
+    disconnect?: HostContactWhereUniqueInput | HostContactWhereUniqueInput[]
+    delete?: HostContactWhereUniqueInput | HostContactWhereUniqueInput[]
+    connect?: HostContactWhereUniqueInput | HostContactWhereUniqueInput[]
+    update?: HostContactUpdateWithWhereUniqueWithoutFirstContactAccountInput | HostContactUpdateWithWhereUniqueWithoutFirstContactAccountInput[]
+    updateMany?: HostContactUpdateManyWithWhereWithoutFirstContactAccountInput | HostContactUpdateManyWithWhereWithoutFirstContactAccountInput[]
+    deleteMany?: HostContactScalarWhereInput | HostContactScalarWhereInput[]
+  }
+
+  export type AccountBlockEventUncheckedUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<AccountBlockEventCreateWithoutAccountInput, AccountBlockEventUncheckedCreateWithoutAccountInput> | AccountBlockEventCreateWithoutAccountInput[] | AccountBlockEventUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: AccountBlockEventCreateOrConnectWithoutAccountInput | AccountBlockEventCreateOrConnectWithoutAccountInput[]
+    upsert?: AccountBlockEventUpsertWithWhereUniqueWithoutAccountInput | AccountBlockEventUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: AccountBlockEventCreateManyAccountInputEnvelope
+    set?: AccountBlockEventWhereUniqueInput | AccountBlockEventWhereUniqueInput[]
+    disconnect?: AccountBlockEventWhereUniqueInput | AccountBlockEventWhereUniqueInput[]
+    delete?: AccountBlockEventWhereUniqueInput | AccountBlockEventWhereUniqueInput[]
+    connect?: AccountBlockEventWhereUniqueInput | AccountBlockEventWhereUniqueInput[]
+    update?: AccountBlockEventUpdateWithWhereUniqueWithoutAccountInput | AccountBlockEventUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: AccountBlockEventUpdateManyWithWhereWithoutAccountInput | AccountBlockEventUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: AccountBlockEventScalarWhereInput | AccountBlockEventScalarWhereInput[]
+  }
+
+  export type AirbnbMessageUncheckedUpdateManyWithoutProspectAccountNestedInput = {
+    create?: XOR<AirbnbMessageCreateWithoutProspectAccountInput, AirbnbMessageUncheckedCreateWithoutProspectAccountInput> | AirbnbMessageCreateWithoutProspectAccountInput[] | AirbnbMessageUncheckedCreateWithoutProspectAccountInput[]
+    connectOrCreate?: AirbnbMessageCreateOrConnectWithoutProspectAccountInput | AirbnbMessageCreateOrConnectWithoutProspectAccountInput[]
+    upsert?: AirbnbMessageUpsertWithWhereUniqueWithoutProspectAccountInput | AirbnbMessageUpsertWithWhereUniqueWithoutProspectAccountInput[]
+    createMany?: AirbnbMessageCreateManyProspectAccountInputEnvelope
+    set?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    disconnect?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    delete?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    connect?: AirbnbMessageWhereUniqueInput | AirbnbMessageWhereUniqueInput[]
+    update?: AirbnbMessageUpdateWithWhereUniqueWithoutProspectAccountInput | AirbnbMessageUpdateWithWhereUniqueWithoutProspectAccountInput[]
+    updateMany?: AirbnbMessageUpdateManyWithWhereWithoutProspectAccountInput | AirbnbMessageUpdateManyWithWhereWithoutProspectAccountInput[]
+    deleteMany?: AirbnbMessageScalarWhereInput | AirbnbMessageScalarWhereInput[]
+  }
+
+  export type HostContactUncheckedUpdateManyWithoutFirstContactAccountNestedInput = {
+    create?: XOR<HostContactCreateWithoutFirstContactAccountInput, HostContactUncheckedCreateWithoutFirstContactAccountInput> | HostContactCreateWithoutFirstContactAccountInput[] | HostContactUncheckedCreateWithoutFirstContactAccountInput[]
+    connectOrCreate?: HostContactCreateOrConnectWithoutFirstContactAccountInput | HostContactCreateOrConnectWithoutFirstContactAccountInput[]
+    upsert?: HostContactUpsertWithWhereUniqueWithoutFirstContactAccountInput | HostContactUpsertWithWhereUniqueWithoutFirstContactAccountInput[]
+    createMany?: HostContactCreateManyFirstContactAccountInputEnvelope
+    set?: HostContactWhereUniqueInput | HostContactWhereUniqueInput[]
+    disconnect?: HostContactWhereUniqueInput | HostContactWhereUniqueInput[]
+    delete?: HostContactWhereUniqueInput | HostContactWhereUniqueInput[]
+    connect?: HostContactWhereUniqueInput | HostContactWhereUniqueInput[]
+    update?: HostContactUpdateWithWhereUniqueWithoutFirstContactAccountInput | HostContactUpdateWithWhereUniqueWithoutFirstContactAccountInput[]
+    updateMany?: HostContactUpdateManyWithWhereWithoutFirstContactAccountInput | HostContactUpdateManyWithWhereWithoutFirstContactAccountInput[]
+    deleteMany?: HostContactScalarWhereInput | HostContactScalarWhereInput[]
+  }
+
+  export type AirbnbLeadCreateNestedOneWithoutHostContactInput = {
+    create?: XOR<AirbnbLeadCreateWithoutHostContactInput, AirbnbLeadUncheckedCreateWithoutHostContactInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutHostContactInput
+    connect?: AirbnbLeadWhereUniqueInput
+  }
+
+  export type ProspectAccountCreateNestedOneWithoutHostContactsInput = {
+    create?: XOR<ProspectAccountCreateWithoutHostContactsInput, ProspectAccountUncheckedCreateWithoutHostContactsInput>
+    connectOrCreate?: ProspectAccountCreateOrConnectWithoutHostContactsInput
+    connect?: ProspectAccountWhereUniqueInput
+  }
+
+  export type EnumContactSourceFieldUpdateOperationsInput = {
+    set?: $Enums.ContactSource
+  }
+
+  export type AirbnbLeadUpdateOneRequiredWithoutHostContactNestedInput = {
+    create?: XOR<AirbnbLeadCreateWithoutHostContactInput, AirbnbLeadUncheckedCreateWithoutHostContactInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutHostContactInput
+    upsert?: AirbnbLeadUpsertWithoutHostContactInput
+    connect?: AirbnbLeadWhereUniqueInput
+    update?: XOR<XOR<AirbnbLeadUpdateToOneWithWhereWithoutHostContactInput, AirbnbLeadUpdateWithoutHostContactInput>, AirbnbLeadUncheckedUpdateWithoutHostContactInput>
+  }
+
+  export type ProspectAccountUpdateOneWithoutHostContactsNestedInput = {
+    create?: XOR<ProspectAccountCreateWithoutHostContactsInput, ProspectAccountUncheckedCreateWithoutHostContactsInput>
+    connectOrCreate?: ProspectAccountCreateOrConnectWithoutHostContactsInput
+    upsert?: ProspectAccountUpsertWithoutHostContactsInput
+    disconnect?: ProspectAccountWhereInput | boolean
+    delete?: ProspectAccountWhereInput | boolean
+    connect?: ProspectAccountWhereUniqueInput
+    update?: XOR<XOR<ProspectAccountUpdateToOneWithWhereWithoutHostContactsInput, ProspectAccountUpdateWithoutHostContactsInput>, ProspectAccountUncheckedUpdateWithoutHostContactsInput>
+  }
+
+  export type ProspectAccountCreateNestedOneWithoutBlockEventsInput = {
+    create?: XOR<ProspectAccountCreateWithoutBlockEventsInput, ProspectAccountUncheckedCreateWithoutBlockEventsInput>
+    connectOrCreate?: ProspectAccountCreateOrConnectWithoutBlockEventsInput
+    connect?: ProspectAccountWhereUniqueInput
+  }
+
+  export type EnumBlockTypeFieldUpdateOperationsInput = {
+    set?: $Enums.BlockType
+  }
+
+  export type ProspectAccountUpdateOneRequiredWithoutBlockEventsNestedInput = {
+    create?: XOR<ProspectAccountCreateWithoutBlockEventsInput, ProspectAccountUncheckedCreateWithoutBlockEventsInput>
+    connectOrCreate?: ProspectAccountCreateOrConnectWithoutBlockEventsInput
+    upsert?: ProspectAccountUpsertWithoutBlockEventsInput
+    connect?: ProspectAccountWhereUniqueInput
+    update?: XOR<XOR<ProspectAccountUpdateToOneWithWhereWithoutBlockEventsInput, ProspectAccountUpdateWithoutBlockEventsInput>, ProspectAccountUncheckedUpdateWithoutBlockEventsInput>
+  }
+
+  export type AirbnbLeadCreateNestedOneWithoutCommercialInput = {
+    create?: XOR<AirbnbLeadCreateWithoutCommercialInput, AirbnbLeadUncheckedCreateWithoutCommercialInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutCommercialInput
+    connect?: AirbnbLeadWhereUniqueInput
+  }
+
+  export type EnumAirbnbCommercialStageFieldUpdateOperationsInput = {
+    set?: $Enums.AirbnbCommercialStage
+  }
+
+  export type AirbnbLeadUpdateOneRequiredWithoutCommercialNestedInput = {
+    create?: XOR<AirbnbLeadCreateWithoutCommercialInput, AirbnbLeadUncheckedCreateWithoutCommercialInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutCommercialInput
+    upsert?: AirbnbLeadUpsertWithoutCommercialInput
+    connect?: AirbnbLeadWhereUniqueInput
+    update?: XOR<XOR<AirbnbLeadUpdateToOneWithWhereWithoutCommercialInput, AirbnbLeadUpdateWithoutCommercialInput>, AirbnbLeadUncheckedUpdateWithoutCommercialInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -16810,6 +35541,131 @@ export namespace Prisma {
     _max?: NestedEnumPipelineJobStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumIcpSkipReasonNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.IcpSkipReason | EnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
+    in?: $Enums.IcpSkipReason[] | ListEnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.IcpSkipReason[] | ListEnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumIcpSkipReasonNullableFilter<$PrismaModel> | $Enums.IcpSkipReason | null
+  }
+
+  export type NestedEnumLeadStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.LeadStatus | EnumLeadStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LeadStatus[] | ListEnumLeadStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LeadStatus[] | ListEnumLeadStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLeadStatusFilter<$PrismaModel> | $Enums.LeadStatus
+  }
+
+  export type NestedEnumIcpSkipReasonNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.IcpSkipReason | EnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
+    in?: $Enums.IcpSkipReason[] | ListEnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.IcpSkipReason[] | ListEnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumIcpSkipReasonNullableWithAggregatesFilter<$PrismaModel> | $Enums.IcpSkipReason | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumIcpSkipReasonNullableFilter<$PrismaModel>
+    _max?: NestedEnumIcpSkipReasonNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumLeadStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LeadStatus | EnumLeadStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.LeadStatus[] | ListEnumLeadStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.LeadStatus[] | ListEnumLeadStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumLeadStatusWithAggregatesFilter<$PrismaModel> | $Enums.LeadStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumLeadStatusFilter<$PrismaModel>
+    _max?: NestedEnumLeadStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAccountStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AccountStatus | EnumAccountStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AccountStatus[] | ListEnumAccountStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AccountStatus[] | ListEnumAccountStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAccountStatusFilter<$PrismaModel> | $Enums.AccountStatus
+  }
+
+  export type NestedEnumAccountStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AccountStatus | EnumAccountStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AccountStatus[] | ListEnumAccountStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AccountStatus[] | ListEnumAccountStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAccountStatusWithAggregatesFilter<$PrismaModel> | $Enums.AccountStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAccountStatusFilter<$PrismaModel>
+    _max?: NestedEnumAccountStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumContactSourceFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactSource | EnumContactSourceFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactSource[] | ListEnumContactSourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactSource[] | ListEnumContactSourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactSourceFilter<$PrismaModel> | $Enums.ContactSource
+  }
+
+  export type NestedEnumContactSourceWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactSource | EnumContactSourceFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactSource[] | ListEnumContactSourceFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactSource[] | ListEnumContactSourceFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactSourceWithAggregatesFilter<$PrismaModel> | $Enums.ContactSource
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContactSourceFilter<$PrismaModel>
+    _max?: NestedEnumContactSourceFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBlockTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockType | EnumBlockTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockTypeFilter<$PrismaModel> | $Enums.BlockType
+  }
+
+  export type NestedEnumBlockTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockType | EnumBlockTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockType[] | ListEnumBlockTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockTypeWithAggregatesFilter<$PrismaModel> | $Enums.BlockType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBlockTypeFilter<$PrismaModel>
+    _max?: NestedEnumBlockTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAirbnbCommercialStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.AirbnbCommercialStage | EnumAirbnbCommercialStageFieldRefInput<$PrismaModel>
+    in?: $Enums.AirbnbCommercialStage[] | ListEnumAirbnbCommercialStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AirbnbCommercialStage[] | ListEnumAirbnbCommercialStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumAirbnbCommercialStageFilter<$PrismaModel> | $Enums.AirbnbCommercialStage
+  }
+
+  export type NestedEnumAirbnbCommercialStageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AirbnbCommercialStage | EnumAirbnbCommercialStageFieldRefInput<$PrismaModel>
+    in?: $Enums.AirbnbCommercialStage[] | ListEnumAirbnbCommercialStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AirbnbCommercialStage[] | ListEnumAirbnbCommercialStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumAirbnbCommercialStageWithAggregatesFilter<$PrismaModel> | $Enums.AirbnbCommercialStage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAirbnbCommercialStageFilter<$PrismaModel>
+    _max?: NestedEnumAirbnbCommercialStageFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
   export type FormSubmissionCreateWithoutContactInput = {
     id?: string
     fullName?: string | null
@@ -16979,6 +35835,75 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AirbnbLeadCreateWithoutContactInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: AirbnbMessageCreateNestedManyWithoutLeadInput
+    calBookings?: CalBookingCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactCreateNestedOneWithoutLeadInput
+    commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
+    events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadUncheckedCreateWithoutContactInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: AirbnbMessageUncheckedCreateNestedManyWithoutLeadInput
+    calBookings?: CalBookingUncheckedCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
+    commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
+    events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadCreateOrConnectWithoutContactInput = {
+    where: AirbnbLeadWhereUniqueInput
+    create: XOR<AirbnbLeadCreateWithoutContactInput, AirbnbLeadUncheckedCreateWithoutContactInput>
+  }
+
   export type FormSubmissionUpsertWithWhereUniqueWithoutContactInput = {
     where: FormSubmissionWhereUniqueInput
     update: XOR<FormSubmissionUpdateWithoutContactInput, FormSubmissionUncheckedUpdateWithoutContactInput>
@@ -17120,6 +36045,81 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Conversation"> | Date | string
   }
 
+  export type AirbnbLeadUpsertWithoutContactInput = {
+    update: XOR<AirbnbLeadUpdateWithoutContactInput, AirbnbLeadUncheckedUpdateWithoutContactInput>
+    create: XOR<AirbnbLeadCreateWithoutContactInput, AirbnbLeadUncheckedCreateWithoutContactInput>
+    where?: AirbnbLeadWhereInput
+  }
+
+  export type AirbnbLeadUpdateToOneWithWhereWithoutContactInput = {
+    where?: AirbnbLeadWhereInput
+    data: XOR<AirbnbLeadUpdateWithoutContactInput, AirbnbLeadUncheckedUpdateWithoutContactInput>
+  }
+
+  export type AirbnbLeadUpdateWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: AirbnbMessageUpdateManyWithoutLeadNestedInput
+    calBookings?: CalBookingUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUpdateOneWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
+  export type AirbnbLeadUncheckedUpdateWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: AirbnbMessageUncheckedUpdateManyWithoutLeadNestedInput
+    calBookings?: CalBookingUncheckedUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
   export type ContactCreateWithoutSubmissionsInput = {
     id?: string
     fullName: string
@@ -17135,6 +36135,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     pipeline?: LeadPipelineCreateNestedOneWithoutContactInput
     conversations?: ConversationCreateNestedManyWithoutContactInput
+    airbnbLead?: AirbnbLeadCreateNestedOneWithoutContactInput
   }
 
   export type ContactUncheckedCreateWithoutSubmissionsInput = {
@@ -17152,6 +36153,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     pipeline?: LeadPipelineUncheckedCreateNestedOneWithoutContactInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutContactInput
+    airbnbLead?: AirbnbLeadUncheckedCreateNestedOneWithoutContactInput
   }
 
   export type ContactCreateOrConnectWithoutSubmissionsInput = {
@@ -17174,10 +36176,12 @@ export namespace Prisma {
     clientIp?: string | null
     clientUserAgent?: string | null
     createdAt?: Date | string
+    airbnbLead?: AirbnbLeadCreateNestedOneWithoutEventsInput
   }
 
   export type LeadEventUncheckedCreateWithoutSubmissionInput = {
     id: string
+    airbnbLeadId?: string | null
     eventName: $Enums.MarketingEventName
     eventTime?: Date | string
     eventSourceUrl?: string | null
@@ -17229,6 +36233,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pipeline?: LeadPipelineUpdateOneWithoutContactNestedInput
     conversations?: ConversationUpdateManyWithoutContactNestedInput
+    airbnbLead?: AirbnbLeadUpdateOneWithoutContactNestedInput
   }
 
   export type ContactUncheckedUpdateWithoutSubmissionsInput = {
@@ -17246,6 +36251,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pipeline?: LeadPipelineUncheckedUpdateOneWithoutContactNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutContactNestedInput
+    airbnbLead?: AirbnbLeadUncheckedUpdateOneWithoutContactNestedInput
   }
 
   export type LeadEventUpsertWithWhereUniqueWithoutSubmissionInput = {
@@ -17269,7 +36275,8 @@ export namespace Prisma {
     OR?: LeadEventScalarWhereInput[]
     NOT?: LeadEventScalarWhereInput | LeadEventScalarWhereInput[]
     id?: StringFilter<"LeadEvent"> | string
-    submissionId?: StringFilter<"LeadEvent"> | string
+    submissionId?: StringNullableFilter<"LeadEvent"> | string | null
+    airbnbLeadId?: StringNullableFilter<"LeadEvent"> | string | null
     eventName?: EnumMarketingEventNameFilter<"LeadEvent"> | $Enums.MarketingEventName
     eventTime?: DateTimeFilter<"LeadEvent"> | Date | string
     eventSourceUrl?: StringNullableFilter<"LeadEvent"> | string | null
@@ -17376,6 +36383,75 @@ export namespace Prisma {
     create: XOR<FormSubmissionCreateWithoutEventsInput, FormSubmissionUncheckedCreateWithoutEventsInput>
   }
 
+  export type AirbnbLeadCreateWithoutEventsInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact?: ContactCreateNestedOneWithoutAirbnbLeadInput
+    messages?: AirbnbMessageCreateNestedManyWithoutLeadInput
+    calBookings?: CalBookingCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactCreateNestedOneWithoutLeadInput
+    commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
+  }
+
+  export type AirbnbLeadUncheckedCreateWithoutEventsInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    contactId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: AirbnbMessageUncheckedCreateNestedManyWithoutLeadInput
+    calBookings?: CalBookingUncheckedCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
+    commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
+  }
+
+  export type AirbnbLeadCreateOrConnectWithoutEventsInput = {
+    where: AirbnbLeadWhereUniqueInput
+    create: XOR<AirbnbLeadCreateWithoutEventsInput, AirbnbLeadUncheckedCreateWithoutEventsInput>
+  }
+
   export type FormSubmissionUpsertWithoutEventsInput = {
     update: XOR<FormSubmissionUpdateWithoutEventsInput, FormSubmissionUncheckedUpdateWithoutEventsInput>
     create: XOR<FormSubmissionCreateWithoutEventsInput, FormSubmissionUncheckedCreateWithoutEventsInput>
@@ -17473,6 +36549,81 @@ export namespace Prisma {
     contactId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type AirbnbLeadUpsertWithoutEventsInput = {
+    update: XOR<AirbnbLeadUpdateWithoutEventsInput, AirbnbLeadUncheckedUpdateWithoutEventsInput>
+    create: XOR<AirbnbLeadCreateWithoutEventsInput, AirbnbLeadUncheckedCreateWithoutEventsInput>
+    where?: AirbnbLeadWhereInput
+  }
+
+  export type AirbnbLeadUpdateToOneWithWhereWithoutEventsInput = {
+    where?: AirbnbLeadWhereInput
+    data: XOR<AirbnbLeadUpdateWithoutEventsInput, AirbnbLeadUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type AirbnbLeadUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: ContactUpdateOneWithoutAirbnbLeadNestedInput
+    messages?: AirbnbMessageUpdateManyWithoutLeadNestedInput
+    calBookings?: CalBookingUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUpdateOneWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
+  }
+
+  export type AirbnbLeadUncheckedUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: AirbnbMessageUncheckedUpdateManyWithoutLeadNestedInput
+    calBookings?: CalBookingUncheckedUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
+  }
+
   export type ContactCreateWithoutPipelineInput = {
     id?: string
     fullName: string
@@ -17488,6 +36639,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     submissions?: FormSubmissionCreateNestedManyWithoutContactInput
     conversations?: ConversationCreateNestedManyWithoutContactInput
+    airbnbLead?: AirbnbLeadCreateNestedOneWithoutContactInput
   }
 
   export type ContactUncheckedCreateWithoutPipelineInput = {
@@ -17505,6 +36657,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     submissions?: FormSubmissionUncheckedCreateNestedManyWithoutContactInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutContactInput
+    airbnbLead?: AirbnbLeadUncheckedCreateNestedOneWithoutContactInput
   }
 
   export type ContactCreateOrConnectWithoutPipelineInput = {
@@ -17568,6 +36721,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: FormSubmissionUpdateManyWithoutContactNestedInput
     conversations?: ConversationUpdateManyWithoutContactNestedInput
+    airbnbLead?: AirbnbLeadUpdateOneWithoutContactNestedInput
   }
 
   export type ContactUncheckedUpdateWithoutPipelineInput = {
@@ -17585,6 +36739,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: FormSubmissionUncheckedUpdateManyWithoutContactNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutContactNestedInput
+    airbnbLead?: AirbnbLeadUncheckedUpdateOneWithoutContactNestedInput
   }
 
   export type PipelineJobUpsertWithWhereUniqueWithoutPipelineInput = {
@@ -17632,6 +36787,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     submissions?: FormSubmissionCreateNestedManyWithoutContactInput
     pipeline?: LeadPipelineCreateNestedOneWithoutContactInput
+    airbnbLead?: AirbnbLeadCreateNestedOneWithoutContactInput
   }
 
   export type ContactUncheckedCreateWithoutConversationsInput = {
@@ -17649,6 +36805,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     submissions?: FormSubmissionUncheckedCreateNestedManyWithoutContactInput
     pipeline?: LeadPipelineUncheckedCreateNestedOneWithoutContactInput
+    airbnbLead?: AirbnbLeadUncheckedCreateNestedOneWithoutContactInput
   }
 
   export type ContactCreateOrConnectWithoutConversationsInput = {
@@ -17730,6 +36887,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: FormSubmissionUpdateManyWithoutContactNestedInput
     pipeline?: LeadPipelineUpdateOneWithoutContactNestedInput
+    airbnbLead?: AirbnbLeadUpdateOneWithoutContactNestedInput
   }
 
   export type ContactUncheckedUpdateWithoutConversationsInput = {
@@ -17747,6 +36905,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submissions?: FormSubmissionUncheckedUpdateManyWithoutContactNestedInput
     pipeline?: LeadPipelineUncheckedUpdateOneWithoutContactNestedInput
+    airbnbLead?: AirbnbLeadUncheckedUpdateOneWithoutContactNestedInput
   }
 
   export type ConversationMessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -17934,6 +37093,1538 @@ export namespace Prisma {
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContactCreateWithoutAirbnbLeadInput = {
+    id?: string
+    fullName: string
+    email?: string | null
+    phoneE164: string
+    waId?: string | null
+    phoneCountryCode: string
+    phoneNumber: string
+    companyName?: string | null
+    websiteUrl?: string | null
+    instagramUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    submissions?: FormSubmissionCreateNestedManyWithoutContactInput
+    pipeline?: LeadPipelineCreateNestedOneWithoutContactInput
+    conversations?: ConversationCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactUncheckedCreateWithoutAirbnbLeadInput = {
+    id?: string
+    fullName: string
+    email?: string | null
+    phoneE164: string
+    waId?: string | null
+    phoneCountryCode: string
+    phoneNumber: string
+    companyName?: string | null
+    websiteUrl?: string | null
+    instagramUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    submissions?: FormSubmissionUncheckedCreateNestedManyWithoutContactInput
+    pipeline?: LeadPipelineUncheckedCreateNestedOneWithoutContactInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactCreateOrConnectWithoutAirbnbLeadInput = {
+    where: ContactWhereUniqueInput
+    create: XOR<ContactCreateWithoutAirbnbLeadInput, ContactUncheckedCreateWithoutAirbnbLeadInput>
+  }
+
+  export type AirbnbMessageCreateWithoutLeadInput = {
+    id?: string
+    direction: $Enums.MessageDirection
+    content: string
+    aiIntent?: string | null
+    sentAt?: Date | string
+    prospectAccount?: ProspectAccountCreateNestedOneWithoutMessagesInput
+  }
+
+  export type AirbnbMessageUncheckedCreateWithoutLeadInput = {
+    id?: string
+    prospectAccountId?: string | null
+    direction: $Enums.MessageDirection
+    content: string
+    aiIntent?: string | null
+    sentAt?: Date | string
+  }
+
+  export type AirbnbMessageCreateOrConnectWithoutLeadInput = {
+    where: AirbnbMessageWhereUniqueInput
+    create: XOR<AirbnbMessageCreateWithoutLeadInput, AirbnbMessageUncheckedCreateWithoutLeadInput>
+  }
+
+  export type AirbnbMessageCreateManyLeadInputEnvelope = {
+    data: AirbnbMessageCreateManyLeadInput | AirbnbMessageCreateManyLeadInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CalBookingCreateWithoutLeadInput = {
+    id?: string
+    calUid: string
+    calBookingId?: number | null
+    triggerEvent: string
+    startTime: Date | string
+    endTime?: Date | string | null
+    attendeeEmail?: string | null
+    attendeeName?: string | null
+    eventTypeSlug?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CalBookingUncheckedCreateWithoutLeadInput = {
+    id?: string
+    calUid: string
+    calBookingId?: number | null
+    triggerEvent: string
+    startTime: Date | string
+    endTime?: Date | string | null
+    attendeeEmail?: string | null
+    attendeeName?: string | null
+    eventTypeSlug?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CalBookingCreateOrConnectWithoutLeadInput = {
+    where: CalBookingWhereUniqueInput
+    create: XOR<CalBookingCreateWithoutLeadInput, CalBookingUncheckedCreateWithoutLeadInput>
+  }
+
+  export type CalBookingCreateManyLeadInputEnvelope = {
+    data: CalBookingCreateManyLeadInput | CalBookingCreateManyLeadInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HostContactCreateWithoutLeadInput = {
+    id?: string
+    hostAirbnbId: string
+    firstContactedAt: Date | string
+    source: $Enums.ContactSource
+    createdAt?: Date | string
+    firstContactAccount?: ProspectAccountCreateNestedOneWithoutHostContactsInput
+  }
+
+  export type HostContactUncheckedCreateWithoutLeadInput = {
+    id?: string
+    hostAirbnbId: string
+    firstContactedAt: Date | string
+    firstContactAccountId?: string | null
+    source: $Enums.ContactSource
+    createdAt?: Date | string
+  }
+
+  export type HostContactCreateOrConnectWithoutLeadInput = {
+    where: HostContactWhereUniqueInput
+    create: XOR<HostContactCreateWithoutLeadInput, HostContactUncheckedCreateWithoutLeadInput>
+  }
+
+  export type AirbnbCommercialCreateWithoutLeadInput = {
+    id?: string
+    stage: $Enums.AirbnbCommercialStage
+    hostEmail?: string | null
+    meetingTime?: Date | string | null
+    meetLink?: string | null
+    meetingId?: string | null
+    contractValueUsd?: Decimal | DecimalJsLike | number | string | null
+    contractPlan?: $Enums.ContractPlan | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AirbnbCommercialUncheckedCreateWithoutLeadInput = {
+    id?: string
+    stage: $Enums.AirbnbCommercialStage
+    hostEmail?: string | null
+    meetingTime?: Date | string | null
+    meetLink?: string | null
+    meetingId?: string | null
+    contractValueUsd?: Decimal | DecimalJsLike | number | string | null
+    contractPlan?: $Enums.ContractPlan | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AirbnbCommercialCreateOrConnectWithoutLeadInput = {
+    where: AirbnbCommercialWhereUniqueInput
+    create: XOR<AirbnbCommercialCreateWithoutLeadInput, AirbnbCommercialUncheckedCreateWithoutLeadInput>
+  }
+
+  export type LeadEventCreateWithoutAirbnbLeadInput = {
+    id: string
+    eventName: $Enums.MarketingEventName
+    eventTime?: Date | string
+    eventSourceUrl?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: string
+    sentToMeta?: boolean
+    metaResponse?: NullableJsonNullValueInput | InputJsonValue
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    triggeredBy: string
+    clientIp?: string | null
+    clientUserAgent?: string | null
+    createdAt?: Date | string
+    submission?: FormSubmissionCreateNestedOneWithoutEventsInput
+  }
+
+  export type LeadEventUncheckedCreateWithoutAirbnbLeadInput = {
+    id: string
+    submissionId?: string | null
+    eventName: $Enums.MarketingEventName
+    eventTime?: Date | string
+    eventSourceUrl?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: string
+    sentToMeta?: boolean
+    metaResponse?: NullableJsonNullValueInput | InputJsonValue
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    triggeredBy: string
+    clientIp?: string | null
+    clientUserAgent?: string | null
+    createdAt?: Date | string
+  }
+
+  export type LeadEventCreateOrConnectWithoutAirbnbLeadInput = {
+    where: LeadEventWhereUniqueInput
+    create: XOR<LeadEventCreateWithoutAirbnbLeadInput, LeadEventUncheckedCreateWithoutAirbnbLeadInput>
+  }
+
+  export type LeadEventCreateManyAirbnbLeadInputEnvelope = {
+    data: LeadEventCreateManyAirbnbLeadInput | LeadEventCreateManyAirbnbLeadInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ContactUpsertWithoutAirbnbLeadInput = {
+    update: XOR<ContactUpdateWithoutAirbnbLeadInput, ContactUncheckedUpdateWithoutAirbnbLeadInput>
+    create: XOR<ContactCreateWithoutAirbnbLeadInput, ContactUncheckedCreateWithoutAirbnbLeadInput>
+    where?: ContactWhereInput
+  }
+
+  export type ContactUpdateToOneWithWhereWithoutAirbnbLeadInput = {
+    where?: ContactWhereInput
+    data: XOR<ContactUpdateWithoutAirbnbLeadInput, ContactUncheckedUpdateWithoutAirbnbLeadInput>
+  }
+
+  export type ContactUpdateWithoutAirbnbLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneE164?: StringFieldUpdateOperationsInput | string
+    waId?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneCountryCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    websiteUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submissions?: FormSubmissionUpdateManyWithoutContactNestedInput
+    pipeline?: LeadPipelineUpdateOneWithoutContactNestedInput
+    conversations?: ConversationUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactUncheckedUpdateWithoutAirbnbLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneE164?: StringFieldUpdateOperationsInput | string
+    waId?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneCountryCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    websiteUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submissions?: FormSubmissionUncheckedUpdateManyWithoutContactNestedInput
+    pipeline?: LeadPipelineUncheckedUpdateOneWithoutContactNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutContactNestedInput
+  }
+
+  export type AirbnbMessageUpsertWithWhereUniqueWithoutLeadInput = {
+    where: AirbnbMessageWhereUniqueInput
+    update: XOR<AirbnbMessageUpdateWithoutLeadInput, AirbnbMessageUncheckedUpdateWithoutLeadInput>
+    create: XOR<AirbnbMessageCreateWithoutLeadInput, AirbnbMessageUncheckedCreateWithoutLeadInput>
+  }
+
+  export type AirbnbMessageUpdateWithWhereUniqueWithoutLeadInput = {
+    where: AirbnbMessageWhereUniqueInput
+    data: XOR<AirbnbMessageUpdateWithoutLeadInput, AirbnbMessageUncheckedUpdateWithoutLeadInput>
+  }
+
+  export type AirbnbMessageUpdateManyWithWhereWithoutLeadInput = {
+    where: AirbnbMessageScalarWhereInput
+    data: XOR<AirbnbMessageUpdateManyMutationInput, AirbnbMessageUncheckedUpdateManyWithoutLeadInput>
+  }
+
+  export type AirbnbMessageScalarWhereInput = {
+    AND?: AirbnbMessageScalarWhereInput | AirbnbMessageScalarWhereInput[]
+    OR?: AirbnbMessageScalarWhereInput[]
+    NOT?: AirbnbMessageScalarWhereInput | AirbnbMessageScalarWhereInput[]
+    id?: StringFilter<"AirbnbMessage"> | string
+    leadId?: StringFilter<"AirbnbMessage"> | string
+    prospectAccountId?: StringNullableFilter<"AirbnbMessage"> | string | null
+    direction?: EnumMessageDirectionFilter<"AirbnbMessage"> | $Enums.MessageDirection
+    content?: StringFilter<"AirbnbMessage"> | string
+    aiIntent?: StringNullableFilter<"AirbnbMessage"> | string | null
+    sentAt?: DateTimeFilter<"AirbnbMessage"> | Date | string
+  }
+
+  export type CalBookingUpsertWithWhereUniqueWithoutLeadInput = {
+    where: CalBookingWhereUniqueInput
+    update: XOR<CalBookingUpdateWithoutLeadInput, CalBookingUncheckedUpdateWithoutLeadInput>
+    create: XOR<CalBookingCreateWithoutLeadInput, CalBookingUncheckedCreateWithoutLeadInput>
+  }
+
+  export type CalBookingUpdateWithWhereUniqueWithoutLeadInput = {
+    where: CalBookingWhereUniqueInput
+    data: XOR<CalBookingUpdateWithoutLeadInput, CalBookingUncheckedUpdateWithoutLeadInput>
+  }
+
+  export type CalBookingUpdateManyWithWhereWithoutLeadInput = {
+    where: CalBookingScalarWhereInput
+    data: XOR<CalBookingUpdateManyMutationInput, CalBookingUncheckedUpdateManyWithoutLeadInput>
+  }
+
+  export type CalBookingScalarWhereInput = {
+    AND?: CalBookingScalarWhereInput | CalBookingScalarWhereInput[]
+    OR?: CalBookingScalarWhereInput[]
+    NOT?: CalBookingScalarWhereInput | CalBookingScalarWhereInput[]
+    id?: StringFilter<"CalBooking"> | string
+    calUid?: StringFilter<"CalBooking"> | string
+    calBookingId?: IntNullableFilter<"CalBooking"> | number | null
+    leadId?: StringFilter<"CalBooking"> | string
+    triggerEvent?: StringFilter<"CalBooking"> | string
+    startTime?: DateTimeFilter<"CalBooking"> | Date | string
+    endTime?: DateTimeNullableFilter<"CalBooking"> | Date | string | null
+    attendeeEmail?: StringNullableFilter<"CalBooking"> | string | null
+    attendeeName?: StringNullableFilter<"CalBooking"> | string | null
+    eventTypeSlug?: StringNullableFilter<"CalBooking"> | string | null
+    createdAt?: DateTimeFilter<"CalBooking"> | Date | string
+  }
+
+  export type HostContactUpsertWithoutLeadInput = {
+    update: XOR<HostContactUpdateWithoutLeadInput, HostContactUncheckedUpdateWithoutLeadInput>
+    create: XOR<HostContactCreateWithoutLeadInput, HostContactUncheckedCreateWithoutLeadInput>
+    where?: HostContactWhereInput
+  }
+
+  export type HostContactUpdateToOneWithWhereWithoutLeadInput = {
+    where?: HostContactWhereInput
+    data: XOR<HostContactUpdateWithoutLeadInput, HostContactUncheckedUpdateWithoutLeadInput>
+  }
+
+  export type HostContactUpdateWithoutLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    firstContactedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstContactAccount?: ProspectAccountUpdateOneWithoutHostContactsNestedInput
+  }
+
+  export type HostContactUncheckedUpdateWithoutLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    firstContactedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstContactAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbCommercialUpsertWithoutLeadInput = {
+    update: XOR<AirbnbCommercialUpdateWithoutLeadInput, AirbnbCommercialUncheckedUpdateWithoutLeadInput>
+    create: XOR<AirbnbCommercialCreateWithoutLeadInput, AirbnbCommercialUncheckedCreateWithoutLeadInput>
+    where?: AirbnbCommercialWhereInput
+  }
+
+  export type AirbnbCommercialUpdateToOneWithWhereWithoutLeadInput = {
+    where?: AirbnbCommercialWhereInput
+    data: XOR<AirbnbCommercialUpdateWithoutLeadInput, AirbnbCommercialUncheckedUpdateWithoutLeadInput>
+  }
+
+  export type AirbnbCommercialUpdateWithoutLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stage?: EnumAirbnbCommercialStageFieldUpdateOperationsInput | $Enums.AirbnbCommercialStage
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbCommercialUncheckedUpdateWithoutLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stage?: EnumAirbnbCommercialStageFieldUpdateOperationsInput | $Enums.AirbnbCommercialStage
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingId?: NullableStringFieldUpdateOperationsInput | string | null
+    contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadEventUpsertWithWhereUniqueWithoutAirbnbLeadInput = {
+    where: LeadEventWhereUniqueInput
+    update: XOR<LeadEventUpdateWithoutAirbnbLeadInput, LeadEventUncheckedUpdateWithoutAirbnbLeadInput>
+    create: XOR<LeadEventCreateWithoutAirbnbLeadInput, LeadEventUncheckedCreateWithoutAirbnbLeadInput>
+  }
+
+  export type LeadEventUpdateWithWhereUniqueWithoutAirbnbLeadInput = {
+    where: LeadEventWhereUniqueInput
+    data: XOR<LeadEventUpdateWithoutAirbnbLeadInput, LeadEventUncheckedUpdateWithoutAirbnbLeadInput>
+  }
+
+  export type LeadEventUpdateManyWithWhereWithoutAirbnbLeadInput = {
+    where: LeadEventScalarWhereInput
+    data: XOR<LeadEventUpdateManyMutationInput, LeadEventUncheckedUpdateManyWithoutAirbnbLeadInput>
+  }
+
+  export type AirbnbLeadCreateWithoutMessagesInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact?: ContactCreateNestedOneWithoutAirbnbLeadInput
+    calBookings?: CalBookingCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactCreateNestedOneWithoutLeadInput
+    commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
+    events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadUncheckedCreateWithoutMessagesInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    contactId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    calBookings?: CalBookingUncheckedCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
+    commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
+    events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadCreateOrConnectWithoutMessagesInput = {
+    where: AirbnbLeadWhereUniqueInput
+    create: XOR<AirbnbLeadCreateWithoutMessagesInput, AirbnbLeadUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type ProspectAccountCreateWithoutMessagesInput = {
+    id?: string
+    label: string
+    airbnbEmail: string
+    airbnbPasswordEnc?: string | null
+    composioUserId?: string | null
+    composioConnectionId?: string | null
+    composioConnectedAt?: Date | string | null
+    proxyHost?: string | null
+    proxyPort?: number | null
+    proxyUser?: string | null
+    proxyPassEnc?: string | null
+    proxyProvider?: string | null
+    proxySessionId?: string | null
+    proxyCountry?: string | null
+    sessionPath?: string | null
+    sessionStateEnc?: string | null
+    market?: string | null
+    messagesSentToday?: number
+    waveMessagesSent?: number
+    status?: $Enums.AccountStatus
+    rateLimitedAt?: Date | string | null
+    cooldownUntil?: Date | string | null
+    lastWaveStartedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    blockEvents?: AccountBlockEventCreateNestedManyWithoutAccountInput
+    hostContacts?: HostContactCreateNestedManyWithoutFirstContactAccountInput
+  }
+
+  export type ProspectAccountUncheckedCreateWithoutMessagesInput = {
+    id?: string
+    label: string
+    airbnbEmail: string
+    airbnbPasswordEnc?: string | null
+    composioUserId?: string | null
+    composioConnectionId?: string | null
+    composioConnectedAt?: Date | string | null
+    proxyHost?: string | null
+    proxyPort?: number | null
+    proxyUser?: string | null
+    proxyPassEnc?: string | null
+    proxyProvider?: string | null
+    proxySessionId?: string | null
+    proxyCountry?: string | null
+    sessionPath?: string | null
+    sessionStateEnc?: string | null
+    market?: string | null
+    messagesSentToday?: number
+    waveMessagesSent?: number
+    status?: $Enums.AccountStatus
+    rateLimitedAt?: Date | string | null
+    cooldownUntil?: Date | string | null
+    lastWaveStartedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    blockEvents?: AccountBlockEventUncheckedCreateNestedManyWithoutAccountInput
+    hostContacts?: HostContactUncheckedCreateNestedManyWithoutFirstContactAccountInput
+  }
+
+  export type ProspectAccountCreateOrConnectWithoutMessagesInput = {
+    where: ProspectAccountWhereUniqueInput
+    create: XOR<ProspectAccountCreateWithoutMessagesInput, ProspectAccountUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type AirbnbLeadUpsertWithoutMessagesInput = {
+    update: XOR<AirbnbLeadUpdateWithoutMessagesInput, AirbnbLeadUncheckedUpdateWithoutMessagesInput>
+    create: XOR<AirbnbLeadCreateWithoutMessagesInput, AirbnbLeadUncheckedCreateWithoutMessagesInput>
+    where?: AirbnbLeadWhereInput
+  }
+
+  export type AirbnbLeadUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: AirbnbLeadWhereInput
+    data: XOR<AirbnbLeadUpdateWithoutMessagesInput, AirbnbLeadUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type AirbnbLeadUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: ContactUpdateOneWithoutAirbnbLeadNestedInput
+    calBookings?: CalBookingUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUpdateOneWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
+  export type AirbnbLeadUncheckedUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    calBookings?: CalBookingUncheckedUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
+  export type ProspectAccountUpsertWithoutMessagesInput = {
+    update: XOR<ProspectAccountUpdateWithoutMessagesInput, ProspectAccountUncheckedUpdateWithoutMessagesInput>
+    create: XOR<ProspectAccountCreateWithoutMessagesInput, ProspectAccountUncheckedCreateWithoutMessagesInput>
+    where?: ProspectAccountWhereInput
+  }
+
+  export type ProspectAccountUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: ProspectAccountWhereInput
+    data: XOR<ProspectAccountUpdateWithoutMessagesInput, ProspectAccountUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type ProspectAccountUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    airbnbEmail?: StringFieldUpdateOperationsInput | string
+    airbnbPasswordEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    composioUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proxyHost?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPort?: NullableIntFieldUpdateOperationsInput | number | null
+    proxyUser?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPassEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    proxySessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionPath?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionStateEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    messagesSentToday?: IntFieldUpdateOperationsInput | number
+    waveMessagesSent?: IntFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+    rateLimitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cooldownUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastWaveStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockEvents?: AccountBlockEventUpdateManyWithoutAccountNestedInput
+    hostContacts?: HostContactUpdateManyWithoutFirstContactAccountNestedInput
+  }
+
+  export type ProspectAccountUncheckedUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    airbnbEmail?: StringFieldUpdateOperationsInput | string
+    airbnbPasswordEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    composioUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proxyHost?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPort?: NullableIntFieldUpdateOperationsInput | number | null
+    proxyUser?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPassEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    proxySessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionPath?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionStateEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    messagesSentToday?: IntFieldUpdateOperationsInput | number
+    waveMessagesSent?: IntFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+    rateLimitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cooldownUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastWaveStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockEvents?: AccountBlockEventUncheckedUpdateManyWithoutAccountNestedInput
+    hostContacts?: HostContactUncheckedUpdateManyWithoutFirstContactAccountNestedInput
+  }
+
+  export type AirbnbLeadCreateWithoutCalBookingsInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact?: ContactCreateNestedOneWithoutAirbnbLeadInput
+    messages?: AirbnbMessageCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactCreateNestedOneWithoutLeadInput
+    commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
+    events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadUncheckedCreateWithoutCalBookingsInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    contactId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: AirbnbMessageUncheckedCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
+    commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
+    events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadCreateOrConnectWithoutCalBookingsInput = {
+    where: AirbnbLeadWhereUniqueInput
+    create: XOR<AirbnbLeadCreateWithoutCalBookingsInput, AirbnbLeadUncheckedCreateWithoutCalBookingsInput>
+  }
+
+  export type AirbnbLeadUpsertWithoutCalBookingsInput = {
+    update: XOR<AirbnbLeadUpdateWithoutCalBookingsInput, AirbnbLeadUncheckedUpdateWithoutCalBookingsInput>
+    create: XOR<AirbnbLeadCreateWithoutCalBookingsInput, AirbnbLeadUncheckedCreateWithoutCalBookingsInput>
+    where?: AirbnbLeadWhereInput
+  }
+
+  export type AirbnbLeadUpdateToOneWithWhereWithoutCalBookingsInput = {
+    where?: AirbnbLeadWhereInput
+    data: XOR<AirbnbLeadUpdateWithoutCalBookingsInput, AirbnbLeadUncheckedUpdateWithoutCalBookingsInput>
+  }
+
+  export type AirbnbLeadUpdateWithoutCalBookingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: ContactUpdateOneWithoutAirbnbLeadNestedInput
+    messages?: AirbnbMessageUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUpdateOneWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
+  export type AirbnbLeadUncheckedUpdateWithoutCalBookingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: AirbnbMessageUncheckedUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
+  export type AccountBlockEventCreateWithoutAccountInput = {
+    id?: string
+    type: $Enums.BlockType
+    message: string
+    occurredAt?: Date | string
+  }
+
+  export type AccountBlockEventUncheckedCreateWithoutAccountInput = {
+    id?: string
+    type: $Enums.BlockType
+    message: string
+    occurredAt?: Date | string
+  }
+
+  export type AccountBlockEventCreateOrConnectWithoutAccountInput = {
+    where: AccountBlockEventWhereUniqueInput
+    create: XOR<AccountBlockEventCreateWithoutAccountInput, AccountBlockEventUncheckedCreateWithoutAccountInput>
+  }
+
+  export type AccountBlockEventCreateManyAccountInputEnvelope = {
+    data: AccountBlockEventCreateManyAccountInput | AccountBlockEventCreateManyAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AirbnbMessageCreateWithoutProspectAccountInput = {
+    id?: string
+    direction: $Enums.MessageDirection
+    content: string
+    aiIntent?: string | null
+    sentAt?: Date | string
+    lead: AirbnbLeadCreateNestedOneWithoutMessagesInput
+  }
+
+  export type AirbnbMessageUncheckedCreateWithoutProspectAccountInput = {
+    id?: string
+    leadId: string
+    direction: $Enums.MessageDirection
+    content: string
+    aiIntent?: string | null
+    sentAt?: Date | string
+  }
+
+  export type AirbnbMessageCreateOrConnectWithoutProspectAccountInput = {
+    where: AirbnbMessageWhereUniqueInput
+    create: XOR<AirbnbMessageCreateWithoutProspectAccountInput, AirbnbMessageUncheckedCreateWithoutProspectAccountInput>
+  }
+
+  export type AirbnbMessageCreateManyProspectAccountInputEnvelope = {
+    data: AirbnbMessageCreateManyProspectAccountInput | AirbnbMessageCreateManyProspectAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type HostContactCreateWithoutFirstContactAccountInput = {
+    id?: string
+    hostAirbnbId: string
+    firstContactedAt: Date | string
+    source: $Enums.ContactSource
+    createdAt?: Date | string
+    lead: AirbnbLeadCreateNestedOneWithoutHostContactInput
+  }
+
+  export type HostContactUncheckedCreateWithoutFirstContactAccountInput = {
+    id?: string
+    hostAirbnbId: string
+    leadId: string
+    firstContactedAt: Date | string
+    source: $Enums.ContactSource
+    createdAt?: Date | string
+  }
+
+  export type HostContactCreateOrConnectWithoutFirstContactAccountInput = {
+    where: HostContactWhereUniqueInput
+    create: XOR<HostContactCreateWithoutFirstContactAccountInput, HostContactUncheckedCreateWithoutFirstContactAccountInput>
+  }
+
+  export type HostContactCreateManyFirstContactAccountInputEnvelope = {
+    data: HostContactCreateManyFirstContactAccountInput | HostContactCreateManyFirstContactAccountInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AccountBlockEventUpsertWithWhereUniqueWithoutAccountInput = {
+    where: AccountBlockEventWhereUniqueInput
+    update: XOR<AccountBlockEventUpdateWithoutAccountInput, AccountBlockEventUncheckedUpdateWithoutAccountInput>
+    create: XOR<AccountBlockEventCreateWithoutAccountInput, AccountBlockEventUncheckedCreateWithoutAccountInput>
+  }
+
+  export type AccountBlockEventUpdateWithWhereUniqueWithoutAccountInput = {
+    where: AccountBlockEventWhereUniqueInput
+    data: XOR<AccountBlockEventUpdateWithoutAccountInput, AccountBlockEventUncheckedUpdateWithoutAccountInput>
+  }
+
+  export type AccountBlockEventUpdateManyWithWhereWithoutAccountInput = {
+    where: AccountBlockEventScalarWhereInput
+    data: XOR<AccountBlockEventUpdateManyMutationInput, AccountBlockEventUncheckedUpdateManyWithoutAccountInput>
+  }
+
+  export type AccountBlockEventScalarWhereInput = {
+    AND?: AccountBlockEventScalarWhereInput | AccountBlockEventScalarWhereInput[]
+    OR?: AccountBlockEventScalarWhereInput[]
+    NOT?: AccountBlockEventScalarWhereInput | AccountBlockEventScalarWhereInput[]
+    id?: StringFilter<"AccountBlockEvent"> | string
+    accountId?: StringFilter<"AccountBlockEvent"> | string
+    type?: EnumBlockTypeFilter<"AccountBlockEvent"> | $Enums.BlockType
+    message?: StringFilter<"AccountBlockEvent"> | string
+    occurredAt?: DateTimeFilter<"AccountBlockEvent"> | Date | string
+  }
+
+  export type AirbnbMessageUpsertWithWhereUniqueWithoutProspectAccountInput = {
+    where: AirbnbMessageWhereUniqueInput
+    update: XOR<AirbnbMessageUpdateWithoutProspectAccountInput, AirbnbMessageUncheckedUpdateWithoutProspectAccountInput>
+    create: XOR<AirbnbMessageCreateWithoutProspectAccountInput, AirbnbMessageUncheckedCreateWithoutProspectAccountInput>
+  }
+
+  export type AirbnbMessageUpdateWithWhereUniqueWithoutProspectAccountInput = {
+    where: AirbnbMessageWhereUniqueInput
+    data: XOR<AirbnbMessageUpdateWithoutProspectAccountInput, AirbnbMessageUncheckedUpdateWithoutProspectAccountInput>
+  }
+
+  export type AirbnbMessageUpdateManyWithWhereWithoutProspectAccountInput = {
+    where: AirbnbMessageScalarWhereInput
+    data: XOR<AirbnbMessageUpdateManyMutationInput, AirbnbMessageUncheckedUpdateManyWithoutProspectAccountInput>
+  }
+
+  export type HostContactUpsertWithWhereUniqueWithoutFirstContactAccountInput = {
+    where: HostContactWhereUniqueInput
+    update: XOR<HostContactUpdateWithoutFirstContactAccountInput, HostContactUncheckedUpdateWithoutFirstContactAccountInput>
+    create: XOR<HostContactCreateWithoutFirstContactAccountInput, HostContactUncheckedCreateWithoutFirstContactAccountInput>
+  }
+
+  export type HostContactUpdateWithWhereUniqueWithoutFirstContactAccountInput = {
+    where: HostContactWhereUniqueInput
+    data: XOR<HostContactUpdateWithoutFirstContactAccountInput, HostContactUncheckedUpdateWithoutFirstContactAccountInput>
+  }
+
+  export type HostContactUpdateManyWithWhereWithoutFirstContactAccountInput = {
+    where: HostContactScalarWhereInput
+    data: XOR<HostContactUpdateManyMutationInput, HostContactUncheckedUpdateManyWithoutFirstContactAccountInput>
+  }
+
+  export type HostContactScalarWhereInput = {
+    AND?: HostContactScalarWhereInput | HostContactScalarWhereInput[]
+    OR?: HostContactScalarWhereInput[]
+    NOT?: HostContactScalarWhereInput | HostContactScalarWhereInput[]
+    id?: StringFilter<"HostContact"> | string
+    hostAirbnbId?: StringFilter<"HostContact"> | string
+    leadId?: StringFilter<"HostContact"> | string
+    firstContactedAt?: DateTimeFilter<"HostContact"> | Date | string
+    firstContactAccountId?: StringNullableFilter<"HostContact"> | string | null
+    source?: EnumContactSourceFilter<"HostContact"> | $Enums.ContactSource
+    createdAt?: DateTimeFilter<"HostContact"> | Date | string
+  }
+
+  export type AirbnbLeadCreateWithoutHostContactInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact?: ContactCreateNestedOneWithoutAirbnbLeadInput
+    messages?: AirbnbMessageCreateNestedManyWithoutLeadInput
+    calBookings?: CalBookingCreateNestedManyWithoutLeadInput
+    commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
+    events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadUncheckedCreateWithoutHostContactInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    contactId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: AirbnbMessageUncheckedCreateNestedManyWithoutLeadInput
+    calBookings?: CalBookingUncheckedCreateNestedManyWithoutLeadInput
+    commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
+    events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadCreateOrConnectWithoutHostContactInput = {
+    where: AirbnbLeadWhereUniqueInput
+    create: XOR<AirbnbLeadCreateWithoutHostContactInput, AirbnbLeadUncheckedCreateWithoutHostContactInput>
+  }
+
+  export type ProspectAccountCreateWithoutHostContactsInput = {
+    id?: string
+    label: string
+    airbnbEmail: string
+    airbnbPasswordEnc?: string | null
+    composioUserId?: string | null
+    composioConnectionId?: string | null
+    composioConnectedAt?: Date | string | null
+    proxyHost?: string | null
+    proxyPort?: number | null
+    proxyUser?: string | null
+    proxyPassEnc?: string | null
+    proxyProvider?: string | null
+    proxySessionId?: string | null
+    proxyCountry?: string | null
+    sessionPath?: string | null
+    sessionStateEnc?: string | null
+    market?: string | null
+    messagesSentToday?: number
+    waveMessagesSent?: number
+    status?: $Enums.AccountStatus
+    rateLimitedAt?: Date | string | null
+    cooldownUntil?: Date | string | null
+    lastWaveStartedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    blockEvents?: AccountBlockEventCreateNestedManyWithoutAccountInput
+    messages?: AirbnbMessageCreateNestedManyWithoutProspectAccountInput
+  }
+
+  export type ProspectAccountUncheckedCreateWithoutHostContactsInput = {
+    id?: string
+    label: string
+    airbnbEmail: string
+    airbnbPasswordEnc?: string | null
+    composioUserId?: string | null
+    composioConnectionId?: string | null
+    composioConnectedAt?: Date | string | null
+    proxyHost?: string | null
+    proxyPort?: number | null
+    proxyUser?: string | null
+    proxyPassEnc?: string | null
+    proxyProvider?: string | null
+    proxySessionId?: string | null
+    proxyCountry?: string | null
+    sessionPath?: string | null
+    sessionStateEnc?: string | null
+    market?: string | null
+    messagesSentToday?: number
+    waveMessagesSent?: number
+    status?: $Enums.AccountStatus
+    rateLimitedAt?: Date | string | null
+    cooldownUntil?: Date | string | null
+    lastWaveStartedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    blockEvents?: AccountBlockEventUncheckedCreateNestedManyWithoutAccountInput
+    messages?: AirbnbMessageUncheckedCreateNestedManyWithoutProspectAccountInput
+  }
+
+  export type ProspectAccountCreateOrConnectWithoutHostContactsInput = {
+    where: ProspectAccountWhereUniqueInput
+    create: XOR<ProspectAccountCreateWithoutHostContactsInput, ProspectAccountUncheckedCreateWithoutHostContactsInput>
+  }
+
+  export type AirbnbLeadUpsertWithoutHostContactInput = {
+    update: XOR<AirbnbLeadUpdateWithoutHostContactInput, AirbnbLeadUncheckedUpdateWithoutHostContactInput>
+    create: XOR<AirbnbLeadCreateWithoutHostContactInput, AirbnbLeadUncheckedCreateWithoutHostContactInput>
+    where?: AirbnbLeadWhereInput
+  }
+
+  export type AirbnbLeadUpdateToOneWithWhereWithoutHostContactInput = {
+    where?: AirbnbLeadWhereInput
+    data: XOR<AirbnbLeadUpdateWithoutHostContactInput, AirbnbLeadUncheckedUpdateWithoutHostContactInput>
+  }
+
+  export type AirbnbLeadUpdateWithoutHostContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: ContactUpdateOneWithoutAirbnbLeadNestedInput
+    messages?: AirbnbMessageUpdateManyWithoutLeadNestedInput
+    calBookings?: CalBookingUpdateManyWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
+  export type AirbnbLeadUncheckedUpdateWithoutHostContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: AirbnbMessageUncheckedUpdateManyWithoutLeadNestedInput
+    calBookings?: CalBookingUncheckedUpdateManyWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
+  export type ProspectAccountUpsertWithoutHostContactsInput = {
+    update: XOR<ProspectAccountUpdateWithoutHostContactsInput, ProspectAccountUncheckedUpdateWithoutHostContactsInput>
+    create: XOR<ProspectAccountCreateWithoutHostContactsInput, ProspectAccountUncheckedCreateWithoutHostContactsInput>
+    where?: ProspectAccountWhereInput
+  }
+
+  export type ProspectAccountUpdateToOneWithWhereWithoutHostContactsInput = {
+    where?: ProspectAccountWhereInput
+    data: XOR<ProspectAccountUpdateWithoutHostContactsInput, ProspectAccountUncheckedUpdateWithoutHostContactsInput>
+  }
+
+  export type ProspectAccountUpdateWithoutHostContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    airbnbEmail?: StringFieldUpdateOperationsInput | string
+    airbnbPasswordEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    composioUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proxyHost?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPort?: NullableIntFieldUpdateOperationsInput | number | null
+    proxyUser?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPassEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    proxySessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionPath?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionStateEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    messagesSentToday?: IntFieldUpdateOperationsInput | number
+    waveMessagesSent?: IntFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+    rateLimitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cooldownUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastWaveStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockEvents?: AccountBlockEventUpdateManyWithoutAccountNestedInput
+    messages?: AirbnbMessageUpdateManyWithoutProspectAccountNestedInput
+  }
+
+  export type ProspectAccountUncheckedUpdateWithoutHostContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    airbnbEmail?: StringFieldUpdateOperationsInput | string
+    airbnbPasswordEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    composioUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proxyHost?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPort?: NullableIntFieldUpdateOperationsInput | number | null
+    proxyUser?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPassEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    proxySessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionPath?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionStateEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    messagesSentToday?: IntFieldUpdateOperationsInput | number
+    waveMessagesSent?: IntFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+    rateLimitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cooldownUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastWaveStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockEvents?: AccountBlockEventUncheckedUpdateManyWithoutAccountNestedInput
+    messages?: AirbnbMessageUncheckedUpdateManyWithoutProspectAccountNestedInput
+  }
+
+  export type ProspectAccountCreateWithoutBlockEventsInput = {
+    id?: string
+    label: string
+    airbnbEmail: string
+    airbnbPasswordEnc?: string | null
+    composioUserId?: string | null
+    composioConnectionId?: string | null
+    composioConnectedAt?: Date | string | null
+    proxyHost?: string | null
+    proxyPort?: number | null
+    proxyUser?: string | null
+    proxyPassEnc?: string | null
+    proxyProvider?: string | null
+    proxySessionId?: string | null
+    proxyCountry?: string | null
+    sessionPath?: string | null
+    sessionStateEnc?: string | null
+    market?: string | null
+    messagesSentToday?: number
+    waveMessagesSent?: number
+    status?: $Enums.AccountStatus
+    rateLimitedAt?: Date | string | null
+    cooldownUntil?: Date | string | null
+    lastWaveStartedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: AirbnbMessageCreateNestedManyWithoutProspectAccountInput
+    hostContacts?: HostContactCreateNestedManyWithoutFirstContactAccountInput
+  }
+
+  export type ProspectAccountUncheckedCreateWithoutBlockEventsInput = {
+    id?: string
+    label: string
+    airbnbEmail: string
+    airbnbPasswordEnc?: string | null
+    composioUserId?: string | null
+    composioConnectionId?: string | null
+    composioConnectedAt?: Date | string | null
+    proxyHost?: string | null
+    proxyPort?: number | null
+    proxyUser?: string | null
+    proxyPassEnc?: string | null
+    proxyProvider?: string | null
+    proxySessionId?: string | null
+    proxyCountry?: string | null
+    sessionPath?: string | null
+    sessionStateEnc?: string | null
+    market?: string | null
+    messagesSentToday?: number
+    waveMessagesSent?: number
+    status?: $Enums.AccountStatus
+    rateLimitedAt?: Date | string | null
+    cooldownUntil?: Date | string | null
+    lastWaveStartedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: AirbnbMessageUncheckedCreateNestedManyWithoutProspectAccountInput
+    hostContacts?: HostContactUncheckedCreateNestedManyWithoutFirstContactAccountInput
+  }
+
+  export type ProspectAccountCreateOrConnectWithoutBlockEventsInput = {
+    where: ProspectAccountWhereUniqueInput
+    create: XOR<ProspectAccountCreateWithoutBlockEventsInput, ProspectAccountUncheckedCreateWithoutBlockEventsInput>
+  }
+
+  export type ProspectAccountUpsertWithoutBlockEventsInput = {
+    update: XOR<ProspectAccountUpdateWithoutBlockEventsInput, ProspectAccountUncheckedUpdateWithoutBlockEventsInput>
+    create: XOR<ProspectAccountCreateWithoutBlockEventsInput, ProspectAccountUncheckedCreateWithoutBlockEventsInput>
+    where?: ProspectAccountWhereInput
+  }
+
+  export type ProspectAccountUpdateToOneWithWhereWithoutBlockEventsInput = {
+    where?: ProspectAccountWhereInput
+    data: XOR<ProspectAccountUpdateWithoutBlockEventsInput, ProspectAccountUncheckedUpdateWithoutBlockEventsInput>
+  }
+
+  export type ProspectAccountUpdateWithoutBlockEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    airbnbEmail?: StringFieldUpdateOperationsInput | string
+    airbnbPasswordEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    composioUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proxyHost?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPort?: NullableIntFieldUpdateOperationsInput | number | null
+    proxyUser?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPassEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    proxySessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionPath?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionStateEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    messagesSentToday?: IntFieldUpdateOperationsInput | number
+    waveMessagesSent?: IntFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+    rateLimitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cooldownUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastWaveStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: AirbnbMessageUpdateManyWithoutProspectAccountNestedInput
+    hostContacts?: HostContactUpdateManyWithoutFirstContactAccountNestedInput
+  }
+
+  export type ProspectAccountUncheckedUpdateWithoutBlockEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    airbnbEmail?: StringFieldUpdateOperationsInput | string
+    airbnbPasswordEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    composioUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectionId?: NullableStringFieldUpdateOperationsInput | string | null
+    composioConnectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proxyHost?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPort?: NullableIntFieldUpdateOperationsInput | number | null
+    proxyUser?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyPassEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    proxySessionId?: NullableStringFieldUpdateOperationsInput | string | null
+    proxyCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionPath?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionStateEnc?: NullableStringFieldUpdateOperationsInput | string | null
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    messagesSentToday?: IntFieldUpdateOperationsInput | number
+    waveMessagesSent?: IntFieldUpdateOperationsInput | number
+    status?: EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+    rateLimitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cooldownUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastWaveStartedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: AirbnbMessageUncheckedUpdateManyWithoutProspectAccountNestedInput
+    hostContacts?: HostContactUncheckedUpdateManyWithoutFirstContactAccountNestedInput
+  }
+
+  export type AirbnbLeadCreateWithoutCommercialInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact?: ContactCreateNestedOneWithoutAirbnbLeadInput
+    messages?: AirbnbMessageCreateNestedManyWithoutLeadInput
+    calBookings?: CalBookingCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactCreateNestedOneWithoutLeadInput
+    events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadUncheckedCreateWithoutCommercialInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    contactId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: AirbnbMessageUncheckedCreateNestedManyWithoutLeadInput
+    calBookings?: CalBookingUncheckedCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
+    events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadCreateOrConnectWithoutCommercialInput = {
+    where: AirbnbLeadWhereUniqueInput
+    create: XOR<AirbnbLeadCreateWithoutCommercialInput, AirbnbLeadUncheckedCreateWithoutCommercialInput>
+  }
+
+  export type AirbnbLeadUpsertWithoutCommercialInput = {
+    update: XOR<AirbnbLeadUpdateWithoutCommercialInput, AirbnbLeadUncheckedUpdateWithoutCommercialInput>
+    create: XOR<AirbnbLeadCreateWithoutCommercialInput, AirbnbLeadUncheckedCreateWithoutCommercialInput>
+    where?: AirbnbLeadWhereInput
+  }
+
+  export type AirbnbLeadUpdateToOneWithWhereWithoutCommercialInput = {
+    where?: AirbnbLeadWhereInput
+    data: XOR<AirbnbLeadUpdateWithoutCommercialInput, AirbnbLeadUncheckedUpdateWithoutCommercialInput>
+  }
+
+  export type AirbnbLeadUpdateWithoutCommercialInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: ContactUpdateOneWithoutAirbnbLeadNestedInput
+    messages?: AirbnbMessageUpdateManyWithoutLeadNestedInput
+    calBookings?: CalBookingUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
+  export type AirbnbLeadUncheckedUpdateWithoutCommercialInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: AirbnbMessageUncheckedUpdateManyWithoutLeadNestedInput
+    calBookings?: CalBookingUncheckedUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type FormSubmissionCreateManyContactInput = {
@@ -18142,6 +38833,7 @@ export namespace Prisma {
 
   export type LeadEventCreateManySubmissionInput = {
     id: string
+    airbnbLeadId?: string | null
     eventName: $Enums.MarketingEventName
     eventTime?: Date | string
     eventSourceUrl?: string | null
@@ -18172,10 +38864,12 @@ export namespace Prisma {
     clientIp?: NullableStringFieldUpdateOperationsInput | string | null
     clientUserAgent?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    airbnbLead?: AirbnbLeadUpdateOneWithoutEventsNestedInput
   }
 
   export type LeadEventUncheckedUpdateWithoutSubmissionInput = {
     id?: StringFieldUpdateOperationsInput | string
+    airbnbLeadId?: NullableStringFieldUpdateOperationsInput | string | null
     eventName?: EnumMarketingEventNameFieldUpdateOperationsInput | $Enums.MarketingEventName
     eventTime?: DateTimeFieldUpdateOperationsInput | Date | string
     eventSourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18193,6 +38887,7 @@ export namespace Prisma {
 
   export type LeadEventUncheckedUpdateManyWithoutSubmissionInput = {
     id?: StringFieldUpdateOperationsInput | string
+    airbnbLeadId?: NullableStringFieldUpdateOperationsInput | string | null
     eventName?: EnumMarketingEventNameFieldUpdateOperationsInput | $Enums.MarketingEventName
     eventTime?: DateTimeFieldUpdateOperationsInput | Date | string
     eventSourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18321,6 +39016,266 @@ export namespace Prisma {
     mediaFilename?: NullableStringFieldUpdateOperationsInput | string | null
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbMessageCreateManyLeadInput = {
+    id?: string
+    prospectAccountId?: string | null
+    direction: $Enums.MessageDirection
+    content: string
+    aiIntent?: string | null
+    sentAt?: Date | string
+  }
+
+  export type CalBookingCreateManyLeadInput = {
+    id?: string
+    calUid: string
+    calBookingId?: number | null
+    triggerEvent: string
+    startTime: Date | string
+    endTime?: Date | string | null
+    attendeeEmail?: string | null
+    attendeeName?: string | null
+    eventTypeSlug?: string | null
+    createdAt?: Date | string
+  }
+
+  export type LeadEventCreateManyAirbnbLeadInput = {
+    id: string
+    submissionId?: string | null
+    eventName: $Enums.MarketingEventName
+    eventTime?: Date | string
+    eventSourceUrl?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: string
+    sentToMeta?: boolean
+    metaResponse?: NullableJsonNullValueInput | InputJsonValue
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    triggeredBy: string
+    clientIp?: string | null
+    clientUserAgent?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AirbnbMessageUpdateWithoutLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    direction?: EnumMessageDirectionFieldUpdateOperationsInput | $Enums.MessageDirection
+    content?: StringFieldUpdateOperationsInput | string
+    aiIntent?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    prospectAccount?: ProspectAccountUpdateOneWithoutMessagesNestedInput
+  }
+
+  export type AirbnbMessageUncheckedUpdateWithoutLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    prospectAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    direction?: EnumMessageDirectionFieldUpdateOperationsInput | $Enums.MessageDirection
+    content?: StringFieldUpdateOperationsInput | string
+    aiIntent?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbMessageUncheckedUpdateManyWithoutLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    prospectAccountId?: NullableStringFieldUpdateOperationsInput | string | null
+    direction?: EnumMessageDirectionFieldUpdateOperationsInput | $Enums.MessageDirection
+    content?: StringFieldUpdateOperationsInput | string
+    aiIntent?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CalBookingUpdateWithoutLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calUid?: StringFieldUpdateOperationsInput | string
+    calBookingId?: NullableIntFieldUpdateOperationsInput | number | null
+    triggerEvent?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    eventTypeSlug?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CalBookingUncheckedUpdateWithoutLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calUid?: StringFieldUpdateOperationsInput | string
+    calBookingId?: NullableIntFieldUpdateOperationsInput | number | null
+    triggerEvent?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    eventTypeSlug?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CalBookingUncheckedUpdateManyWithoutLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    calUid?: StringFieldUpdateOperationsInput | string
+    calBookingId?: NullableIntFieldUpdateOperationsInput | number | null
+    triggerEvent?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    attendeeEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    attendeeName?: NullableStringFieldUpdateOperationsInput | string | null
+    eventTypeSlug?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadEventUpdateWithoutAirbnbLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventName?: EnumMarketingEventNameFieldUpdateOperationsInput | $Enums.MarketingEventName
+    eventTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventSourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    sentToMeta?: BoolFieldUpdateOperationsInput | boolean
+    metaResponse?: NullableJsonNullValueInput | InputJsonValue
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    triggeredBy?: StringFieldUpdateOperationsInput | string
+    clientIp?: NullableStringFieldUpdateOperationsInput | string | null
+    clientUserAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submission?: FormSubmissionUpdateOneWithoutEventsNestedInput
+  }
+
+  export type LeadEventUncheckedUpdateWithoutAirbnbLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    eventName?: EnumMarketingEventNameFieldUpdateOperationsInput | $Enums.MarketingEventName
+    eventTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventSourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    sentToMeta?: BoolFieldUpdateOperationsInput | boolean
+    metaResponse?: NullableJsonNullValueInput | InputJsonValue
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    triggeredBy?: StringFieldUpdateOperationsInput | string
+    clientIp?: NullableStringFieldUpdateOperationsInput | string | null
+    clientUserAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadEventUncheckedUpdateManyWithoutAirbnbLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    eventName?: EnumMarketingEventNameFieldUpdateOperationsInput | $Enums.MarketingEventName
+    eventTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    eventSourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    sentToMeta?: BoolFieldUpdateOperationsInput | boolean
+    metaResponse?: NullableJsonNullValueInput | InputJsonValue
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    triggeredBy?: StringFieldUpdateOperationsInput | string
+    clientIp?: NullableStringFieldUpdateOperationsInput | string | null
+    clientUserAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountBlockEventCreateManyAccountInput = {
+    id?: string
+    type: $Enums.BlockType
+    message: string
+    occurredAt?: Date | string
+  }
+
+  export type AirbnbMessageCreateManyProspectAccountInput = {
+    id?: string
+    leadId: string
+    direction: $Enums.MessageDirection
+    content: string
+    aiIntent?: string | null
+    sentAt?: Date | string
+  }
+
+  export type HostContactCreateManyFirstContactAccountInput = {
+    id?: string
+    hostAirbnbId: string
+    leadId: string
+    firstContactedAt: Date | string
+    source: $Enums.ContactSource
+    createdAt?: Date | string
+  }
+
+  export type AccountBlockEventUpdateWithoutAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    message?: StringFieldUpdateOperationsInput | string
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountBlockEventUncheckedUpdateWithoutAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    message?: StringFieldUpdateOperationsInput | string
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AccountBlockEventUncheckedUpdateManyWithoutAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBlockTypeFieldUpdateOperationsInput | $Enums.BlockType
+    message?: StringFieldUpdateOperationsInput | string
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbMessageUpdateWithoutProspectAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    direction?: EnumMessageDirectionFieldUpdateOperationsInput | $Enums.MessageDirection
+    content?: StringFieldUpdateOperationsInput | string
+    aiIntent?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lead?: AirbnbLeadUpdateOneRequiredWithoutMessagesNestedInput
+  }
+
+  export type AirbnbMessageUncheckedUpdateWithoutProspectAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    leadId?: StringFieldUpdateOperationsInput | string
+    direction?: EnumMessageDirectionFieldUpdateOperationsInput | $Enums.MessageDirection
+    content?: StringFieldUpdateOperationsInput | string
+    aiIntent?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirbnbMessageUncheckedUpdateManyWithoutProspectAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    leadId?: StringFieldUpdateOperationsInput | string
+    direction?: EnumMessageDirectionFieldUpdateOperationsInput | $Enums.MessageDirection
+    content?: StringFieldUpdateOperationsInput | string
+    aiIntent?: NullableStringFieldUpdateOperationsInput | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HostContactUpdateWithoutFirstContactAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    firstContactedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lead?: AirbnbLeadUpdateOneRequiredWithoutHostContactNestedInput
+  }
+
+  export type HostContactUncheckedUpdateWithoutFirstContactAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    leadId?: StringFieldUpdateOperationsInput | string
+    firstContactedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HostContactUncheckedUpdateManyWithoutFirstContactAccountInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    leadId?: StringFieldUpdateOperationsInput | string
+    firstContactedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    source?: EnumContactSourceFieldUpdateOperationsInput | $Enums.ContactSource
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

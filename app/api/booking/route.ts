@@ -40,6 +40,8 @@ import type {
 } from "@/prisma/generated/client"
 import { attributionFromRequest, clientContextFromRequest } from "@/lib/marketing/attribution"
 import { MARKETING_TRIGGERED_BY, recordMarketingStage } from "@/lib/marketing/events"
+import { markLandingConverted } from "@/lib/ad-landing"
+import { readVisitorId } from "@/lib/visitor-id"
 import { getAppUrl } from "@/lib/ebook/app-url"
 
 const BOOKING_FLOWS = ["EBOOK_SQL", "EBOOK_PDF", "DIAGNOSIS_PUBLIC", "DIRECT_BOOKING"] as const
@@ -290,6 +292,19 @@ export async function POST(request: Request) {
           client,
         })
       : null
+
+    if (bookingFlow === "DIAGNOSIS_PUBLIC") {
+      try {
+        await markLandingConverted({
+          visitorId: readVisitorId((body as { visitorId?: unknown }).visitorId),
+          landingPath: "/diagnosis",
+          conversion: "SCHEDULE",
+          attribution,
+        })
+      } catch (error) {
+        console.error("[landing/visit] no se pudo marcar Schedule", error)
+      }
+    }
 
     await sendBookingConfirmationEmails(payload, result)
 

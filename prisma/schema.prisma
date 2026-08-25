@@ -28,6 +28,7 @@ model Contact {
   submissions   FormSubmission[]
   pipeline      LeadPipeline?
   conversations Conversation[]
+  airbnbLead    AirbnbLead?
 
   @@index([email])
 }
@@ -85,8 +86,10 @@ model FormSubmission {
 
 model LeadEvent {
   id              String              @id
-  submissionId    String
-  submission      FormSubmission      @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  submissionId    String?
+  submission      FormSubmission?     @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  airbnbLeadId    String?
+  airbnbLead      AirbnbLead?         @relation(fields: [airbnbLeadId], references: [id], onDelete: Cascade)
   eventName       MarketingEventName
   eventTime       DateTime            @default(now())
   eventSourceUrl  String?
@@ -102,8 +105,10 @@ model LeadEvent {
   createdAt       DateTime            @default(now())
 
   @@unique([submissionId, eventName])
+  @@unique([airbnbLeadId, eventName])
   @@index([sentToMeta, createdAt])
   @@index([submissionId])
+  @@index([airbnbLeadId])
 }
 
 model VideoWatchSession {
@@ -124,6 +129,29 @@ model VideoWatchSession {
   @@index([videoId, startedAt])
   @@index([visitorId])
   @@index([videoId, completed])
+}
+
+model LandingVisit {
+  id           String    @id @default(cuid())
+  visitorId    String
+  landingPath  String
+  fromAd       Boolean   @default(false)
+  fbclid       String?
+  fbp          String?
+  fbc          String?
+  utmSource    String?
+  utmMedium    String?
+  utmCampaign  String?
+  convertedAt  DateTime?
+  conversion   String?
+  lastSeenAt   DateTime  @default(now())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([visitorId, landingPath])
+  @@index([landingPath, fromAd])
+  @@index([fromAd, convertedAt])
+  @@index([fbclid])
 }
 
 model LeadPipeline {
@@ -331,6 +359,7 @@ enum ConversationChannel {
 enum MessageDirection {
   INBOUND
   OUTBOUND
+  SYSTEM
 }
 
 enum MessageType {
@@ -391,4 +420,239 @@ enum VideoDropReason {
   PAGE_LEAVE
   SCROLL
   ENDED
+}
+
+// ------------------------------------------------------
+// AIRBNB OUTBOUND (tablas físicas compartidas con @repo/db)
+// ------------------------------------------------------
+
+enum LeadStatus {
+  LEAD_DISCOVERED
+  INITIAL_MSG_SENT
+  FOLLOW_UP_1_SENT
+  FOLLOW_UP_2_SENT
+  FOLLOW_UP_3_SENT
+  REPLIED_IN_PROGRESS
+  HUMAN_TAKEOVER
+  CLOSED_WON
+  CLOSED_LOST
+}
+
+enum IcpSkipReason {
+  below_min
+  above_max
+  not_superhost
+  hotel_loft
+  wrong_market
+}
+
+enum AccountStatus {
+  ACTIVE
+  COOLDOWN
+  BLOCKED
+  PENDING_GMAIL
+  PENDING_CREDENTIALS
+  VERIFYING
+}
+
+enum BlockType {
+  RATE_LIMIT
+  IDENTITY
+  CAPTCHA
+  OTHER
+}
+
+enum ContactSource {
+  OUTBOUND
+  MANUAL_SYNC
+  MANUAL_REGISTER
+  AIRBNB_PRESEND_GUARD
+  BACKFILL
+}
+
+enum AirbnbCommercialStage {
+  HANDOFF
+  SCHEDULED
+  SHOWED_UP
+  NO_SHOW
+  PURCHASED
+}
+
+model AirbnbLead {
+  id                 String         @id @default(uuid())
+  hostAirbnbId       String         @unique
+  threadId           String?        @unique
+  name               String
+  hostProfileUrl     String
+  primaryListingUrl  String
+  primaryListingName String?
+  totalProperties    Int            @default(1)
+  companyName        String?
+  isSuperhost        Boolean        @default(false)
+  market             String?
+  icpSkipReason      IcpSkipReason?
+  status             LeadStatus     @default(LEAD_DISCOVERED)
+  businessScale      String?        @db.Text
+  painPoints         String?        @db.Text
+  executiveSummary   String?        @db.Text
+  lastContactedAt    DateTime?
+  nextFollowUpAt     DateTime?
+  botReplyCount      Int            @default(0)
+  calLinkSent        Boolean        @default(false)
+  calBookedAt        DateTime?
+  hostEmail          String?
+  contactId          String?        @unique
+  contact            Contact?       @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  messages           AirbnbMessage[]
+  calBookings        CalBooking[]
+  hostContact        HostContact?
+  commercial         AirbnbCommercial?
+  events             LeadEvent[]
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  @@index([status, nextFollowUpAt])
+  @@map("Lead")
+}
+
+model AirbnbMessage {
+  id                String           @id @default(uuid())
+  leadId            String
+  lead              AirbnbLead       @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  prospectAccountId String?
+  prospectAccount   ProspectAccount? @relation(fields: [prospectAccountId], references: [id], onDelete: SetNull)
+  direction         MessageDirection
+  content           String           @db.Text
+  aiIntent          String?
+  sentAt            DateTime         @default(now())
+
+  @@index([leadId, sentAt])
+  @@index([prospectAccountId])
+  @@map("Message")
+}
+
+model SystemState {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model CalBooking {
+  id            String     @id @default(uuid())
+  calUid        String     @unique
+  calBookingId  Int?
+  leadId        String
+  lead          AirbnbLead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  triggerEvent  String
+  startTime     DateTime
+  endTime       DateTime?
+  attendeeEmail String?
+  attendeeName  String?
+  eventTypeSlug String?
+  createdAt     DateTime   @default(now())
+
+  @@index([leadId])
+}
+
+model ProspectAccount {
+  id                   String              @id @default(uuid())
+  label                String
+  airbnbEmail          String              @unique
+  airbnbPasswordEnc    String?
+  composioUserId       String?
+  composioConnectionId String?
+  composioConnectedAt  DateTime?
+  proxyHost            String?
+  proxyPort            Int?
+  proxyUser            String?
+  proxyPassEnc         String?
+  proxyProvider        String?
+  proxySessionId       String?
+  proxyCountry         String?
+  sessionPath          String?
+  sessionStateEnc      String?
+  market               String?
+  messagesSentToday    Int                 @default(0)
+  waveMessagesSent     Int                 @default(0)
+  status               AccountStatus       @default(ACTIVE)
+  rateLimitedAt        DateTime?
+  cooldownUntil        DateTime?
+  lastWaveStartedAt    DateTime?
+  blockEvents          AccountBlockEvent[]
+  messages             AirbnbMessage[]
+  hostContacts         HostContact[]
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+
+  @@index([status, cooldownUntil])
+}
+
+model HostContact {
+  id                    String           @id @default(uuid())
+  hostAirbnbId          String           @unique
+  leadId                String           @unique
+  lead                  AirbnbLead       @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  firstContactedAt      DateTime
+  firstContactAccountId String?
+  firstContactAccount   ProspectAccount? @relation(fields: [firstContactAccountId], references: [id], onDelete: SetNull)
+  source                ContactSource
+  createdAt             DateTime         @default(now())
+
+  @@index([firstContactAccountId])
+}
+
+model LeadIdentityAlias {
+  id          String @id @default(uuid())
+  aliasId     String @unique
+  canonicalId String
+  leadId      String?
+
+  @@index([canonicalId])
+}
+
+model DailyOutboundStats {
+  id               String   @id @default(uuid())
+  date             DateTime @db.Date
+  market           String
+  coldMessagesSent Int      @default(0)
+
+  @@unique([date, market])
+  @@index([date])
+}
+
+model AccountBlockEvent {
+  id         String          @id @default(uuid())
+  accountId  String
+  account    ProspectAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  type       BlockType
+  message    String          @db.Text
+  occurredAt DateTime        @default(now())
+
+  @@index([accountId, occurredAt])
+}
+
+model AirbnbCommercial {
+  id               String                 @id @default(cuid())
+  leadId           String                 @unique
+  lead             AirbnbLead             @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  stage            AirbnbCommercialStage
+  hostEmail        String?
+  meetingTime      DateTime?
+  meetLink         String?
+  meetingId        String?
+  contractValueUsd Decimal?               @db.Decimal(12, 2)
+  contractPlan     ContractPlan?
+  createdAt        DateTime               @default(now())
+  updatedAt        DateTime               @updatedAt
+}
+
+model OperationalDiagnosis {
+  id         String   @id @default(cuid())
+  slug       String   @unique
+  clientName String
+  payload    Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([updatedAt])
 }
