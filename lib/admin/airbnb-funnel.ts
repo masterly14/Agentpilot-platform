@@ -2,7 +2,7 @@ import type { AirbnbCommercialStage } from "@/prisma/generated/client"
 import type { FunnelColumn } from "@/lib/marketing/funnel-ui"
 import type { MarketingEventName } from "@/lib/marketing/types"
 
-export const AIRBNB_COLUMNS: FunnelColumn[] = [
+export const AIRBNB_COLUMNS: FunnelColumn<AirbnbCommercialStage>[] = [
   {
     id: "HANDOFF",
     label: "Handoff",

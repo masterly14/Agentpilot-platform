@@ -118,7 +118,7 @@ export function AirbnbLeadSheet({
       const res = await fetch("/api/admin/airbnb/email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ airbnbLeadId: lead.id, hostEmail: email }),
+        body: JSON.stringify({ airbnbLeadId: lead?.id, hostEmail: email }),
       })
       const payload = (await res.json().catch(() => null)) as { lead?: AirbnbLeadRecord; error?: string } | null
       if (!res.ok) throw new Error(payload?.error ?? "No se pudo guardar el correo")
@@ -143,7 +143,7 @@ export function AirbnbLeadSheet({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          airbnbLeadId: lead.id,
+          airbnbLeadId: lead?.id,
           meetingTime: meetingTime.toISOString(),
           meetLink,
           hostEmail: email || undefined,

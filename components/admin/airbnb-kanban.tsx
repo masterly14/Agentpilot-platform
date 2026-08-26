@@ -292,9 +292,9 @@ export function AirbnbKanban({
               <KanbanColumn
                 key={column.id}
                 column={column}
-                count={byStage[column.id as AirbnbCommercialStage].length}
+                count={byStage[column.id].length}
               >
-                {byStage[column.id as AirbnbCommercialStage].map((lead) => (
+                {byStage[column.id].map((lead) => (
                   <AirbnbKanbanCard
                     key={lead.id}
                     lead={lead}

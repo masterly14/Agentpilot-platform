@@ -2,8 +2,8 @@ import type { ContractPlan, MarketingFunnelStage } from "@/prisma/generated/clie
 
 export type FunnelColumnId = MarketingFunnelStage
 
-export type FunnelColumn = {
-  id: string
+export type FunnelColumn<TId extends string = string> = {
+  id: TId
   label: string
   description: string
   hint?: string
@@ -12,7 +12,7 @@ export type FunnelColumn = {
   accent: string
 }
 
-export const FUNNEL_COLUMNS: FunnelColumn[] = [
+export const FUNNEL_COLUMNS: FunnelColumn<FunnelColumnId>[] = [
   {
     id: "LEAD_MAGNET_SENT",
     label: "Guía enviada",
