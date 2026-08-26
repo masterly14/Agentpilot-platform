@@ -1,6 +1,7 @@
 import type { FunnelOrigin, LeadPipeline, PipelineStage, PipelineState } from "@/prisma/generated/client"
 import {
   isNurturingState,
+  isPostDemoState,
   isPreMeetingState,
   isTerminalState,
   type QualificationAnswers,
@@ -30,6 +31,15 @@ const PRE_MEETING_CHAIN: PipelineState[] = [
   "NO_SHOW",
 ]
 
+const LAST_PROGRESS_REMINDER: PipelineState = "REMINDER_24H"
+
+export function preMeetingStateAfterReschedule(currentState: PipelineState): PipelineState {
+  const index = PRE_MEETING_CHAIN.indexOf(currentState)
+  if (index < 0) return "CONFIRMATION_SENT"
+  const cap = PRE_MEETING_CHAIN.indexOf(LAST_PROGRESS_REMINDER)
+  return PRE_MEETING_CHAIN[Math.min(index, cap)]
+}
+
 export const ALLOWED_FROM: Partial<Record<PipelineState, PipelineState[]>> = {
   AWAITING_CONFIRMATION: ["LEAD_MAGNET_DOWNLOADED"],
   QUALIFICATION_OFFERED: ["AWAITING_CONFIRMATION"],
@@ -51,7 +61,6 @@ export const ALLOWED_FROM: Partial<Record<PipelineState, PipelineState[]>> = {
   LAST_NURTURE_SENT: ["CTA_SENT_SAW_VIDEO", "CTA_SENT_NO_VIDEO"],
   COLD_CALL_QUEUED: ["LAST_NURTURE_SENT"],
   LONG_TERM_NURTURE: ["COLD_CALL_QUEUED", "LAST_NURTURE_SENT", "RESCHEDULE_OFFERED"],
-  LOST: ["LAST_NURTURE_SENT", "COLD_CALL_QUEUED", "RESCHEDULE_OFFERED"],
   SCHEDULED: [
     "AWAITING_CONFIRMATION",
     "QUALIFICATION_OFFERED",
@@ -71,9 +80,54 @@ export const ALLOWED_FROM: Partial<Record<PipelineState, PipelineState[]>> = {
   REMINDER_24H: ["CONFIRMATION_SENT", "REMINDER_48H"],
   REMINDER_8AM_DAY_OF: ["CONFIRMATION_SENT", "REMINDER_48H", "REMINDER_24H"],
   REMINDER_30MIN: ["CONFIRMATION_SENT", "REMINDER_48H", "REMINDER_24H", "REMINDER_8AM_DAY_OF"],
-  NO_SHOW: ["CONFIRMATION_SENT", "REMINDER_48H", "REMINDER_24H", "REMINDER_8AM_DAY_OF", "REMINDER_30MIN"],
+  NO_SHOW: [
+    "CONFIRMATION_SENT",
+    "REMINDER_48H",
+    "REMINDER_24H",
+    "REMINDER_8AM_DAY_OF",
+    "REMINDER_30MIN",
+    "DEMO_CONFIRMATION_SENT",
+    "DEMO_REMINDER_48H",
+    "DEMO_REMINDER_24H",
+    "DEMO_REMINDER_8AM",
+    "DEMO_REMINDER_30MIN",
+  ],
   RESCHEDULE_OFFERED: ["NO_SHOW"],
   ATTENDED: ["CONFIRMATION_SENT", "REMINDER_48H", "REMINDER_24H", "REMINDER_8AM_DAY_OF", "REMINDER_30MIN"],
+  DISCOVERY_COMPLETED: [
+    "ATTENDED",
+    "CONFIRMATION_SENT",
+    "REMINDER_48H",
+    "REMINDER_24H",
+    "REMINDER_8AM_DAY_OF",
+    "REMINDER_30MIN",
+    "NO_SHOW",
+    "RESCHEDULE_OFFERED",
+  ],
+  DISCOVERY_SUMMARY_SENT: ["DISCOVERY_COMPLETED"],
+  DEMO_CONFIRMATION_SENT: ["ATTENDED", "DISCOVERY_COMPLETED", "DISCOVERY_SUMMARY_SENT"],
+  DEMO_REMINDER_48H: ["DEMO_CONFIRMATION_SENT"],
+  DEMO_REMINDER_24H: ["DEMO_CONFIRMATION_SENT", "DEMO_REMINDER_48H"],
+  DEMO_REMINDER_8AM: ["DEMO_CONFIRMATION_SENT", "DEMO_REMINDER_48H", "DEMO_REMINDER_24H"],
+  DEMO_REMINDER_30MIN: [
+    "DEMO_CONFIRMATION_SENT",
+    "DEMO_REMINDER_48H",
+    "DEMO_REMINDER_24H",
+    "DEMO_REMINDER_8AM",
+  ],
+  LOST: [
+    "LAST_NURTURE_SENT",
+    "COLD_CALL_QUEUED",
+    "RESCHEDULE_OFFERED",
+    "ATTENDED",
+    "DISCOVERY_COMPLETED",
+    "DISCOVERY_SUMMARY_SENT",
+    "DEMO_CONFIRMATION_SENT",
+    "DEMO_REMINDER_48H",
+    "DEMO_REMINDER_24H",
+    "DEMO_REMINDER_8AM",
+    "DEMO_REMINDER_30MIN",
+  ],
 }
 
 export function canEnterState(from: PipelineState, to: PipelineState) {
@@ -85,6 +139,24 @@ export function canEnterState(from: PipelineState, to: PipelineState) {
 
 export function stageForState(state: PipelineState, currentStage: PipelineStage): PipelineStage {
   if (state === "LOST" || state === "LONG_TERM_NURTURE") return currentStage
+  if (isPostDemoState(state)) return "POST_DEMO"
+  if (
+    currentStage === "PRE_DEMO" &&
+    (state === "NO_SHOW" || state === "RESCHEDULE_OFFERED" || state === "ATTENDED")
+  ) {
+    return "PRE_DEMO"
+  }
+  if (
+    state === "DISCOVERY_COMPLETED" ||
+    state === "DISCOVERY_SUMMARY_SENT" ||
+    state === "DEMO_CONFIRMATION_SENT" ||
+    state === "DEMO_REMINDER_48H" ||
+    state === "DEMO_REMINDER_24H" ||
+    state === "DEMO_REMINDER_8AM" ||
+    state === "DEMO_REMINDER_30MIN"
+  ) {
+    return "PRE_DEMO"
+  }
   if (isPreMeetingState(state)) return "PRE_MEETING"
   if (isNurturingState(state)) return "NURTURING"
   return currentStage
@@ -130,6 +202,25 @@ function eightAmBogota(meetingTime: Date) {
   return new Date(`${date}T08:00:00-05:00`)
 }
 
+const PRE_MEETING_RESTART_STATES = new Set<PipelineState>([
+  "MEETING_SCHEDULED",
+  "NO_SHOW",
+  "RESCHEDULE_OFFERED",
+  "ATTENDED",
+  "LONG_TERM_NURTURE",
+  "LOST",
+  "DISQUALIFIED",
+])
+
+export function shouldRestartPreMeetingOnReschedule(
+  stage: PipelineStage,
+  state: PipelineState,
+) {
+  if (stage === "NURTURING") return true
+  if (stage !== "PRE_MEETING") return false
+  return PRE_MEETING_RESTART_STATES.has(state)
+}
+
 export function nextPreMeetingJob(
   currentState: PipelineState,
   meetingTime: Date,
@@ -148,6 +239,43 @@ export function nextPreMeetingJob(
 
   for (let index = start; index < PRE_MEETING_CHAIN.length; index += 1) {
     const expectedState = PRE_MEETING_CHAIN[index]
+    const notBefore = fireAt[expectedState]
+    if (!notBefore) continue
+    if (notBefore.getTime() > now.getTime() + 15_000) {
+      return { expectedState, notBefore }
+    }
+  }
+
+  return null
+}
+
+const PRE_DEMO_CHAIN: PipelineState[] = [
+  "DEMO_CONFIRMATION_SENT",
+  "DEMO_REMINDER_48H",
+  "DEMO_REMINDER_24H",
+  "DEMO_REMINDER_8AM",
+  "DEMO_REMINDER_30MIN",
+  "NO_SHOW",
+]
+
+export function nextPreDemoJob(
+  currentState: PipelineState,
+  meetingTime: Date,
+  now = new Date(),
+): { expectedState: PipelineState; notBefore: Date } | null {
+  const currentIndex = PRE_DEMO_CHAIN.indexOf(currentState)
+  const start = currentIndex >= 0 ? currentIndex + 1 : 0
+
+  const fireAt: Partial<Record<PipelineState, Date>> = {
+    DEMO_REMINDER_48H: new Date(meetingTime.getTime() - 48 * 60 * 60 * 1000),
+    DEMO_REMINDER_24H: new Date(meetingTime.getTime() - 24 * 60 * 60 * 1000),
+    DEMO_REMINDER_8AM: eightAmBogota(meetingTime),
+    DEMO_REMINDER_30MIN: new Date(meetingTime.getTime() - 30 * 60 * 1000),
+    NO_SHOW: new Date(meetingTime.getTime() + 15 * 60 * 1000),
+  }
+
+  for (let index = start; index < PRE_DEMO_CHAIN.length; index += 1) {
+    const expectedState = PRE_DEMO_CHAIN[index]
     const notBefore = fireAt[expectedState]
     if (!notBefore) continue
     if (notBefore.getTime() > now.getTime() + 15_000) {

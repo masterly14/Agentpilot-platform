@@ -1,14 +1,19 @@
-import type { FunnelOrigin, LeadPipeline, PipelineState, Prisma } from "@/prisma/generated/client"
+import type { Contact, FunnelOrigin, LeadPipeline, PipelineState, Prisma } from "@/prisma/generated/client"
 import { prisma } from "@/lib/prisma"
 import {
   canEnterState,
   nextNurtureState,
+  nextPreDemoJob,
   nextPreMeetingJob,
   NURTURE_TIMEOUT_SECONDS,
+  preMeetingStateAfterReschedule,
+  shouldRestartPreMeetingOnReschedule,
   stageForState,
 } from "@/lib/pipeline/transitions"
 import { cancelPendingPipelineJobs, schedulePipelineJob } from "@/lib/pipeline/schedule"
 import { sendPipelineTemplate, sendWhatsAppText } from "@/lib/whatsapp/send-template"
+import { firstNameFromFullName } from "@/lib/whatsapp/phone"
+import { formatMeetingParts } from "@/lib/pipeline/vars"
 import { MQL_QUESTIONS } from "@/lib/pipeline/qualify-mql"
 import { isTerminalState } from "@/lib/pipeline/states"
 import {
@@ -35,6 +40,10 @@ async function scheduleFollowup(pipeline: LeadPipeline) {
     return
   }
 
+  if (pipeline.currentState === "DISCOVERY_SUMMARY_SENT") {
+    return
+  }
+
   if (pipeline.currentState === "RESCHEDULE_OFFERED") {
     const delaySeconds = NURTURE_TIMEOUT_SECONDS.RESCHEDULE_OFFERED
     if (!delaySeconds) return
@@ -43,6 +52,18 @@ async function scheduleFollowup(pipeline: LeadPipeline) {
       contactId: pipeline.contactId,
       expectedState: "LONG_TERM_NURTURE",
       delaySeconds,
+    })
+    return
+  }
+
+  if (pipeline.currentStage === "PRE_DEMO" && pipeline.meetingTime) {
+    const next = nextPreDemoJob(pipeline.currentState, pipeline.meetingTime)
+    if (!next) return
+    await schedulePipelineJob({
+      pipelineId: pipeline.id,
+      contactId: pipeline.contactId,
+      expectedState: next.expectedState,
+      notBefore: next.notBefore,
     })
     return
   }
@@ -90,6 +111,23 @@ async function deliverStateMessage(
       })
     } catch (error) {
       console.error("[pipeline] fallo envío WhatsApp texto", state, pipeline.contactId, error)
+    }
+    return
+  }
+
+  if (state === "DEMO_CONFIRMATION_SENT" || state === "LOST") {
+    return
+  }
+
+  if (state === "DISCOVERY_SUMMARY_SENT") {
+    try {
+      const { sendDiscoverySummaryMessage } = await import("@/lib/pipeline/discovery-summary")
+      const result = await sendDiscoverySummaryMessage({ contact, pipeline })
+      if (result.skipped === false && result.outcome === "no_fit") {
+        await transitionPipeline({ contactId: pipeline.contactId, toState: "LOST" })
+      }
+    } catch (error) {
+      console.error("[pipeline] fallo envío resumen discovery", pipeline.contactId, error)
     }
     return
   }
@@ -233,10 +271,13 @@ export async function enterPreMeeting(input: {
   meetingId?: string | null
   meetingTime: Date
   meetLink?: string | null
+  visitorTimezone?: string | null
 }) {
   const existing = await prisma.leadPipeline.findUnique({
     where: { contactId: input.contactId },
   })
+
+  const visitorTimezone = input.visitorTimezone ?? existing?.visitorTimezone ?? null
 
   if (!existing) {
     await prisma.leadPipeline.create({
@@ -248,6 +289,7 @@ export async function enterPreMeeting(input: {
         meetingId: input.meetingId ?? null,
         meetingTime: input.meetingTime,
         meetLink: input.meetLink ?? null,
+        visitorTimezone,
       },
     })
     return transitionPipeline({ contactId: input.contactId, toState: "CONFIRMATION_SENT" })
@@ -263,6 +305,7 @@ export async function enterPreMeeting(input: {
         meetingId: input.meetingId ?? null,
         meetingTime: input.meetingTime,
         meetLink: input.meetLink ?? null,
+        visitorTimezone,
       },
     })
     await prisma.leadPipeline.update({
@@ -283,13 +326,171 @@ export async function enterPreMeeting(input: {
       meetingId: input.meetingId ?? existing.meetingId,
       meetingTime: input.meetingTime,
       meetLink: input.meetLink ?? existing.meetLink,
+      visitorTimezone,
     },
   })
   return transitionPipeline({ contactId: input.contactId, toState: "CONFIRMATION_SENT" })
 }
 
+async function notifyMeetingRescheduled(
+  pipeline: LeadPipeline & { contact: Contact },
+) {
+  if (!pipeline.meetingTime) return
+  const meeting = formatMeetingParts(pipeline.meetingTime, pipeline.visitorTimezone || undefined)
+  const nombre = firstNameFromFullName(pipeline.contact.fullName)
+  const kind = pipeline.currentStage === "PRE_DEMO" ? "demo" : "diagnóstico"
+  const lines = [
+    `Hola ${nombre}, tu ${kind} quedó reagendado para el ${meeting.fecha} a las ${meeting.hora}.`,
+  ]
+  if (pipeline.meetLink) {
+    lines.push(`Link de la reunión: ${pipeline.meetLink}`)
+  }
+
+  await sendWhatsAppText({
+    contact: pipeline.contact,
+    body: lines.join("\n\n"),
+    pipelineState: pipeline.currentState,
+  })
+}
+
+export async function rescheduleMeeting(input: {
+  contactId: string
+  meetingTime: Date
+  meetingId?: string | null
+  meetLink?: string | null
+  visitorTimezone?: string | null
+  notify?: boolean
+}) {
+  const existing = await prisma.leadPipeline.findUnique({
+    where: { contactId: input.contactId },
+    include: { contact: true },
+  })
+
+  if (!existing || shouldRestartPreMeetingOnReschedule(existing.currentStage, existing.currentState)) {
+    return enterPreMeeting({
+      contactId: input.contactId,
+      funnelOrigin: existing?.funnelOrigin,
+      meetingId: input.meetingId ?? existing?.meetingId,
+      meetingTime: input.meetingTime,
+      meetLink: input.meetLink ?? existing?.meetLink,
+      visitorTimezone: input.visitorTimezone ?? existing?.visitorTimezone,
+    })
+  }
+
+  const previousTime = existing.meetingTime
+  const previousState = existing.currentState
+
+  await cancelPendingPipelineJobs(existing.id)
+
+  const rewindPreMeeting = existing.currentStage === "PRE_MEETING"
+  const updated = await prisma.leadPipeline.update({
+    where: { id: existing.id },
+    data: {
+      ...(rewindPreMeeting
+        ? {
+            currentStage: "PRE_MEETING" as const,
+            currentState: preMeetingStateAfterReschedule(existing.currentState),
+          }
+        : {}),
+      meetingId: input.meetingId !== undefined ? input.meetingId : existing.meetingId,
+      meetingTime: input.meetingTime,
+      meetLink: input.meetLink !== undefined ? input.meetLink : existing.meetLink,
+      visitorTimezone:
+        input.visitorTimezone !== undefined ? input.visitorTimezone : existing.visitorTimezone,
+    },
+    include: { contact: true },
+  })
+
+  console.info("[pipeline] reunión reagendada", {
+    contactId: input.contactId,
+    previousState,
+    previousTime: previousTime?.toISOString() ?? null,
+    meetingTime: input.meetingTime.toISOString(),
+    visitorTimezone: updated.visitorTimezone,
+  })
+
+  try {
+    await scheduleFollowup(updated)
+  } catch (error) {
+    console.error("[pipeline] no se pudo reprogramar followup tras reagendar", error)
+  }
+
+  if (input.notify !== false) {
+    try {
+      await notifyMeetingRescheduled(updated)
+    } catch (error) {
+      console.error("[pipeline] no se pudo notificar reagendamiento", input.contactId, error)
+    }
+  }
+
+  return updated
+}
+
 export async function markAttended(contactId: string) {
   return transitionPipeline({ contactId, toState: "ATTENDED" })
+}
+
+export async function enterPreDemo(input: {
+  contactId: string
+  meetingTime: Date
+  painPoint: string
+  meetingId?: string | null
+  meetLink?: string | null
+}) {
+  const existing = await prisma.leadPipeline.findUnique({
+    where: { contactId: input.contactId },
+  })
+
+  const extra = {
+    painPoint: input.painPoint,
+    meetingTime: input.meetingTime,
+    meetingId: input.meetingId ?? existing?.meetingId ?? null,
+    meetLink: input.meetLink ?? existing?.meetLink ?? null,
+  }
+
+  if (!existing) {
+    await prisma.leadPipeline.create({
+      data: {
+        contactId: input.contactId,
+        funnelOrigin: "DIRECT_BOOKING",
+        currentStage: "PRE_DEMO",
+        currentState: "ATTENDED",
+        ...extra,
+      },
+    })
+    return transitionPipeline({
+      contactId: input.contactId,
+      toState: "DEMO_CONFIRMATION_SENT",
+    })
+  }
+
+  await prisma.leadPipeline.update({
+    where: { id: existing.id },
+    data: extra,
+  })
+
+  if (existing.currentState === "DEMO_CONFIRMATION_SENT") {
+    await cancelPendingPipelineJobs(existing.id)
+    const refreshed = await prisma.leadPipeline.findUniqueOrThrow({
+      where: { id: existing.id },
+    })
+    try {
+      await scheduleFollowup(refreshed)
+    } catch (error) {
+      console.error("[pipeline] no se pudo programar followup de demo", error)
+    }
+    return refreshed
+  }
+
+  return transitionPipeline({
+    contactId: input.contactId,
+    toState: "DEMO_CONFIRMATION_SENT",
+    extra,
+  })
+}
+
+export async function discardAfterDiscovery(contactId: string) {
+  return transitionPipeline({ contactId, toState: "LOST" })
 }
 
 export async function markVideoWatched(contactId: string) {

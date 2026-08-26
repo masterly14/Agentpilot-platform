@@ -57,6 +57,22 @@ export const FUNNEL_COLUMNS: FunnelColumn<FunnelColumnId>[] = [
     accent: "bg-[#7d8998]",
   },
   {
+    id: "DEMO_SCHEDULED",
+    label: "Demo",
+    description: "Demo agendada",
+    droppable: true,
+    automatic: false,
+    accent: "bg-[#0d9488]",
+  },
+  {
+    id: "DISCARDED",
+    label: "Descartado",
+    description: "Sin fit o sin siguiente paso",
+    droppable: true,
+    automatic: false,
+    accent: "bg-[#445566]",
+  },
+  {
     id: "PURCHASED",
     label: "Comprado",
     description: "Contrato cerrado",
@@ -72,6 +88,8 @@ export const FUNNEL_STAGE_LABEL: Record<MarketingFunnelStage, string> = {
   SCHEDULED: "Agendado",
   SHOWED_UP: "Show-up",
   NO_SHOW: "No-show",
+  DEMO_SCHEDULED: "Demo",
+  DISCARDED: "Descartado",
   PURCHASED: "Comprado",
 }
 
@@ -79,8 +97,10 @@ const ALLOWED_DROPS: Record<MarketingFunnelStage, MarketingFunnelStage[]> = {
   LEAD_MAGNET_SENT: [],
   VIDEO_SENT: [],
   SCHEDULED: ["SHOWED_UP", "NO_SHOW", "PURCHASED"],
-  SHOWED_UP: ["NO_SHOW", "PURCHASED"],
+  SHOWED_UP: ["NO_SHOW", "DEMO_SCHEDULED", "DISCARDED", "PURCHASED"],
   NO_SHOW: ["SHOWED_UP"],
+  DEMO_SCHEDULED: ["PURCHASED", "DISCARDED"],
+  DISCARDED: [],
   PURCHASED: [],
 }
 

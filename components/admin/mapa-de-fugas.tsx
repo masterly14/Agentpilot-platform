@@ -2,13 +2,29 @@
 
 import { useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
-import { Plus, Printer, Save } from "lucide-react"
+import { Plus, Printer, Save, UserRound } from "lucide-react"
 import { toast } from "sonner"
+import { DiagnosticoLeadPicker } from "@/components/admin/diagnostico-lead-picker"
+import { formatMeetingLabel } from "@/components/admin/kanban-parts"
 import { MapaDeFugasConsulta } from "@/components/admin/mapa-de-fugas-consulta"
 import { MapaDeFugasInforme } from "@/components/admin/mapa-de-fugas-informe"
 import { Button } from "@/components/ui/button"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
+  leakMapFromLead,
+  linkFromSaved,
+  type DiagnosisLeadLink,
+  type DiagnosisLeadOption,
+} from "@/lib/admin/diagnosis-leads"
+import {
+  bogotaDateFromIso,
   calculateLeakMap,
   createEmptyLeakMap,
   emptyRequerimiento,
@@ -30,10 +46,11 @@ import { cn } from "@/lib/utils"
 
 type MapaDeFugasProps = {
   initialSaved: SavedDiagnosis[]
+  initialLeads: DiagnosisLeadOption[]
   initialFecha?: string
 }
 
-export function MapaDeFugas({ initialSaved, initialFecha }: MapaDeFugasProps) {
+export function MapaDeFugas({ initialSaved, initialLeads, initialFecha }: MapaDeFugasProps) {
   const router = useRouter()
   const [state, setState] = useState<LeakMapState>(() => {
     const empty = createEmptyLeakMap()
@@ -43,7 +60,11 @@ export function MapaDeFugas({ initialSaved, initialFecha }: MapaDeFugasProps) {
   const [vista, setVista] = useState<LeakMapVista>("consulta")
   const [revelado, setRevelado] = useState(false)
   const [saved, setSaved] = useState(initialSaved)
+  const [leads] = useState(initialLeads)
   const [currentId, setCurrentId] = useState<string | null>(null)
+  const [lead, setLead] = useState<DiagnosisLeadLink | null>(null)
+  const [pickerOpen, setPickerOpen] = useState(false)
+  const [pickerMode, setPickerMode] = useState<"new" | "link">("new")
   const [saving, setSaving] = useState(false)
 
   const calc = useMemo(() => calculateLeakMap(state), [state])
@@ -160,11 +181,33 @@ export function MapaDeFugas({ initialSaved, initialFecha }: MapaDeFugasProps) {
     toast.success("Área marcada para el bloque de fugas.")
   }
 
-  function reset() {
-    setState(createEmptyLeakMap())
+  function startNew(nextLead: DiagnosisLeadOption) {
+    setState(leakMapFromLead(nextLead))
+    setLead(nextLead)
     setCurrentId(null)
     setRevelado(false)
     setVista("consulta")
+    setPickerOpen(false)
+  }
+
+  function attachLead(nextLead: DiagnosisLeadOption) {
+    setLead(nextLead)
+    setState((prev) => ({
+      ...prev,
+      snapshot: {
+        ...prev.snapshot,
+        cliente: prev.snapshot.cliente.trim() || nextLead.clientName,
+        fecha: prev.snapshot.fecha || bogotaDateFromIso(nextLead.meetingTime),
+        propiedades: prev.snapshot.propiedades || nextLead.properties,
+        canales: prev.snapshot.canales || (nextLead.source === "airbnb" ? "Airbnb" : ""),
+      },
+    }))
+    setPickerOpen(false)
+  }
+
+  function openPicker(mode: "new" | "link") {
+    setPickerMode(mode)
+    setPickerOpen(true)
   }
 
   async function handleSave() {
@@ -173,13 +216,23 @@ export function MapaDeFugas({ initialSaved, initialFecha }: MapaDeFugasProps) {
       toast.error("Escribe el nombre del cliente antes de guardar.")
       return
     }
+    if (!currentId && !lead) {
+      toast.error("Selecciona el lead de esta reunión.")
+      openPicker("link")
+      return
+    }
 
     setSaving(true)
     try {
       const response = await fetch("/api/admin/diagnostico", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: currentId, state }),
+        body: JSON.stringify({
+          id: currentId,
+          state,
+          submissionId: lead?.submissionId ?? null,
+          airbnbLeadId: lead?.airbnbLeadId ?? null,
+        }),
       })
       const payload = (await response.json()) as {
         error?: string
@@ -190,6 +243,7 @@ export function MapaDeFugas({ initialSaved, initialFecha }: MapaDeFugasProps) {
       }
 
       setCurrentId(payload.diagnosis.id)
+      setLead(linkFromSaved(payload.diagnosis) ?? lead)
       setSaved((prev) => {
         const next = prev.filter((item) => item.id !== payload.diagnosis!.id)
         return [payload.diagnosis!, ...next]
@@ -206,12 +260,17 @@ export function MapaDeFugas({ initialSaved, initialFecha }: MapaDeFugasProps) {
   async function handleLoad(id: string) {
     try {
       const response = await fetch(`/api/admin/diagnostico/${id}`)
-      const payload = (await response.json()) as { error?: string; state?: unknown }
+      const payload = (await response.json()) as {
+        error?: string
+        state?: unknown
+        diagnosis?: SavedDiagnosis
+      }
       if (!response.ok || payload.state == null) {
         throw new Error(payload.error ?? "No se encontró ese diagnóstico.")
       }
       setState(hydrateLeakMap(payload.state))
       setCurrentId(id)
+      setLead(payload.diagnosis ? linkFromSaved(payload.diagnosis) : null)
       setRevelado(false)
       setVista("consulta")
       toast.success("Diagnóstico cargado.")
@@ -220,86 +279,169 @@ export function MapaDeFugas({ initialSaved, initialFecha }: MapaDeFugasProps) {
     }
   }
 
+  const cliente = state.snapshot.cliente.trim()
+  const areasActivas = state.areas.filter((area) => area.activo).length
+  const pasosMarcados = state.trazas.reduce(
+    (sum, traza) => sum + traza.pasos.filter((paso) => paso.estado !== "").length,
+    0,
+  )
+  const meetingLabel = formatMeetingLabel(lead?.meetingTime ?? null)
+
   return (
-    <Tabs value={vista} onValueChange={(value) => setVista(value as LeakMapVista)} className="gap-5">
-      <header className="flex flex-wrap items-end justify-between gap-4 border-b pb-4 print:hidden">
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-            Diagnóstico operativo
-          </p>
-          <h1 className="text-2xl font-semibold tracking-tight">Mapa de fugas</h1>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <TabsList>
-            <TabsTrigger value="consulta">Consulta</TabsTrigger>
-            <TabsTrigger value="informe">Informe</TabsTrigger>
-          </TabsList>
-          <Button type="button" variant="outline" size="sm" onClick={() => void handleSave()} disabled={saving}>
-            <Save />
-            Guardar
-          </Button>
-          <Button type="button" variant="outline" size="sm" onClick={() => window.print()}>
-            <Printer />
-            Imprimir
-          </Button>
+    <Tabs value={vista} onValueChange={(value) => setVista(value as LeakMapVista)} className="gap-0">
+      <header className="sticky top-0 z-20 border-b bg-background/85 backdrop-blur-md print:hidden">
+        <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-4">
+            <div className="min-w-0">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                Diagnóstico operativo
+              </p>
+              <div className="mt-1 flex min-w-0 flex-wrap items-baseline gap-x-2.5">
+                <h1 className="text-xl font-semibold tracking-tight md:text-2xl">Mapa de fugas</h1>
+                {cliente ? (
+                  <span className="min-w-0 truncate text-sm text-muted-foreground">{cliente}</span>
+                ) : null}
+              </div>
+              {lead ? (
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {lead.source === "airbnb" ? "Airbnb" : "Inbound"}
+                  {meetingLabel ? ` · ${meetingLabel}` : ""}
+                </p>
+              ) : (
+                <p className="mt-1 text-xs text-muted-foreground">Sin lead ligado</p>
+              )}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <TabsList className="h-9">
+                <TabsTrigger value="consulta" className="px-4">
+                  Consulta
+                </TabsTrigger>
+                <TabsTrigger value="informe" className="px-4">
+                  Informe
+                </TabsTrigger>
+              </TabsList>
+              <span aria-hidden className="mx-1 hidden h-6 w-px bg-border sm:block" />
+              <Button type="button" variant="ghost" size="sm" onClick={() => openPicker("link")}>
+                <UserRound />
+                {lead ? "Cambiar lead" : "Elegir lead"}
+              </Button>
+              <Button type="button" variant="ghost" size="sm" onClick={() => openPicker("new")}>
+                <Plus />
+                Nuevo
+              </Button>
+              <Button type="button" variant="outline" size="sm" onClick={() => window.print()}>
+                <Printer />
+                Imprimir
+              </Button>
+              <Button type="button" size="sm" onClick={() => void handleSave()} disabled={saving}>
+                <Save />
+                {saving ? "Guardando…" : "Guardar"}
+              </Button>
+            </div>
+          </div>
+
+          {vista === "consulta" ? (
+            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t py-3">
+              {saved.length > 0 ? (
+                <Select value={currentId ?? ""} onValueChange={(value) => void handleLoad(value)}>
+                  <SelectTrigger size="sm" className="w-[22rem] max-w-full bg-background">
+                    <SelectValue placeholder="Abrir un diagnóstico guardado" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {saved.map((item) => (
+                      <SelectItem key={item.id} value={item.id}>
+                        {item.leadLabel || item.clientName}
+                        <span className="text-muted-foreground">
+                          {" · "}
+                          {formatMeetingLabel(item.meetingTime) ?? shortDate(item.updatedAt)}
+                        </span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : (
+                <p className="text-xs text-muted-foreground">
+                  Todavía no hay diagnósticos guardados.
+                </p>
+              )}
+
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5">
+                <HeaderStat label="Áreas" value={`${areasActivas}/8`} />
+                <HeaderStat label="Pasos marcados" value={String(pasosMarcados)} />
+                <HeaderStat label="Requerimientos" value={String(state.requerimientos.length)} />
+                {revelado && calc.filas.length > 0 ? (
+                  <HeaderStat label="Fuga anual" value={formatMoney(calc.total * 12)} accent />
+                ) : null}
+              </div>
+            </div>
+          ) : null}
         </div>
       </header>
 
-      {saved.length > 0 && vista === "consulta" ? (
-        <div className="flex flex-wrap items-center gap-2 print:hidden">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-            Diagnósticos guardados
-          </span>
-          {saved.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => void handleLoad(item.id)}
-              className={cn(
-                "rounded-full border px-3 py-1 text-sm transition-colors",
-                item.id === currentId
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-background text-muted-foreground hover:border-primary hover:text-foreground",
-              )}
-            >
-              {item.clientName}
-            </button>
-          ))}
-          <button
-            type="button"
-            onClick={reset}
-            className="rounded-full border border-dashed px-3 py-1 text-sm text-muted-foreground hover:border-primary hover:text-foreground"
-          >
-            <span className="inline-flex items-center gap-1">
-              <Plus className="size-3.5" />
-              Nuevo
-            </span>
-          </button>
-        </div>
-      ) : null}
+      <div className="mx-auto w-full max-w-7xl px-4 py-8 md:px-8 md:py-12 print:max-w-none print:p-0">
+        <TabsContent value="consulta" className="mt-0 print:hidden">
+          <MapaDeFugasConsulta
+            state={state}
+            calc={calc}
+            formatMoney={formatMoney}
+            revelado={revelado}
+            onReveal={() => setRevelado(true)}
+            onSnapshot={setSnapshot}
+            onConfig={setConfig}
+            onArea={setArea}
+            onCyclePaso={cyclePaso}
+            onPasoNota={(trazaId, pasoId, nota) => patchPaso(trazaId, pasoId, { nota })}
+            onCreateRequerimientoFromPaso={createRequerimientoFromPaso}
+            onLinkArea={linkArea}
+            onAddRequerimiento={addRequerimiento}
+            onChangeRequerimiento={changeRequerimiento}
+            onRemoveRequerimiento={removeRequerimiento}
+          />
+        </TabsContent>
+        <TabsContent value="informe" className="mt-0 print:block">
+          <MapaDeFugasInforme state={state} calc={calc} formatMoney={formatMoney} />
+        </TabsContent>
+      </div>
 
-      <TabsContent value="consulta" className="mt-0 print:hidden">
-        <MapaDeFugasConsulta
-          state={state}
-          calc={calc}
-          formatMoney={formatMoney}
-          revelado={revelado}
-          onReveal={() => setRevelado(true)}
-          onSnapshot={setSnapshot}
-          onConfig={setConfig}
-          onArea={setArea}
-          onCyclePaso={cyclePaso}
-          onPasoNota={(trazaId, pasoId, nota) => patchPaso(trazaId, pasoId, { nota })}
-          onCreateRequerimientoFromPaso={createRequerimientoFromPaso}
-          onLinkArea={linkArea}
-          onAddRequerimiento={addRequerimiento}
-          onChangeRequerimiento={changeRequerimiento}
-          onRemoveRequerimiento={removeRequerimiento}
-        />
-      </TabsContent>
-      <TabsContent value="informe" className="mt-0 print:block">
-        <MapaDeFugasInforme state={state} calc={calc} formatMoney={formatMoney} />
-      </TabsContent>
+      <DiagnosticoLeadPicker
+        open={pickerOpen}
+        leads={leads}
+        onOpenChange={setPickerOpen}
+        onSelect={pickerMode === "new" ? startNew : attachLead}
+      />
     </Tabs>
   )
+}
+
+function HeaderStat({
+  label,
+  value,
+  accent = false,
+}: {
+  label: string
+  value: string
+  accent?: boolean
+}) {
+  return (
+    <div className="flex items-baseline gap-1.5">
+      <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+        {label}
+      </span>
+      <span className={cn("font-mono text-sm font-semibold", accent && "text-primary")}>
+        {value}
+      </span>
+    </div>
+  )
+}
+
+const SHORT_DATE = new Intl.DateTimeFormat("es-CO", {
+  timeZone: "America/Bogota",
+  day: "2-digit",
+  month: "short",
+})
+
+function shortDate(iso: string) {
+  const date = new Date(iso)
+  return Number.isNaN(date.getTime()) ? "" : SHORT_DATE.format(date)
 }

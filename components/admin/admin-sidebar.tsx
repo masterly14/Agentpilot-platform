@@ -1,10 +1,22 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { BarChart3, ClipboardList, Columns3, Globe, LogOut, MessageCircle } from "lucide-react"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import {
+  BarChart3,
+  ClipboardList,
+  Columns3,
+  Globe,
+  LogOut,
+  MessageCircle,
+  PanelLeft,
+  PanelLeftClose,
+} from "lucide-react"
+import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+
+const SIDEBAR_STORAGE_KEY = "admin-sidebar"
 
 const LINKS = [
   { href: "/admin", label: "Pipeline", exact: true, icon: Columns3 },
@@ -16,6 +28,27 @@ const LINKS = [
 export function AdminSidebar() {
   const pathname = usePathname()
   const router = useRouter()
+  const [open, setOpen] = useState(true)
+
+  useEffect(() => {
+    setOpen(localStorage.getItem(SIDEBAR_STORAGE_KEY) !== "hidden")
+  }, [])
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "b") {
+        event.preventDefault()
+        setOpen((current) => !current)
+      }
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [])
+
+  function persist(next: boolean) {
+    setOpen(next)
+    localStorage.setItem(SIDEBAR_STORAGE_KEY, next ? "open" : "hidden")
+  }
 
   async function handleLogout() {
     await fetch("/api/admin/logout", { method: "POST" })
@@ -23,16 +56,45 @@ export function AdminSidebar() {
     router.refresh()
   }
 
+  if (!open) {
+    return (
+      <div className="flex shrink-0 items-center border-b border-sidebar-border bg-sidebar print:hidden md:h-screen md:flex-col md:border-b-0 md:border-r">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          className="m-2"
+          aria-label="Mostrar menú"
+          title="Mostrar menú (Ctrl+B)"
+          onClick={() => persist(true)}
+        >
+          <PanelLeft />
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <aside className="flex w-full shrink-0 flex-col border-b border-sidebar-border bg-sidebar print:hidden md:h-screen md:w-60 md:border-b-0 md:border-r">
-      <div className="flex items-center gap-2 px-4 py-4 md:px-5">
-        <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
+      <div className="flex items-center gap-2 px-3 py-3 md:px-4 md:py-4">
+        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
           SV
         </span>
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold tracking-tight">Santiago Varón</p>
           <p className="text-xs text-muted-foreground">Workspace</p>
         </div>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          className="shrink-0 text-muted-foreground"
+          aria-label="Ocultar menú"
+          title="Ocultar menú (Ctrl+B)"
+          onClick={() => persist(false)}
+        >
+          <PanelLeftClose />
+        </Button>
       </div>
 
       <nav className="flex gap-1 overflow-x-auto px-3 pb-3 md:flex-1 md:flex-col md:overflow-visible md:px-3">

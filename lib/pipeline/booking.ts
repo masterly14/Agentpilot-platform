@@ -17,6 +17,7 @@ export async function attachBookingToPipeline(input: {
   meetingTime: Date
   meetingId?: string | null
   meetLink?: string | null
+  visitorTimezone?: string | null
 }) {
   const contact = await upsertContactFromLead({
     fullName: input.fullName,
@@ -48,6 +49,7 @@ export async function attachBookingToPipeline(input: {
     meetingId: input.meetingId,
     meetingTime: input.meetingTime,
     meetLink: input.meetLink,
+    visitorTimezone: input.visitorTimezone,
   })
 
   return contact

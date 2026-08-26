@@ -5,7 +5,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
-  Globe,
   Info,
   Loader2,
 } from "lucide-react"
@@ -16,6 +15,7 @@ import {
   INITIAL_BOOKING_FORM,
   type BookingFormData,
 } from "./booking-form-wizard-light"
+import { BookingTimezonePicker } from "@/components/booking/timezone-picker"
 import { DIAGNOSIS_BOOKING } from "./content"
 import {
   Collapsible,
@@ -23,6 +23,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { usePartialSubmission } from "@/hooks/use-partial-submission"
+import { useVisitorTimezone } from "@/hooks/use-visitor-timezone"
 import {
   addBookingMonths,
   BOOKING_MONTH,
@@ -34,6 +35,11 @@ import {
 } from "@/lib/booking/config"
 import { getCurrentBookingYearMonth, getUnbookableDaysInMonth, isMonthInBookingWindow } from "@/lib/booking/rules"
 import { applyLiveSlotRules, filterPastSlots } from "@/lib/booking/slots"
+import {
+  formatSlotDateLabel,
+  formatSlotTimeLabel,
+  slotLocalDateDiffers,
+} from "@/lib/booking/timezone"
 import type { BookingSlot, MonthAvailabilityResponse } from "@/lib/booking/types"
 import { trackSchedule } from "@/lib/facebook-pixel"
 import { collectAttribution } from "@/lib/marketing/attribution-client"
@@ -237,6 +243,7 @@ function TimeSlotsPanel({
   viewMonth,
   selectedSlotStart,
   use24h,
+  timeZone,
   slots,
   onSelectTime,
   onToggleFormat,
@@ -246,12 +253,14 @@ function TimeSlotsPanel({
   viewMonth: number
   selectedSlotStart: string | null
   use24h: boolean
+  timeZone: string
   slots: BookingSlot[]
   onSelectTime: (slot: BookingSlot) => void
   onToggleFormat: (use24h: boolean) => void
 }) {
   const visibleSlots = applyLiveSlotRules(slots)
   if (visibleSlots.length === 0) return <NoSlotsPanel />
+  const calendarDate = toBookingDate(viewYear, viewMonth, selectedDay)
 
   return (
     <>
@@ -283,7 +292,10 @@ function TimeSlotsPanel({
 
       <div className="max-h-[320px] space-y-2 overflow-y-auto pr-1 [scrollbar-color:rgb(228_228_231)_transparent] [scrollbar-width:thin] lg:max-h-[280px]">
         {visibleSlots.map((slot) => {
-          const label = use24h ? slot.label24h : slot.label12h
+          const label = formatSlotTimeLabel(slot.start, timeZone, use24h)
+          const dateHint = slotLocalDateDiffers(slot.start, calendarDate, timeZone)
+            ? ` · ${formatSlotDateLabel(slot.start, timeZone)}`
+            : ""
 
           if (!slot.available) {
             return (
@@ -293,7 +305,10 @@ function TimeSlotsPanel({
                 className="flex w-full cursor-not-allowed items-center gap-2.5 rounded-lg border border-zinc-100 bg-zinc-50 px-3 py-2.5 text-sm text-zinc-400"
               >
                 <span className="h-2 w-2 shrink-0 rounded-full bg-zinc-300" />
-                <span className="line-through decoration-zinc-300">{label}</span>
+                <span className="line-through decoration-zinc-300">
+                  {label}
+                  {dateHint}
+                </span>
                 <span className="ml-auto text-[11px] font-medium uppercase tracking-wide text-zinc-400">
                   Lleno
                 </span>
@@ -315,6 +330,7 @@ function TimeSlotsPanel({
             >
               <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
               {label}
+              {dateHint}
             </button>
           )
         })}
@@ -329,8 +345,11 @@ function BookingSidePanel({
   viewYear,
   viewMonth,
   selectedSlotStart,
+  selectedDateLabel,
   selectedTimeLabel,
+  hostTimeHint,
   use24h,
+  timeZone,
   timeSlots,
   formData,
   formStep,
@@ -352,8 +371,11 @@ function BookingSidePanel({
   viewYear: number
   viewMonth: number
   selectedSlotStart: string | null
+  selectedDateLabel: string | null
   selectedTimeLabel: string | null
+  hostTimeHint: string | null
   use24h: boolean
+  timeZone: string
   timeSlots: BookingSlot[]
   formData: BookingFormData
   formStep: number
@@ -381,16 +403,18 @@ function BookingSidePanel({
         viewMonth={viewMonth}
         selectedSlotStart={selectedSlotStart}
         use24h={use24h}
+        timeZone={timeZone}
         slots={timeSlots}
         onSelectTime={onSelectTime}
         onToggleFormat={onToggleFormat}
       />
     )
-  if ((step === "form" || step === "submitting") && selectedTimeLabel)
+  if ((step === "form" || step === "submitting") && selectedDateLabel && selectedTimeLabel)
     return leadMode ? (
       <LeadConfirmPanel
-        selectedDateLabel={formatSelectedDate(viewYear, viewMonth, selectedDay)}
+        selectedDateLabel={selectedDateLabel}
         selectedTimeLabel={selectedTimeLabel}
+        hostTimeHint={hostTimeHint}
         leadName={leadMode.name}
         leadEmail={leadMode.email}
         isSubmitting={step === "submitting"}
@@ -400,8 +424,9 @@ function BookingSidePanel({
       />
     ) : (
       <BookingFormWizardLight
-        selectedDateLabel={formatSelectedDate(viewYear, viewMonth, selectedDay)}
+        selectedDateLabel={selectedDateLabel}
         selectedTimeLabel={selectedTimeLabel}
+        hostTimeHint={hostTimeHint}
         formData={formData}
         formStep={formStep}
         isSubmitting={step === "submitting"}
@@ -413,13 +438,12 @@ function BookingSidePanel({
         onFieldBlur={onFieldBlur}
       />
     )
-  if (step === "submitted" && selectedTimeLabel)
+  if (step === "submitted" && selectedDateLabel && selectedTimeLabel)
     return (
       <SuccessPanel
-        selectedDay={selectedDay}
-        viewYear={viewYear}
-        viewMonth={viewMonth}
+        selectedDateLabel={selectedDateLabel}
         selectedTimeLabel={selectedTimeLabel}
+        hostTimeHint={hostTimeHint}
         attendeeEmail={attendeeEmail}
         meetLink={meetLink}
       />
@@ -429,17 +453,15 @@ function BookingSidePanel({
 }
 
 function SuccessPanel({
-  selectedDay,
-  viewYear,
-  viewMonth,
+  selectedDateLabel,
   selectedTimeLabel,
+  hostTimeHint,
   attendeeEmail,
   meetLink,
 }: {
-  selectedDay: number
-  viewYear: number
-  viewMonth: number
+  selectedDateLabel: string
   selectedTimeLabel: string
+  hostTimeHint: string | null
   attendeeEmail: string
   meetLink?: string | null
 }) {
@@ -451,8 +473,9 @@ function SuccessPanel({
       <div>
         <p className="text-sm font-medium text-zinc-900">Reunión agendada</p>
         <p className="mt-1 text-xs text-zinc-500">
-          {formatSelectedDate(viewYear, viewMonth, selectedDay)} · {selectedTimeLabel}
+          {selectedDateLabel} · {selectedTimeLabel}
         </p>
+        {hostTimeHint ? <p className="mt-0.5 text-[11px] text-zinc-400">{hostTimeHint}</p> : null}
       </div>
       <p className="max-w-xs text-sm text-zinc-600">
         Enviamos la invitación de Google Calendar a{" "}
@@ -475,6 +498,7 @@ function SuccessPanel({
 function LeadConfirmPanel({
   selectedDateLabel,
   selectedTimeLabel,
+  hostTimeHint,
   leadName,
   leadEmail,
   isSubmitting,
@@ -484,6 +508,7 @@ function LeadConfirmPanel({
 }: {
   selectedDateLabel: string
   selectedTimeLabel: string
+  hostTimeHint: string | null
   leadName: string
   leadEmail: string
   isSubmitting: boolean
@@ -504,9 +529,10 @@ function LeadConfirmPanel({
       <h3 className="mb-2 text-lg font-semibold leading-snug text-zinc-900 md:text-xl">
         Confirma tu diagnóstico
       </h3>
-      <p className="mb-6 text-sm text-zinc-500">
+      <p className="mb-1 text-sm text-zinc-500">
         {selectedDateLabel} · {selectedTimeLabel}
       </p>
+      {hostTimeHint ? <p className="mb-6 text-xs text-zinc-400">{hostTimeHint}</p> : <div className="mb-6" />}
       <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm">
         <p className="font-medium text-zinc-900">{leadName}</p>
         <p className="mt-1 text-zinc-500">{leadEmail}</p>
@@ -550,12 +576,12 @@ export function BookingWidgetLight({
   leadName?: string
   leadEmail?: string
 } = {}) {
+  const { timeZone, setTimeZone } = useVisitorTimezone()
   const [viewYear, setViewYear] = useState(BOOKING_YEAR)
   const [viewMonth, setViewMonth] = useState(BOOKING_MONTH)
   const [currentMonth, setCurrentMonth] = useState({ year: BOOKING_YEAR, month: BOOKING_MONTH })
   const [selectedDay, setSelectedDay] = useState<number | null>(null)
   const [selectedSlotStart, setSelectedSlotStart] = useState<string | null>(null)
-  const [selectedTimeLabel, setSelectedTimeLabel] = useState<string | null>(null)
   const [step, setStep] = useState<BookingStep>("idle")
   const [timeSlots, setTimeSlots] = useState<BookingSlot[]>([])
   const [slotsByDate, setSlotsByDate] = useState<Record<string, BookingSlot[]>>({})
@@ -604,7 +630,6 @@ export function BookingWidgetLight({
   const resetSelection = useCallback(() => {
     setSelectedDay(null)
     setSelectedSlotStart(null)
-    setSelectedTimeLabel(null)
     setTimeSlots([])
     setMeetLink(null)
     setErrorMessage(null)
@@ -675,7 +700,6 @@ export function BookingWidgetLight({
       clearLoadTimeout()
       setSelectedDay(day)
       setSelectedSlotStart(null)
-      setSelectedTimeLabel(null)
       setMeetLink(null)
       setErrorMessage(null)
       setStep("loading-times")
@@ -704,17 +728,15 @@ export function BookingWidgetLight({
       if (!slot.available) return
       clearLoadTimeout()
       setSelectedSlotStart(slot.start)
-      setSelectedTimeLabel(use24h ? slot.label24h : slot.label12h)
       setErrorMessage(null)
       setStep("form")
     },
-    [clearLoadTimeout, use24h]
+    [clearLoadTimeout]
   )
 
   const handleBackToTimes = useCallback(() => {
     clearLoadTimeout()
     setSelectedSlotStart(null)
-    setSelectedTimeLabel(null)
     setFormStep(0)
     setErrorMessage(null)
     setStep("times")
@@ -745,6 +767,7 @@ export function BookingWidgetLight({
             ? {
                 date: toBookingDate(viewYear, viewMonth, selectedDay),
                 slotStart: selectedSlotStart,
+                visitorTimezone: timeZone,
                 leadToken,
                 bookingFlow: "EBOOK_SQL",
                 attribution: collectAttribution(),
@@ -753,6 +776,7 @@ export function BookingWidgetLight({
             : {
                 date: toBookingDate(viewYear, viewMonth, selectedDay),
                 slotStart: selectedSlotStart,
+                visitorTimezone: timeZone,
                 ...formData,
                 bookingFlow: "DIAGNOSIS_PUBLIC",
                 leadToken: getToken() || undefined,
@@ -782,12 +806,24 @@ export function BookingWidgetLight({
       setErrorMessage(error instanceof Error ? error.message : "No se pudo confirmar la reunión")
       setStep("form")
     }
-  }, [clear, flush, formData, getToken, leadEmail, leadName, leadToken, selectedDay, selectedSlotStart, viewMonth, viewYear])
+  }, [clear, flush, formData, getToken, leadEmail, leadName, leadToken, selectedDay, selectedSlotStart, timeZone, viewMonth, viewYear])
 
   const isFormActive = step === "form" || step === "submitting" || step === "submitted"
   const showMobilePanel = selectedDay !== null
   const leadMode = leadToken && leadName && leadEmail ? { name: leadName, email: leadEmail } : undefined
   const attendeeEmail = leadEmail || formData.email
+  const selectedTimeLabel = selectedSlotStart
+    ? formatSlotTimeLabel(selectedSlotStart, timeZone, use24h)
+    : null
+  const selectedDateLabel = selectedSlotStart
+    ? formatSlotDateLabel(selectedSlotStart, timeZone)
+    : selectedDay
+      ? formatSelectedDate(viewYear, viewMonth, selectedDay)
+      : null
+  const hostTimeHint =
+    selectedSlotStart && timeZone !== bookingConfig.timezone
+      ? `${formatSlotTimeLabel(selectedSlotStart, bookingConfig.timezone, use24h)} hora de Bogotá`
+      : null
 
   return (
     <div className="overflow-hidden rounded-3xl border border-zinc-200/90 bg-white shadow-[0_40px_120px_-40px_rgba(6,182,212,0.35)]">
@@ -833,11 +869,7 @@ export function BookingWidgetLight({
               <GoogleMeetIcon className="h-4 w-4 shrink-0" />
               <span>Google Meet</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Globe className="h-4 w-4 shrink-0" />
-              <span>America/Bogota</span>
-              <ChevronDown className="h-3.5 w-3.5 text-zinc-400" />
-            </div>
+            <BookingTimezonePicker value={timeZone} onChange={setTimeZone} variant="light" />
           </div>
         </div>
 
@@ -936,8 +968,11 @@ export function BookingWidgetLight({
             viewYear={viewYear}
             viewMonth={viewMonth}
             selectedSlotStart={selectedSlotStart}
+            selectedDateLabel={selectedDateLabel}
             selectedTimeLabel={selectedTimeLabel}
+            hostTimeHint={hostTimeHint}
             use24h={use24h}
+            timeZone={timeZone}
             timeSlots={timeSlots}
             formData={formData}
             formStep={formStep}
@@ -973,8 +1008,11 @@ export function BookingWidgetLight({
               viewYear={viewYear}
               viewMonth={viewMonth}
               selectedSlotStart={selectedSlotStart}
+              selectedDateLabel={selectedDateLabel}
               selectedTimeLabel={selectedTimeLabel}
+              hostTimeHint={hostTimeHint}
               use24h={use24h}
+              timeZone={timeZone}
               timeSlots={timeSlots}
               formData={formData}
               formStep={formStep}

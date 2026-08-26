@@ -98,6 +98,8 @@ export type SubmissionRecord = {
   contactId: string | null
   meetingTime: string | null
   meetLink: string | null
+  visitorTimezone: string | null
+  painPoint: string | null
   createdAt: string
   updatedAt: string
 }
@@ -109,8 +111,10 @@ export function serializeSubmission<T extends {
   contractValueUsd?: unknown
   meetingTime?: Date | null
   meetLink?: string | null
+  visitorTimezone?: string | null
+  painPoint?: string | null
 }>(submission: T) {
-  const { contractValueUsd, createdAt, updatedAt, bookedAt, meetingTime, meetLink, ...rest } =
+  const { contractValueUsd, createdAt, updatedAt, bookedAt, meetingTime, meetLink, visitorTimezone, painPoint, ...rest } =
     submission
   return {
     ...rest,
@@ -119,6 +123,8 @@ export function serializeSubmission<T extends {
     bookedAt: bookedAt ? bookedAt.toISOString() : null,
     meetingTime: meetingTime ? meetingTime.toISOString() : null,
     meetLink: meetLink ?? null,
+    visitorTimezone: visitorTimezone ?? null,
+    painPoint: painPoint ?? null,
     contractValueUsd: contractValueUsd == null ? null : String(contractValueUsd),
   }
 }
@@ -204,6 +210,7 @@ export function getSubmissionDetails(submission: SubmissionRecord) {
     submission.industryTime ? { label: "Industria", value: INDUSTRY_TIME[submission.industryTime] } : null,
     submission.instagramUrl ? { label: "Instagram", value: submission.instagramUrl } : null,
     submission.websiteUrl ? { label: "Sitio web", value: submission.websiteUrl } : null,
+    submission.painPoint ? { label: "Dolor", value: submission.painPoint } : null,
     submission.bookedAt
       ? {
           label: "Agendó",

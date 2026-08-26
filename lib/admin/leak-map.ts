@@ -117,6 +117,11 @@ export type SavedDiagnosis = {
   id: string
   clientName: string
   updatedAt: string
+  meetingTime: string | null
+  source: "inbound" | "airbnb" | null
+  leadLabel: string | null
+  submissionId: string | null
+  airbnbLeadId: string | null
 }
 
 export const AREAS_BASE: AreaBase[] = [
@@ -349,6 +354,23 @@ export function diagnosisSlug(clientName: string) {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
+}
+
+export function uniqueDiagnosisSlug(clientName: string) {
+  const base = diagnosisSlug(clientName) || "diagnostico"
+  return `${base}-${Date.now().toString(36)}`
+}
+
+export function bogotaDateFromIso(iso: string | null | undefined) {
+  if (!iso) return todayBogotaDate()
+  const date = new Date(iso)
+  if (Number.isNaN(date.getTime())) return todayBogotaDate()
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Bogota",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(date)
 }
 
 function asRecord(value: unknown): Record<string, unknown> | null {

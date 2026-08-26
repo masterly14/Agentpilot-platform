@@ -1,5 +1,4 @@
 import { bookingConfig } from "@/lib/booking/config"
-import { parseBookingDateTime } from "@/lib/booking/datetime"
 import {
   formatBookingAnswersForDescription,
   getOptionLabel,
@@ -9,6 +8,11 @@ import {
   REVENUE_OPTIONS,
   YES_NO_OPTIONS,
 } from "@/lib/booking/form-options"
+import {
+  formatMeetingInTimeZone,
+  formatTimezoneCity,
+  formatTimezoneLabel,
+} from "@/lib/booking/timezone"
 import { formatPhoneNumber } from "@/lib/booking/phone-countries"
 import type { BookingFormPayload, BookingCreateResponse } from "@/lib/booking/types"
 import { getResendFromAddress } from "@/lib/email"
@@ -25,30 +29,16 @@ function escapeHtml(value: string) {
     .replaceAll('"', "&quot;")
 }
 
-export function formatMeetingDateTime(slotStart: string) {
-  const date = parseBookingDateTime(slotStart)
-
-  const datePart = new Intl.DateTimeFormat("es-CO", {
-    timeZone: bookingConfig.timezone,
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(date)
-
-  const timePart = new Intl.DateTimeFormat("es-CO", {
-    timeZone: bookingConfig.timezone,
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  }).format(date)
-
-  return `${datePart} · ${timePart}`
+export function formatMeetingDateTime(slotStart: string, timeZone = bookingConfig.timezone) {
+  return formatMeetingInTimeZone(slotStart, timeZone)
 }
 
 function buildLeadBookingConfirmationEmail(payload: BookingFormPayload, result: BookingCreateResponse) {
   const firstName = escapeHtml(getVisitorFirstName(payload.fullName))
-  const meetingWhen = escapeHtml(formatMeetingDateTime(payload.slotStart))
+  const visitorTimezone = payload.visitorTimezone || bookingConfig.timezone
+  const meetingWhen = escapeHtml(formatMeetingDateTime(payload.slotStart, visitorTimezone))
+  const hostWhen = escapeHtml(formatMeetingDateTime(payload.slotStart, bookingConfig.timezone))
+  const showHostEquivalent = visitorTimezone !== bookingConfig.timezone
   const meetLink = result.meetLink
 
   return {
@@ -61,7 +51,12 @@ function buildLeadBookingConfirmationEmail(payload: BookingFormPayload, result: 
 
         <p style="margin: 20px 0; padding: 16px 20px; background: #f5f5f5; border-radius: 8px;">
           <strong>${meetingWhen}</strong><br />
-          <span style="color: #555;">Zona horaria: ${escapeHtml(bookingConfig.timezone)}</span>
+          <span style="color: #555;">Zona horaria: ${escapeHtml(formatTimezoneLabel(visitorTimezone))}</span>
+          ${
+            showHostEquivalent
+              ? `<br /><span style="color: #555;">En ${escapeHtml(formatTimezoneCity(bookingConfig.timezone))}: ${hostWhen}</span>`
+              : ""
+          }
         </p>
 
         <p>Recibirás también la invitación en Google Calendar con los detalles de la videollamada.</p>
@@ -82,7 +77,12 @@ function buildLeadBookingConfirmationEmail(payload: BookingFormPayload, result: 
 }
 
 function buildBookingNotificationEmail(payload: BookingFormPayload, result: BookingCreateResponse) {
-  const meetingWhen = escapeHtml(formatMeetingDateTime(payload.slotStart))
+  const meetingWhen = escapeHtml(formatMeetingDateTime(payload.slotStart, bookingConfig.timezone))
+  const visitorTimezone = payload.visitorTimezone
+  const visitorWhen =
+    visitorTimezone && visitorTimezone !== bookingConfig.timezone
+      ? escapeHtml(formatMeetingDateTime(payload.slotStart, visitorTimezone))
+      : null
   const answers = formatBookingAnswersForDescription(payload)
     .split("\n")
     .map((line) => `<li>${escapeHtml(line)}</li>`)
@@ -119,7 +119,12 @@ function buildBookingNotificationEmail(payload: BookingFormPayload, result: Book
 
         <h2 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: #666;">Reunión</h2>
         <ul>
-          <li><strong>Fecha y hora:</strong> ${meetingWhen}</li>
+          <li><strong>Fecha y hora (${escapeHtml(formatTimezoneCity(bookingConfig.timezone))}):</strong> ${meetingWhen}</li>
+          ${
+            visitorWhen && visitorTimezone
+              ? `<li><strong>Hora del visitante (${escapeHtml(formatTimezoneLabel(visitorTimezone))}):</strong> ${visitorWhen}</li>`
+              : ""
+          }
           <li><strong>Duración:</strong> ${bookingConfig.slotMinutes} minutos</li>
           ${
             result.meetLink

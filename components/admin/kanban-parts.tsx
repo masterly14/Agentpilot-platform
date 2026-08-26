@@ -46,6 +46,8 @@ export function LeadStageActions({
   onShowUp,
   onNoShow,
   onCloseDeal,
+  onScheduleDemo,
+  onDiscard,
 }: {
   submission: SubmissionRecord
   disabled: boolean
@@ -53,6 +55,8 @@ export function LeadStageActions({
   onShowUp: () => void
   onNoShow: () => void
   onCloseDeal: () => void
+  onScheduleDemo?: () => void
+  onDiscard?: () => void
 }) {
   const stage = submission.marketingFunnelStage
   if (stage === "SCHEDULED") {
@@ -69,6 +73,19 @@ export function LeadStageActions({
   }
 
   if (stage === "SHOWED_UP") {
+    return (
+      <div className={cn("grid gap-2", compact ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-2")}>
+        <Button type="button" size="sm" disabled={disabled} onClick={onScheduleDemo}>
+          Programar demo
+        </Button>
+        <Button type="button" size="sm" variant="outline" disabled={disabled} onClick={onDiscard}>
+          Descartar
+        </Button>
+      </div>
+    )
+  }
+
+  if (stage === "DEMO_SCHEDULED") {
     return (
       <Button type="button" size="sm" className="w-full" disabled={disabled} onClick={onCloseDeal}>
         Cerrar trato
@@ -134,6 +151,8 @@ export function KanbanCard({
   onShowUp,
   onNoShow,
   onCloseDeal,
+  onScheduleDemo,
+  onDiscard,
 }: {
   submission: SubmissionRecord
   isUpdating: boolean
@@ -141,6 +160,8 @@ export function KanbanCard({
   onShowUp: () => void
   onNoShow: () => void
   onCloseDeal: () => void
+  onScheduleDemo?: () => void
+  onDiscard?: () => void
 }) {
   const draggable = isFunnelCardDraggable(submission.marketingFunnelStage)
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
@@ -218,6 +239,8 @@ export function KanbanCard({
           onShowUp={onShowUp}
           onNoShow={onNoShow}
           onCloseDeal={onCloseDeal}
+          onScheduleDemo={onScheduleDemo}
+          onDiscard={onDiscard}
         />
       </div>
     </div>

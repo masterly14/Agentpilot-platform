@@ -76,6 +76,7 @@ model FormSubmission {
   contactId               String?
   contact                 Contact?                @relation(fields: [contactId], references: [id], onDelete: SetNull)
   events                  LeadEvent[]
+  diagnoses               OperationalDiagnosis[]
 
   @@index([qualification])
   @@index([entrySource])
@@ -171,6 +172,7 @@ model LeadPipeline {
   meetingId            String?
   meetingTime          DateTime?
   meetLink             String?
+  visitorTimezone      String?
   createdAt            DateTime       @default(now())
   updatedAt            DateTime       @updatedAt
   jobs                 PipelineJob[]
@@ -397,6 +399,8 @@ enum MarketingFunnelStage {
   SCHEDULED
   SHOWED_UP
   NO_SHOW
+  DEMO_SCHEDULED
+  DISCARDED
   PURCHASED
 }
 
@@ -508,6 +512,7 @@ model AirbnbLead {
   hostContact        HostContact?
   commercial         AirbnbCommercial?
   events             LeadEvent[]
+  diagnoses          OperationalDiagnosis[]
   createdAt          DateTime       @default(now())
   updatedAt          DateTime       @updatedAt
 
@@ -647,12 +652,19 @@ model AirbnbCommercial {
 }
 
 model OperationalDiagnosis {
-  id         String   @id @default(cuid())
-  slug       String   @unique
-  clientName String
-  payload    Json
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id             String          @id @default(cuid())
+  slug           String          @unique
+  clientName     String
+  payload        Json
+  submissionId   String?
+  submission     FormSubmission? @relation(fields: [submissionId], references: [id], onDelete: SetNull)
+  airbnbLeadId   String?
+  airbnbLead     AirbnbLead?     @relation(fields: [airbnbLeadId], references: [id], onDelete: SetNull)
+  meetingTime    DateTime?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
 
   @@index([updatedAt])
+  @@index([submissionId])
+  @@index([airbnbLeadId])
 }

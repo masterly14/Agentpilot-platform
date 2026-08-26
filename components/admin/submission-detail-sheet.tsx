@@ -11,6 +11,10 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet"
 import { formatMeetingLabel, LeadStageActions } from "@/components/admin/kanban-parts"
+import {
+  MeetingRescheduleForm,
+  type MeetingReschedulePayload,
+} from "@/components/admin/meeting-reschedule-form"
 import { FUNNEL_STAGE_LABEL } from "@/lib/marketing/funnel-ui"
 import {
   getSubmissionDetails,
@@ -27,6 +31,9 @@ type SubmissionDetailSheetProps = {
   onShowUp: () => void
   onNoShow: () => void
   onCloseDeal: () => void
+  onScheduleDemo?: () => void
+  onDiscard?: () => void
+  onReschedule: (payload: MeetingReschedulePayload) => Promise<void>
 }
 
 export function SubmissionDetailSheet({
@@ -37,6 +44,9 @@ export function SubmissionDetailSheet({
   onShowUp,
   onNoShow,
   onCloseDeal,
+  onScheduleDemo,
+  onDiscard,
+  onReschedule,
 }: SubmissionDetailSheetProps) {
   if (!submission) return null
 
@@ -45,6 +55,14 @@ export function SubmissionDetailSheet({
   const stageLabel = submission.marketingFunnelStage
     ? FUNNEL_STAGE_LABEL[submission.marketingFunnelStage]
     : "Bandeja"
+  const canReschedule =
+    Boolean(submission.contactId) &&
+    submission.marketingFunnelStage !== "PURCHASED" &&
+    (submission.marketingFunnelStage === "SCHEDULED" ||
+      submission.marketingFunnelStage === "NO_SHOW" ||
+      submission.marketingFunnelStage === "SHOWED_UP" ||
+      submission.marketingFunnelStage === "DEMO_SCHEDULED" ||
+      Boolean(submission.meetingTime))
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -64,7 +82,20 @@ export function SubmissionDetailSheet({
             onShowUp={onShowUp}
             onNoShow={onNoShow}
             onCloseDeal={onCloseDeal}
+            onScheduleDemo={onScheduleDemo}
+            onDiscard={onDiscard}
           />
+
+          {canReschedule ? (
+            <MeetingRescheduleForm
+              meetingTime={submission.meetingTime || submission.bookedAt}
+              meetLink={submission.meetLink}
+              visitorTimezone={submission.visitorTimezone}
+              disabled={isUpdating}
+              saving={isUpdating}
+              onSubmit={onReschedule}
+            />
+          ) : null}
 
           {submission.meetLink ? (
             <Button asChild variant="outline" size="sm">

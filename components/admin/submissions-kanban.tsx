@@ -16,8 +16,10 @@ import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { CloseDealDialog } from "@/components/admin/close-deal-dialog"
+import { PostAttendDialog } from "@/components/admin/post-attend-dialog"
 import { SubmissionDetailSheet } from "@/components/admin/submission-detail-sheet"
 import { KanbanCard, KanbanColumn } from "@/components/admin/kanban-parts"
+import type { MeetingReschedulePayload } from "@/components/admin/meeting-reschedule-form"
 import {
   FUNNEL_COLUMNS,
   canDropOnFunnelStage,
@@ -65,6 +67,8 @@ export function SubmissionsKanban({
   )
   const [updatingId, setUpdatingId] = useState<string | null>(null)
   const [closeLeadId, setCloseLeadId] = useState<string | null>(null)
+  const [postAttendLeadId, setPostAttendLeadId] = useState<string | null>(null)
+  const [postAttendStep, setPostAttendStep] = useState<"choose" | "demo">("choose")
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -107,6 +111,9 @@ export function SubmissionsKanban({
   const closingLead = closeLeadId
     ? submissions.find((submission) => submission.id === closeLeadId) ?? null
     : null
+  const postAttendLead = postAttendLeadId
+    ? submissions.find((submission) => submission.id === postAttendLeadId) ?? null
+    : null
 
   function applySubmission(next: SubmissionRecord) {
     setSubmissions((current) =>
@@ -132,6 +139,8 @@ export function SubmissionsKanban({
       if (!res.ok) throw new Error("No se pudo marcar show-up")
       const data = (await res.json()) as { submission?: SubmissionRecord }
       if (data.submission) applySubmission(data.submission)
+      setPostAttendStep("choose")
+      setPostAttendLeadId(id)
       toast.success("Marcado como show-up")
     } catch (error) {
       setSubmissions((current) =>
@@ -172,6 +181,72 @@ export function SubmissionsKanban({
     }
   }
 
+  async function scheduleDemo(id: string, input: { meetingTime: string; painPoint: string }) {
+    setUpdatingId(id)
+    try {
+      const res = await fetch("/api/admin/pipeline/schedule-demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          submissionId: id,
+          meetingTime: input.meetingTime,
+          painPoint: input.painPoint,
+        }),
+      })
+      const data = (await res.json().catch(() => null)) as {
+        submission?: SubmissionRecord
+        error?: string
+        calendarWarning?: string | null
+      } | null
+      if (!res.ok) throw new Error(data?.error ?? "No se pudo programar la demo")
+      if (data?.submission) applySubmission(data.submission)
+      setPostAttendLeadId(null)
+      if (data?.calendarWarning) {
+        toast.warning(data.calendarWarning)
+      } else {
+        toast.success("Demo agendada. Recordatorios programados.")
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "No se pudo programar la demo")
+      throw error
+    } finally {
+      setUpdatingId(null)
+    }
+  }
+
+  async function discardLead(id: string) {
+    const previous = submissions.find((item) => item.id === id)
+    if (!previous) return
+    setUpdatingId(id)
+    setSubmissions((current) =>
+      current.map((item) =>
+        item.id === id ? { ...item, marketingFunnelStage: "DISCARDED" } : item,
+      ),
+    )
+    try {
+      const res = await fetch("/api/admin/pipeline/discard", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ submissionId: id }),
+      })
+      const data = (await res.json().catch(() => null)) as {
+        submission?: SubmissionRecord
+        error?: string
+      } | null
+      if (!res.ok) throw new Error(data?.error ?? "No se pudo descartar")
+      if (data?.submission) applySubmission(data.submission)
+      setPostAttendLeadId(null)
+      toast.success("Lead descartado")
+    } catch (error) {
+      setSubmissions((current) =>
+        current.map((item) => (item.id === id && previous ? previous : item)),
+      )
+      toast.error(error instanceof Error ? error.message : "No se pudo descartar")
+    } finally {
+      setUpdatingId(null)
+    }
+  }
+
   async function closeDeal(
     id: string,
     input: { contractValueUsd: number; contractPlan: ContractPlan },
@@ -202,6 +277,37 @@ export function SubmissionsKanban({
     }
   }
 
+  async function rescheduleMeeting(id: string, input: MeetingReschedulePayload) {
+    const previous = submissions.find((item) => item.id === id)
+    if (!previous) return
+    setUpdatingId(id)
+    try {
+      const res = await fetch("/api/admin/pipeline/reschedule", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          submissionId: id,
+          meetingTime: input.meetingTime,
+          meetLink: input.meetLink || undefined,
+          visitorTimezone: input.visitorTimezone,
+        }),
+      })
+      const data = (await res.json().catch(() => null)) as {
+        submission?: SubmissionRecord
+        error?: string
+      } | null
+      if (!res.ok) throw new Error(data?.error ?? "No se pudo reagendar")
+      if (data?.submission) applySubmission(data.submission)
+      toast.success("Reunión reagendada. Los recordatorios se ajustaron a la nueva hora.")
+    } catch (error) {
+      if (previous) applySubmission(previous)
+      toast.error(error instanceof Error ? error.message : "No se pudo reagendar")
+      throw error
+    } finally {
+      setUpdatingId(null)
+    }
+  }
+
   function handleDragStart(event: DragStartEvent) {
     setActiveId(String(event.active.id))
   }
@@ -223,6 +329,15 @@ export function SubmissionsKanban({
     }
     if (nextStage === "SHOWED_UP") {
       await markShowUp(submissionId)
+      return
+    }
+    if (nextStage === "DEMO_SCHEDULED") {
+      setPostAttendStep("demo")
+      setPostAttendLeadId(submissionId)
+      return
+    }
+    if (nextStage === "DISCARDED") {
+      await discardLead(submissionId)
       return
     }
     if (nextStage === "NO_SHOW") {
@@ -336,6 +451,11 @@ export function SubmissionsKanban({
                     onShowUp={() => void markShowUp(submission.id)}
                     onNoShow={() => void markNoShow(submission.id)}
                     onCloseDeal={() => setCloseLeadId(submission.id)}
+                    onScheduleDemo={() => {
+                      setPostAttendStep("demo")
+                      setPostAttendLeadId(submission.id)
+                    }}
+                    onDiscard={() => void discardLead(submission.id)}
                   />
                 ))}
               </KanbanColumn>
@@ -361,6 +481,17 @@ export function SubmissionsKanban({
         onShowUp={() => selectedSubmission && void markShowUp(selectedSubmission.id)}
         onNoShow={() => selectedSubmission && void markNoShow(selectedSubmission.id)}
         onCloseDeal={() => selectedSubmission && setCloseLeadId(selectedSubmission.id)}
+        onScheduleDemo={() => {
+          if (!selectedSubmission) return
+          setPostAttendStep("demo")
+          setPostAttendLeadId(selectedSubmission.id)
+        }}
+        onDiscard={() => selectedSubmission && void discardLead(selectedSubmission.id)}
+        onReschedule={(input) =>
+          selectedSubmission
+            ? rescheduleMeeting(selectedSubmission.id, input)
+            : Promise.resolve()
+        }
       />
 
       <CloseDealDialog
@@ -373,6 +504,21 @@ export function SubmissionsKanban({
         onConfirm={(input) =>
           closeLeadId ? closeDeal(closeLeadId, input) : Promise.resolve()
         }
+      />
+
+      <PostAttendDialog
+        open={postAttendLead !== null}
+        leadName={postAttendLead ? getSubmissionTitle(postAttendLead) : "este lead"}
+        initialPainPoint={postAttendLead?.painPoint}
+        initialStep={postAttendStep}
+        isSubmitting={Boolean(postAttendLeadId && updatingId === postAttendLeadId)}
+        onOpenChange={(open) => {
+          if (!open) setPostAttendLeadId(null)
+        }}
+        onScheduleDemo={(input) =>
+          postAttendLeadId ? scheduleDemo(postAttendLeadId, input) : Promise.resolve()
+        }
+        onDiscard={() => (postAttendLeadId ? discardLead(postAttendLeadId) : Promise.resolve())}
       />
     </>
   )

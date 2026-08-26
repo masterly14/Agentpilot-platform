@@ -6,15 +6,15 @@ import { prisma } from "@/lib/prisma"
 
 const TIMEZONE = "America/Bogota"
 
-function formatMeetingParts(meetingTime: Date) {
+export function formatMeetingParts(meetingTime: Date, timeZone = TIMEZONE) {
   const dateFmt = new Intl.DateTimeFormat("es-CO", {
-    timeZone: TIMEZONE,
+    timeZone,
     weekday: "long",
     day: "numeric",
     month: "long",
   })
   const timeFmt = new Intl.DateTimeFormat("es-CO", {
-    timeZone: TIMEZONE,
+    timeZone,
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
@@ -49,7 +49,9 @@ export async function buildTemplateVars(
         ? getAgendarUrl(token)
         : `${getAppUrl()}/diagnostico`
 
-  const meeting = pipeline.meetingTime ? formatMeetingParts(pipeline.meetingTime) : null
+  const meeting = pipeline.meetingTime
+    ? formatMeetingParts(pipeline.meetingTime, pipeline.visitorTimezone || TIMEZONE)
+    : null
   const values: Partial<Record<WhatsAppNamedParam, string>> = {
     nombre: firstNameFromFullName(contact.fullName),
     fecha: meeting?.fecha,
@@ -72,7 +74,7 @@ export async function buildTemplateVars(
     values.link = bookingLink
   }
 
-  if (state === "REMINDER_30MIN") {
+  if (state === "REMINDER_30MIN" || state === "DEMO_REMINDER_30MIN") {
     values.link = pipeline.meetLink || bookingLink
   }
 

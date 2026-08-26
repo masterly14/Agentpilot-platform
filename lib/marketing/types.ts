@@ -54,7 +54,9 @@ export const STAGE_RANK: Record<MarketingFunnelStage, number> = {
   SCHEDULED: 3,
   SHOWED_UP: 4,
   NO_SHOW: 4,
-  PURCHASED: 5,
+  DISCARDED: 4,
+  DEMO_SCHEDULED: 5,
+  PURCHASED: 6,
 }
 
 export const CONTRACT_PLANS = ["THREE_MONTH", "FIVE_MONTH", "OTHER"] as const
@@ -73,10 +75,13 @@ export function canAdvanceMarketingStage(
 ) {
   if (!current) return true
   if (current === next) return true
-  if (current === "PURCHASED") return false
+  if (current === "PURCHASED" || current === "DISCARDED") return false
   if (
     (current === "NO_SHOW" && next === "SHOWED_UP") ||
-    (current === "SHOWED_UP" && next === "NO_SHOW")
+    (current === "SHOWED_UP" && next === "NO_SHOW") ||
+    ((current === "NO_SHOW" || current === "SHOWED_UP") && next === "SCHEDULED") ||
+    (current === "SHOWED_UP" && (next === "DEMO_SCHEDULED" || next === "DISCARDED")) ||
+    (current === "DEMO_SCHEDULED" && next === "DISCARDED")
   ) {
     return true
   }

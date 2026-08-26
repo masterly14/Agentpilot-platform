@@ -337,6 +337,8 @@ export const MarketingFunnelStage: {
   SCHEDULED: 'SCHEDULED',
   SHOWED_UP: 'SHOWED_UP',
   NO_SHOW: 'NO_SHOW',
+  DEMO_SCHEDULED: 'DEMO_SCHEDULED',
+  DISCARDED: 'DISCARDED',
   PURCHASED: 'PURCHASED'
 };
 
@@ -3074,10 +3076,12 @@ export namespace Prisma {
 
   export type FormSubmissionCountOutputType = {
     events: number
+    diagnoses: number
   }
 
   export type FormSubmissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     events?: boolean | FormSubmissionCountOutputTypeCountEventsArgs
+    diagnoses?: boolean | FormSubmissionCountOutputTypeCountDiagnosesArgs
   }
 
   // Custom InputTypes
@@ -3096,6 +3100,13 @@ export namespace Prisma {
    */
   export type FormSubmissionCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LeadEventWhereInput
+  }
+
+  /**
+   * FormSubmissionCountOutputType without action
+   */
+  export type FormSubmissionCountOutputTypeCountDiagnosesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OperationalDiagnosisWhereInput
   }
 
 
@@ -3169,12 +3180,14 @@ export namespace Prisma {
     messages: number
     calBookings: number
     events: number
+    diagnoses: number
   }
 
   export type AirbnbLeadCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     messages?: boolean | AirbnbLeadCountOutputTypeCountMessagesArgs
     calBookings?: boolean | AirbnbLeadCountOutputTypeCountCalBookingsArgs
     events?: boolean | AirbnbLeadCountOutputTypeCountEventsArgs
+    diagnoses?: boolean | AirbnbLeadCountOutputTypeCountDiagnosesArgs
   }
 
   // Custom InputTypes
@@ -3207,6 +3220,13 @@ export namespace Prisma {
    */
   export type AirbnbLeadCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LeadEventWhereInput
+  }
+
+  /**
+   * AirbnbLeadCountOutputType without action
+   */
+  export type AirbnbLeadCountOutputTypeCountDiagnosesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OperationalDiagnosisWhereInput
   }
 
 
@@ -4978,6 +4998,7 @@ export namespace Prisma {
     contactId?: boolean
     contact?: boolean | FormSubmission$contactArgs<ExtArgs>
     events?: boolean | FormSubmission$eventsArgs<ExtArgs>
+    diagnoses?: boolean | FormSubmission$diagnosesArgs<ExtArgs>
     _count?: boolean | FormSubmissionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formSubmission"]>
 
@@ -5116,6 +5137,7 @@ export namespace Prisma {
   export type FormSubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     contact?: boolean | FormSubmission$contactArgs<ExtArgs>
     events?: boolean | FormSubmission$eventsArgs<ExtArgs>
+    diagnoses?: boolean | FormSubmission$diagnosesArgs<ExtArgs>
     _count?: boolean | FormSubmissionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FormSubmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5130,6 +5152,7 @@ export namespace Prisma {
     objects: {
       contact: Prisma.$ContactPayload<ExtArgs> | null
       events: Prisma.$LeadEventPayload<ExtArgs>[]
+      diagnoses: Prisma.$OperationalDiagnosisPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5568,6 +5591,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     contact<T extends FormSubmission$contactArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$contactArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     events<T extends FormSubmission$eventsArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    diagnoses<T extends FormSubmission$diagnosesArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$diagnosesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6073,6 +6097,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LeadEventScalarFieldEnum | LeadEventScalarFieldEnum[]
+  }
+
+  /**
+   * FormSubmission.diagnoses
+   */
+  export type FormSubmission$diagnosesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisInclude<ExtArgs> | null
+    where?: OperationalDiagnosisWhereInput
+    orderBy?: OperationalDiagnosisOrderByWithRelationInput | OperationalDiagnosisOrderByWithRelationInput[]
+    cursor?: OperationalDiagnosisWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OperationalDiagnosisScalarFieldEnum | OperationalDiagnosisScalarFieldEnum[]
   }
 
   /**
@@ -9666,6 +9714,7 @@ export namespace Prisma {
     meetingId: string | null
     meetingTime: Date | null
     meetLink: string | null
+    visitorTimezone: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9685,6 +9734,7 @@ export namespace Prisma {
     meetingId: string | null
     meetingTime: Date | null
     meetLink: string | null
+    visitorTimezone: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9705,6 +9755,7 @@ export namespace Prisma {
     meetingId: number
     meetingTime: number
     meetLink: number
+    visitorTimezone: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -9726,6 +9777,7 @@ export namespace Prisma {
     meetingId?: true
     meetingTime?: true
     meetLink?: true
+    visitorTimezone?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9745,6 +9797,7 @@ export namespace Prisma {
     meetingId?: true
     meetingTime?: true
     meetLink?: true
+    visitorTimezone?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9765,6 +9818,7 @@ export namespace Prisma {
     meetingId?: true
     meetingTime?: true
     meetLink?: true
+    visitorTimezone?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -9858,6 +9912,7 @@ export namespace Prisma {
     meetingId: string | null
     meetingTime: Date | null
     meetLink: string | null
+    visitorTimezone: string | null
     createdAt: Date
     updatedAt: Date
     _count: LeadPipelineCountAggregateOutputType | null
@@ -9895,6 +9950,7 @@ export namespace Prisma {
     meetingId?: boolean
     meetingTime?: boolean
     meetLink?: boolean
+    visitorTimezone?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     contact?: boolean | ContactDefaultArgs<ExtArgs>
@@ -9918,6 +9974,7 @@ export namespace Prisma {
     meetingId?: boolean
     meetingTime?: boolean
     meetLink?: boolean
+    visitorTimezone?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     contact?: boolean | ContactDefaultArgs<ExtArgs>
@@ -9939,6 +9996,7 @@ export namespace Prisma {
     meetingId?: boolean
     meetingTime?: boolean
     meetLink?: boolean
+    visitorTimezone?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     contact?: boolean | ContactDefaultArgs<ExtArgs>
@@ -9960,11 +10018,12 @@ export namespace Prisma {
     meetingId?: boolean
     meetingTime?: boolean
     meetLink?: boolean
+    visitorTimezone?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type LeadPipelineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contactId" | "funnelOrigin" | "currentStage" | "currentState" | "scheduledJobId" | "scheduledJobDedupKey" | "videoWatched" | "utmSource" | "pixelFiredAt" | "painPoint" | "qualificationAnswers" | "meetingId" | "meetingTime" | "meetLink" | "createdAt" | "updatedAt", ExtArgs["result"]["leadPipeline"]>
+  export type LeadPipelineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contactId" | "funnelOrigin" | "currentStage" | "currentState" | "scheduledJobId" | "scheduledJobDedupKey" | "videoWatched" | "utmSource" | "pixelFiredAt" | "painPoint" | "qualificationAnswers" | "meetingId" | "meetingTime" | "meetLink" | "visitorTimezone" | "createdAt" | "updatedAt", ExtArgs["result"]["leadPipeline"]>
   export type LeadPipelineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     contact?: boolean | ContactDefaultArgs<ExtArgs>
     jobs?: boolean | LeadPipeline$jobsArgs<ExtArgs>
@@ -9999,6 +10058,7 @@ export namespace Prisma {
       meetingId: string | null
       meetingTime: Date | null
       meetLink: string | null
+      visitorTimezone: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["leadPipeline"]>
@@ -10441,6 +10501,7 @@ export namespace Prisma {
     readonly meetingId: FieldRef<"LeadPipeline", 'String'>
     readonly meetingTime: FieldRef<"LeadPipeline", 'DateTime'>
     readonly meetLink: FieldRef<"LeadPipeline", 'String'>
+    readonly visitorTimezone: FieldRef<"LeadPipeline", 'String'>
     readonly createdAt: FieldRef<"LeadPipeline", 'DateTime'>
     readonly updatedAt: FieldRef<"LeadPipeline", 'DateTime'>
   }
@@ -14657,6 +14718,7 @@ export namespace Prisma {
     hostContact?: boolean | AirbnbLead$hostContactArgs<ExtArgs>
     commercial?: boolean | AirbnbLead$commercialArgs<ExtArgs>
     events?: boolean | AirbnbLead$eventsArgs<ExtArgs>
+    diagnoses?: boolean | AirbnbLead$diagnosesArgs<ExtArgs>
     _count?: boolean | AirbnbLeadCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["airbnbLead"]>
 
@@ -14754,6 +14816,7 @@ export namespace Prisma {
     hostContact?: boolean | AirbnbLead$hostContactArgs<ExtArgs>
     commercial?: boolean | AirbnbLead$commercialArgs<ExtArgs>
     events?: boolean | AirbnbLead$eventsArgs<ExtArgs>
+    diagnoses?: boolean | AirbnbLead$diagnosesArgs<ExtArgs>
     _count?: boolean | AirbnbLeadCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AirbnbLeadIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14772,6 +14835,7 @@ export namespace Prisma {
       hostContact: Prisma.$HostContactPayload<ExtArgs> | null
       commercial: Prisma.$AirbnbCommercialPayload<ExtArgs> | null
       events: Prisma.$LeadEventPayload<ExtArgs>[]
+      diagnoses: Prisma.$OperationalDiagnosisPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15199,6 +15263,7 @@ export namespace Prisma {
     hostContact<T extends AirbnbLead$hostContactArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLead$hostContactArgs<ExtArgs>>): Prisma__HostContactClient<$Result.GetResult<Prisma.$HostContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     commercial<T extends AirbnbLead$commercialArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLead$commercialArgs<ExtArgs>>): Prisma__AirbnbCommercialClient<$Result.GetResult<Prisma.$AirbnbCommercialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     events<T extends AirbnbLead$eventsArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLead$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    diagnoses<T extends AirbnbLead$diagnosesArgs<ExtArgs> = {}>(args?: Subset<T, AirbnbLead$diagnosesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15775,6 +15840,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LeadEventScalarFieldEnum | LeadEventScalarFieldEnum[]
+  }
+
+  /**
+   * AirbnbLead.diagnoses
+   */
+  export type AirbnbLead$diagnosesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OperationalDiagnosis
+     */
+    select?: OperationalDiagnosisSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OperationalDiagnosis
+     */
+    omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisInclude<ExtArgs> | null
+    where?: OperationalDiagnosisWhereInput
+    orderBy?: OperationalDiagnosisOrderByWithRelationInput | OperationalDiagnosisOrderByWithRelationInput[]
+    cursor?: OperationalDiagnosisWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OperationalDiagnosisScalarFieldEnum | OperationalDiagnosisScalarFieldEnum[]
   }
 
   /**
@@ -25825,6 +25914,9 @@ export namespace Prisma {
     id: string | null
     slug: string | null
     clientName: string | null
+    submissionId: string | null
+    airbnbLeadId: string | null
+    meetingTime: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -25833,6 +25925,9 @@ export namespace Prisma {
     id: string | null
     slug: string | null
     clientName: string | null
+    submissionId: string | null
+    airbnbLeadId: string | null
+    meetingTime: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -25842,6 +25937,9 @@ export namespace Prisma {
     slug: number
     clientName: number
     payload: number
+    submissionId: number
+    airbnbLeadId: number
+    meetingTime: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -25852,6 +25950,9 @@ export namespace Prisma {
     id?: true
     slug?: true
     clientName?: true
+    submissionId?: true
+    airbnbLeadId?: true
+    meetingTime?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -25860,6 +25961,9 @@ export namespace Prisma {
     id?: true
     slug?: true
     clientName?: true
+    submissionId?: true
+    airbnbLeadId?: true
+    meetingTime?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -25869,6 +25973,9 @@ export namespace Prisma {
     slug?: true
     clientName?: true
     payload?: true
+    submissionId?: true
+    airbnbLeadId?: true
+    meetingTime?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -25951,6 +26058,9 @@ export namespace Prisma {
     slug: string
     clientName: string
     payload: JsonValue
+    submissionId: string | null
+    airbnbLeadId: string | null
+    meetingTime: Date | null
     createdAt: Date
     updatedAt: Date
     _count: OperationalDiagnosisCountAggregateOutputType | null
@@ -25977,8 +26087,13 @@ export namespace Prisma {
     slug?: boolean
     clientName?: boolean
     payload?: boolean
+    submissionId?: boolean
+    airbnbLeadId?: boolean
+    meetingTime?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    submission?: boolean | OperationalDiagnosis$submissionArgs<ExtArgs>
+    airbnbLead?: boolean | OperationalDiagnosis$airbnbLeadArgs<ExtArgs>
   }, ExtArgs["result"]["operationalDiagnosis"]>
 
   export type OperationalDiagnosisSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -25986,8 +26101,13 @@ export namespace Prisma {
     slug?: boolean
     clientName?: boolean
     payload?: boolean
+    submissionId?: boolean
+    airbnbLeadId?: boolean
+    meetingTime?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    submission?: boolean | OperationalDiagnosis$submissionArgs<ExtArgs>
+    airbnbLead?: boolean | OperationalDiagnosis$airbnbLeadArgs<ExtArgs>
   }, ExtArgs["result"]["operationalDiagnosis"]>
 
   export type OperationalDiagnosisSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -25995,8 +26115,13 @@ export namespace Prisma {
     slug?: boolean
     clientName?: boolean
     payload?: boolean
+    submissionId?: boolean
+    airbnbLeadId?: boolean
+    meetingTime?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    submission?: boolean | OperationalDiagnosis$submissionArgs<ExtArgs>
+    airbnbLead?: boolean | OperationalDiagnosis$airbnbLeadArgs<ExtArgs>
   }, ExtArgs["result"]["operationalDiagnosis"]>
 
   export type OperationalDiagnosisSelectScalar = {
@@ -26004,20 +26129,41 @@ export namespace Prisma {
     slug?: boolean
     clientName?: boolean
     payload?: boolean
+    submissionId?: boolean
+    airbnbLeadId?: boolean
+    meetingTime?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type OperationalDiagnosisOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "clientName" | "payload" | "createdAt" | "updatedAt", ExtArgs["result"]["operationalDiagnosis"]>
+  export type OperationalDiagnosisOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "clientName" | "payload" | "submissionId" | "airbnbLeadId" | "meetingTime" | "createdAt" | "updatedAt", ExtArgs["result"]["operationalDiagnosis"]>
+  export type OperationalDiagnosisInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submission?: boolean | OperationalDiagnosis$submissionArgs<ExtArgs>
+    airbnbLead?: boolean | OperationalDiagnosis$airbnbLeadArgs<ExtArgs>
+  }
+  export type OperationalDiagnosisIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submission?: boolean | OperationalDiagnosis$submissionArgs<ExtArgs>
+    airbnbLead?: boolean | OperationalDiagnosis$airbnbLeadArgs<ExtArgs>
+  }
+  export type OperationalDiagnosisIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submission?: boolean | OperationalDiagnosis$submissionArgs<ExtArgs>
+    airbnbLead?: boolean | OperationalDiagnosis$airbnbLeadArgs<ExtArgs>
+  }
 
   export type $OperationalDiagnosisPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "OperationalDiagnosis"
-    objects: {}
+    objects: {
+      submission: Prisma.$FormSubmissionPayload<ExtArgs> | null
+      airbnbLead: Prisma.$AirbnbLeadPayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       slug: string
       clientName: string
       payload: Prisma.JsonValue
+      submissionId: string | null
+      airbnbLeadId: string | null
+      meetingTime: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["operationalDiagnosis"]>
@@ -26414,6 +26560,8 @@ export namespace Prisma {
    */
   export interface Prisma__OperationalDiagnosisClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    submission<T extends OperationalDiagnosis$submissionArgs<ExtArgs> = {}>(args?: Subset<T, OperationalDiagnosis$submissionArgs<ExtArgs>>): Prisma__FormSubmissionClient<$Result.GetResult<Prisma.$FormSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    airbnbLead<T extends OperationalDiagnosis$airbnbLeadArgs<ExtArgs> = {}>(args?: Subset<T, OperationalDiagnosis$airbnbLeadArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -26447,6 +26595,9 @@ export namespace Prisma {
     readonly slug: FieldRef<"OperationalDiagnosis", 'String'>
     readonly clientName: FieldRef<"OperationalDiagnosis", 'String'>
     readonly payload: FieldRef<"OperationalDiagnosis", 'Json'>
+    readonly submissionId: FieldRef<"OperationalDiagnosis", 'String'>
+    readonly airbnbLeadId: FieldRef<"OperationalDiagnosis", 'String'>
+    readonly meetingTime: FieldRef<"OperationalDiagnosis", 'DateTime'>
     readonly createdAt: FieldRef<"OperationalDiagnosis", 'DateTime'>
     readonly updatedAt: FieldRef<"OperationalDiagnosis", 'DateTime'>
   }
@@ -26466,6 +26617,10 @@ export namespace Prisma {
      */
     omit?: OperationalDiagnosisOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisInclude<ExtArgs> | null
+    /**
      * Filter, which OperationalDiagnosis to fetch.
      */
     where: OperationalDiagnosisWhereUniqueInput
@@ -26484,6 +26639,10 @@ export namespace Prisma {
      */
     omit?: OperationalDiagnosisOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisInclude<ExtArgs> | null
+    /**
      * Filter, which OperationalDiagnosis to fetch.
      */
     where: OperationalDiagnosisWhereUniqueInput
@@ -26501,6 +26660,10 @@ export namespace Prisma {
      * Omit specific fields from the OperationalDiagnosis
      */
     omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisInclude<ExtArgs> | null
     /**
      * Filter, which OperationalDiagnosis to fetch.
      */
@@ -26550,6 +26713,10 @@ export namespace Prisma {
      */
     omit?: OperationalDiagnosisOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisInclude<ExtArgs> | null
+    /**
      * Filter, which OperationalDiagnosis to fetch.
      */
     where?: OperationalDiagnosisWhereInput
@@ -26598,6 +26765,10 @@ export namespace Prisma {
      */
     omit?: OperationalDiagnosisOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisInclude<ExtArgs> | null
+    /**
      * Filter, which OperationalDiagnoses to fetch.
      */
     where?: OperationalDiagnosisWhereInput
@@ -26641,6 +26812,10 @@ export namespace Prisma {
      */
     omit?: OperationalDiagnosisOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisInclude<ExtArgs> | null
+    /**
      * The data needed to create a OperationalDiagnosis.
      */
     data: XOR<OperationalDiagnosisCreateInput, OperationalDiagnosisUncheckedCreateInput>
@@ -26674,6 +26849,10 @@ export namespace Prisma {
      */
     data: OperationalDiagnosisCreateManyInput | OperationalDiagnosisCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -26688,6 +26867,10 @@ export namespace Prisma {
      * Omit specific fields from the OperationalDiagnosis
      */
     omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisInclude<ExtArgs> | null
     /**
      * The data needed to update a OperationalDiagnosis.
      */
@@ -26740,6 +26923,10 @@ export namespace Prisma {
      * Limit how many OperationalDiagnoses to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -26754,6 +26941,10 @@ export namespace Prisma {
      * Omit specific fields from the OperationalDiagnosis
      */
     omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisInclude<ExtArgs> | null
     /**
      * The filter to search for the OperationalDiagnosis to update in case it exists.
      */
@@ -26781,6 +26972,10 @@ export namespace Prisma {
      */
     omit?: OperationalDiagnosisOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisInclude<ExtArgs> | null
+    /**
      * Filter which OperationalDiagnosis to delete.
      */
     where: OperationalDiagnosisWhereUniqueInput
@@ -26801,6 +26996,44 @@ export namespace Prisma {
   }
 
   /**
+   * OperationalDiagnosis.submission
+   */
+  export type OperationalDiagnosis$submissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormSubmission
+     */
+    select?: FormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FormSubmission
+     */
+    omit?: FormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
+    where?: FormSubmissionWhereInput
+  }
+
+  /**
+   * OperationalDiagnosis.airbnbLead
+   */
+  export type OperationalDiagnosis$airbnbLeadArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AirbnbLead
+     */
+    select?: AirbnbLeadSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AirbnbLead
+     */
+    omit?: AirbnbLeadOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirbnbLeadInclude<ExtArgs> | null
+    where?: AirbnbLeadWhereInput
+  }
+
+  /**
    * OperationalDiagnosis without action
    */
   export type OperationalDiagnosisDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -26812,6 +27045,10 @@ export namespace Prisma {
      * Omit specific fields from the OperationalDiagnosis
      */
     omit?: OperationalDiagnosisOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OperationalDiagnosisInclude<ExtArgs> | null
   }
 
 
@@ -26971,6 +27208,7 @@ export namespace Prisma {
     meetingId: 'meetingId',
     meetingTime: 'meetingTime',
     meetLink: 'meetLink',
+    visitorTimezone: 'visitorTimezone',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -27194,6 +27432,9 @@ export namespace Prisma {
     slug: 'slug',
     clientName: 'clientName',
     payload: 'payload',
+    submissionId: 'submissionId',
+    airbnbLeadId: 'airbnbLeadId',
+    meetingTime: 'meetingTime',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -27885,6 +28126,7 @@ export namespace Prisma {
     contactId?: StringNullableFilter<"FormSubmission"> | string | null
     contact?: XOR<ContactNullableScalarRelationFilter, ContactWhereInput> | null
     events?: LeadEventListRelationFilter
+    diagnoses?: OperationalDiagnosisListRelationFilter
   }
 
   export type FormSubmissionOrderByWithRelationInput = {
@@ -27930,6 +28172,7 @@ export namespace Prisma {
     contactId?: SortOrderInput | SortOrder
     contact?: ContactOrderByWithRelationInput
     events?: LeadEventOrderByRelationAggregateInput
+    diagnoses?: OperationalDiagnosisOrderByRelationAggregateInput
   }
 
   export type FormSubmissionWhereUniqueInput = Prisma.AtLeast<{
@@ -27978,6 +28221,7 @@ export namespace Prisma {
     contactId?: StringNullableFilter<"FormSubmission"> | string | null
     contact?: XOR<ContactNullableScalarRelationFilter, ContactWhereInput> | null
     events?: LeadEventListRelationFilter
+    diagnoses?: OperationalDiagnosisListRelationFilter
   }, "id" | "pdfToken">
 
   export type FormSubmissionOrderByWithAggregationInput = {
@@ -28407,6 +28651,7 @@ export namespace Prisma {
     meetingId?: StringNullableFilter<"LeadPipeline"> | string | null
     meetingTime?: DateTimeNullableFilter<"LeadPipeline"> | Date | string | null
     meetLink?: StringNullableFilter<"LeadPipeline"> | string | null
+    visitorTimezone?: StringNullableFilter<"LeadPipeline"> | string | null
     createdAt?: DateTimeFilter<"LeadPipeline"> | Date | string
     updatedAt?: DateTimeFilter<"LeadPipeline"> | Date | string
     contact?: XOR<ContactScalarRelationFilter, ContactWhereInput>
@@ -28429,6 +28674,7 @@ export namespace Prisma {
     meetingId?: SortOrderInput | SortOrder
     meetingTime?: SortOrderInput | SortOrder
     meetLink?: SortOrderInput | SortOrder
+    visitorTimezone?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     contact?: ContactOrderByWithRelationInput
@@ -28454,6 +28700,7 @@ export namespace Prisma {
     meetingId?: StringNullableFilter<"LeadPipeline"> | string | null
     meetingTime?: DateTimeNullableFilter<"LeadPipeline"> | Date | string | null
     meetLink?: StringNullableFilter<"LeadPipeline"> | string | null
+    visitorTimezone?: StringNullableFilter<"LeadPipeline"> | string | null
     createdAt?: DateTimeFilter<"LeadPipeline"> | Date | string
     updatedAt?: DateTimeFilter<"LeadPipeline"> | Date | string
     contact?: XOR<ContactScalarRelationFilter, ContactWhereInput>
@@ -28476,6 +28723,7 @@ export namespace Prisma {
     meetingId?: SortOrderInput | SortOrder
     meetingTime?: SortOrderInput | SortOrder
     meetLink?: SortOrderInput | SortOrder
+    visitorTimezone?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: LeadPipelineCountOrderByAggregateInput
@@ -28502,6 +28750,7 @@ export namespace Prisma {
     meetingId?: StringNullableWithAggregatesFilter<"LeadPipeline"> | string | null
     meetingTime?: DateTimeNullableWithAggregatesFilter<"LeadPipeline"> | Date | string | null
     meetLink?: StringNullableWithAggregatesFilter<"LeadPipeline"> | string | null
+    visitorTimezone?: StringNullableWithAggregatesFilter<"LeadPipeline"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"LeadPipeline"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"LeadPipeline"> | Date | string
   }
@@ -28790,6 +29039,7 @@ export namespace Prisma {
     hostContact?: XOR<HostContactNullableScalarRelationFilter, HostContactWhereInput> | null
     commercial?: XOR<AirbnbCommercialNullableScalarRelationFilter, AirbnbCommercialWhereInput> | null
     events?: LeadEventListRelationFilter
+    diagnoses?: OperationalDiagnosisListRelationFilter
   }
 
   export type AirbnbLeadOrderByWithRelationInput = {
@@ -28824,6 +29074,7 @@ export namespace Prisma {
     hostContact?: HostContactOrderByWithRelationInput
     commercial?: AirbnbCommercialOrderByWithRelationInput
     events?: LeadEventOrderByRelationAggregateInput
+    diagnoses?: OperationalDiagnosisOrderByRelationAggregateInput
   }
 
   export type AirbnbLeadWhereUniqueInput = Prisma.AtLeast<{
@@ -28861,6 +29112,7 @@ export namespace Prisma {
     hostContact?: XOR<HostContactNullableScalarRelationFilter, HostContactWhereInput> | null
     commercial?: XOR<AirbnbCommercialNullableScalarRelationFilter, AirbnbCommercialWhereInput> | null
     events?: LeadEventListRelationFilter
+    diagnoses?: OperationalDiagnosisListRelationFilter
   }, "id" | "hostAirbnbId" | "threadId" | "contactId">
 
   export type AirbnbLeadOrderByWithAggregationInput = {
@@ -29602,8 +29854,13 @@ export namespace Prisma {
     slug?: StringFilter<"OperationalDiagnosis"> | string
     clientName?: StringFilter<"OperationalDiagnosis"> | string
     payload?: JsonFilter<"OperationalDiagnosis">
+    submissionId?: StringNullableFilter<"OperationalDiagnosis"> | string | null
+    airbnbLeadId?: StringNullableFilter<"OperationalDiagnosis"> | string | null
+    meetingTime?: DateTimeNullableFilter<"OperationalDiagnosis"> | Date | string | null
     createdAt?: DateTimeFilter<"OperationalDiagnosis"> | Date | string
     updatedAt?: DateTimeFilter<"OperationalDiagnosis"> | Date | string
+    submission?: XOR<FormSubmissionNullableScalarRelationFilter, FormSubmissionWhereInput> | null
+    airbnbLead?: XOR<AirbnbLeadNullableScalarRelationFilter, AirbnbLeadWhereInput> | null
   }
 
   export type OperationalDiagnosisOrderByWithRelationInput = {
@@ -29611,8 +29868,13 @@ export namespace Prisma {
     slug?: SortOrder
     clientName?: SortOrder
     payload?: SortOrder
+    submissionId?: SortOrderInput | SortOrder
+    airbnbLeadId?: SortOrderInput | SortOrder
+    meetingTime?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    submission?: FormSubmissionOrderByWithRelationInput
+    airbnbLead?: AirbnbLeadOrderByWithRelationInput
   }
 
   export type OperationalDiagnosisWhereUniqueInput = Prisma.AtLeast<{
@@ -29623,8 +29885,13 @@ export namespace Prisma {
     NOT?: OperationalDiagnosisWhereInput | OperationalDiagnosisWhereInput[]
     clientName?: StringFilter<"OperationalDiagnosis"> | string
     payload?: JsonFilter<"OperationalDiagnosis">
+    submissionId?: StringNullableFilter<"OperationalDiagnosis"> | string | null
+    airbnbLeadId?: StringNullableFilter<"OperationalDiagnosis"> | string | null
+    meetingTime?: DateTimeNullableFilter<"OperationalDiagnosis"> | Date | string | null
     createdAt?: DateTimeFilter<"OperationalDiagnosis"> | Date | string
     updatedAt?: DateTimeFilter<"OperationalDiagnosis"> | Date | string
+    submission?: XOR<FormSubmissionNullableScalarRelationFilter, FormSubmissionWhereInput> | null
+    airbnbLead?: XOR<AirbnbLeadNullableScalarRelationFilter, AirbnbLeadWhereInput> | null
   }, "id" | "slug">
 
   export type OperationalDiagnosisOrderByWithAggregationInput = {
@@ -29632,6 +29899,9 @@ export namespace Prisma {
     slug?: SortOrder
     clientName?: SortOrder
     payload?: SortOrder
+    submissionId?: SortOrderInput | SortOrder
+    airbnbLeadId?: SortOrderInput | SortOrder
+    meetingTime?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: OperationalDiagnosisCountOrderByAggregateInput
@@ -29647,6 +29917,9 @@ export namespace Prisma {
     slug?: StringWithAggregatesFilter<"OperationalDiagnosis"> | string
     clientName?: StringWithAggregatesFilter<"OperationalDiagnosis"> | string
     payload?: JsonWithAggregatesFilter<"OperationalDiagnosis">
+    submissionId?: StringNullableWithAggregatesFilter<"OperationalDiagnosis"> | string | null
+    airbnbLeadId?: StringNullableWithAggregatesFilter<"OperationalDiagnosis"> | string | null
+    meetingTime?: DateTimeNullableWithAggregatesFilter<"OperationalDiagnosis"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"OperationalDiagnosis"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"OperationalDiagnosis"> | Date | string
   }
@@ -29814,6 +30087,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     contact?: ContactCreateNestedOneWithoutSubmissionsInput
     events?: LeadEventCreateNestedManyWithoutSubmissionInput
+    diagnoses?: OperationalDiagnosisCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateInput = {
@@ -29858,6 +30132,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     contactId?: string | null
     events?: LeadEventUncheckedCreateNestedManyWithoutSubmissionInput
+    diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUpdateInput = {
@@ -29902,6 +30177,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contact?: ContactUpdateOneWithoutSubmissionsNestedInput
     events?: LeadEventUpdateManyWithoutSubmissionNestedInput
+    diagnoses?: OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateInput = {
@@ -29946,6 +30222,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contactId?: NullableStringFieldUpdateOperationsInput | string | null
     events?: LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput
+    diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionCreateManyInput = {
@@ -30460,6 +30737,7 @@ export namespace Prisma {
     meetingId?: string | null
     meetingTime?: Date | string | null
     meetLink?: string | null
+    visitorTimezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     contact: ContactCreateNestedOneWithoutPipelineInput
@@ -30482,6 +30760,7 @@ export namespace Prisma {
     meetingId?: string | null
     meetingTime?: Date | string | null
     meetLink?: string | null
+    visitorTimezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: PipelineJobUncheckedCreateNestedManyWithoutPipelineInput
@@ -30502,6 +30781,7 @@ export namespace Prisma {
     meetingId?: NullableStringFieldUpdateOperationsInput | string | null
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contact?: ContactUpdateOneRequiredWithoutPipelineNestedInput
@@ -30524,6 +30804,7 @@ export namespace Prisma {
     meetingId?: NullableStringFieldUpdateOperationsInput | string | null
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: PipelineJobUncheckedUpdateManyWithoutPipelineNestedInput
@@ -30545,6 +30826,7 @@ export namespace Prisma {
     meetingId?: string | null
     meetingTime?: Date | string | null
     meetLink?: string | null
+    visitorTimezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -30564,6 +30846,7 @@ export namespace Prisma {
     meetingId?: NullableStringFieldUpdateOperationsInput | string | null
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -30584,6 +30867,7 @@ export namespace Prisma {
     meetingId?: NullableStringFieldUpdateOperationsInput | string | null
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -30900,6 +31184,7 @@ export namespace Prisma {
     hostContact?: HostContactCreateNestedOneWithoutLeadInput
     commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
     events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+    diagnoses?: OperationalDiagnosisCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadUncheckedCreateInput = {
@@ -30933,6 +31218,7 @@ export namespace Prisma {
     hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
     commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
     events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+    diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadUpdateInput = {
@@ -30966,6 +31252,7 @@ export namespace Prisma {
     hostContact?: HostContactUpdateOneWithoutLeadNestedInput
     commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
     events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+    diagnoses?: OperationalDiagnosisUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type AirbnbLeadUncheckedUpdateInput = {
@@ -30999,6 +31286,7 @@ export namespace Prisma {
     hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
     commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
     events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
+    diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type AirbnbLeadCreateManyInput = {
@@ -31822,8 +32110,11 @@ export namespace Prisma {
     slug: string
     clientName: string
     payload: JsonNullValueInput | InputJsonValue
+    meetingTime?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    submission?: FormSubmissionCreateNestedOneWithoutDiagnosesInput
+    airbnbLead?: AirbnbLeadCreateNestedOneWithoutDiagnosesInput
   }
 
   export type OperationalDiagnosisUncheckedCreateInput = {
@@ -31831,6 +32122,9 @@ export namespace Prisma {
     slug: string
     clientName: string
     payload: JsonNullValueInput | InputJsonValue
+    submissionId?: string | null
+    airbnbLeadId?: string | null
+    meetingTime?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31840,8 +32134,11 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     clientName?: StringFieldUpdateOperationsInput | string
     payload?: JsonNullValueInput | InputJsonValue
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submission?: FormSubmissionUpdateOneWithoutDiagnosesNestedInput
+    airbnbLead?: AirbnbLeadUpdateOneWithoutDiagnosesNestedInput
   }
 
   export type OperationalDiagnosisUncheckedUpdateInput = {
@@ -31849,6 +32146,9 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     clientName?: StringFieldUpdateOperationsInput | string
     payload?: JsonNullValueInput | InputJsonValue
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    airbnbLeadId?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31858,6 +32158,9 @@ export namespace Prisma {
     slug: string
     clientName: string
     payload: JsonNullValueInput | InputJsonValue
+    submissionId?: string | null
+    airbnbLeadId?: string | null
+    meetingTime?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31867,6 +32170,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     clientName?: StringFieldUpdateOperationsInput | string
     payload?: JsonNullValueInput | InputJsonValue
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31876,6 +32180,9 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     clientName?: StringFieldUpdateOperationsInput | string
     payload?: JsonNullValueInput | InputJsonValue
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    airbnbLeadId?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32202,7 +32509,17 @@ export namespace Prisma {
     none?: LeadEventWhereInput
   }
 
+  export type OperationalDiagnosisListRelationFilter = {
+    every?: OperationalDiagnosisWhereInput
+    some?: OperationalDiagnosisWhereInput
+    none?: OperationalDiagnosisWhereInput
+  }
+
   export type LeadEventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OperationalDiagnosisOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -32887,6 +33204,7 @@ export namespace Prisma {
     meetingId?: SortOrder
     meetingTime?: SortOrder
     meetLink?: SortOrder
+    visitorTimezone?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -32906,6 +33224,7 @@ export namespace Prisma {
     meetingId?: SortOrder
     meetingTime?: SortOrder
     meetLink?: SortOrder
+    visitorTimezone?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -32925,6 +33244,7 @@ export namespace Prisma {
     meetingId?: SortOrder
     meetingTime?: SortOrder
     meetLink?: SortOrder
+    visitorTimezone?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33846,6 +34166,9 @@ export namespace Prisma {
     slug?: SortOrder
     clientName?: SortOrder
     payload?: SortOrder
+    submissionId?: SortOrder
+    airbnbLeadId?: SortOrder
+    meetingTime?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33854,6 +34177,9 @@ export namespace Prisma {
     id?: SortOrder
     slug?: SortOrder
     clientName?: SortOrder
+    submissionId?: SortOrder
+    airbnbLeadId?: SortOrder
+    meetingTime?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -33862,6 +34188,9 @@ export namespace Prisma {
     id?: SortOrder
     slug?: SortOrder
     clientName?: SortOrder
+    submissionId?: SortOrder
+    airbnbLeadId?: SortOrder
+    meetingTime?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -34065,11 +34394,25 @@ export namespace Prisma {
     connect?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
   }
 
+  export type OperationalDiagnosisCreateNestedManyWithoutSubmissionInput = {
+    create?: XOR<OperationalDiagnosisCreateWithoutSubmissionInput, OperationalDiagnosisUncheckedCreateWithoutSubmissionInput> | OperationalDiagnosisCreateWithoutSubmissionInput[] | OperationalDiagnosisUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: OperationalDiagnosisCreateOrConnectWithoutSubmissionInput | OperationalDiagnosisCreateOrConnectWithoutSubmissionInput[]
+    createMany?: OperationalDiagnosisCreateManySubmissionInputEnvelope
+    connect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+  }
+
   export type LeadEventUncheckedCreateNestedManyWithoutSubmissionInput = {
     create?: XOR<LeadEventCreateWithoutSubmissionInput, LeadEventUncheckedCreateWithoutSubmissionInput> | LeadEventCreateWithoutSubmissionInput[] | LeadEventUncheckedCreateWithoutSubmissionInput[]
     connectOrCreate?: LeadEventCreateOrConnectWithoutSubmissionInput | LeadEventCreateOrConnectWithoutSubmissionInput[]
     createMany?: LeadEventCreateManySubmissionInputEnvelope
     connect?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
+  }
+
+  export type OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput = {
+    create?: XOR<OperationalDiagnosisCreateWithoutSubmissionInput, OperationalDiagnosisUncheckedCreateWithoutSubmissionInput> | OperationalDiagnosisCreateWithoutSubmissionInput[] | OperationalDiagnosisUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: OperationalDiagnosisCreateOrConnectWithoutSubmissionInput | OperationalDiagnosisCreateOrConnectWithoutSubmissionInput[]
+    createMany?: OperationalDiagnosisCreateManySubmissionInputEnvelope
+    connect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
   }
 
   export type NullableEnumPmsUsageFieldUpdateOperationsInput = {
@@ -34164,6 +34507,20 @@ export namespace Prisma {
     deleteMany?: LeadEventScalarWhereInput | LeadEventScalarWhereInput[]
   }
 
+  export type OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput = {
+    create?: XOR<OperationalDiagnosisCreateWithoutSubmissionInput, OperationalDiagnosisUncheckedCreateWithoutSubmissionInput> | OperationalDiagnosisCreateWithoutSubmissionInput[] | OperationalDiagnosisUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: OperationalDiagnosisCreateOrConnectWithoutSubmissionInput | OperationalDiagnosisCreateOrConnectWithoutSubmissionInput[]
+    upsert?: OperationalDiagnosisUpsertWithWhereUniqueWithoutSubmissionInput | OperationalDiagnosisUpsertWithWhereUniqueWithoutSubmissionInput[]
+    createMany?: OperationalDiagnosisCreateManySubmissionInputEnvelope
+    set?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    disconnect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    delete?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    connect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    update?: OperationalDiagnosisUpdateWithWhereUniqueWithoutSubmissionInput | OperationalDiagnosisUpdateWithWhereUniqueWithoutSubmissionInput[]
+    updateMany?: OperationalDiagnosisUpdateManyWithWhereWithoutSubmissionInput | OperationalDiagnosisUpdateManyWithWhereWithoutSubmissionInput[]
+    deleteMany?: OperationalDiagnosisScalarWhereInput | OperationalDiagnosisScalarWhereInput[]
+  }
+
   export type LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput = {
     create?: XOR<LeadEventCreateWithoutSubmissionInput, LeadEventUncheckedCreateWithoutSubmissionInput> | LeadEventCreateWithoutSubmissionInput[] | LeadEventUncheckedCreateWithoutSubmissionInput[]
     connectOrCreate?: LeadEventCreateOrConnectWithoutSubmissionInput | LeadEventCreateOrConnectWithoutSubmissionInput[]
@@ -34176,6 +34533,20 @@ export namespace Prisma {
     update?: LeadEventUpdateWithWhereUniqueWithoutSubmissionInput | LeadEventUpdateWithWhereUniqueWithoutSubmissionInput[]
     updateMany?: LeadEventUpdateManyWithWhereWithoutSubmissionInput | LeadEventUpdateManyWithWhereWithoutSubmissionInput[]
     deleteMany?: LeadEventScalarWhereInput | LeadEventScalarWhereInput[]
+  }
+
+  export type OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput = {
+    create?: XOR<OperationalDiagnosisCreateWithoutSubmissionInput, OperationalDiagnosisUncheckedCreateWithoutSubmissionInput> | OperationalDiagnosisCreateWithoutSubmissionInput[] | OperationalDiagnosisUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: OperationalDiagnosisCreateOrConnectWithoutSubmissionInput | OperationalDiagnosisCreateOrConnectWithoutSubmissionInput[]
+    upsert?: OperationalDiagnosisUpsertWithWhereUniqueWithoutSubmissionInput | OperationalDiagnosisUpsertWithWhereUniqueWithoutSubmissionInput[]
+    createMany?: OperationalDiagnosisCreateManySubmissionInputEnvelope
+    set?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    disconnect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    delete?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    connect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    update?: OperationalDiagnosisUpdateWithWhereUniqueWithoutSubmissionInput | OperationalDiagnosisUpdateWithWhereUniqueWithoutSubmissionInput[]
+    updateMany?: OperationalDiagnosisUpdateManyWithWhereWithoutSubmissionInput | OperationalDiagnosisUpdateManyWithWhereWithoutSubmissionInput[]
+    deleteMany?: OperationalDiagnosisScalarWhereInput | OperationalDiagnosisScalarWhereInput[]
   }
 
   export type FormSubmissionCreateNestedOneWithoutEventsInput = {
@@ -34453,6 +34824,13 @@ export namespace Prisma {
     connect?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
   }
 
+  export type OperationalDiagnosisCreateNestedManyWithoutAirbnbLeadInput = {
+    create?: XOR<OperationalDiagnosisCreateWithoutAirbnbLeadInput, OperationalDiagnosisUncheckedCreateWithoutAirbnbLeadInput> | OperationalDiagnosisCreateWithoutAirbnbLeadInput[] | OperationalDiagnosisUncheckedCreateWithoutAirbnbLeadInput[]
+    connectOrCreate?: OperationalDiagnosisCreateOrConnectWithoutAirbnbLeadInput | OperationalDiagnosisCreateOrConnectWithoutAirbnbLeadInput[]
+    createMany?: OperationalDiagnosisCreateManyAirbnbLeadInputEnvelope
+    connect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+  }
+
   export type AirbnbMessageUncheckedCreateNestedManyWithoutLeadInput = {
     create?: XOR<AirbnbMessageCreateWithoutLeadInput, AirbnbMessageUncheckedCreateWithoutLeadInput> | AirbnbMessageCreateWithoutLeadInput[] | AirbnbMessageUncheckedCreateWithoutLeadInput[]
     connectOrCreate?: AirbnbMessageCreateOrConnectWithoutLeadInput | AirbnbMessageCreateOrConnectWithoutLeadInput[]
@@ -34484,6 +34862,13 @@ export namespace Prisma {
     connectOrCreate?: LeadEventCreateOrConnectWithoutAirbnbLeadInput | LeadEventCreateOrConnectWithoutAirbnbLeadInput[]
     createMany?: LeadEventCreateManyAirbnbLeadInputEnvelope
     connect?: LeadEventWhereUniqueInput | LeadEventWhereUniqueInput[]
+  }
+
+  export type OperationalDiagnosisUncheckedCreateNestedManyWithoutAirbnbLeadInput = {
+    create?: XOR<OperationalDiagnosisCreateWithoutAirbnbLeadInput, OperationalDiagnosisUncheckedCreateWithoutAirbnbLeadInput> | OperationalDiagnosisCreateWithoutAirbnbLeadInput[] | OperationalDiagnosisUncheckedCreateWithoutAirbnbLeadInput[]
+    connectOrCreate?: OperationalDiagnosisCreateOrConnectWithoutAirbnbLeadInput | OperationalDiagnosisCreateOrConnectWithoutAirbnbLeadInput[]
+    createMany?: OperationalDiagnosisCreateManyAirbnbLeadInputEnvelope
+    connect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
   }
 
   export type NullableEnumIcpSkipReasonFieldUpdateOperationsInput = {
@@ -34566,6 +34951,20 @@ export namespace Prisma {
     deleteMany?: LeadEventScalarWhereInput | LeadEventScalarWhereInput[]
   }
 
+  export type OperationalDiagnosisUpdateManyWithoutAirbnbLeadNestedInput = {
+    create?: XOR<OperationalDiagnosisCreateWithoutAirbnbLeadInput, OperationalDiagnosisUncheckedCreateWithoutAirbnbLeadInput> | OperationalDiagnosisCreateWithoutAirbnbLeadInput[] | OperationalDiagnosisUncheckedCreateWithoutAirbnbLeadInput[]
+    connectOrCreate?: OperationalDiagnosisCreateOrConnectWithoutAirbnbLeadInput | OperationalDiagnosisCreateOrConnectWithoutAirbnbLeadInput[]
+    upsert?: OperationalDiagnosisUpsertWithWhereUniqueWithoutAirbnbLeadInput | OperationalDiagnosisUpsertWithWhereUniqueWithoutAirbnbLeadInput[]
+    createMany?: OperationalDiagnosisCreateManyAirbnbLeadInputEnvelope
+    set?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    disconnect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    delete?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    connect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    update?: OperationalDiagnosisUpdateWithWhereUniqueWithoutAirbnbLeadInput | OperationalDiagnosisUpdateWithWhereUniqueWithoutAirbnbLeadInput[]
+    updateMany?: OperationalDiagnosisUpdateManyWithWhereWithoutAirbnbLeadInput | OperationalDiagnosisUpdateManyWithWhereWithoutAirbnbLeadInput[]
+    deleteMany?: OperationalDiagnosisScalarWhereInput | OperationalDiagnosisScalarWhereInput[]
+  }
+
   export type AirbnbMessageUncheckedUpdateManyWithoutLeadNestedInput = {
     create?: XOR<AirbnbMessageCreateWithoutLeadInput, AirbnbMessageUncheckedCreateWithoutLeadInput> | AirbnbMessageCreateWithoutLeadInput[] | AirbnbMessageUncheckedCreateWithoutLeadInput[]
     connectOrCreate?: AirbnbMessageCreateOrConnectWithoutLeadInput | AirbnbMessageCreateOrConnectWithoutLeadInput[]
@@ -34626,6 +35025,20 @@ export namespace Prisma {
     update?: LeadEventUpdateWithWhereUniqueWithoutAirbnbLeadInput | LeadEventUpdateWithWhereUniqueWithoutAirbnbLeadInput[]
     updateMany?: LeadEventUpdateManyWithWhereWithoutAirbnbLeadInput | LeadEventUpdateManyWithWhereWithoutAirbnbLeadInput[]
     deleteMany?: LeadEventScalarWhereInput | LeadEventScalarWhereInput[]
+  }
+
+  export type OperationalDiagnosisUncheckedUpdateManyWithoutAirbnbLeadNestedInput = {
+    create?: XOR<OperationalDiagnosisCreateWithoutAirbnbLeadInput, OperationalDiagnosisUncheckedCreateWithoutAirbnbLeadInput> | OperationalDiagnosisCreateWithoutAirbnbLeadInput[] | OperationalDiagnosisUncheckedCreateWithoutAirbnbLeadInput[]
+    connectOrCreate?: OperationalDiagnosisCreateOrConnectWithoutAirbnbLeadInput | OperationalDiagnosisCreateOrConnectWithoutAirbnbLeadInput[]
+    upsert?: OperationalDiagnosisUpsertWithWhereUniqueWithoutAirbnbLeadInput | OperationalDiagnosisUpsertWithWhereUniqueWithoutAirbnbLeadInput[]
+    createMany?: OperationalDiagnosisCreateManyAirbnbLeadInputEnvelope
+    set?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    disconnect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    delete?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    connect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+    update?: OperationalDiagnosisUpdateWithWhereUniqueWithoutAirbnbLeadInput | OperationalDiagnosisUpdateWithWhereUniqueWithoutAirbnbLeadInput[]
+    updateMany?: OperationalDiagnosisUpdateManyWithWhereWithoutAirbnbLeadInput | OperationalDiagnosisUpdateManyWithWhereWithoutAirbnbLeadInput[]
+    deleteMany?: OperationalDiagnosisScalarWhereInput | OperationalDiagnosisScalarWhereInput[]
   }
 
   export type AirbnbLeadCreateNestedOneWithoutMessagesInput = {
@@ -34870,6 +35283,38 @@ export namespace Prisma {
     upsert?: AirbnbLeadUpsertWithoutCommercialInput
     connect?: AirbnbLeadWhereUniqueInput
     update?: XOR<XOR<AirbnbLeadUpdateToOneWithWhereWithoutCommercialInput, AirbnbLeadUpdateWithoutCommercialInput>, AirbnbLeadUncheckedUpdateWithoutCommercialInput>
+  }
+
+  export type FormSubmissionCreateNestedOneWithoutDiagnosesInput = {
+    create?: XOR<FormSubmissionCreateWithoutDiagnosesInput, FormSubmissionUncheckedCreateWithoutDiagnosesInput>
+    connectOrCreate?: FormSubmissionCreateOrConnectWithoutDiagnosesInput
+    connect?: FormSubmissionWhereUniqueInput
+  }
+
+  export type AirbnbLeadCreateNestedOneWithoutDiagnosesInput = {
+    create?: XOR<AirbnbLeadCreateWithoutDiagnosesInput, AirbnbLeadUncheckedCreateWithoutDiagnosesInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutDiagnosesInput
+    connect?: AirbnbLeadWhereUniqueInput
+  }
+
+  export type FormSubmissionUpdateOneWithoutDiagnosesNestedInput = {
+    create?: XOR<FormSubmissionCreateWithoutDiagnosesInput, FormSubmissionUncheckedCreateWithoutDiagnosesInput>
+    connectOrCreate?: FormSubmissionCreateOrConnectWithoutDiagnosesInput
+    upsert?: FormSubmissionUpsertWithoutDiagnosesInput
+    disconnect?: FormSubmissionWhereInput | boolean
+    delete?: FormSubmissionWhereInput | boolean
+    connect?: FormSubmissionWhereUniqueInput
+    update?: XOR<XOR<FormSubmissionUpdateToOneWithWhereWithoutDiagnosesInput, FormSubmissionUpdateWithoutDiagnosesInput>, FormSubmissionUncheckedUpdateWithoutDiagnosesInput>
+  }
+
+  export type AirbnbLeadUpdateOneWithoutDiagnosesNestedInput = {
+    create?: XOR<AirbnbLeadCreateWithoutDiagnosesInput, AirbnbLeadUncheckedCreateWithoutDiagnosesInput>
+    connectOrCreate?: AirbnbLeadCreateOrConnectWithoutDiagnosesInput
+    upsert?: AirbnbLeadUpsertWithoutDiagnosesInput
+    disconnect?: AirbnbLeadWhereInput | boolean
+    delete?: AirbnbLeadWhereInput | boolean
+    connect?: AirbnbLeadWhereUniqueInput
+    update?: XOR<XOR<AirbnbLeadUpdateToOneWithWhereWithoutDiagnosesInput, AirbnbLeadUpdateWithoutDiagnosesInput>, AirbnbLeadUncheckedUpdateWithoutDiagnosesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -35707,6 +36152,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     events?: LeadEventCreateNestedManyWithoutSubmissionInput
+    diagnoses?: OperationalDiagnosisCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateWithoutContactInput = {
@@ -35750,6 +36196,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     events?: LeadEventUncheckedCreateNestedManyWithoutSubmissionInput
+    diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionCreateOrConnectWithoutContactInput = {
@@ -35777,6 +36224,7 @@ export namespace Prisma {
     meetingId?: string | null
     meetingTime?: Date | string | null
     meetLink?: string | null
+    visitorTimezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: PipelineJobCreateNestedManyWithoutPipelineInput
@@ -35797,6 +36245,7 @@ export namespace Prisma {
     meetingId?: string | null
     meetingTime?: Date | string | null
     meetLink?: string | null
+    visitorTimezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: PipelineJobUncheckedCreateNestedManyWithoutPipelineInput
@@ -35865,6 +36314,7 @@ export namespace Prisma {
     hostContact?: HostContactCreateNestedOneWithoutLeadInput
     commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
     events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+    diagnoses?: OperationalDiagnosisCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadUncheckedCreateWithoutContactInput = {
@@ -35897,6 +36347,7 @@ export namespace Prisma {
     hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
     commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
     events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+    diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadCreateOrConnectWithoutContactInput = {
@@ -35992,6 +36443,7 @@ export namespace Prisma {
     meetingId?: NullableStringFieldUpdateOperationsInput | string | null
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: PipelineJobUpdateManyWithoutPipelineNestedInput
@@ -36012,6 +36464,7 @@ export namespace Prisma {
     meetingId?: NullableStringFieldUpdateOperationsInput | string | null
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: PipelineJobUncheckedUpdateManyWithoutPipelineNestedInput
@@ -36086,6 +36539,7 @@ export namespace Prisma {
     hostContact?: HostContactUpdateOneWithoutLeadNestedInput
     commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
     events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+    diagnoses?: OperationalDiagnosisUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type AirbnbLeadUncheckedUpdateWithoutContactInput = {
@@ -36118,6 +36572,7 @@ export namespace Prisma {
     hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
     commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
     events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
+    diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type ContactCreateWithoutSubmissionsInput = {
@@ -36207,6 +36662,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OperationalDiagnosisCreateWithoutSubmissionInput = {
+    id?: string
+    slug: string
+    clientName: string
+    payload: JsonNullValueInput | InputJsonValue
+    meetingTime?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    airbnbLead?: AirbnbLeadCreateNestedOneWithoutDiagnosesInput
+  }
+
+  export type OperationalDiagnosisUncheckedCreateWithoutSubmissionInput = {
+    id?: string
+    slug: string
+    clientName: string
+    payload: JsonNullValueInput | InputJsonValue
+    airbnbLeadId?: string | null
+    meetingTime?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OperationalDiagnosisCreateOrConnectWithoutSubmissionInput = {
+    where: OperationalDiagnosisWhereUniqueInput
+    create: XOR<OperationalDiagnosisCreateWithoutSubmissionInput, OperationalDiagnosisUncheckedCreateWithoutSubmissionInput>
+  }
+
+  export type OperationalDiagnosisCreateManySubmissionInputEnvelope = {
+    data: OperationalDiagnosisCreateManySubmissionInput | OperationalDiagnosisCreateManySubmissionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ContactUpsertWithoutSubmissionsInput = {
     update: XOR<ContactUpdateWithoutSubmissionsInput, ContactUncheckedUpdateWithoutSubmissionsInput>
     create: XOR<ContactCreateWithoutSubmissionsInput, ContactUncheckedCreateWithoutSubmissionsInput>
@@ -36292,6 +36779,37 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LeadEvent"> | Date | string
   }
 
+  export type OperationalDiagnosisUpsertWithWhereUniqueWithoutSubmissionInput = {
+    where: OperationalDiagnosisWhereUniqueInput
+    update: XOR<OperationalDiagnosisUpdateWithoutSubmissionInput, OperationalDiagnosisUncheckedUpdateWithoutSubmissionInput>
+    create: XOR<OperationalDiagnosisCreateWithoutSubmissionInput, OperationalDiagnosisUncheckedCreateWithoutSubmissionInput>
+  }
+
+  export type OperationalDiagnosisUpdateWithWhereUniqueWithoutSubmissionInput = {
+    where: OperationalDiagnosisWhereUniqueInput
+    data: XOR<OperationalDiagnosisUpdateWithoutSubmissionInput, OperationalDiagnosisUncheckedUpdateWithoutSubmissionInput>
+  }
+
+  export type OperationalDiagnosisUpdateManyWithWhereWithoutSubmissionInput = {
+    where: OperationalDiagnosisScalarWhereInput
+    data: XOR<OperationalDiagnosisUpdateManyMutationInput, OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionInput>
+  }
+
+  export type OperationalDiagnosisScalarWhereInput = {
+    AND?: OperationalDiagnosisScalarWhereInput | OperationalDiagnosisScalarWhereInput[]
+    OR?: OperationalDiagnosisScalarWhereInput[]
+    NOT?: OperationalDiagnosisScalarWhereInput | OperationalDiagnosisScalarWhereInput[]
+    id?: StringFilter<"OperationalDiagnosis"> | string
+    slug?: StringFilter<"OperationalDiagnosis"> | string
+    clientName?: StringFilter<"OperationalDiagnosis"> | string
+    payload?: JsonFilter<"OperationalDiagnosis">
+    submissionId?: StringNullableFilter<"OperationalDiagnosis"> | string | null
+    airbnbLeadId?: StringNullableFilter<"OperationalDiagnosis"> | string | null
+    meetingTime?: DateTimeNullableFilter<"OperationalDiagnosis"> | Date | string | null
+    createdAt?: DateTimeFilter<"OperationalDiagnosis"> | Date | string
+    updatedAt?: DateTimeFilter<"OperationalDiagnosis"> | Date | string
+  }
+
   export type FormSubmissionCreateWithoutEventsInput = {
     id?: string
     fullName?: string | null
@@ -36333,6 +36851,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     contact?: ContactCreateNestedOneWithoutSubmissionsInput
+    diagnoses?: OperationalDiagnosisCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateWithoutEventsInput = {
@@ -36376,6 +36895,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     contactId?: string | null
+    diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionCreateOrConnectWithoutEventsInput = {
@@ -36413,6 +36933,7 @@ export namespace Prisma {
     calBookings?: CalBookingCreateNestedManyWithoutLeadInput
     hostContact?: HostContactCreateNestedOneWithoutLeadInput
     commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
+    diagnoses?: OperationalDiagnosisCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadUncheckedCreateWithoutEventsInput = {
@@ -36445,6 +36966,7 @@ export namespace Prisma {
     calBookings?: CalBookingUncheckedCreateNestedManyWithoutLeadInput
     hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
     commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
+    diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadCreateOrConnectWithoutEventsInput = {
@@ -36504,6 +37026,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contact?: ContactUpdateOneWithoutSubmissionsNestedInput
+    diagnoses?: OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateWithoutEventsInput = {
@@ -36547,6 +37070,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type AirbnbLeadUpsertWithoutEventsInput = {
@@ -36590,6 +37114,7 @@ export namespace Prisma {
     calBookings?: CalBookingUpdateManyWithoutLeadNestedInput
     hostContact?: HostContactUpdateOneWithoutLeadNestedInput
     commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
+    diagnoses?: OperationalDiagnosisUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type AirbnbLeadUncheckedUpdateWithoutEventsInput = {
@@ -36622,6 +37147,7 @@ export namespace Prisma {
     calBookings?: CalBookingUncheckedUpdateManyWithoutLeadNestedInput
     hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
     commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
+    diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type ContactCreateWithoutPipelineInput = {
@@ -37014,6 +37540,7 @@ export namespace Prisma {
     meetingId?: string | null
     meetingTime?: Date | string | null
     meetLink?: string | null
+    visitorTimezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     contact: ContactCreateNestedOneWithoutPipelineInput
@@ -37035,6 +37562,7 @@ export namespace Prisma {
     meetingId?: string | null
     meetingTime?: Date | string | null
     meetLink?: string | null
+    visitorTimezone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -37070,6 +37598,7 @@ export namespace Prisma {
     meetingId?: NullableStringFieldUpdateOperationsInput | string | null
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contact?: ContactUpdateOneRequiredWithoutPipelineNestedInput
@@ -37091,6 +37620,7 @@ export namespace Prisma {
     meetingId?: NullableStringFieldUpdateOperationsInput | string | null
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
+    visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -37300,6 +37830,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OperationalDiagnosisCreateWithoutAirbnbLeadInput = {
+    id?: string
+    slug: string
+    clientName: string
+    payload: JsonNullValueInput | InputJsonValue
+    meetingTime?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    submission?: FormSubmissionCreateNestedOneWithoutDiagnosesInput
+  }
+
+  export type OperationalDiagnosisUncheckedCreateWithoutAirbnbLeadInput = {
+    id?: string
+    slug: string
+    clientName: string
+    payload: JsonNullValueInput | InputJsonValue
+    submissionId?: string | null
+    meetingTime?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OperationalDiagnosisCreateOrConnectWithoutAirbnbLeadInput = {
+    where: OperationalDiagnosisWhereUniqueInput
+    create: XOR<OperationalDiagnosisCreateWithoutAirbnbLeadInput, OperationalDiagnosisUncheckedCreateWithoutAirbnbLeadInput>
+  }
+
+  export type OperationalDiagnosisCreateManyAirbnbLeadInputEnvelope = {
+    data: OperationalDiagnosisCreateManyAirbnbLeadInput | OperationalDiagnosisCreateManyAirbnbLeadInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ContactUpsertWithoutAirbnbLeadInput = {
     update: XOR<ContactUpdateWithoutAirbnbLeadInput, ContactUncheckedUpdateWithoutAirbnbLeadInput>
     create: XOR<ContactCreateWithoutAirbnbLeadInput, ContactUncheckedCreateWithoutAirbnbLeadInput>
@@ -37491,6 +38053,22 @@ export namespace Prisma {
     data: XOR<LeadEventUpdateManyMutationInput, LeadEventUncheckedUpdateManyWithoutAirbnbLeadInput>
   }
 
+  export type OperationalDiagnosisUpsertWithWhereUniqueWithoutAirbnbLeadInput = {
+    where: OperationalDiagnosisWhereUniqueInput
+    update: XOR<OperationalDiagnosisUpdateWithoutAirbnbLeadInput, OperationalDiagnosisUncheckedUpdateWithoutAirbnbLeadInput>
+    create: XOR<OperationalDiagnosisCreateWithoutAirbnbLeadInput, OperationalDiagnosisUncheckedCreateWithoutAirbnbLeadInput>
+  }
+
+  export type OperationalDiagnosisUpdateWithWhereUniqueWithoutAirbnbLeadInput = {
+    where: OperationalDiagnosisWhereUniqueInput
+    data: XOR<OperationalDiagnosisUpdateWithoutAirbnbLeadInput, OperationalDiagnosisUncheckedUpdateWithoutAirbnbLeadInput>
+  }
+
+  export type OperationalDiagnosisUpdateManyWithWhereWithoutAirbnbLeadInput = {
+    where: OperationalDiagnosisScalarWhereInput
+    data: XOR<OperationalDiagnosisUpdateManyMutationInput, OperationalDiagnosisUncheckedUpdateManyWithoutAirbnbLeadInput>
+  }
+
   export type AirbnbLeadCreateWithoutMessagesInput = {
     id?: string
     hostAirbnbId: string
@@ -37521,6 +38099,7 @@ export namespace Prisma {
     hostContact?: HostContactCreateNestedOneWithoutLeadInput
     commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
     events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+    diagnoses?: OperationalDiagnosisCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadUncheckedCreateWithoutMessagesInput = {
@@ -37553,6 +38132,7 @@ export namespace Prisma {
     hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
     commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
     events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+    diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadCreateOrConnectWithoutMessagesInput = {
@@ -37666,6 +38246,7 @@ export namespace Prisma {
     hostContact?: HostContactUpdateOneWithoutLeadNestedInput
     commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
     events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+    diagnoses?: OperationalDiagnosisUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type AirbnbLeadUncheckedUpdateWithoutMessagesInput = {
@@ -37698,6 +38279,7 @@ export namespace Prisma {
     hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
     commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
     events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
+    diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type ProspectAccountUpsertWithoutMessagesInput = {
@@ -37801,6 +38383,7 @@ export namespace Prisma {
     hostContact?: HostContactCreateNestedOneWithoutLeadInput
     commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
     events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+    diagnoses?: OperationalDiagnosisCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadUncheckedCreateWithoutCalBookingsInput = {
@@ -37833,6 +38416,7 @@ export namespace Prisma {
     hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
     commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
     events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+    diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadCreateOrConnectWithoutCalBookingsInput = {
@@ -37881,6 +38465,7 @@ export namespace Prisma {
     hostContact?: HostContactUpdateOneWithoutLeadNestedInput
     commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
     events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+    diagnoses?: OperationalDiagnosisUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type AirbnbLeadUncheckedUpdateWithoutCalBookingsInput = {
@@ -37913,6 +38498,7 @@ export namespace Prisma {
     hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
     commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
     events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
+    diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type AccountBlockEventCreateWithoutAccountInput = {
@@ -38097,6 +38683,7 @@ export namespace Prisma {
     calBookings?: CalBookingCreateNestedManyWithoutLeadInput
     commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
     events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+    diagnoses?: OperationalDiagnosisCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadUncheckedCreateWithoutHostContactInput = {
@@ -38129,6 +38716,7 @@ export namespace Prisma {
     calBookings?: CalBookingUncheckedCreateNestedManyWithoutLeadInput
     commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
     events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+    diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadCreateOrConnectWithoutHostContactInput = {
@@ -38242,6 +38830,7 @@ export namespace Prisma {
     calBookings?: CalBookingUpdateManyWithoutLeadNestedInput
     commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
     events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+    diagnoses?: OperationalDiagnosisUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type AirbnbLeadUncheckedUpdateWithoutHostContactInput = {
@@ -38274,6 +38863,7 @@ export namespace Prisma {
     calBookings?: CalBookingUncheckedUpdateManyWithoutLeadNestedInput
     commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
     events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
+    diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type ProspectAccountUpsertWithoutHostContactsInput = {
@@ -38513,6 +39103,7 @@ export namespace Prisma {
     calBookings?: CalBookingCreateNestedManyWithoutLeadInput
     hostContact?: HostContactCreateNestedOneWithoutLeadInput
     events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+    diagnoses?: OperationalDiagnosisCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadUncheckedCreateWithoutCommercialInput = {
@@ -38545,6 +39136,7 @@ export namespace Prisma {
     calBookings?: CalBookingUncheckedCreateNestedManyWithoutLeadInput
     hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
     events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+    diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutAirbnbLeadInput
   }
 
   export type AirbnbLeadCreateOrConnectWithoutCommercialInput = {
@@ -38593,6 +39185,7 @@ export namespace Prisma {
     calBookings?: CalBookingUpdateManyWithoutLeadNestedInput
     hostContact?: HostContactUpdateOneWithoutLeadNestedInput
     events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+    diagnoses?: OperationalDiagnosisUpdateManyWithoutAirbnbLeadNestedInput
   }
 
   export type AirbnbLeadUncheckedUpdateWithoutCommercialInput = {
@@ -38624,6 +39217,347 @@ export namespace Prisma {
     messages?: AirbnbMessageUncheckedUpdateManyWithoutLeadNestedInput
     calBookings?: CalBookingUncheckedUpdateManyWithoutLeadNestedInput
     hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
+    diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
+  export type FormSubmissionCreateWithoutDiagnosesInput = {
+    id?: string
+    fullName?: string | null
+    email?: string | null
+    companyName?: string | null
+    phoneCountryCode?: string | null
+    phoneNumber?: string | null
+    instagramUrl?: string | null
+    websiteUrl?: string | null
+    usesPms?: $Enums.PmsUsage | null
+    propertyCount?: $Enums.PropertyCount | null
+    revenueRange?: $Enums.RevenueRange | null
+    isTodero?: $Enums.YesNo | null
+    usesAi?: $Enums.YesNo | null
+    wantsToScale?: $Enums.YesNo | null
+    industryTime?: $Enums.IndustryTime | null
+    pdfToken: string
+    qualification?: $Enums.LeadQualification | null
+    qualificationScore?: number | null
+    disqualificationReason?: $Enums.DisqualificationReason | null
+    scoreBreakdown?: NullableJsonNullValueInput | InputJsonValue
+    entrySource?: $Enums.LeadEntrySource
+    bookingFlow?: $Enums.BookingFlow | null
+    bookedAt?: Date | string | null
+    status?: $Enums.SubmissionStatus
+    fbclid?: string | null
+    fbp?: string | null
+    fbc?: string | null
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    landingPath?: string | null
+    referrer?: string | null
+    marketingFunnelStage?: $Enums.MarketingFunnelStage | null
+    contractValueUsd?: Decimal | DecimalJsLike | number | string | null
+    contractPlan?: $Enums.ContractPlan | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact?: ContactCreateNestedOneWithoutSubmissionsInput
+    events?: LeadEventCreateNestedManyWithoutSubmissionInput
+  }
+
+  export type FormSubmissionUncheckedCreateWithoutDiagnosesInput = {
+    id?: string
+    fullName?: string | null
+    email?: string | null
+    companyName?: string | null
+    phoneCountryCode?: string | null
+    phoneNumber?: string | null
+    instagramUrl?: string | null
+    websiteUrl?: string | null
+    usesPms?: $Enums.PmsUsage | null
+    propertyCount?: $Enums.PropertyCount | null
+    revenueRange?: $Enums.RevenueRange | null
+    isTodero?: $Enums.YesNo | null
+    usesAi?: $Enums.YesNo | null
+    wantsToScale?: $Enums.YesNo | null
+    industryTime?: $Enums.IndustryTime | null
+    pdfToken: string
+    qualification?: $Enums.LeadQualification | null
+    qualificationScore?: number | null
+    disqualificationReason?: $Enums.DisqualificationReason | null
+    scoreBreakdown?: NullableJsonNullValueInput | InputJsonValue
+    entrySource?: $Enums.LeadEntrySource
+    bookingFlow?: $Enums.BookingFlow | null
+    bookedAt?: Date | string | null
+    status?: $Enums.SubmissionStatus
+    fbclid?: string | null
+    fbp?: string | null
+    fbc?: string | null
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    landingPath?: string | null
+    referrer?: string | null
+    marketingFunnelStage?: $Enums.MarketingFunnelStage | null
+    contractValueUsd?: Decimal | DecimalJsLike | number | string | null
+    contractPlan?: $Enums.ContractPlan | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contactId?: string | null
+    events?: LeadEventUncheckedCreateNestedManyWithoutSubmissionInput
+  }
+
+  export type FormSubmissionCreateOrConnectWithoutDiagnosesInput = {
+    where: FormSubmissionWhereUniqueInput
+    create: XOR<FormSubmissionCreateWithoutDiagnosesInput, FormSubmissionUncheckedCreateWithoutDiagnosesInput>
+  }
+
+  export type AirbnbLeadCreateWithoutDiagnosesInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact?: ContactCreateNestedOneWithoutAirbnbLeadInput
+    messages?: AirbnbMessageCreateNestedManyWithoutLeadInput
+    calBookings?: CalBookingCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactCreateNestedOneWithoutLeadInput
+    commercial?: AirbnbCommercialCreateNestedOneWithoutLeadInput
+    events?: LeadEventCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadUncheckedCreateWithoutDiagnosesInput = {
+    id?: string
+    hostAirbnbId: string
+    threadId?: string | null
+    name: string
+    hostProfileUrl: string
+    primaryListingUrl: string
+    primaryListingName?: string | null
+    totalProperties?: number
+    companyName?: string | null
+    isSuperhost?: boolean
+    market?: string | null
+    icpSkipReason?: $Enums.IcpSkipReason | null
+    status?: $Enums.LeadStatus
+    businessScale?: string | null
+    painPoints?: string | null
+    executiveSummary?: string | null
+    lastContactedAt?: Date | string | null
+    nextFollowUpAt?: Date | string | null
+    botReplyCount?: number
+    calLinkSent?: boolean
+    calBookedAt?: Date | string | null
+    hostEmail?: string | null
+    contactId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: AirbnbMessageUncheckedCreateNestedManyWithoutLeadInput
+    calBookings?: CalBookingUncheckedCreateNestedManyWithoutLeadInput
+    hostContact?: HostContactUncheckedCreateNestedOneWithoutLeadInput
+    commercial?: AirbnbCommercialUncheckedCreateNestedOneWithoutLeadInput
+    events?: LeadEventUncheckedCreateNestedManyWithoutAirbnbLeadInput
+  }
+
+  export type AirbnbLeadCreateOrConnectWithoutDiagnosesInput = {
+    where: AirbnbLeadWhereUniqueInput
+    create: XOR<AirbnbLeadCreateWithoutDiagnosesInput, AirbnbLeadUncheckedCreateWithoutDiagnosesInput>
+  }
+
+  export type FormSubmissionUpsertWithoutDiagnosesInput = {
+    update: XOR<FormSubmissionUpdateWithoutDiagnosesInput, FormSubmissionUncheckedUpdateWithoutDiagnosesInput>
+    create: XOR<FormSubmissionCreateWithoutDiagnosesInput, FormSubmissionUncheckedCreateWithoutDiagnosesInput>
+    where?: FormSubmissionWhereInput
+  }
+
+  export type FormSubmissionUpdateToOneWithWhereWithoutDiagnosesInput = {
+    where?: FormSubmissionWhereInput
+    data: XOR<FormSubmissionUpdateWithoutDiagnosesInput, FormSubmissionUncheckedUpdateWithoutDiagnosesInput>
+  }
+
+  export type FormSubmissionUpdateWithoutDiagnosesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneCountryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    websiteUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    usesPms?: NullableEnumPmsUsageFieldUpdateOperationsInput | $Enums.PmsUsage | null
+    propertyCount?: NullableEnumPropertyCountFieldUpdateOperationsInput | $Enums.PropertyCount | null
+    revenueRange?: NullableEnumRevenueRangeFieldUpdateOperationsInput | $Enums.RevenueRange | null
+    isTodero?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    pdfToken?: StringFieldUpdateOperationsInput | string
+    qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
+    qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
+    disqualificationReason?: NullableEnumDisqualificationReasonFieldUpdateOperationsInput | $Enums.DisqualificationReason | null
+    scoreBreakdown?: NullableJsonNullValueInput | InputJsonValue
+    entrySource?: EnumLeadEntrySourceFieldUpdateOperationsInput | $Enums.LeadEntrySource
+    bookingFlow?: NullableEnumBookingFlowFieldUpdateOperationsInput | $Enums.BookingFlow | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+    fbclid?: NullableStringFieldUpdateOperationsInput | string | null
+    fbp?: NullableStringFieldUpdateOperationsInput | string | null
+    fbc?: NullableStringFieldUpdateOperationsInput | string | null
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    landingPath?: NullableStringFieldUpdateOperationsInput | string | null
+    referrer?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
+    contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: ContactUpdateOneWithoutSubmissionsNestedInput
+    events?: LeadEventUpdateManyWithoutSubmissionNestedInput
+  }
+
+  export type FormSubmissionUncheckedUpdateWithoutDiagnosesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneCountryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    websiteUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    usesPms?: NullableEnumPmsUsageFieldUpdateOperationsInput | $Enums.PmsUsage | null
+    propertyCount?: NullableEnumPropertyCountFieldUpdateOperationsInput | $Enums.PropertyCount | null
+    revenueRange?: NullableEnumRevenueRangeFieldUpdateOperationsInput | $Enums.RevenueRange | null
+    isTodero?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    pdfToken?: StringFieldUpdateOperationsInput | string
+    qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
+    qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
+    disqualificationReason?: NullableEnumDisqualificationReasonFieldUpdateOperationsInput | $Enums.DisqualificationReason | null
+    scoreBreakdown?: NullableJsonNullValueInput | InputJsonValue
+    entrySource?: EnumLeadEntrySourceFieldUpdateOperationsInput | $Enums.LeadEntrySource
+    bookingFlow?: NullableEnumBookingFlowFieldUpdateOperationsInput | $Enums.BookingFlow | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+    fbclid?: NullableStringFieldUpdateOperationsInput | string | null
+    fbp?: NullableStringFieldUpdateOperationsInput | string | null
+    fbc?: NullableStringFieldUpdateOperationsInput | string | null
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    landingPath?: NullableStringFieldUpdateOperationsInput | string | null
+    referrer?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
+    contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    events?: LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput
+  }
+
+  export type AirbnbLeadUpsertWithoutDiagnosesInput = {
+    update: XOR<AirbnbLeadUpdateWithoutDiagnosesInput, AirbnbLeadUncheckedUpdateWithoutDiagnosesInput>
+    create: XOR<AirbnbLeadCreateWithoutDiagnosesInput, AirbnbLeadUncheckedCreateWithoutDiagnosesInput>
+    where?: AirbnbLeadWhereInput
+  }
+
+  export type AirbnbLeadUpdateToOneWithWhereWithoutDiagnosesInput = {
+    where?: AirbnbLeadWhereInput
+    data: XOR<AirbnbLeadUpdateWithoutDiagnosesInput, AirbnbLeadUncheckedUpdateWithoutDiagnosesInput>
+  }
+
+  export type AirbnbLeadUpdateWithoutDiagnosesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: ContactUpdateOneWithoutAirbnbLeadNestedInput
+    messages?: AirbnbMessageUpdateManyWithoutLeadNestedInput
+    calBookings?: CalBookingUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUpdateOneWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUpdateOneWithoutLeadNestedInput
+    events?: LeadEventUpdateManyWithoutAirbnbLeadNestedInput
+  }
+
+  export type AirbnbLeadUncheckedUpdateWithoutDiagnosesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hostAirbnbId?: StringFieldUpdateOperationsInput | string
+    threadId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    hostProfileUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingUrl?: StringFieldUpdateOperationsInput | string
+    primaryListingName?: NullableStringFieldUpdateOperationsInput | string | null
+    totalProperties?: IntFieldUpdateOperationsInput | number
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    isSuperhost?: BoolFieldUpdateOperationsInput | boolean
+    market?: NullableStringFieldUpdateOperationsInput | string | null
+    icpSkipReason?: NullableEnumIcpSkipReasonFieldUpdateOperationsInput | $Enums.IcpSkipReason | null
+    status?: EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+    businessScale?: NullableStringFieldUpdateOperationsInput | string | null
+    painPoints?: NullableStringFieldUpdateOperationsInput | string | null
+    executiveSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextFollowUpAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    botReplyCount?: IntFieldUpdateOperationsInput | number
+    calLinkSent?: BoolFieldUpdateOperationsInput | boolean
+    calBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hostEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: AirbnbMessageUncheckedUpdateManyWithoutLeadNestedInput
+    calBookings?: CalBookingUncheckedUpdateManyWithoutLeadNestedInput
+    hostContact?: HostContactUncheckedUpdateOneWithoutLeadNestedInput
+    commercial?: AirbnbCommercialUncheckedUpdateOneWithoutLeadNestedInput
     events?: LeadEventUncheckedUpdateManyWithoutAirbnbLeadNestedInput
   }
 
@@ -38718,6 +39652,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     events?: LeadEventUpdateManyWithoutSubmissionNestedInput
+    diagnoses?: OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateWithoutContactInput = {
@@ -38761,6 +39696,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     events?: LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput
+    diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateManyWithoutContactInput = {
@@ -38849,6 +39785,17 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type OperationalDiagnosisCreateManySubmissionInput = {
+    id?: string
+    slug: string
+    clientName: string
+    payload: JsonNullValueInput | InputJsonValue
+    airbnbLeadId?: string | null
+    meetingTime?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type LeadEventUpdateWithoutSubmissionInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: EnumMarketingEventNameFieldUpdateOperationsInput | $Enums.MarketingEventName
@@ -38901,6 +39848,39 @@ export namespace Prisma {
     clientIp?: NullableStringFieldUpdateOperationsInput | string | null
     clientUserAgent?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OperationalDiagnosisUpdateWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    clientName?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    airbnbLead?: AirbnbLeadUpdateOneWithoutDiagnosesNestedInput
+  }
+
+  export type OperationalDiagnosisUncheckedUpdateWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    clientName?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    airbnbLeadId?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    clientName?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    airbnbLeadId?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PipelineJobCreateManyPipelineInput = {
@@ -39059,6 +40039,17 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type OperationalDiagnosisCreateManyAirbnbLeadInput = {
+    id?: string
+    slug: string
+    clientName: string
+    payload: JsonNullValueInput | InputJsonValue
+    submissionId?: string | null
+    meetingTime?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type AirbnbMessageUpdateWithoutLeadInput = {
     id?: StringFieldUpdateOperationsInput | string
     direction?: EnumMessageDirectionFieldUpdateOperationsInput | $Enums.MessageDirection
@@ -39177,6 +40168,39 @@ export namespace Prisma {
     clientIp?: NullableStringFieldUpdateOperationsInput | string | null
     clientUserAgent?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OperationalDiagnosisUpdateWithoutAirbnbLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    clientName?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submission?: FormSubmissionUpdateOneWithoutDiagnosesNestedInput
+  }
+
+  export type OperationalDiagnosisUncheckedUpdateWithoutAirbnbLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    clientName?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OperationalDiagnosisUncheckedUpdateManyWithoutAirbnbLeadInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    clientName?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountBlockEventCreateManyAccountInput = {

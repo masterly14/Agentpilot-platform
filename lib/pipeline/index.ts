@@ -16,8 +16,19 @@ export {
   TERMINAL_STATES,
 } from "./states"
 
-export { ensureNurturingPipeline, enterPreMeeting, transitionPipeline } from "./engine"
+export {
+  discardAfterDiscovery,
+  ensureNurturingPipeline,
+  enterPreDemo,
+  enterPreMeeting,
+  transitionPipeline,
+} from "./engine"
 export { upsertContactFromLead } from "./contact"
+export {
+  buildDiscoverySummaryMessage,
+  processDiscoveryFollowup,
+  sendDiscoverySummaryMessage,
+} from "./discovery-summary"
 
 export type {
   AnyPipelineState,

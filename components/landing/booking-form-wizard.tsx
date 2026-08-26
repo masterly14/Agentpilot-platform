@@ -159,6 +159,7 @@ function stepIsComplete(stepId: (typeof BOOKING_FORM_STEPS)[number]["id"], formD
 export function BookingFormWizard({
   selectedDateLabel,
   selectedTimeLabel,
+  hostTimeHint,
   formData,
   formStep,
   isSubmitting,
@@ -171,6 +172,7 @@ export function BookingFormWizard({
 }: {
   selectedDateLabel: string
   selectedTimeLabel: string
+  hostTimeHint?: string | null
   formData: BookingFormData
   formStep: number
   isSubmitting: boolean
@@ -219,6 +221,7 @@ export function BookingFormWizard({
           <p className="truncate text-xs text-zinc-500">
             {selectedDateLabel} · {selectedTimeLabel}
           </p>
+          {hostTimeHint ? <p className="truncate text-[11px] text-zinc-600">{hostTimeHint}</p> : null}
           <p className="text-[11px] text-zinc-600">
             Paso {formStep + 1} de {BOOKING_FORM_STEPS.length}
           </p>

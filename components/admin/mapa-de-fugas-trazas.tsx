@@ -12,12 +12,14 @@ import {
   type AreaState,
   type PasoEstado,
   type TrazaId,
+  type TrazaPasoDef,
+  type TrazaPasoState,
   type TrazaState,
 } from "@/lib/admin/leak-map"
 import { cn } from "@/lib/utils"
 
 const CIERRE_TEXTO =
-  "Todo lo que anoté acá es lo que yo sé mirar. ¿Qué hay en tu operación que no te pregunté y que debería estar en esta lista?"
+  "¿Hay algo más en la operación que no esté en esta lista?"
 
 type TrazasProps = {
   trazas: TrazaState[]
@@ -42,107 +44,170 @@ export function MapaDeFugasTrazas({
 
   return (
     <div className="space-y-8">
+      <Leyenda />
+
       {TRAZAS_BASE.map((def) => {
         const state = trazas.find((item) => item.id === def.id)
+        const pasos = def.pasos.map((pasoDef) => ({
+          def: pasoDef,
+          state:
+            state?.pasos.find((item) => item.id === pasoDef.id) ??
+            ({ id: pasoDef.id, estado: "", nota: "", requerimientoId: null } as TrazaPasoState),
+        }))
+        const marcados = pasos.filter((item) => item.state.estado !== "")
+        const fricciones = marcados.filter((item) => item.state.estado === "friccion").length
+        const huecos = marcados.length - fricciones
+
         return (
-          <div key={def.id} className="space-y-3">
-            <h3 className="text-sm font-semibold">{def.nombre}</h3>
-            <ol className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-start">
-              {def.pasos.map((pasoDef, index) => {
-                const paso = state?.pasos.find((item) => item.id === pasoDef.id) ?? {
-                  id: pasoDef.id,
-                  estado: "" as const,
-                  nota: "",
-                  requerimientoId: null,
-                }
-                return (
-                  <li key={pasoDef.id} className="flex min-w-0 items-start sm:max-w-[11rem]">
-                    {index > 0 ? (
-                      <span
-                        aria-hidden
-                        className="mt-5 hidden px-1 text-sm text-muted-foreground sm:inline"
-                      >
-                        →
-                      </span>
-                    ) : null}
-                    <div className="flex min-w-0 flex-1 gap-2 sm:flex-col">
-                      {index > 0 ? (
-                        <div aria-hidden className="flex w-5 shrink-0 flex-col items-center sm:hidden">
-                          <div className="w-px flex-1 bg-border" />
-                          <span className="text-[10px] text-muted-foreground">↓</span>
-                        </div>
-                      ) : null}
-                      <div className="min-w-0 flex-1 space-y-2">
-                        <PasoBoton
-                          label={pasoDef.label}
-                          estado={paso.estado}
-                          onCycle={() => onCyclePaso(def.id, pasoDef.id)}
-                        />
-                        {paso.estado ? (
-                          <div className="space-y-2">
-                            <Input
-                              value={paso.nota}
-                              placeholder="Una línea. Lo que dijo."
-                              onChange={(event) =>
-                                onPasoNota(def.id, pasoDef.id, event.target.value)
-                              }
-                              className="h-8 bg-background text-sm"
-                            />
-                            {paso.estado === "hueco" ? (
-                              paso.requerimientoId ? (
-                                <p className="text-[11px] font-medium text-muted-foreground">
-                                  Ya está en requerimientos.
-                                </p>
-                              ) : (
-                                <Button
-                                  type="button"
-                                  size="sm"
-                                  variant="outline"
-                                  className="h-7 text-xs"
-                                  onClick={() => onCreateRequerimiento(def.id, pasoDef.id)}
-                                >
-                                  Crear requerimiento
-                                </Button>
-                              )
-                            ) : null}
-                            {paso.estado === "friccion" && pasoDef.areaId ? (
-                              areaActiva.has(pasoDef.areaId) ? (
-                                <p className="text-[11px] font-medium text-muted-foreground">
-                                  Ya está en {areaNombre(pasoDef.areaId)}.
-                                </p>
-                              ) : (
-                                <Button
-                                  type="button"
-                                  size="sm"
-                                  variant="outline"
-                                  className="h-7 text-xs"
-                                  onClick={() => onLinkArea(pasoDef.areaId!)}
-                                >
-                                  Anotar en {areaNombre(pasoDef.areaId)}
-                                </Button>
-                              )
-                            ) : null}
-                          </div>
-                        ) : null}
-                      </div>
-                    </div>
-                  </li>
-                )
-              })}
+          <section key={def.id} className="space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+              <h3 className="text-[15px] font-semibold tracking-tight">{def.nombre}</h3>
+              <div className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                {marcados.length === 0 ? (
+                  <span>{def.pasos.length} pasos</span>
+                ) : (
+                  <>
+                    {fricciones > 0 ? <span>{fricciones} fricción</span> : null}
+                    {huecos > 0 ? <span>{huecos} hueco{huecos === 1 ? "" : "s"}</span> : null}
+                  </>
+                )}
+              </div>
+            </div>
+
+            <ol className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+              {pasos.map((item, index) => (
+                <li key={item.def.id} className="min-w-0">
+                  <PasoBoton
+                    index={index + 1}
+                    label={item.def.label}
+                    estado={item.state.estado}
+                    onCycle={() => onCyclePaso(def.id, item.def.id)}
+                  />
+                </li>
+              ))}
             </ol>
-          </div>
+
+            {marcados.length > 0 ? (
+              <div className="space-y-2.5 rounded-xl border bg-muted/40 p-4">
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  Detalle de lo marcado
+                </p>
+                {marcados.map((item) => (
+                  <PasoDetalle
+                    key={item.def.id}
+                    pasoDef={item.def}
+                    paso={item.state}
+                    areaYaActiva={
+                      item.def.areaId ? areaActiva.has(item.def.areaId) : false
+                    }
+                    onNota={(nota) => onPasoNota(def.id, item.def.id, nota)}
+                    onCreateRequerimiento={() => onCreateRequerimiento(def.id, item.def.id)}
+                    onLinkArea={() => item.def.areaId && onLinkArea(item.def.areaId)}
+                  />
+                ))}
+              </div>
+            ) : null}
+          </section>
         )
       })}
 
-      <div className="rounded-xl border-2 border-[#033160] bg-background p-5 [print-color-adjust:exact]">
-        <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">
-          Pregunta de cierre
+      <div className="rounded-2xl border border-[#033160]/25 bg-[#033160]/[0.04] p-6 [print-color-adjust:exact] md:p-7">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
+          Otros puntos
         </p>
-        <p className="mt-2 text-base leading-relaxed font-medium">{CIERRE_TEXTO}</p>
-        <Button type="button" className="mt-4" onClick={onAddRequerimientoBlanco}>
+        <p className="mt-2 max-w-[52ch] text-base leading-relaxed font-medium">{CIERRE_TEXTO}</p>
+        <Button type="button" className="mt-5" onClick={onAddRequerimientoBlanco}>
           <Plus />
           Agregar a la lista
         </Button>
+      </div>
+    </div>
+  )
+}
+
+function Leyenda() {
+  return (
+    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-xl border bg-muted/40 px-4 py-3">
+      <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+        Un clic marca fricción · Dos, hueco · Tres, limpia
+      </span>
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
+        <span className="inline-flex items-center gap-2">
+          <PasoMarca estado="friccion" size="sm" />
+          Fricción — lo hacen, mal
+        </span>
+        <span className="inline-flex items-center gap-2">
+          <PasoMarca estado="hueco" size="sm" />
+          Hueco — no existe
+        </span>
+      </div>
+    </div>
+  )
+}
+
+function PasoDetalle({
+  pasoDef,
+  paso,
+  areaYaActiva,
+  onNota,
+  onCreateRequerimiento,
+  onLinkArea,
+}: {
+  pasoDef: TrazaPasoDef
+  paso: TrazaPasoState
+  areaYaActiva: boolean
+  onNota: (nota: string) => void
+  onCreateRequerimiento: () => void
+  onLinkArea: () => void
+}) {
+  return (
+    <div className="flex flex-wrap items-center gap-3 rounded-xl border bg-background p-3">
+      <div className="flex w-full min-w-0 items-center gap-2 sm:w-44 sm:shrink-0">
+        <PasoMarca estado={paso.estado} size="sm" />
+        <span className="truncate text-sm font-semibold">{pasoDef.label}</span>
+      </div>
+
+      <Input
+        value={paso.nota}
+        placeholder="¿Qué pasa aquí?"
+        onChange={(event) => onNota(event.target.value)}
+        className="h-9 min-w-[12rem] flex-1"
+      />
+
+      <div className="w-full sm:w-auto sm:shrink-0">
+        {paso.estado === "hueco" ? (
+          paso.requerimientoId ? (
+            <p className="text-[11px] font-medium text-muted-foreground">Ya está en requerimientos</p>
+          ) : (
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              className="w-full sm:w-auto"
+              onClick={onCreateRequerimiento}
+            >
+              Crear requerimiento
+            </Button>
+          )
+        ) : null}
+
+        {paso.estado === "friccion" && pasoDef.areaId ? (
+          areaYaActiva ? (
+            <p className="text-[11px] font-medium text-muted-foreground">
+              Ya está en {areaNombre(pasoDef.areaId)}
+            </p>
+          ) : (
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              className="w-full max-w-full sm:w-auto"
+              onClick={onLinkArea}
+            >
+              <span className="truncate">Anotar en {areaNombre(pasoDef.areaId)}</span>
+            </Button>
+          )
+        ) : null}
       </div>
     </div>
   )
@@ -153,10 +218,12 @@ function areaNombre(id: AreaId) {
 }
 
 function PasoBoton({
+  index,
   label,
   estado,
   onCycle,
 }: {
+  index: number
   label: string
   estado: PasoEstado
   onCycle: () => void
@@ -168,16 +235,23 @@ function PasoBoton({
     <button
       type="button"
       onClick={onCycle}
-      aria-label={`${label}. ${estadoLabel(estado)}. Clic para marcar ${nextLabel}.`}
+      aria-label={`Paso ${index}. ${label}. ${estadoLabel(estado)}. Clic para marcar ${nextLabel}.`}
       className={cn(
-        "flex min-h-12 min-w-0 flex-1 items-center gap-2 rounded-lg border-2 px-2.5 py-2 text-left transition-colors sm:min-h-[4.25rem] sm:flex-col sm:justify-center sm:px-2",
-        estado === "" && "border-input bg-background hover:border-foreground/40",
-        estado === "friccion" && "border-destructive bg-destructive/10 hover:bg-destructive/15",
-        estado === "hueco" && "border-[#033160] bg-[#033160]/10 hover:bg-[#033160]/15",
+        "flex h-full min-h-[3.5rem] w-full items-center gap-3 rounded-xl border px-3.5 py-3 text-left transition-all",
+        estado === "" && "border-border bg-background hover:border-foreground/30 hover:bg-muted/60",
+        estado === "friccion" &&
+          "border-destructive/45 bg-destructive/[0.07] hover:bg-destructive/[0.12]",
+        estado === "hueco" && "border-[#033160]/50 bg-[#033160]/[0.07] hover:bg-[#033160]/[0.12]",
       )}
     >
       <PasoMarca estado={estado} />
-      <span className="text-sm leading-tight font-semibold">{label}</span>
+      <span className="min-w-0 flex-1 text-sm leading-snug font-medium">{label}</span>
+      <span
+        aria-hidden
+        className="shrink-0 font-mono text-[10px] tabular-nums text-muted-foreground/60"
+      >
+        {String(index).padStart(2, "0")}
+      </span>
     </button>
   )
 }
@@ -211,7 +285,7 @@ export function PasoMarca({ estado, size = "md" }: { estado: PasoEstado; size?: 
   }
   return (
     <span
-      className={cn("shrink-0 rounded-full border-2 border-muted-foreground/50 bg-background", box)}
+      className={cn("shrink-0 rounded-full border-2 border-muted-foreground/40 bg-background", box)}
       title="Sin marcar"
       aria-hidden
     />

@@ -29,6 +29,7 @@ import { classifyLead } from "@/lib/lead-qualification"
 import { leadFormToPrismaData } from "@/lib/partial-leads"
 import { attachBookingToPipeline } from "@/lib/pipeline/booking"
 import { parseBookingDateTime } from "@/lib/booking/datetime"
+import { sanitizeVisitorTimezone } from "@/lib/booking/timezone"
 import { prisma } from "@/lib/prisma"
 import type {
   BookingFlow,
@@ -191,6 +192,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Datos de reserva inválidos" }, { status: 400 })
     }
 
+    const visitorTimezone = sanitizeVisitorTimezone((body as { visitorTimezone?: unknown }).visitorTimezone)
+    if (visitorTimezone) payload.visitorTimezone = visitorTimezone
+
     if (!isValidBookingDate(payload.date)) {
       return NextResponse.json({ error: "Fecha fuera del calendario disponible" }, { status: 400 })
     }
@@ -275,6 +279,7 @@ export async function POST(request: Request) {
             meetingTime,
             meetingId: result.eventId,
             meetLink: result.meetLink,
+            visitorTimezone,
           })
         } catch (error) {
           console.error("[pipeline] no se pudo arrancar pre-reunión", error)

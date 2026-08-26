@@ -4,7 +4,7 @@ import { serializeSubmission, type SubmissionRecord } from "@/lib/submission-dis
 
 type LeadWithPipeline = FormSubmission & {
   contact?: {
-    pipeline?: Pick<LeadPipeline, "meetingTime" | "meetLink"> | null
+    pipeline?: Pick<LeadPipeline, "meetingTime" | "meetLink" | "visitorTimezone" | "painPoint"> | null
   } | null
 }
 
@@ -14,6 +14,8 @@ export function toLeadRecord(submission: LeadWithPipeline): SubmissionRecord {
     ...fields,
     meetingTime: contact?.pipeline?.meetingTime ?? null,
     meetLink: contact?.pipeline?.meetLink ?? null,
+    visitorTimezone: contact?.pipeline?.visitorTimezone ?? null,
+    painPoint: contact?.pipeline?.painPoint ?? null,
   }) as SubmissionRecord
 }
 
@@ -24,7 +26,7 @@ export async function getLeadRecord(id: string): Promise<SubmissionRecord | null
       contact: {
         include: {
           pipeline: {
-            select: { meetingTime: true, meetLink: true },
+            select: { meetingTime: true, meetLink: true, visitorTimezone: true, painPoint: true },
           },
         },
       },

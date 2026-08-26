@@ -52,7 +52,7 @@ export function MapaDeFugasInforme({ state, calc, formatMoney }: InformeProps) {
         <CardHeader>
           <CardTitle>Todavía no hay hallazgos</CardTitle>
           <CardDescription>
-            Vuelve a Consulta, recorre las trazas y activa las áreas que él mencionó como problema.
+            Completa las trazas y las áreas operativas en Consulta.
           </CardDescription>
         </CardHeader>
       </Card>
@@ -62,7 +62,7 @@ export function MapaDeFugasInforme({ state, calc, formatMoney }: InformeProps) {
   const grouped = groupRequerimientos(state.requerimientos)
 
   return (
-    <article className="rounded-xl border bg-card p-6 shadow-sm print:border-0 print:p-0 print:shadow-none md:p-10">
+    <article className="mx-auto w-full max-w-5xl rounded-2xl border bg-card p-6 shadow-sm print:max-w-none print:border-0 print:p-0 print:shadow-none md:p-12">
       <div className="flex flex-wrap items-start justify-between gap-4 border-b-2 border-foreground pb-5">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">
@@ -94,36 +94,36 @@ export function MapaDeFugasInforme({ state, calc, formatMoney }: InformeProps) {
 
       {marked ? (
         <>
-          <h3 className="mt-8 mb-3 text-[11px] font-semibold uppercase tracking-wider text-primary">
+          <h3 className="mt-10 mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
             Recorrido de la operación
           </h3>
           <InformeTrazas state={state} />
         </>
       ) : null}
 
-      <div className="mt-8 grid gap-4 lg:grid-cols-2">
-        <div className="rounded-xl bg-[#033160] p-6 text-white [print-color-adjust:exact]">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-white/60">
+      <div className="mt-8 grid gap-5 lg:grid-cols-2">
+        <div className="rounded-2xl bg-gradient-to-br from-[#033160] to-[#021c38] p-7 text-white [print-color-adjust:exact]">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">
             Fuga anual estimada
           </p>
-          <p className="mt-1 font-mono text-3xl font-semibold tracking-tight sm:text-4xl">
+          <p className="mt-2 font-mono text-3xl font-semibold tracking-tight sm:text-4xl">
             {calc.filas.length > 0 ? formatMoney(calc.total * 12) : "—"}
           </p>
-          <p className="mt-2 text-[11px] font-medium uppercase tracking-wider text-white/60">
+          <p className="mt-3 text-[11px] font-medium uppercase tracking-wider text-white/55">
             Costo actual medido
             {calc.filas.length > 0
               ? ` · ${calc.horas.toFixed(0)} h/mes · ${(calc.horas / 192).toFixed(1)} FTE`
               : " · sin áreas activas"}
           </p>
         </div>
-        <div className="rounded-xl border-2 border-foreground p-6">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+        <div className="rounded-2xl border-2 border-foreground p-7">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
             Oportunidad estructural
           </p>
-          <p className="mt-1 font-mono text-3xl font-semibold tracking-tight sm:text-4xl">
+          <p className="mt-2 font-mono text-3xl font-semibold tracking-tight sm:text-4xl">
             {reqCalc.cuantificados > 0 ? `${formatMoney(reqCalc.mes * 12)} / año` : "Sin cuantificar"}
           </p>
-          <p className="mt-2 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+          <p className="mt-3 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
             Ingreso o capacidad que hoy no existe
             {reqCalc.count > 0
               ? ` · ${reqCalc.count} requerimiento${reqCalc.count === 1 ? "" : "s"}`
@@ -134,14 +134,14 @@ export function MapaDeFugasInforme({ state, calc, formatMoney }: InformeProps) {
           </p>
         </div>
       </div>
-      <p className="mt-3 text-sm text-muted-foreground">
+      <p className="mt-4 text-sm text-muted-foreground">
         Estas dos cifras no se suman. Una es lo que ya se gasta mal. La otra es lo que todavía no
         pueden hacer.
       </p>
 
       {calc.filas.length > 0 ? (
         <>
-          <h3 className="mt-8 mb-3 text-[11px] font-semibold uppercase tracking-wider text-primary">
+          <h3 className="mt-10 mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
             Dónde está la fuga
           </h3>
           <Table>
@@ -177,7 +177,7 @@ export function MapaDeFugasInforme({ state, calc, formatMoney }: InformeProps) {
 
       {state.requerimientos.length > 0 ? (
         <>
-          <h3 className="mt-8 mb-3 text-[11px] font-semibold uppercase tracking-wider text-primary">
+          <h3 className="mt-10 mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
             Lo que hoy no pueden hacer
           </h3>
           <div className="space-y-6">
@@ -211,7 +211,7 @@ export function MapaDeFugasInforme({ state, calc, formatMoney }: InformeProps) {
 
       {top.length > 0 ? (
         <>
-          <h3 className="mt-8 mb-3 text-[11px] font-semibold uppercase tracking-wider text-primary">
+          <h3 className="mt-10 mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
             Por dónde empezar
           </h3>
           <ol className="space-y-5">
@@ -293,43 +293,37 @@ function InformeTrazas({ state }: { state: LeakMapState }) {
         const traza = state.trazas.find((item) => item.id === def.id)
         return (
           <div key={def.id}>
-            <p className="mb-2 text-sm font-semibold">{def.nombre}</p>
-            <ol className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-start">
-              {def.pasos.map((pasoDef, index) => {
+            <p className="mb-2.5 text-sm font-semibold">{def.nombre}</p>
+            <ol className="grid grid-cols-2 gap-2 md:grid-cols-4 print:grid-cols-4">
+              {def.pasos.map((pasoDef) => {
                 const paso = traza?.pasos.find((item) => item.id === pasoDef.id)
                 const estado = paso?.estado ?? ""
                 const broken = estado !== ""
                 return (
-                  <li key={pasoDef.id} className="flex min-w-0 items-start sm:max-w-[9.5rem]">
-                    {index > 0 ? (
-                      <span aria-hidden className="mt-3 hidden px-1 text-muted-foreground sm:inline">
-                        →
+                  <li
+                    key={pasoDef.id}
+                    className={cn(
+                      "min-w-0 rounded-lg border px-2.5 py-2",
+                      broken ? "border-foreground" : "border-dashed border-border",
+                    )}
+                  >
+                    <div className="flex items-center gap-2">
+                      <PasoMarca estado={estado} size="sm" />
+                      <span
+                        className={cn(
+                          "min-w-0 text-xs leading-tight",
+                          broken ? "font-semibold" : "text-muted-foreground",
+                        )}
+                      >
+                        {pasoDef.label}
                       </span>
-                    ) : null}
-                    <div
-                      className={cn(
-                        "min-w-0 flex-1 rounded-md border px-2 py-1.5",
-                        broken ? "border-foreground" : "border-dashed border-border",
-                      )}
-                    >
-                      <div className="flex items-center gap-1.5">
-                        <PasoMarca estado={estado} size="sm" />
-                        <span
-                          className={cn(
-                            "text-xs leading-tight",
-                            broken ? "font-semibold" : "text-muted-foreground",
-                          )}
-                        >
-                          {pasoDef.label}
-                        </span>
-                      </div>
-                      {broken ? (
-                        <p className="mt-1 text-[10px] font-medium uppercase tracking-wider">
-                          {estadoLabel(estado)}
-                          {paso?.nota ? ` · ${paso.nota}` : ""}
-                        </p>
-                      ) : null}
                     </div>
+                    {broken ? (
+                      <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wider">
+                        {estadoLabel(estado)}
+                        {paso?.nota ? ` · ${paso.nota}` : ""}
+                      </p>
+                    ) : null}
                   </li>
                 )
               })}

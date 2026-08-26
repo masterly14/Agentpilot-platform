@@ -26,6 +26,7 @@ export type BookingFormPayload = {
   date: string
   slotStart: string
   origin?: string
+  visitorTimezone?: string
 } & BookingFormData
 
 export type LeadFormPayload = BookingFormData

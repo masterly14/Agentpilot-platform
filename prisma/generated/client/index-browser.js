@@ -248,6 +248,7 @@ exports.Prisma.LeadPipelineScalarFieldEnum = {
   meetingId: 'meetingId',
   meetingTime: 'meetingTime',
   meetLink: 'meetLink',
+  visitorTimezone: 'visitorTimezone',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -429,6 +430,9 @@ exports.Prisma.OperationalDiagnosisScalarFieldEnum = {
   slug: 'slug',
   clientName: 'clientName',
   payload: 'payload',
+  submissionId: 'submissionId',
+  airbnbLeadId: 'airbnbLeadId',
+  meetingTime: 'meetingTime',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -534,6 +538,8 @@ exports.MarketingFunnelStage = exports.$Enums.MarketingFunnelStage = {
   SCHEDULED: 'SCHEDULED',
   SHOWED_UP: 'SHOWED_UP',
   NO_SHOW: 'NO_SHOW',
+  DEMO_SCHEDULED: 'DEMO_SCHEDULED',
+  DISCARDED: 'DISCARDED',
   PURCHASED: 'PURCHASED'
 };
 

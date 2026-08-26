@@ -13,9 +13,9 @@ export async function GET() {
     include: {
       contact: {
         include: {
-          pipeline: {
-            select: { meetingTime: true, meetLink: true },
-          },
+            pipeline: {
+              select: { meetingTime: true, meetLink: true, visitorTimezone: true, painPoint: true },
+            },
         },
       },
     },

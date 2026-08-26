@@ -1,6 +1,7 @@
 import { getMastra, isOpenAiConfigured } from "@/lib/agents/mastra"
 import { isConfluenceConfigured } from "@/lib/confluence/config"
 import { parseFathomMeeting, type FathomMeeting } from "@/lib/fathom/payload"
+import { processDiscoveryFollowup } from "@/lib/pipeline/discovery-summary"
 
 export type CallAnalysisSkipReason = "no_transcript" | "no_openai" | "no_confluence"
 
@@ -20,28 +21,44 @@ export async function processCallAnalysis(input: {
 }): Promise<CallAnalysisResult> {
   if (!input.meeting.transcript?.length) return { skipped: "no_transcript" }
   if (!isOpenAiConfigured()) return { skipped: "no_openai" }
-  if (!isConfluenceConfigured()) return { skipped: "no_confluence" }
+
+  const discovery = processDiscoveryFollowup(input.meeting).catch((error) => {
+    console.error("[fathom] discovery followup", error)
+    return { skipped: "error" as const }
+  })
+
+  if (!isConfluenceConfigured()) {
+    await discovery
+    return { skipped: "no_confluence" }
+  }
 
   const workflow = getMastra().getWorkflow("callAnalysisWorkflow")
   const run = await workflow.createRun()
-  const result = await run.start({
-    inputData: {
-      meeting: input.meeting,
-      meetingPageUrl: input.meetingPageUrl || "",
-    },
-  })
+  try {
+    const result = await run.start({
+      inputData: {
+        meeting: input.meeting,
+        meetingPageUrl: input.meetingPageUrl || "",
+      },
+    })
 
-  if (result.status !== "success") {
-    const detail =
-      result.status === "failed"
-        ? result.error instanceof Error
-          ? result.error.message
-          : String(result.error)
-        : result.status
-    throw new Error(`Workflow de análisis falló: ${detail}`)
+    await discovery
+
+    if (result.status !== "success") {
+      const detail =
+        result.status === "failed"
+          ? result.error instanceof Error
+            ? result.error.message
+            : String(result.error)
+          : result.status
+      throw new Error(`Workflow de análisis falló: ${detail}`)
+    }
+
+    return result.result
+  } catch (error) {
+    await discovery
+    throw error
   }
-
-  return result.result
 }
 
 export function parseAnalysisJob(payload: unknown) {

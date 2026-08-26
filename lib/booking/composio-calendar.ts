@@ -30,6 +30,7 @@ import type {
   MonthAvailabilityResponse,
 } from "@/lib/booking/types"
 import { formatBookingAnswersForDescription } from "@/lib/booking/form-options"
+import { formatBookingTimezoneNote } from "@/lib/booking/timezone"
 import { getComposioClient, getComposioUserId } from "@/lib/composio/client"
 
 type ComposioExecuteResult = {
@@ -141,8 +142,8 @@ function normalizeSlotStart(date: string, slotStart: string) {
   return slotStart
 }
 
-function buildEventEndDatetime(slotStart: string) {
-  const end = addMinutes(parseBookingDateTime(slotStart), bookingConfig.slotMinutes)
+function buildEventEndDatetime(slotStart: string, durationMinutes = bookingConfig.slotMinutes) {
+  const end = addMinutes(parseBookingDateTime(slotStart), durationMinutes)
   const { date, time } = getBookingDateTimeParts(end)
   return `${date}T${time}`
 }
@@ -181,43 +182,35 @@ async function assertSlotIsAvailable(date: string, slotStart: string) {
   }
 }
 
-export async function createBooking(payload: BookingFormPayload): Promise<BookingCreateResponse> {
-  const slotStart = normalizeSlotStart(payload.date, payload.slotStart)
+const DEMO_DURATION_MINUTES = 60
 
+export async function createMeetingEvent(input: {
+  summary: string
+  description?: string
+  start: Date
+  durationMinutes?: number
+  attendeeEmail?: string | null
+}): Promise<BookingCreateResponse> {
   if (!isComposioConfigured()) {
-    return {
-      success: true,
-      source: "mock",
-    }
+    return { success: true, source: "mock" }
   }
 
-  await assertSlotIsAvailable(payload.date, slotStart)
-
-  const description = formatBookingAnswersForDescription({
-    usesPms: payload.usesPms,
-    propertyCount: payload.propertyCount,
-    revenueRange: payload.revenueRange,
-    isTodero: payload.isTodero,
-    usesAi: payload.usesAi,
-    wantsToScale: payload.wantsToScale,
-    industryTime: payload.industryTime,
-    phoneCountryCode: payload.phoneCountryCode,
-    phoneNumber: payload.phoneNumber,
-    companyName: payload.companyName,
-    websiteUrl: payload.websiteUrl,
-    instagramUrl: payload.instagramUrl,
-    origin: payload.origin,
-  })
+  const { date, time } = getBookingDateTimeParts(input.start)
+  const slotStart = `${date}T${time}`
+  const durationMinutes = input.durationMinutes ?? bookingConfig.slotMinutes
+  const attendees = input.attendeeEmail
+    ? [{ email: input.attendeeEmail, optional: false }]
+    : undefined
 
   const result = await executeCalendarTool("GOOGLECALENDAR_CREATE_EVENT", {
     calendar_id: bookingConfig.calendarId,
-    summary: `Reunión con ${payload.fullName}`,
-    description: description || undefined,
+    summary: input.summary,
+    description: input.description || undefined,
     start_datetime: slotStart,
-    end_datetime: buildEventEndDatetime(slotStart),
+    end_datetime: buildEventEndDatetime(slotStart, durationMinutes),
     timezone: bookingConfig.timezone,
-    event_duration_minutes: bookingConfig.slotMinutes,
-    attendees: [{ email: payload.email, optional: false }],
+    event_duration_minutes: durationMinutes,
+    attendees,
     exclude_organizer: true,
     create_meeting_room: true,
     send_updates: "all",
@@ -236,6 +229,90 @@ export async function createBooking(payload: BookingFormPayload): Promise<Bookin
     eventId: typeof record.id === "string" ? record.id : undefined,
     htmlLink: typeof record.htmlLink === "string" ? record.htmlLink : undefined,
     meetLink: extractMeetLink(record),
+  }
+}
+
+export async function createDemoEvent(input: {
+  fullName: string
+  email?: string | null
+  start: Date
+  painPoint: string
+}): Promise<BookingCreateResponse> {
+  return createMeetingEvent({
+    summary: `Demo con ${input.fullName}`,
+    description: `Dolor principal: ${input.painPoint}`,
+    start: input.start,
+    durationMinutes: DEMO_DURATION_MINUTES,
+    attendeeEmail: input.email,
+  })
+}
+
+export async function createBooking(payload: BookingFormPayload): Promise<BookingCreateResponse> {
+  const slotStart = normalizeSlotStart(payload.date, payload.slotStart)
+
+  if (!isComposioConfigured()) {
+    return {
+      success: true,
+      source: "mock",
+    }
+  }
+
+  await assertSlotIsAvailable(payload.date, slotStart)
+
+  const answers = formatBookingAnswersForDescription({
+    usesPms: payload.usesPms,
+    propertyCount: payload.propertyCount,
+    revenueRange: payload.revenueRange,
+    isTodero: payload.isTodero,
+    usesAi: payload.usesAi,
+    wantsToScale: payload.wantsToScale,
+    industryTime: payload.industryTime,
+    phoneCountryCode: payload.phoneCountryCode,
+    phoneNumber: payload.phoneNumber,
+    companyName: payload.companyName,
+    websiteUrl: payload.websiteUrl,
+    instagramUrl: payload.instagramUrl,
+    origin: payload.origin,
+  })
+  const timezoneNote = formatBookingTimezoneNote(slotStart, payload.visitorTimezone)
+  const description = [timezoneNote, answers].filter(Boolean).join("\n\n")
+  const start = parseBookingDateTime(slotStart)
+
+  return createMeetingEvent({
+    summary: `Reunión con ${payload.fullName}`,
+    description: description || undefined,
+    start,
+    durationMinutes: bookingConfig.slotMinutes,
+    attendeeEmail: payload.email,
+  })
+}
+
+export async function updateCalendarEventTime(input: {
+  eventId: string
+  meetingTime: Date
+  durationMinutes?: number
+}) {
+  if (!isComposioConfigured()) {
+    return { success: false as const, reason: "not_configured" as const }
+  }
+
+  const { date, time } = getBookingDateTimeParts(input.meetingTime)
+  const slotStart = `${date}T${time}`
+  const durationMinutes = input.durationMinutes ?? bookingConfig.slotMinutes
+
+  try {
+    await executeCalendarTool("GOOGLECALENDAR_UPDATE_EVENT", {
+      calendar_id: bookingConfig.calendarId,
+      event_id: input.eventId,
+      start_datetime: slotStart,
+      end_datetime: buildEventEndDatetime(slotStart, durationMinutes),
+      timezone: bookingConfig.timezone,
+      send_updates: "all",
+    })
+    return { success: true as const }
+  } catch (error) {
+    console.warn("[calendar] no se pudo actualizar evento", input.eventId, error)
+    return { success: false as const, reason: "update_failed" as const }
   }
 }
 
