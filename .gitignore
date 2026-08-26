@@ -16,3 +16,7 @@ node_modules
 .DS_Store
 .vercel
 .env*
+
+# Prisma generate leftovers (Windows copies the engine to *.dll.node.tmp<pid>)
+prisma/generated/client/*.tmp*
+prisma/generated/client/*.dll.node.tmp*

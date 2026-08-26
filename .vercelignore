@@ -2,5 +2,9 @@
 .env.*
 site-reference/
 tsconfig.tsbuildinfo
-prisma/generated/client/query_engine-windows.dll.node
 .git
+
+# Windows Prisma engines are unused on Vercel (Linux). The *.tmp copies
+# were stalling "Deploying outputs" (~20MB each, traced into functions).
+prisma/generated/client/query_engine-windows.dll.node
+prisma/generated/client/query_engine-windows.dll.node.tmp*
