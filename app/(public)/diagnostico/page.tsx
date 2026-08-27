@@ -1,15 +1,15 @@
 import type { Metadata } from "next"
 import { notFound, redirect } from "next/navigation"
 import { BookingWidgetLight } from "@/components/diagnosis/booking-widget-light"
-import { SQL_DIAGNOSIS_HERO } from "@/components/diagnosis/content"
+import { SqlDiagnosisHero } from "@/components/diagnosis/sql-diagnosis-hero"
 import { DashedGrid } from "@/components/landing/dashed-grid"
-import { GlowCard, SectionHeading } from "@/components/social-proof/primitives"
+import { GlowCard } from "@/components/social-proof/primitives"
 import { prisma } from "@/lib/prisma"
 
 export const metadata: Metadata = {
-  title: "Diagnóstico de IA",
+  title: "Agendar diagnóstico",
   description:
-    "Cumples los criterios para agendar un diagnóstico gratuito y ver cómo implementar IA en tu operación de rentas cortas.",
+    "El libro te dice qué se puede automatizar. En 45 minutos miramos tu operación y sales con un número: cuánto te está costando no hacerlo.",
 }
 
 export default async function SqlDiagnosticoPage({
@@ -39,20 +39,16 @@ export default async function SqlDiagnosticoPage({
   return (
     <div className="min-h-screen overflow-x-hidden bg-black text-white selection:bg-zinc-800">
       <DashedGrid gridId="diagnostico-sql" maxWidth="6xl" padding="px-4 py-16 md:px-6 md:py-24">
-        <SectionHeading
-          eyebrow={SQL_DIAGNOSIS_HERO.badge}
-          titleLead={SQL_DIAGNOSIS_HERO.titleLead}
-          titleAccent={SQL_DIAGNOSIS_HERO.titleAccent}
-          description={SQL_DIAGNOSIS_HERO.description}
-          className="mb-10 md:mb-14"
-        />
-        <GlowCard className="p-2 md:p-3">
-          <BookingWidgetLight
-            leadToken={token}
-            leadName={submission.fullName ?? ""}
-            leadEmail={submission.email ?? ""}
-          />
-        </GlowCard>
+        <SqlDiagnosisHero />
+        <div id="booking" className="scroll-mt-8">
+          <GlowCard className="p-2 md:p-3">
+            <BookingWidgetLight
+              leadToken={token}
+              leadName={submission.fullName ?? ""}
+              leadEmail={submission.email ?? ""}
+            />
+          </GlowCard>
+        </div>
       </DashedGrid>
     </div>
   )

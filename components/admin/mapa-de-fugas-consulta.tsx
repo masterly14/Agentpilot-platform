@@ -16,6 +16,7 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { MapaDeFugasRequerimientos } from "@/components/admin/mapa-de-fugas-requerimientos"
 import { MapaDeFugasTrazas } from "@/components/admin/mapa-de-fugas-trazas"
+import { DiagnosticoCifras } from "@/components/admin/mapa-de-fugas-informe"
 import {
   areaHoursMonth,
   calculateRequerimientos,
@@ -30,6 +31,7 @@ import {
   type Requerimiento,
   type TrazaId,
 } from "@/lib/admin/leak-map"
+import { buildDiagnosisInforme, DIAGNOSIS_INFORME_CSS } from "@/lib/admin/diagnosis-informe"
 import { cn } from "@/lib/utils"
 
 type ConsultaProps = {
@@ -243,12 +245,12 @@ export function MapaDeFugasConsulta({
 
       <Section
         step="04"
-        title="La fuga"
-        description="Estimación anual construida a partir de las áreas activas."
+        title="Costo de la operación"
+        description="Tres cifras en orden de certeza: lo medido, lo estimado y el potencial que hoy no pueden capturar."
         padded={false}
       >
         {revelado ? (
-          <Resultado calc={calc} formatMoney={formatMoney} />
+          <Resultado state={state} />
         ) : (
           <button
             type="button"
@@ -515,41 +517,17 @@ function GroupLabel({ children }: { children: ReactNode }) {
   )
 }
 
-function Resultado({
-  calc,
-  formatMoney,
-}: {
-  calc: LeakMapCalc
-  formatMoney: (value: number) => string
-}) {
+function Resultado({ state }: { state: LeakMapState }) {
+  const model = buildDiagnosisInforme(state)
   return (
-    <div className="rounded-2xl bg-gradient-to-br from-[#033160] to-[#021c38] p-7 text-white shadow-sm [print-color-adjust:exact] md:p-9">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">
-        Fuga anual estimada
+    <div className="diagnostico-informe diagnostico-informe--embed">
+      <style>{DIAGNOSIS_INFORME_CSS}</style>
+      <DiagnosticoCifras model={model} />
+      <p className="separador">
+        Estas tres cifras están separadas a propósito y en orden de certeza. La primera es aritmética
+        sobre tus números. La segunda es una aproximación que hay que confirmar. La tercera no es un
+        gasto: es lo que la operación no puede capturar hoy.
       </p>
-      <p className="mt-2 font-mono text-4xl font-semibold tracking-tight sm:text-5xl">
-        {formatMoney(calc.total * 12)}
-      </p>
-      <div className="mt-8 grid grid-cols-1 gap-6 border-t border-white/15 pt-6 sm:grid-cols-2 lg:grid-cols-4">
-        <Dato label="Horas recuperables al mes" value={`${calc.horas.toFixed(0)} h`} />
-        <Dato label="Costo directo anual" value={formatMoney(calc.directo * 12)} />
-        <Dato label="Costo indirecto anual" value={formatMoney(calc.indirecto * 12)} />
-        <Dato
-          label="Equivale a"
-          value={`${(calc.horas / 192).toFixed(1)} personas de tiempo completo`}
-        />
-      </div>
-    </div>
-  )
-}
-
-function Dato({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <span className="text-[11px] font-medium uppercase tracking-wider text-white/55">
-        {label}
-      </span>
-      <strong className="text-base leading-snug font-semibold">{value}</strong>
     </div>
   )
 }

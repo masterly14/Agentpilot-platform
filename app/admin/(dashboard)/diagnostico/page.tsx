@@ -23,7 +23,7 @@ export default async function AdminDiagnosticoPage() {
   ])
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto scroll-smooth bg-muted/40 print:overflow-visible print:bg-transparent">
+    <div className="min-h-0 flex-1 overflow-y-auto scroll-smooth bg-muted/40 print:overflow-visible print:bg-white">
       <MapaDeFugas
         initialFecha={todayBogotaDate()}
         initialSaved={rows.map(toSavedDiagnosis)}

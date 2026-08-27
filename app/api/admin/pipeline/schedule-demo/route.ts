@@ -89,6 +89,9 @@ export async function POST(request: Request) {
     meetLink = created.meetLink ?? null
     if (created.source === "mock") {
       calendarWarning = "Calendario no configurado: la demo se guardó sin evento de Google."
+    } else if (!meetingId) {
+      calendarWarning =
+        "La demo se guardó en el pipeline, pero Calendar no devolvió el evento. Revisa Google Calendar."
     }
   } catch (error) {
     calendarWarning = error instanceof Error ? error.message : "No se pudo crear el evento en Calendar"

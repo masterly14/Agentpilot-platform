@@ -16,7 +16,7 @@ import {
   type BookingFormData,
 } from "./booking-form-wizard-light"
 import { BookingTimezonePicker } from "@/components/booking/timezone-picker"
-import { DIAGNOSIS_BOOKING } from "./content"
+import { DIAGNOSIS_BOOKING, SQL_DIAGNOSIS_HERO } from "./content"
 import {
   Collapsible,
   CollapsibleContent,
@@ -80,6 +80,22 @@ type BookingStep =
 
 function getFallbackUnavailableDays(year: number, month: number) {
   return getUnbookableDaysInMonth(year, month)
+}
+
+function CallAgenda() {
+  return (
+    <div className="border-b border-zinc-200 px-4 py-4 md:px-6">
+      <p className="mb-3 text-sm font-medium text-zinc-800">{SQL_DIAGNOSIS_HERO.callAgendaTitle}</p>
+      <ul className="space-y-2">
+        {SQL_DIAGNOSIS_HERO.callAgenda.map((item) => (
+          <li key={item} className="flex items-start gap-2.5 text-xs leading-relaxed text-zinc-600 md:text-sm">
+            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 }
 
 function BookingRecommendations() {
@@ -559,7 +575,7 @@ function LeadConfirmPanel({
               Confirmando...
             </>
           ) : (
-            "Confirmar reunión"
+            SQL_DIAGNOSIS_HERO.cta
           )}
         </button>
       </div>
@@ -827,7 +843,7 @@ export function BookingWidgetLight({
 
   return (
     <div className="overflow-hidden rounded-3xl border border-zinc-200/90 bg-white shadow-[0_40px_120px_-40px_rgba(6,182,212,0.35)]">
-      <BookingRecommendations />
+      {leadMode ? <CallAgenda /> : <BookingRecommendations />}
       <div
         className={cn(
           "grid grid-cols-1",
@@ -849,13 +865,13 @@ export function BookingWidgetLight({
           </div>
 
           <h3 className="mb-3 text-lg font-semibold leading-snug text-zinc-900 md:mb-4 md:text-2xl">
-            {leadMode ? "Tu diagnóstico de IA" : "Diagnóstico gratuito"}
+            {leadMode ? SQL_DIAGNOSIS_HERO.widgetTitle : "Diagnóstico gratuito"}
           </h3>
 
           <div className="mb-5 max-h-[112px] overflow-y-auto pr-2 text-sm leading-relaxed text-zinc-600 [scrollbar-color:rgb(228_228_231)_transparent] [scrollbar-width:thin] md:mb-6 md:max-h-[140px]">
             <p>
               {leadMode
-                ? "Cumples los criterios. Elige fecha y hora; usaremos los datos de la guía y te llegará la invitación de Google Meet."
+                ? SQL_DIAGNOSIS_HERO.widgetBody
                 : "Agenda una reunión para analizar tu operación y ver si tiene sentido implementar el sistema en tu negocio."}
             </p>
           </div>
@@ -863,7 +879,7 @@ export function BookingWidgetLight({
           <div className="space-y-2.5 text-sm text-zinc-600">
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 shrink-0" />
-              <span>{bookingConfig.slotMinutes}m</span>
+              <span>{leadMode ? SQL_DIAGNOSIS_HERO.durationLabel : `${bookingConfig.slotMinutes}m`}</span>
             </div>
             <div className="flex items-center gap-2">
               <GoogleMeetIcon className="h-4 w-4 shrink-0" />

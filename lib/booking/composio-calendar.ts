@@ -48,6 +48,27 @@ function unwrapComposioData(result: unknown): unknown {
   return result
 }
 
+function composioErrorMessage(result: unknown) {
+  const envelope = asRecord(result)
+  if (!envelope) return null
+
+  const nested = asRecord(envelope.data) ?? envelope
+  const status = nested.status_code
+  if (typeof status === "number" && status >= 400) {
+    if (typeof nested.message === "string" && nested.message.trim()) return nested.message
+    if (typeof envelope.error === "string" && envelope.error.trim()) return envelope.error
+    return `Composio request failed (${status})`
+  }
+
+  if (envelope.successful === false) {
+    if (typeof envelope.error === "string" && envelope.error.trim()) return envelope.error
+    if (typeof nested.message === "string" && nested.message.trim()) return nested.message
+    return "Composio tool failed"
+  }
+
+  return null
+}
+
 async function executeCalendarTool(tool: string, arguments_: Record<string, unknown>) {
   const composio = getComposioClient()
   const userId = getComposioUserId()
@@ -57,12 +78,12 @@ async function executeCalendarTool(tool: string, arguments_: Record<string, unkn
     arguments: arguments_,
   })
 
-  const payload = unwrapComposioData(result) as ComposioExecuteResult
-  if (payload && typeof payload === "object" && payload.successful === false) {
-    throw new Error(payload.error || `Composio tool ${tool} failed`)
+  const errorMessage = composioErrorMessage(result)
+  if (errorMessage) {
+    throw new Error(errorMessage)
   }
 
-  return payload
+  return unwrapComposioData(result)
 }
 
 function slotsFromFreeBusy(date: string, payload: unknown) {
@@ -148,11 +169,22 @@ function buildEventEndDatetime(slotStart: string, durationMinutes = bookingConfi
   return `${date}T${time}`
 }
 
-function extractMeetLink(payload: unknown): string | undefined {  if (!payload || typeof payload !== "object") return undefined
+function asRecord(value: unknown): Record<string, unknown> | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null
+  return value as Record<string, unknown>
+}
 
-  const record = payload as Record<string, unknown>
+function extractMeetLink(payload: unknown): string | undefined {
+  const record = asRecord(payload)
+  if (!record) return undefined
 
   if (typeof record.hangoutLink === "string") return record.hangoutLink
+  if (typeof record.meetLink === "string" && record.meetLink.includes("meet.google.com")) {
+    return record.meetLink
+  }
+  if (typeof record.location === "string" && record.location.includes("meet.google.com")) {
+    return record.location
+  }
 
   const conferenceData = record.conferenceData
   if (conferenceData && typeof conferenceData === "object") {
@@ -167,6 +199,36 @@ function extractMeetLink(payload: unknown): string | undefined {  if (!payload |
   }
 
   return undefined
+}
+
+function pickCalendarEventRecord(payload: unknown): Record<string, unknown> {
+  const seen = new Set<unknown>()
+  const queue: unknown[] = [payload]
+
+  while (queue.length) {
+    const item = queue.shift()
+    const record = asRecord(item)
+    if (!record || seen.has(record)) continue
+    seen.add(record)
+
+    const hasEventId = typeof record.id === "string" && record.id.length > 0
+    const looksLikeEvent =
+      hasEventId &&
+      (typeof record.htmlLink === "string" ||
+        typeof record.hangoutLink === "string" ||
+        Boolean(record.start) ||
+        Boolean(record.conferenceData) ||
+        typeof record.summary === "string")
+    if (looksLikeEvent || (hasEventId && !record.data && !record.response_data && !record.event)) {
+      return record
+    }
+
+    for (const key of ["data", "response_data", "event", "result"]) {
+      if (record[key] !== undefined) queue.push(record[key])
+    }
+  }
+
+  return asRecord(payload) ?? {}
 }
 
 async function assertSlotIsAvailable(date: string, slotStart: string) {
@@ -209,26 +271,29 @@ export async function createMeetingEvent(input: {
     start_datetime: slotStart,
     end_datetime: buildEventEndDatetime(slotStart, durationMinutes),
     timezone: bookingConfig.timezone,
-    event_duration_minutes: durationMinutes,
     attendees,
     exclude_organizer: true,
     create_meeting_room: true,
     send_updates: "all",
   })
 
-  const data =
-    result && typeof result === "object"
-      ? ((result as Record<string, unknown>).response_data ?? result)
-      : result
+  const record = pickCalendarEventRecord(result)
+  const eventId = typeof record.id === "string" ? record.id : undefined
+  const htmlLink = typeof record.htmlLink === "string" ? record.htmlLink : undefined
+  const meetLink = extractMeetLink(record)
 
-  const record = (data ?? {}) as Record<string, unknown>
+  if (!eventId) {
+    console.warn("[calendar] CREATE_EVENT sin event id", {
+      keys: Object.keys(asRecord(result) ?? {}),
+    })
+  }
 
   return {
     success: true,
     source: "composio",
-    eventId: typeof record.id === "string" ? record.id : undefined,
-    htmlLink: typeof record.htmlLink === "string" ? record.htmlLink : undefined,
-    meetLink: extractMeetLink(record),
+    eventId,
+    htmlLink,
+    meetLink,
   }
 }
 

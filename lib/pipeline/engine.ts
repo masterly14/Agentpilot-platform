@@ -444,8 +444,8 @@ export async function enterPreDemo(input: {
   const extra = {
     painPoint: input.painPoint,
     meetingTime: input.meetingTime,
-    meetingId: input.meetingId ?? existing?.meetingId ?? null,
-    meetLink: input.meetLink ?? existing?.meetLink ?? null,
+    meetingId: input.meetingId !== undefined ? input.meetingId : (existing?.meetingId ?? null),
+    meetLink: input.meetLink !== undefined ? input.meetLink : (existing?.meetLink ?? null),
   }
 
   if (!existing) {

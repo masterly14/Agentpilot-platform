@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
-import { Plus, Printer, Save, UserRound } from "lucide-react"
+import { FileDown, Plus, Save, UserRound } from "lucide-react"
 import { toast } from "sonner"
 import { DiagnosticoLeadPicker } from "@/components/admin/diagnostico-lead-picker"
 import { formatMeetingLabel } from "@/components/admin/kanban-parts"
@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { printDiagnosisInforme } from "@/lib/admin/diagnosis-informe"
 import {
   leakMapFromLead,
   linkFromSaved,
@@ -330,9 +331,9 @@ export function MapaDeFugas({ initialSaved, initialLeads, initialFecha }: MapaDe
                 <Plus />
                 Nuevo
               </Button>
-              <Button type="button" variant="outline" size="sm" onClick={() => window.print()}>
-                <Printer />
-                Imprimir
+              <Button type="button" variant="outline" size="sm" onClick={() => printDiagnosisInforme(state)}>
+                <FileDown />
+                PDF
               </Button>
               <Button type="button" size="sm" onClick={() => void handleSave()} disabled={saving}>
                 <Save />
@@ -371,7 +372,7 @@ export function MapaDeFugas({ initialSaved, initialLeads, initialFecha }: MapaDe
                 <HeaderStat label="Pasos marcados" value={String(pasosMarcados)} />
                 <HeaderStat label="Requerimientos" value={String(state.requerimientos.length)} />
                 {revelado && calc.filas.length > 0 ? (
-                  <HeaderStat label="Fuga anual" value={formatMoney(calc.total * 12)} accent />
+                  <HeaderStat label="Costo medido" value={formatMoney(calc.directo * 12)} accent />
                 ) : null}
               </div>
             </div>
@@ -379,7 +380,12 @@ export function MapaDeFugas({ initialSaved, initialLeads, initialFecha }: MapaDe
         </div>
       </header>
 
-      <div className="mx-auto w-full max-w-7xl px-4 py-8 md:px-8 md:py-12 print:max-w-none print:p-0">
+      <div
+        className={cn(
+          "mx-auto w-full print:max-w-none print:p-0",
+          vista === "consulta" ? "max-w-7xl px-4 py-8 md:px-8 md:py-12" : "",
+        )}
+      >
         <TabsContent value="consulta" className="mt-0 print:hidden">
           <MapaDeFugasConsulta
             state={state}
@@ -400,7 +406,7 @@ export function MapaDeFugas({ initialSaved, initialLeads, initialFecha }: MapaDe
           />
         </TabsContent>
         <TabsContent value="informe" className="mt-0 print:block">
-          <MapaDeFugasInforme state={state} calc={calc} formatMoney={formatMoney} />
+          <MapaDeFugasInforme state={state} />
         </TabsContent>
       </div>
 

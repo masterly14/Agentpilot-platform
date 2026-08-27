@@ -4,12 +4,26 @@ export const DIAGNOSIS_CTA = {
 }
 
 export const SQL_DIAGNOSIS_HERO = {
-  badge: "Felicidades",
-  titleLead: "Obtuviste un diagnóstico de",
-  titleAccent: "IA gratuito",
+  badge: "Tu libro va en camino",
+  titleLead: "El libro te dice qué se puede automatizar.",
+  titleAccent: "No te dice cuánto te está costando a ti no hacerlo.",
+  subtitle: "Eso solo sale mirando tu operación. Es lo que hacemos en el diagnóstico.",
   description:
-    "Tu operación encaja con el perfil que tiene potencial para liberar +100 horas semanales, multiplicar facturación y aumentar capacidad operativa. Elige un horario y en la llamada vas a ver los cuellos de botella de tu negocio y cómo este sistema puede ayudarte a resolverlos.",
-}
+    "En 45 minutos desarmamos tu operación proceso por proceso: comunicación con huéspedes, limpieza, gastos, reportes a propietarios. Al final tienes un número: cuánto se te va al año en tiempo y costos que hoy nadie está midiendo. Te llevas ese documento trabajemos juntos o no.",
+  callAgendaTitle: "Qué pasa en la llamada",
+  callAgenda: [
+    "No hay presentación de producto ni propuesta comercial",
+    "Salimos con tu operación diagnosticada y priorizada",
+    "Si creemos que no podemos ayudarte, te lo decimos ahí mismo",
+  ],
+  cta: "Agendar mi diagnóstico",
+  ctaHref: "#booking",
+  ctaMeta: "45 minutos · Sin costo · Para operadores desde 10 propiedades",
+  widgetTitle: "Diagnóstico",
+  widgetBody:
+    "En 45 minutos desarmamos tu operación proceso por proceso. Te llevas el documento, trabajemos juntos o no.",
+  durationLabel: "45 min",
+} as const
 
 export const DIAGNOSIS_HERO = {
   badge: "Diagnóstico gratuito",
