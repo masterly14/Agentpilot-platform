@@ -132,7 +132,7 @@ export async function sendLeadEventToMeta(eventId: string) {
     ],
   }
 
-  const testCode = process.env.META_TEST_EVENT_CODE?.trim()
+  const testCode = process.env.NODE_ENV !== "production" ? process.env.META_TEST_EVENT_CODE?.trim() : ""
   if (testCode) payload.test_event_code = testCode
 
   const pixelId = getCapiPixelId()

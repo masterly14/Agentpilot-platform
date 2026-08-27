@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
-import { MARKETING_TRIGGERED_BY, recordMarketingStage } from "@/lib/marketing/events"
-import { markVideoWatched } from "@/lib/pipeline/engine"
+import { getAppUrl } from "@/lib/ebook/app-url"
 
 export const runtime = "nodejs"
 
-function videoRedirectUrl() {
-  return process.env.PIPELINE_VIDEO_URL?.trim() || "https://santiagovaron.com/diagnostico"
+function videoRedirectUrl(token?: string) {
+  const url = new URL("/video", getAppUrl())
+  if (token) url.searchParams.set("lead", token)
+  return url.toString()
 }
 
 async function recordVideo(token: string) {
@@ -16,35 +17,21 @@ async function recordVideo(token: string) {
   })
   if (!submission) return false
 
-  if (submission.contactId) {
-    const pipeline = await prisma.leadPipeline.findUnique({
-      where: { contactId: submission.contactId },
-      select: { id: true },
-    })
-    if (pipeline) {
-      await markVideoWatched(submission.contactId)
-      return true
-    }
-  }
-
-  await recordMarketingStage({
-    submissionId: submission.id,
-    to: "VIDEO_SENT",
-    triggeredBy: MARKETING_TRIGGERED_BY.system,
-  })
+  // Validar el token antes de propagarlo a la página; abrir el enlace no emite eventos de marketing.
   return true
 }
 
 export async function GET(request: Request) {
   const token = new URL(request.url).searchParams.get("token")?.trim()
+  let isKnownLead = false
   if (token) {
     try {
-      await recordVideo(token)
+      isKnownLead = await recordVideo(token)
     } catch (error) {
       console.error("[pipeline/video]", error)
     }
   }
-  return NextResponse.redirect(videoRedirectUrl())
+  return NextResponse.redirect(videoRedirectUrl(isKnownLead ? token : undefined))
 }
 
 export async function POST(request: Request) {

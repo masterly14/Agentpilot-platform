@@ -542,6 +542,8 @@ export function BookingWidget({
   const [meetLink, setMeetLink] = useState<string | null>(null)
   const loadTimeoutRef = useRef<number | null>(null)
   const mobileTimesPanelRef = useRef<HTMLDivElement>(null)
+  const bookingWidgetRef = useRef<HTMLDivElement>(null)
+  const calendarViewedRef = useRef(false)
   const existingLead = Boolean(leadToken)
   const { getToken, sync, flush, clear } = usePartialSubmission({
     entrySource: "DIRECT_BOOKING",
@@ -573,6 +575,27 @@ export function BookingWidget({
   }, [])
 
   useEffect(() => clearLoadTimeout, [clearLoadTimeout])
+
+  useEffect(() => {
+    const node = bookingWidgetRef.current
+    if (!node || calendarViewedRef.current) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting || calendarViewedRef.current) return
+        calendarViewedRef.current = true
+        observer.disconnect()
+        window.fbq?.("track", "ViewContent", {
+          content_name: "Calendario de agendamiento",
+          content_category: "booking",
+        })
+      },
+      { threshold: 0.5 },
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
 
   const resetSelection = useCallback(() => {
     setSelectedDay(null)
@@ -771,7 +794,7 @@ export function BookingWidget({
       : null
 
   return (
-    <div className="overflow-hidden rounded-xl border border-zinc-800 bg-[#111111] md:rounded-2xl">
+    <div ref={bookingWidgetRef} className="overflow-hidden rounded-xl border border-zinc-800 bg-[#111111] md:rounded-2xl">
       <div
         className={cn(
           "grid grid-cols-1",

@@ -1,13 +1,9 @@
 "use client"
 
-import { useState } from "react"
 import { ArrowRight, ChevronDown, Stethoscope } from "lucide-react"
-import { LandingVideoPlayer } from "@/components/landing/landing-video-player"
 import { DashedGrid } from "@/components/landing/dashed-grid"
-import { useScrollLock } from "@/components/landing/scroll-lock-provider"
 import { scrollToSection } from "@/lib/smooth-scroll"
 import { CtaButton } from "@/components/social-proof/primitives"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { DIAGNOSIS_CTA, DIAGNOSIS_HERO } from "./content"
 
 type DiagnosisHeroCopy = {
@@ -15,9 +11,6 @@ type DiagnosisHeroCopy = {
   titleLead: string
   titleAccent: string
   description: string
-  videoNoteLead: string
-  videoNote: string
-  videoCue: string
 }
 
 export function DiagnosisHero({
@@ -27,8 +20,6 @@ export function DiagnosisHero({
   copy?: DiagnosisHeroCopy
   ctaLabel?: string
 } = {}) {
-  const { isLocked } = useScrollLock()
-
   return (
     <section className="relative overflow-x-hidden">
       <AuroraBackdrop />
@@ -55,107 +46,40 @@ export function DiagnosisHero({
           </h1>
 
           <p
-            className="ap-fade-up mb-3 max-w-3xl text-pretty text-base leading-relaxed text-zinc-400 md:text-lg"
+            className="ap-fade-up mb-8 max-w-2xl text-pretty text-base leading-relaxed text-zinc-400 md:mb-10 md:text-xl"
             style={{ animationDelay: "0.2s" }}
           >
-            {copy.videoNoteLead}
-            {copy.videoNote}
+            {copy.description}
           </p>
 
-          <p
-            className="ap-fade-up mb-6 max-w-3xl text-pretty text-sm text-zinc-500 md:mb-8 md:text-base"
-            style={{ animationDelay: "0.24s" }}
-          >
-            {copy.videoCue}
-          </p>
-        </div>
-
-        <div className="ap-fade-up w-full" style={{ animationDelay: "0.28s" }}>
-          <LandingVideoPlayer />
-        </div>
-
-        <div
-          className="ap-fade-up flex w-full flex-col items-center px-4 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:py-10"
-          style={{ animationDelay: "0.34s" }}
-        >
-          <DiagnosisCta locked={isLocked} label={ctaLabel} />
-        </div>
-
-        {isLocked ? null : (
-          <div className="flex flex-col items-center px-4 pb-10 text-center md:px-6 md:pb-16">
-            <p
-              className="ap-fade-up mb-8 max-w-2xl text-pretty text-base text-zinc-400 md:text-xl"
-              style={{ animationDelay: "0.4s" }}
-            >
-              {copy.description}
-            </p>
-
-            <button
-              type="button"
-              onClick={() => scrollToSection("prueba-real")}
-              aria-label="Ver la prueba real"
-              className="ap-fade-up group inline-flex h-14 w-14 items-center justify-center rounded-full border border-zinc-700/80 bg-zinc-900/40 text-zinc-200 transition-colors hover:border-zinc-400 hover:bg-zinc-800/70 hover:text-white animate-scroll-button-pulse motion-reduce:animate-none"
-              style={{ animationDelay: "0.5s" }}
-            >
-              <span className="relative flex h-7 w-7 flex-col items-center justify-center">
-                <ChevronDown
-                  className="absolute h-5 w-5 animate-scroll-arrow motion-reduce:animate-none"
-                  style={{ animationDelay: "0ms" }}
-                />
-                <ChevronDown
-                  className="absolute h-5 w-5 animate-scroll-arrow motion-reduce:animate-none"
-                  style={{ animationDelay: "350ms" }}
-                />
-              </span>
-            </button>
+          <div className="ap-fade-up mb-8 md:mb-10" style={{ animationDelay: "0.28s" }}>
+            <CtaButton href={DIAGNOSIS_CTA.href}>
+              {ctaLabel}
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </CtaButton>
           </div>
-        )}
+
+          <button
+            type="button"
+            onClick={() => scrollToSection("prueba-real")}
+            aria-label="Ver la prueba real"
+            className="ap-fade-up group inline-flex h-14 w-14 items-center justify-center rounded-full border border-zinc-700/80 bg-zinc-900/40 text-zinc-200 transition-colors hover:border-zinc-400 hover:bg-zinc-800/70 hover:text-white animate-scroll-button-pulse motion-reduce:animate-none"
+            style={{ animationDelay: "0.4s" }}
+          >
+            <span className="relative flex h-7 w-7 flex-col items-center justify-center">
+              <ChevronDown
+                className="absolute h-5 w-5 animate-scroll-arrow motion-reduce:animate-none"
+                style={{ animationDelay: "0ms" }}
+              />
+              <ChevronDown
+                className="absolute h-5 w-5 animate-scroll-arrow motion-reduce:animate-none"
+                style={{ animationDelay: "350ms" }}
+              />
+            </span>
+          </button>
+        </div>
       </DashedGrid>
     </section>
-  )
-}
-
-const ctaClassName =
-  "group relative inline-flex h-12 w-full max-w-xs items-center justify-center gap-2 overflow-hidden rounded-full bg-white px-7 text-sm font-medium text-black transition-all duration-300 hover:shadow-[0_0_40px_-8px_rgba(255,255,255,0.45)] sm:w-auto"
-
-function DiagnosisCta({ locked, label }: { locked: boolean; label: string }) {
-  const [tipOpen, setTipOpen] = useState(false)
-
-  if (!locked) {
-    return (
-      <CtaButton href={DIAGNOSIS_CTA.href}>
-        {label}
-        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-      </CtaButton>
-    )
-  }
-
-  return (
-    <Tooltip open={tipOpen} onOpenChange={setTipOpen}>
-      <TooltipTrigger asChild>
-        <button
-          type="button"
-          className={ctaClassName}
-          onClick={() => setTipOpen(true)}
-        >
-          <span
-            aria-hidden
-            className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-700 group-hover:translate-x-full"
-          />
-          <span className="relative flex items-center gap-2">
-            {label}
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </span>
-        </button>
-      </TooltipTrigger>
-      <TooltipContent
-        side="top"
-        sideOffset={8}
-        className="max-w-xs border border-zinc-700 bg-zinc-900 px-3 py-2 text-center text-sm text-zinc-100"
-      >
-        En unos segundos se desbloqueará. Termina de ver un momento el video.
-      </TooltipContent>
-    </Tooltip>
   )
 }
 

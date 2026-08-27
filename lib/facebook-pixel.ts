@@ -39,7 +39,7 @@ export function trackSchedule(params: {
   if (!params.eventID || !initAdvancedMatching(params.email, params.fullName) || !window.fbq) return
 
   window.fbq(
-    "trackCustom",
+    "track",
     "Schedule",
     {
       content_name: "Reunión agendada",

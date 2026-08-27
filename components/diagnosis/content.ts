@@ -31,10 +31,6 @@ export const DIAGNOSIS_HERO = {
   titleAccent: "y tus rentas funcionando",
   description:
     "La logística de varias propiedades no debería consumirte el día ni frenar tu crecimiento. En este diagnóstico aprenderás cómo recuperar +50 horas a la semana, aumentar facturación y enfocarte en lo que importa: Crecer.",
-  videoNoteLead: "Antes de agendar tu diagnóstico, ",
-  videoNote:
-    "mira exactamente cómo hacemos que tu renta corta libere más de 100 horas semanales, multipliques facturación y aumentes potencialmente tu capacidad operativa.",
-  videoCue: "Mira este corto video antes de agendar para que tengas más claridad.",
 }
 
 export const DIAGNOSIS_PROOF = {

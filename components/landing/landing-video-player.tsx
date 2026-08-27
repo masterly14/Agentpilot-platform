@@ -3,13 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Maximize2, Minimize2, Pause, Play, Volume2, VolumeX } from "lucide-react"
-import {
-  displayedProgress,
-  effectiveUnlockAt,
-  LANDING_VIDEO,
-} from "@/lib/landing-video"
+import { LANDING_VIDEO } from "@/lib/landing-video"
 import { cn } from "@/lib/utils"
-import { useScrollLock } from "./scroll-lock-provider"
 
 const VISITOR_KEY = "ap.video.visitor.v1"
 const HEARTBEAT_MS = 5000
@@ -29,18 +24,16 @@ function getVisitorId() {
   }
 }
 
-export function LandingVideoPlayer() {
-  const { unlock } = useScrollLock()
+export function LandingVideoPlayer({ leadToken }: { leadToken?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const frameRef = useRef<HTMLDivElement>(null)
   const barRef = useRef<HTMLDivElement>(null)
   const sessionIdRef = useRef<string | null>(null)
   const visitorIdRef = useRef("")
-  const maxPlayedRef = useRef(0)
+  const watchedSecondsRef = useRef(0)
+  const lastPlaybackTimeRef = useRef<number | null>(null)
   const durationRef = useRef(0)
-  const unlockedRef = useRef(false)
   const completedRef = useRef(false)
-  const pausedByUsRef = useRef(false)
   const pauseTimerRef = useRef<number | null>(null)
   const inflightRef = useRef<Promise<void> | null>(null)
 
@@ -50,14 +43,13 @@ export function LandingVideoPlayer() {
   const [playing, setPlaying] = useState(false)
   const [muted, setMuted] = useState(false)
   const [hasStarted, setHasStarted] = useState(false)
-  const [unlocked, setUnlocked] = useState(false)
   const [playbackError, setPlaybackError] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
 
   const syncBar = useCallback((time: number, duration: number) => {
     if (!barRef.current) return
-    const unlockAt = effectiveUnlockAt(duration || LANDING_VIDEO.unlockAtSeconds)
-    barRef.current.style.width = `${displayedProgress(time, duration, unlockAt) * 100}%`
+    const progress = duration > 0 ? Math.min(time / duration, 1) : 0
+    barRef.current.style.width = `${progress * 100}%`
   }, [])
 
   const sendHeartbeat = useCallback(async (dropReason?: DropReason) => {
@@ -65,7 +57,7 @@ export function LandingVideoPlayer() {
     const visitorId = visitorIdRef.current
     if (!video || !visitorId) return
 
-    const currentTime = Math.max(maxPlayedRef.current, video.currentTime || 0)
+    const currentTime = watchedSecondsRef.current
     const duration = durationRef.current || video.duration || 0
     const payload = {
       sessionId: sessionIdRef.current ?? undefined,
@@ -73,9 +65,9 @@ export function LandingVideoPlayer() {
       videoId: LANDING_VIDEO.id,
       currentTime,
       duration,
-      unlocked: unlockedRef.current,
       completed: completedRef.current,
       dropReason,
+      leadToken: leadToken || undefined,
     }
 
     const post = async (keepalive: boolean) => {
@@ -99,40 +91,31 @@ export function LandingVideoPlayer() {
 
     inflightRef.current = post(false).catch(() => undefined)
     await inflightRef.current
-  }, [])
-
-  const markUnlocked = useCallback(() => {
-    if (unlockedRef.current) return
-    unlockedRef.current = true
-    setUnlocked(true)
-    unlock()
-    void sendHeartbeat()
-  }, [sendHeartbeat, unlock])
+  }, [leadToken])
 
   const markCompleted = useCallback(() => {
     completedRef.current = true
-    unlockedRef.current = true
-    setUnlocked(true)
-    unlock()
     void sendHeartbeat("ENDED")
-  }, [sendHeartbeat, unlock])
+  }, [sendHeartbeat])
 
   const tick = useCallback(() => {
     const video = videoRef.current
     if (!video) return
     const time = video.currentTime || 0
     const duration = durationRef.current || video.duration || 0
-    if (time >= maxPlayedRef.current) maxPlayedRef.current = time
-    else if (time < maxPlayedRef.current - 0.35) video.currentTime = maxPlayedRef.current
+    const previousTime = lastPlaybackTimeRef.current
+    if (previousTime !== null) {
+      const elapsed = time - previousTime
+      if (elapsed > 0 && elapsed <= 1) watchedSecondsRef.current += elapsed
+    }
+    lastPlaybackTimeRef.current = time
 
-    syncBar(maxPlayedRef.current, duration)
+    syncBar(watchedSecondsRef.current, duration)
 
-    const unlockAt = effectiveUnlockAt(duration || LANDING_VIDEO.unlockAtSeconds)
-    if (!unlockedRef.current && maxPlayedRef.current >= unlockAt) markUnlocked()
-    if (!completedRef.current && duration > 0 && maxPlayedRef.current >= duration * LANDING_VIDEO.completeAtRatio) {
+    if (!completedRef.current && duration > 0 && watchedSecondsRef.current >= duration * LANDING_VIDEO.completeAtRatio) {
       completedRef.current = true
     }
-  }, [markUnlocked, syncBar])
+  }, [syncBar])
 
   useEffect(() => {
     visitorIdRef.current = getVisitorId()
@@ -171,25 +154,6 @@ export function LandingVideoPlayer() {
       window.removeEventListener("pagehide", onLeave)
     }
   }, [sendHeartbeat])
-
-  useEffect(() => {
-    if (!unlocked) return
-    const node = frameRef.current
-    if (!node) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting !== false) return
-        const video = videoRef.current
-        if (!video || video.paused) return
-        pausedByUsRef.current = true
-        video.pause()
-        void sendHeartbeat("SCROLL")
-      },
-      { threshold: 0.4 },
-    )
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [sendHeartbeat, unlocked])
 
   const play = async () => {
     const video = videoRef.current
@@ -317,14 +281,15 @@ export function LandingVideoPlayer() {
           }}
           onPlay={() => {
             if (pauseTimerRef.current) window.clearTimeout(pauseTimerRef.current)
-            pausedByUsRef.current = false
+            lastPlaybackTimeRef.current = videoRef.current?.currentTime ?? null
             hasStartedRef.current = true
             setPlaying(true)
             setHasStarted(true)
           }}
           onPause={() => {
             setPlaying(false)
-            if (pausedByUsRef.current || completedRef.current) return
+            lastPlaybackTimeRef.current = null
+            if (completedRef.current) return
             if (pauseTimerRef.current) window.clearTimeout(pauseTimerRef.current)
             pauseTimerRef.current = window.setTimeout(() => {
               void sendHeartbeat("PAUSE")
@@ -335,12 +300,7 @@ export function LandingVideoPlayer() {
             markCompleted()
           }}
           onSeeking={(event) => {
-            if (event.currentTarget.currentTime > maxPlayedRef.current + 0.25) {
-              event.currentTarget.currentTime = maxPlayedRef.current
-            }
-          }}
-          onRateChange={(event) => {
-            if (event.currentTarget.playbackRate !== 1) event.currentTarget.playbackRate = 1
+            lastPlaybackTimeRef.current = event.currentTarget.currentTime
           }}
           onDoubleClick={(event) => {
             event.preventDefault()

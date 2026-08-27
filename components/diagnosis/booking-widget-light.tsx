@@ -611,6 +611,8 @@ export function BookingWidgetLight({
   const [meetLink, setMeetLink] = useState<string | null>(null)
   const loadTimeoutRef = useRef<number | null>(null)
   const mobileTimesPanelRef = useRef<HTMLDivElement>(null)
+  const bookingWidgetRef = useRef<HTMLDivElement>(null)
+  const calendarViewedRef = useRef(false)
   const existingLead = Boolean(leadToken)
   const { getToken, sync, flush, clear } = usePartialSubmission({
     entrySource: "DIAGNOSIS",
@@ -642,6 +644,27 @@ export function BookingWidgetLight({
   }, [])
 
   useEffect(() => clearLoadTimeout, [clearLoadTimeout])
+
+  useEffect(() => {
+    const node = bookingWidgetRef.current
+    if (!node || calendarViewedRef.current) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting || calendarViewedRef.current) return
+        calendarViewedRef.current = true
+        observer.disconnect()
+        window.fbq?.("track", "ViewContent", {
+          content_name: "Calendario de agendamiento",
+          content_category: "booking",
+        })
+      },
+      { threshold: 0.5 },
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
 
   const resetSelection = useCallback(() => {
     setSelectedDay(null)
@@ -842,7 +865,10 @@ export function BookingWidgetLight({
       : null
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-zinc-200/90 bg-white shadow-[0_40px_120px_-40px_rgba(6,182,212,0.35)]">
+    <div
+      ref={bookingWidgetRef}
+      className="overflow-hidden rounded-3xl border border-zinc-200/90 bg-white shadow-[0_40px_120px_-40px_rgba(6,182,212,0.35)]"
+    >
       {leadMode ? <CallAgenda /> : <BookingRecommendations />}
       <div
         className={cn(

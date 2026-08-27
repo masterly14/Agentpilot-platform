@@ -205,6 +205,13 @@ export async function POST(request: Request) {
 
     const result = await createBooking(payload)
     const meetingTime = parseBookingDateTime(payload.slotStart)
+    const hasConfirmedCalendarEvent = result.source === "composio" && Boolean(result.eventId)
+    if (!hasConfirmedCalendarEvent) {
+      console.error("[booking/create] reserva sin evento de calendario confirmado; se omite Schedule", {
+        source: result.source,
+        hasEventId: Boolean(result.eventId),
+      })
+    }
 
     let savedSubmissionId = submissionId
 
@@ -287,7 +294,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const marketing = savedSubmissionId
+    const marketing = savedSubmissionId && hasConfirmedCalendarEvent
       ? await recordMarketingStage({
           submissionId: savedSubmissionId,
           to: "SCHEDULED",

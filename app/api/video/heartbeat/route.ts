@@ -3,15 +3,18 @@ import { NextResponse } from "next/server"
 import { VideoDropReason } from "@/prisma/generated/client"
 import { prisma } from "@/lib/prisma"
 import { LANDING_VIDEO } from "@/lib/landing-video"
+import { markVideoWatched } from "@/lib/pipeline/engine"
 
 export const runtime = "nodejs"
 
 const VIDEO_IDS = new Set<string>([LANDING_VIDEO.id])
 const DROP_REASONS = new Set<string>(Object.values(VideoDropReason))
+const VIDEO_WATCHED_RATIO = 0.5
 
 const heartbeatSchema = z.object({
   sessionId: z.string().trim().min(1).max(64).optional(),
   visitorId: z.string().trim().min(8).max(80),
+  leadToken: z.string().trim().min(1).max(128).optional(),
   videoId: z.string().trim().min(1).max(64),
   currentTime: z.number().finite().min(0).max(60 * 60 * 6),
   duration: z.number().finite().min(0).max(60 * 60 * 6),
@@ -23,6 +26,18 @@ const heartbeatSchema = z.object({
 function asDropReason(value: string | undefined): VideoDropReason | undefined {
   if (!value || !DROP_REASONS.has(value)) return undefined
   return value as VideoDropReason
+}
+
+async function markLeadVideoWatched(token: string | undefined, watchedSeconds: number, durationSeconds: number) {
+  if (!token || durationSeconds <= 0 || watchedSeconds < durationSeconds * VIDEO_WATCHED_RATIO) return
+
+  const submission = await prisma.formSubmission.findUnique({
+    where: { pdfToken: token },
+    select: { contactId: true },
+  })
+  if (submission?.contactId) {
+    await markVideoWatched(submission.contactId)
+  }
 }
 
 export async function POST(request: Request) {
@@ -90,16 +105,18 @@ export async function POST(request: Request) {
                   }
                 : {}),
           },
-          select: { id: true },
+          select: { id: true, maxSecond: true, durationSeconds: true },
         })
+        await markLeadVideoWatched(payload.leadToken, session.maxSecond, session.durationSeconds)
         return NextResponse.json({ sessionId: session.id })
       }
     }
 
     const session = await prisma.videoWatchSession.create({
       data,
-      select: { id: true },
+      select: { id: true, maxSecond: true, durationSeconds: true },
     })
+    await markLeadVideoWatched(payload.leadToken, session.maxSecond, session.durationSeconds)
     return NextResponse.json({ sessionId: session.id })
   } catch (error) {
     console.error("[video/heartbeat]", error)

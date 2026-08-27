@@ -16,11 +16,6 @@ import { firstNameFromFullName } from "@/lib/whatsapp/phone"
 import { formatMeetingParts } from "@/lib/pipeline/vars"
 import { MQL_QUESTIONS } from "@/lib/pipeline/qualify-mql"
 import { isTerminalState } from "@/lib/pipeline/states"
-import {
-  findLatestSubmissionIdByContact,
-  MARKETING_TRIGGERED_BY,
-  recordMarketingStage,
-} from "@/lib/marketing/events"
 
 const IMMEDIATE_FOLLOWUP: Partial<Record<PipelineState, PipelineState>> = {
   LEAD_MAGNET_DOWNLOADED: "AWAITING_CONFIRMATION",
@@ -494,25 +489,15 @@ export async function discardAfterDiscovery(contactId: string) {
 }
 
 export async function markVideoWatched(contactId: string) {
-  const pipeline = await prisma.leadPipeline.update({
-    where: { contactId },
+  await prisma.leadPipeline.updateMany({
+    where: { contactId, videoWatched: false },
     data: {
       videoWatched: true,
       pixelFiredAt: new Date(),
     },
   })
 
-  const submissionId = await findLatestSubmissionIdByContact(contactId)
-  if (!submissionId) {
-    console.error("[marketing] ViewContent sin lead_id", contactId)
-    return pipeline
-  }
-
-  await recordMarketingStage({
-    submissionId,
-    to: "VIDEO_SENT",
-    triggeredBy: MARKETING_TRIGGERED_BY.system,
+  return prisma.leadPipeline.findUnique({
+    where: { contactId },
   })
-
-  return pipeline
 }
