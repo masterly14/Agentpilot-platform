@@ -126,7 +126,7 @@ export function buildDiagnosisInforme(state: LeakMapState): DiagnosisInformeMode
       }
     })
 
-  const prioridades = calc.filas.slice(0, 3).map((row) => ({
+  const prioridades: DiagnosisInformeModel["prioridades"] = calc.filas.slice(0, 3).map((row) => ({
     id: row.id,
     titulo: row.nombre,
     descripcion:
