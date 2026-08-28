@@ -2,7 +2,11 @@ import type { Contact, LeadPipeline, MessageType, PipelineState, Prisma } from "
 import { prisma } from "@/lib/prisma"
 import { persistConversationMessage, updateMessageStatus } from "@/lib/pipeline/conversation"
 import { findContactByWaId, linkContactWaId } from "@/lib/pipeline/contact"
-import { markVideoWatched, transitionPipeline } from "@/lib/pipeline/engine"
+import {
+  markVideoWatched,
+  scheduleFollowupAfterMessageDelivery,
+  transitionPipeline,
+} from "@/lib/pipeline/engine"
 import { notifyNurtureHandoff } from "@/lib/pipeline/notify"
 import {
   buildNurtureReply,
@@ -206,5 +210,8 @@ export async function handleWhatsAppStatus(
   } else {
     console.info("[whatsapp] status", { waMessageId, status: mapped })
   }
-  await updateMessageStatus(waMessageId, mapped)
+  await updateMessageStatus(waMessageId, mapped, errors)
+  if (mapped === "DELIVERED") {
+    await scheduleFollowupAfterMessageDelivery(waMessageId)
+  }
 }

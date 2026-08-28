@@ -93,6 +93,11 @@ export function ChatTemplateBubble({ message }: { message: ChatMessageRecord }) 
           ))}
         </div>
       ) : null}
+      {message.status === "FAILED" && message.deliveryError ? (
+        <p className="rounded-md bg-red-950/25 px-2 py-1 text-xs text-red-100">
+          {message.deliveryError}
+        </p>
+      ) : null}
     </div>
   )
 }

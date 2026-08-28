@@ -23,6 +23,10 @@ const IMMEDIATE_FOLLOWUP: Partial<Record<PipelineState, PipelineState>> = {
   NO_SHOW: "RESCHEDULE_OFFERED",
 }
 
+type StateMessageDelivery =
+  | { ok: true; awaitDeliveryReceipt: boolean }
+  | { ok: false; awaitDeliveryReceipt: false }
+
 async function loadPipeline(contactId: string) {
   return prisma.leadPipeline.findUnique({
     where: { contactId },
@@ -92,7 +96,7 @@ async function scheduleFollowup(pipeline: LeadPipeline) {
 async function deliverStateMessage(
   pipeline: LeadPipeline & { contact: { id: string } },
   state: PipelineState,
-) {
+): Promise<StateMessageDelivery> {
   const contact = await prisma.contact.findUniqueOrThrow({
     where: { id: pipeline.contactId },
   })
@@ -106,12 +110,13 @@ async function deliverStateMessage(
       })
     } catch (error) {
       console.error("[pipeline] fallo envío WhatsApp texto", state, pipeline.contactId, error)
+      return { ok: false, awaitDeliveryReceipt: false }
     }
-    return
+    return { ok: true, awaitDeliveryReceipt: true }
   }
 
   if (state === "DEMO_CONFIRMATION_SENT" || state === "LOST") {
-    return
+    return { ok: true, awaitDeliveryReceipt: false }
   }
 
   if (state === "DISCOVERY_SUMMARY_SENT") {
@@ -123,14 +128,19 @@ async function deliverStateMessage(
       }
     } catch (error) {
       console.error("[pipeline] fallo envío resumen discovery", pipeline.contactId, error)
+      return { ok: false, awaitDeliveryReceipt: false }
     }
-    return
+    return { ok: true, awaitDeliveryReceipt: false }
   }
 
   try {
-    await sendPipelineTemplate({ contact, pipeline, state })
+    const result = await sendPipelineTemplate({ contact, pipeline, state })
+    return result.skipped
+      ? { ok: true, awaitDeliveryReceipt: false }
+      : { ok: true, awaitDeliveryReceipt: true }
   } catch (error) {
     console.error("[pipeline] fallo envío WhatsApp", state, pipeline.contactId, error)
+    return { ok: false, awaitDeliveryReceipt: false }
   }
 }
 
@@ -168,11 +178,15 @@ export async function transitionPipeline(input: {
     include: { contact: true },
   })
 
-  await deliverStateMessage(updated, input.toState)
+  const delivery = await deliverStateMessage(updated, input.toState)
 
   const followup = IMMEDIATE_FOLLOWUP[input.toState]
   if (followup) {
     return transitionPipeline({ contactId: input.contactId, toState: followup })
+  }
+
+  if (!delivery.ok || delivery.awaitDeliveryReceipt) {
+    return updated
   }
 
   try {
@@ -234,6 +248,33 @@ export async function executeScheduledStep(input: {
 
   await transitionPipeline({ contactId: input.contactId, toState: target })
   return { status: "executed" as const, toState: target }
+}
+
+export async function scheduleFollowupAfterMessageDelivery(waMessageId: string) {
+  const message = await prisma.conversationMessage.findUnique({
+    where: { waMessageId },
+    include: { conversation: true },
+  })
+  if (
+    !message ||
+    message.direction !== "OUTBOUND" ||
+    message.status !== "DELIVERED" ||
+    !message.pipelineState
+  ) {
+    return { status: "ignored" as const }
+  }
+
+  const pipeline = await loadPipeline(message.conversation.contactId)
+  if (
+    !pipeline ||
+    pipeline.currentState !== message.pipelineState ||
+    pipeline.scheduledJobId
+  ) {
+    return { status: "stale" as const }
+  }
+
+  await scheduleFollowup(pipeline)
+  return { status: "scheduled" as const }
 }
 
 export async function ensureNurturingPipeline(contactId: string, funnelOrigin: FunnelOrigin) {

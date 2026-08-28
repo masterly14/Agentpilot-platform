@@ -82,13 +82,29 @@ export async function persistConversationMessage(input: {
   return saved
 }
 
-export async function updateMessageStatus(waMessageId: string, status: MessageStatus) {
+export async function updateMessageStatus(
+  waMessageId: string,
+  status: MessageStatus,
+  errors?: Array<{ code?: number; title?: string; message?: string; error_data?: { details?: string } }>,
+) {
   const existing = await prisma.conversationMessage.findUnique({
     where: { waMessageId },
   })
   if (!existing) return null
+  const previous =
+    existing.rawPayload && typeof existing.rawPayload === "object" && !Array.isArray(existing.rawPayload)
+      ? (existing.rawPayload as Record<string, unknown>)
+      : {}
   return prisma.conversationMessage.update({
     where: { waMessageId },
-    data: { status },
+    data: {
+      status,
+      rawPayload: {
+        ...previous,
+        webhookStatus: status,
+        webhookErrors: errors ?? null,
+        webhookAt: new Date().toISOString(),
+      },
+    },
   })
 }

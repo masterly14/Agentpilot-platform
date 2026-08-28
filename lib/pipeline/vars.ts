@@ -5,6 +5,15 @@ import { getAppUrl, getAgendarUrl, getSqlDiagnosticoUrl } from "@/lib/ebook/app-
 import { prisma } from "@/lib/prisma"
 
 const TIMEZONE = "America/Bogota"
+const WHATSAPP_PARAM_MAX = 80
+
+function sanitizeWhatsAppParam(value: string, max = WHATSAPP_PARAM_MAX) {
+  const oneLine = value.replace(/\s+/g, " ").trim().replace(/[.,;:]+$/u, "")
+  if (oneLine.length <= max) return oneLine
+  const comma = oneLine.slice(0, max).lastIndexOf(",")
+  const cut = comma >= 24 ? comma : max
+  return oneLine.slice(0, cut).trim()
+}
 
 export function formatMeetingParts(meetingTime: Date, timeZone = TIMEZONE) {
   const dateFmt = new Intl.DateTimeFormat("es-CO", {
@@ -57,7 +66,7 @@ export async function buildTemplateVars(
     fecha: meeting?.fecha,
     hora: meeting?.hora,
     link: pipeline.meetLink || bookingLink,
-    dolor: pipeline.painPoint || "tus cuellos de botella operativos",
+    dolor: sanitizeWhatsAppParam(pipeline.painPoint || "tus cuellos de botella operativos"),
   }
 
   if (state === "VIDEO_SENT") {

@@ -87,6 +87,7 @@ export type ChatMessageRecord = {
   buttonId: string | null
   pipelineState: PipelineState | null
   status: MessageStatus
+  deliveryError: string | null
   mediaId: string | null
   mimeType: string | null
   mediaFilename: string | null
@@ -178,6 +179,29 @@ function templateMeta(templateName: string | null) {
   }
 }
 
+function deliveryError(rawPayload: unknown) {
+  if (!rawPayload || typeof rawPayload !== "object" || Array.isArray(rawPayload)) return null
+  const payload = rawPayload as {
+    error?: unknown
+    webhookErrors?: Array<{
+      code?: unknown
+      title?: unknown
+      message?: unknown
+      error_data?: { details?: unknown }
+    }> | null
+  }
+  if (typeof payload.error === "string" && payload.error.trim()) return payload.error
+
+  const first = payload.webhookErrors?.[0]
+  if (!first) return null
+  const details =
+    typeof first.error_data?.details === "string" ? first.error_data.details : null
+  const message = typeof first.message === "string" ? first.message : null
+  const title = typeof first.title === "string" ? first.title : null
+  const code = typeof first.code === "number" ? `Código ${first.code}` : null
+  return [details, message, title, code].filter(Boolean).join(" · ") || "WhatsApp no entregó el mensaje"
+}
+
 export function toChatMessageRecord(message: ConversationMessage): ChatMessageRecord {
   const template = templateMeta(message.templateName)
   return {
@@ -192,6 +216,7 @@ export function toChatMessageRecord(message: ConversationMessage): ChatMessageRe
     buttonId: message.buttonId,
     pipelineState: message.pipelineState,
     status: message.status,
+    deliveryError: deliveryError(message.rawPayload),
     mediaId: message.mediaId,
     mimeType: message.mimeType,
     mediaFilename: message.mediaFilename,
