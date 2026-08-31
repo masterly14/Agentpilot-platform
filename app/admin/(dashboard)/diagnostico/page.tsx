@@ -6,7 +6,7 @@ import { todayBogotaDate } from "@/lib/admin/leak-map"
 import { prisma } from "@/lib/prisma"
 
 export const metadata = {
-  title: "Mapa de fugas | Panel interno",
+  title: "Diagnóstico operativo | Panel interno",
 }
 
 export default async function AdminDiagnosticoPage() {
@@ -23,7 +23,7 @@ export default async function AdminDiagnosticoPage() {
   ])
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto scroll-smooth bg-muted/40 print:overflow-visible print:bg-white">
+    <div className="min-h-0 flex-1 overflow-y-auto scroll-smooth print:overflow-visible print:bg-white" style={{ background: "#F6F7F4" }}>
       <MapaDeFugas
         initialFecha={todayBogotaDate()}
         initialSaved={rows.map(toSavedDiagnosis)}

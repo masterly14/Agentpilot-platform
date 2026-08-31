@@ -35,7 +35,7 @@ export const META_EVENT_NAME: Record<MarketingEventName, string> = {
 
 export const EVENT_VALUE: Record<Exclude<MarketingEventName, "PURCHASE">, number> = {
   VIEW_CONTENT: 1,
-  LEAD: 0,
+  LEAD: 1,
   SCHEDULE: 25,
   SHOW_UP: 60,
 }

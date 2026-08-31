@@ -6,7 +6,7 @@ import {
   interpolateWhatsAppBody,
   type WhatsAppTemplateName,
 } from "@/lib/whatsapp/templates"
-import { sendWhatsAppGraphMessage } from "@/lib/whatsapp/client"
+import { sendWhatsAppGraphMessage, uploadWhatsAppMedia } from "@/lib/whatsapp/client"
 import { persistConversationMessage } from "@/lib/pipeline/conversation"
 import { buildTemplateVars } from "@/lib/pipeline/vars"
 
@@ -121,6 +121,68 @@ export async function sendWhatsAppText(input: {
       direction: "OUTBOUND",
       type: "TEXT",
       body: input.body,
+      pipelineState: input.pipelineState ?? null,
+      status: "FAILED",
+      rawPayload: {
+        payload,
+        error: error instanceof Error ? error.message : String(error),
+      },
+    })
+    throw error
+  }
+}
+
+export async function sendWhatsAppDocument(input: {
+  contact: Contact
+  bytes: Uint8Array
+  filename: string
+  caption: string
+  pipelineState?: PipelineState | null
+}) {
+  const mediaId = await uploadWhatsAppMedia({
+    bytes: input.bytes,
+    filename: input.filename,
+    mimeType: "application/pdf",
+  })
+  const payload = {
+    messaging_product: "whatsapp",
+    recipient_type: "individual",
+    to: input.contact.phoneE164,
+    type: "document",
+    document: {
+      id: mediaId,
+      filename: input.filename,
+      caption: input.caption,
+    },
+  }
+
+  try {
+    const result = await sendWhatsAppGraphMessage(payload)
+    await persistConversationMessage({
+      contactId: input.contact.id,
+      direction: "OUTBOUND",
+      type: "DOCUMENT",
+      body: input.caption,
+      caption: input.caption,
+      mediaId,
+      mimeType: "application/pdf",
+      mediaFilename: input.filename,
+      waMessageId: result.messageId,
+      pipelineState: input.pipelineState ?? null,
+      status: "SENT",
+      rawPayload: payload,
+    })
+    return { messageId: result.messageId, mediaId }
+  } catch (error) {
+    await persistConversationMessage({
+      contactId: input.contact.id,
+      direction: "OUTBOUND",
+      type: "DOCUMENT",
+      body: input.caption,
+      caption: input.caption,
+      mediaId,
+      mimeType: "application/pdf",
+      mediaFilename: input.filename,
       pipelineState: input.pipelineState ?? null,
       status: "FAILED",
       rawPayload: {

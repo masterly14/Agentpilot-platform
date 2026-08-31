@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     airbnbLeadId?: unknown
   }
   const state = hydrateLeakMap(body.state)
-  const clientName = state.snapshot.cliente.trim()
+  const clientName = state.cliente.trim()
   if (!clientName) {
     return NextResponse.json({ error: "Escribe el nombre del cliente antes de guardar." }, { status: 400 })
   }

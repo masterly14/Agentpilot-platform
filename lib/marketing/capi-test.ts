@@ -65,7 +65,7 @@ export async function sendTestLeadEventToMeta() {
           external_id: [leadId],
         },
         custom_data: {
-          value: 0,
+          value: 1,
           currency: "USD",
           content_name: "Guía gratuita",
           content_category: "ebook",

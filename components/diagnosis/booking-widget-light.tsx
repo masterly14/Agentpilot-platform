@@ -642,6 +642,8 @@ export function BookingWidgetLight({
         window.fbq?.("track", "ViewContent", {
           content_name: "Calendario de agendamiento",
           content_category: "booking",
+          value: 1,
+          currency: "USD",
         })
       },
       { threshold: 0.5 },

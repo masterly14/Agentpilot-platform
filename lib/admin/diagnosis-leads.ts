@@ -2,6 +2,7 @@ import type { PropertyCount } from "@/prisma/generated/client"
 import { bogotaDateFromIso, createEmptyLeakMap, type LeakMapState, type SavedDiagnosis } from "@/lib/admin/leak-map"
 import { prisma } from "@/lib/prisma"
 import { getSubmissionTitle } from "@/lib/submission-display"
+import { toPhoneE164 } from "@/lib/whatsapp/phone"
 
 const PROPERTY_SHORT: Record<PropertyCount, string> = {
   UNDER_5: "< 5",
@@ -76,10 +77,10 @@ export function toSavedDiagnosis(row: DiagnosisRow): SavedDiagnosis {
 
 export function leakMapFromLead(lead: DiagnosisLeadLink): LeakMapState {
   const empty = createEmptyLeakMap()
-  empty.snapshot.cliente = lead.clientName
-  empty.snapshot.fecha = bogotaDateFromIso(lead.meetingTime)
-  empty.snapshot.propiedades = lead.properties
-  if (lead.source === "airbnb") empty.snapshot.canales = "Airbnb"
+  empty.cliente = lead.clientName
+  empty.fecha = bogotaDateFromIso(lead.meetingTime)
+  empty.unidades = lead.properties
+  if (lead.source === "airbnb") empty.canales = "Airbnb"
   return empty
 }
 
@@ -241,3 +242,41 @@ export async function resolveDiagnosisLead(input: {
 
   return null
 }
+
+export async function resolveDiagnosisWhatsAppContact(input: {
+  submissionId?: string | null
+  airbnbLeadId?: string | null
+}) {
+  if (input.airbnbLeadId) {
+    const row = await prisma.airbnbLead.findUnique({
+      where: { id: input.airbnbLeadId },
+      select: { contact: true },
+    })
+    if (row?.contact?.phoneE164) return row.contact
+    return null
+  }
+
+  if (input.submissionId) {
+    const row = await prisma.formSubmission.findUnique({
+      where: { id: input.submissionId },
+      select: {
+        phoneCountryCode: true,
+        phoneNumber: true,
+        contact: true,
+      },
+    })
+    if (!row) return null
+    if (row.contact?.phoneE164) return row.contact
+    if (row.phoneCountryCode && row.phoneNumber) {
+      try {
+        const phoneE164 = toPhoneE164(row.phoneCountryCode, row.phoneNumber)
+        return prisma.contact.findUnique({ where: { phoneE164 } })
+      } catch {
+        return null
+      }
+    }
+  }
+
+  return null
+}
+

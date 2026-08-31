@@ -62,7 +62,7 @@ export function trackEbookLead(params: { email: string; fullName: string; eventI
     {
       content_name: "Guía gratuita",
       content_category: "ebook",
-      value: 0,
+      value: 1,
       currency: "USD",
       status: "submitted",
     },
