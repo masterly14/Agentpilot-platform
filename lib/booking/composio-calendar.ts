@@ -352,10 +352,28 @@ export async function createBooking(payload: BookingFormPayload): Promise<Bookin
   })
 }
 
+export function buildCalendarEventCopy(input: {
+  fullName: string
+  kind: "demo" | "meeting"
+  meetingTime: Date
+  visitorTimezone?: string | null
+  descriptionBody?: string
+}) {
+  const { date, time } = getBookingDateTimeParts(input.meetingTime)
+  const timezoneNote = formatBookingTimezoneNote(`${date}T${time}`, input.visitorTimezone ?? undefined)
+  return {
+    summary: input.kind === "demo" ? `Demo con ${input.fullName}` : `Reunión con ${input.fullName}`,
+    description: [timezoneNote, input.descriptionBody].filter(Boolean).join("\n\n") || undefined,
+  }
+}
+
 export async function updateCalendarEventTime(input: {
   eventId: string
   meetingTime: Date
   durationMinutes?: number
+  summary?: string
+  description?: string
+  attendeeEmail?: string | null
 }) {
   if (!isComposioConfigured()) {
     return { success: false as const, reason: "not_configured" as const }
@@ -364,15 +382,21 @@ export async function updateCalendarEventTime(input: {
   const { date, time } = getBookingDateTimeParts(input.meetingTime)
   const slotStart = `${date}T${time}`
   const durationMinutes = input.durationMinutes ?? bookingConfig.slotMinutes
+  const attendees = input.attendeeEmail
+    ? [input.attendeeEmail]
+    : undefined
 
   try {
-    await executeCalendarTool("GOOGLECALENDAR_UPDATE_EVENT", {
+    await executeCalendarTool("GOOGLECALENDAR_PATCH_EVENT", {
       calendar_id: bookingConfig.calendarId,
       event_id: input.eventId,
-      start_datetime: slotStart,
-      end_datetime: buildEventEndDatetime(slotStart, durationMinutes),
+      start_time: slotStart,
+      end_time: buildEventEndDatetime(slotStart, durationMinutes),
       timezone: bookingConfig.timezone,
       send_updates: "all",
+      summary: input.summary || undefined,
+      description: input.description || undefined,
+      attendees,
     })
     return { success: true as const }
   } catch (error) {
