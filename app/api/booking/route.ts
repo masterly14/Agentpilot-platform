@@ -5,6 +5,7 @@ import {
   isValidBookingDate,
   isValidSlot,
 } from "@/lib/booking/composio-calendar"
+import { diagnosisDurationMinutes } from "@/lib/booking/duration"
 import { bookingFormDataFromSubmission } from "@/lib/booking/from-submission"
 import {
   INDUSTRY_TIME_DB,
@@ -135,6 +136,7 @@ export async function POST(request: Request) {
     let submissionId: string | null = null
     let bookingFlow: BookingFlow | null = null
     let writeFormFields = false
+    let qualification: "SQL" | "MQL" | "DISQUALIFIED" | null = null
 
     if (isValidPayload(body)) {
       if (!isValidEmail(body.email.trim())) {
@@ -150,6 +152,7 @@ export async function POST(request: Request) {
       bookingFlow = isBookingFlow(publicFlow) ? publicFlow : "DIRECT_BOOKING"
       payload.origin =
         bookingFlow === "DIAGNOSIS_PUBLIC" ? "Diagnóstico público" : "Booking directo"
+      qualification = classifyLead(payload).qualification
 
       const partialTokenValue = (body as BookingFormPayload & { leadToken?: unknown }).leadToken
       const partialToken = typeof partialTokenValue === "string" ? partialTokenValue.trim() : ""
@@ -188,6 +191,7 @@ export async function POST(request: Request) {
       }
       submissionId = submission.id
       bookingFlow = requestedFlow
+      qualification = submission.qualification
     } else {
       return NextResponse.json({ error: "Datos de reserva inválidos" }, { status: 400 })
     }
@@ -203,7 +207,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Horario no disponible" }, { status: 400 })
     }
 
-    const result = await createBooking(payload)
+    const durationMinutes =
+      bookingFlow === "EBOOK_SQL"
+        ? diagnosisDurationMinutes("SQL")
+        : diagnosisDurationMinutes(qualification)
+    const result = await createBooking(payload, durationMinutes)
     const meetingTime = parseBookingDateTime(payload.slotStart)
     const hasConfirmedCalendarEvent = result.source === "composio" && Boolean(result.eventId)
     if (!hasConfirmedCalendarEvent) {
@@ -318,7 +326,7 @@ export async function POST(request: Request) {
       }
     }
 
-    await sendBookingConfirmationEmails(payload, result)
+    await sendBookingConfirmationEmails(payload, result, durationMinutes)
 
     return NextResponse.json({
       ...result,

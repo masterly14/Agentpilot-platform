@@ -1,3 +1,4 @@
+import { addMinutes } from "date-fns"
 import { BOOKING_MONTH, BOOKING_YEAR, bookingConfig } from "@/lib/booking/config"
 import {
   bookingSlotStart,
@@ -37,17 +38,50 @@ export function buildMonthRange(year: number, month: number) {
   }
 }
 
-export function generateCandidateSlotStarts(date: string): string[] {
+export function padBusyIntervals(
+  intervals: Interval[],
+  bufferMinutes = bookingConfig.bufferMinutes
+): Interval[] {
+  if (!bufferMinutes) return intervals
+  return intervals.map((interval) => ({
+    start: interval.start,
+    end: addMinutes(interval.end, bufferMinutes),
+  }))
+}
+
+export function meetingFitsWorkHours(slotStart: string, durationMinutes: number): boolean {
+  const hour = Number(slotStart.slice(11, 13))
+  const minute = Number(slotStart.slice(14, 16))
+  if (!Number.isFinite(hour) || !Number.isFinite(minute)) return false
+
+  const startMinutes = hour * 60 + minute
+  const workStart = bookingConfig.workStartHour * 60
+  const workEnd = bookingConfig.workEndHour * 60
+  return startMinutes >= workStart && startMinutes + durationMinutes <= workEnd
+}
+
+export function isMeetingWindowFree(
+  slotStart: string,
+  durationMinutes: number,
+  busyIntervals: Interval[]
+): boolean {
+  const candidate = slotIntervalFromStart(slotStart, durationMinutes)
+  return !padBusyIntervals(busyIntervals).some((interval) => intervalsOverlap(candidate, interval))
+}
+
+export function generateCandidateSlotStarts(
+  date: string,
+  durationMinutes = bookingConfig.sqlDurationMinutes
+): string[] {
   if (!isBookableDay(date)) return []
 
   const starts: string[] = []
   const startMinutes = bookingConfig.workStartHour * 60
   const endMinutes = bookingConfig.workEndHour * 60
-  const step = bookingConfig.slotMinutes
+  const step = durationMinutes + bookingConfig.bufferMinutes
 
   for (let minutes = startMinutes; minutes < endMinutes; minutes += step) {
-    const slotEnd = minutes + step
-    if (slotEnd > endMinutes) continue
+    if (minutes + durationMinutes > endMinutes) continue
 
     const hour = Math.floor(minutes / 60)
     const minute = minutes % 60
@@ -57,8 +91,20 @@ export function generateCandidateSlotStarts(date: string): string[] {
   return starts
 }
 
-export function generateCandidateSlots(date: string): Interval[] {
-  return generateCandidateSlotStarts(date).map((start) => slotIntervalFromStart(start))
+export function isPlausibleSlotStart(date: string, slotStart: string): boolean {
+  return (
+    generateCandidateSlotStarts(date, bookingConfig.mqlDurationMinutes).includes(slotStart) ||
+    generateCandidateSlotStarts(date, bookingConfig.sqlDurationMinutes).includes(slotStart)
+  )
+}
+
+export function generateCandidateSlots(
+  date: string,
+  durationMinutes = bookingConfig.sqlDurationMinutes
+): Interval[] {
+  return generateCandidateSlotStarts(date, durationMinutes).map((start) =>
+    slotIntervalFromStart(start, durationMinutes)
+  )
 }
 
 export function intervalsOverlap(a: Interval, b: Interval) {
@@ -84,18 +130,27 @@ export function filterPastSlots(_date: string, slots: BookingSlot[]): BookingSlo
   return applyLiveSlotRules(slots)
 }
 
-export function buildDaySlots(date: string, busyIntervals: Interval[]): BookingSlot[] {
+export function buildDaySlots(
+  date: string,
+  busyIntervals: Interval[],
+  durationMinutes = bookingConfig.sqlDurationMinutes
+): BookingSlot[] {
+  const paddedBusy = padBusyIntervals(busyIntervals)
   return applyLiveSlotRules(
-    generateCandidateSlotStarts(date).map((start) => {
-      const candidate = slotIntervalFromStart(start)
-      const busy = busyIntervals.some((interval) => intervalsOverlap(candidate, interval))
+    generateCandidateSlotStarts(date, durationMinutes).map((start) => {
+      const candidate = slotIntervalFromStart(start, durationMinutes)
+      const busy = paddedBusy.some((interval) => intervalsOverlap(candidate, interval))
       return toBookingSlot(start, !busy)
     })
   )
 }
 
-export function filterAvailableSlots(date: string, busyIntervals: Interval[]): BookingSlot[] {
-  return buildDaySlots(date, busyIntervals)
+export function filterAvailableSlots(
+  date: string,
+  busyIntervals: Interval[],
+  durationMinutes = bookingConfig.sqlDurationMinutes
+): BookingSlot[] {
+  return buildDaySlots(date, busyIntervals, durationMinutes)
 }
 
 export function parseBusyIntervals(payload: unknown): Interval[] {
@@ -164,7 +219,8 @@ export function daysWithAvailability(year: number, month: number, busyIntervals:
 export function buildMonthAvailabilityMaps(
   year: number,
   month: number,
-  busyIntervals: Interval[]
+  busyIntervals: Interval[],
+  durationMinutes = bookingConfig.sqlDurationMinutes
 ) {
   const monthStr = String(month).padStart(2, "0")
   const daysInMonth = new Date(year, month, 0).getDate()
@@ -188,7 +244,7 @@ export function buildMonthAvailabilityMaps(
       (interval) => interval.start <= dayEnd && interval.end >= dayStart
     )
 
-    const slots = buildDaySlots(date, dayBusy)
+    const slots = buildDaySlots(date, dayBusy, durationMinutes)
     slotsByDate[date] = slots
 
     if (slots.some((slot) => slot.available)) availableDays.push(day)
@@ -198,7 +254,11 @@ export function buildMonthAvailabilityMaps(
   return { slotsByDate, availableDays, unavailableDays }
 }
 
-export function buildMockMonthAvailability(year: number, month: number) {
+export function buildMockMonthAvailability(
+  year: number,
+  month: number,
+  durationMinutes = bookingConfig.sqlDurationMinutes
+) {
   const daysInMonth = new Date(year, month, 0).getDate()
   const slotsByDate: Record<string, BookingSlot[]> = {}
   const availableDays: number[] = []
@@ -213,7 +273,7 @@ export function buildMockMonthAvailability(year: number, month: number) {
       continue
     }
 
-    const slots = getMockSlotsForDay(day, year, month)
+    const slots = getMockSlotsForDay(day, year, month, durationMinutes)
     slotsByDate[date] = slots
     if (slots.some((slot) => slot.available)) availableDays.push(day)
     else unavailableDays.push(day)
@@ -226,9 +286,10 @@ export function getMockSlotsForDay(
   day: number,
   year = BOOKING_YEAR,
   month = BOOKING_MONTH,
+  durationMinutes = bookingConfig.sqlDurationMinutes,
 ): BookingSlot[] {
   const date = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`
-  const all = buildDaySlots(date, [])
+  const all = buildDaySlots(date, [], durationMinutes)
 
   if (day % 3 === 0) {
     return all.map((slot, index) => (index % 2 === 0 ? slot : { ...slot, available: false }))

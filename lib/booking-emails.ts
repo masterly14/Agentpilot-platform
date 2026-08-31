@@ -76,7 +76,11 @@ function buildLeadBookingConfirmationEmail(payload: BookingFormPayload, result: 
   }
 }
 
-function buildBookingNotificationEmail(payload: BookingFormPayload, result: BookingCreateResponse) {
+function buildBookingNotificationEmail(
+  payload: BookingFormPayload,
+  result: BookingCreateResponse,
+  durationMinutes: number
+) {
   const meetingWhen = escapeHtml(formatMeetingDateTime(payload.slotStart, bookingConfig.timezone))
   const visitorTimezone = payload.visitorTimezone
   const visitorWhen =
@@ -125,7 +129,7 @@ function buildBookingNotificationEmail(payload: BookingFormPayload, result: Book
               ? `<li><strong>Hora del visitante (${escapeHtml(formatTimezoneLabel(visitorTimezone))}):</strong> ${visitorWhen}</li>`
               : ""
           }
-          <li><strong>Duración:</strong> ${bookingConfig.slotMinutes} minutos</li>
+          <li><strong>Duración:</strong> ${durationMinutes} minutos</li>
           ${
             result.meetLink
               ? `<li><strong>Google Meet:</strong> <a href="${escapeHtml(result.meetLink)}">${escapeHtml(result.meetLink)}</a></li>`
@@ -159,7 +163,8 @@ function buildBookingNotificationEmail(payload: BookingFormPayload, result: Book
 
 export async function sendBookingConfirmationEmails(
   payload: BookingFormPayload,
-  result: BookingCreateResponse
+  result: BookingCreateResponse,
+  durationMinutes = bookingConfig.mqlDurationMinutes
 ) {
   if (!process.env.RESEND_API_KEY) {
     console.warn("RESEND_API_KEY no configurada: se omitieron los correos de confirmación de booking.")
@@ -182,7 +187,7 @@ export async function sendBookingConfirmationEmails(
     console.error("[booking/email] Error enviando confirmación al lead:", leadError)
   }
 
-  const notificationEmail = buildBookingNotificationEmail(payload, result)
+  const notificationEmail = buildBookingNotificationEmail(payload, result, durationMinutes)
   const { error: notificationError } = await resend.emails.send({
     from,
     to: BOOKING_NOTIFICATION_EMAIL,

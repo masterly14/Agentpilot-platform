@@ -30,9 +30,18 @@ export function addBookingMonths(year: number, month: number, delta: number) {
   return { year: date.getFullYear(), month: date.getMonth() + 1 }
 }
 
+const mqlDurationMinutes = Number(process.env.BOOKING_SLOT_MINUTES ?? 40)
+const sqlDurationMinutes = Number(process.env.BOOKING_SQL_MINUTES ?? 70)
+const bufferMinutes = Number(process.env.BOOKING_BUFFER_MINUTES ?? 20)
+const demoDurationMinutes = Number(process.env.BOOKING_DEMO_MINUTES ?? 60)
+
 export const bookingConfig = {
   timezone: process.env.BOOKING_TIMEZONE ?? "America/Bogota",
-  slotMinutes: Number(process.env.BOOKING_SLOT_MINUTES ?? 40),
+  slotMinutes: mqlDurationMinutes,
+  mqlDurationMinutes,
+  sqlDurationMinutes,
+  bufferMinutes,
+  demoDurationMinutes,
   workStartHour: Number(process.env.BOOKING_WORK_START_HOUR ?? 10),
   workEndHour: Number(process.env.BOOKING_WORK_END_HOUR ?? 18),
   minNoticeMinutes: Number(process.env.BOOKING_MIN_NOTICE_MINUTES ?? 120),

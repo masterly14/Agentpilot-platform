@@ -9,7 +9,7 @@ import { prisma } from "@/lib/prisma"
 export const metadata: Metadata = {
   title: "Agendar diagnóstico",
   description:
-    "El libro te dice qué se puede automatizar. En 45 minutos miramos tu operación y sales con un número: cuánto te está costando no hacerlo.",
+    "El libro te dice qué se puede automatizar. En 70 minutos miramos tu operación y sales con un número: cuánto te está costando no hacerlo.",
 }
 
 export default async function SqlDiagnosticoPage({

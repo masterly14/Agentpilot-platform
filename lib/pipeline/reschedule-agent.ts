@@ -1,6 +1,7 @@
 import { z } from "zod"
 import { findNearbyRescheduleSlots, preferredWindowFromText, type ReschedulePreference } from "@/lib/booking/reschedule-slots"
 import { parseBookingDateTime } from "@/lib/booking/datetime"
+import { meetingDurationMinutes, meetingKindForPipeline } from "@/lib/booking/duration"
 import { commitMeetingReschedule } from "@/lib/pipeline/commit-reschedule"
 import { prisma } from "@/lib/prisma"
 import { getMastra, isOpenAiConfigured } from "@/lib/agents/mastra"
@@ -118,8 +119,25 @@ async function notifyOwner(contactId: string, meetingTime: Date) {
 export async function processRescheduleTurn(input: { contactId: string; body?: string; buttonId?: string }) {
   const pipeline = await prisma.leadPipeline.findUniqueOrThrow({
     where: { contactId: input.contactId },
-    include: { contact: true },
+    include: {
+      contact: {
+        include: {
+          submissions: {
+            orderBy: { createdAt: "desc" },
+            take: 1,
+            select: { qualification: true },
+          },
+        },
+      },
+    },
   })
+  const durationMinutes = meetingDurationMinutes(
+    meetingKindForPipeline({
+      currentStage: pipeline.currentStage,
+      funnelOrigin: pipeline.funnelOrigin,
+      qualification: pipeline.contact.submissions[0]?.qualification,
+    })
+  )
   const context = contextFrom(pipeline.rescheduleContext)
   const extracted = await extractIntent(input.body ?? "", input.buttonId)
   const preference = extracted.preference ?? context.preference ?? "any"
@@ -139,7 +157,11 @@ export async function processRescheduleTurn(input: { contactId: string; body?: s
 
   const proposed = extracted.proposedSlot
   if (proposed) {
-    const slots = await findNearbyRescheduleSlots({ fromDate: proposed.slice(0, 10), daysToSearch: 1 })
+    const slots = await findNearbyRescheduleSlots({
+      fromDate: proposed.slice(0, 10),
+      daysToSearch: 1,
+      durationMinutes,
+    })
     if (slots.some((slot) => slot.start === proposed)) {
       const updated = await commitMeetingReschedule({
         contactId: input.contactId,
@@ -158,6 +180,7 @@ export async function processRescheduleTurn(input: { contactId: string; body?: s
     preference,
     avoidWindow: extracted.avoidWindow,
     excludeStarts: context.offeredHistory,
+    durationMinutes,
   })
   if (!slots.length) {
     await sendWhatsAppInteractiveButtons({

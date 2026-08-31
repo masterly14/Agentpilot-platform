@@ -19,8 +19,10 @@ import {
   buildMonthAvailabilityMaps,
   buildMonthRange,
   filterAvailableSlots,
-  generateCandidateSlotStarts,
   getMockSlotsForDay,
+  isMeetingWindowFree,
+  isPlausibleSlotStart,
+  meetingFitsWorkHours,
   parseBusyIntervals,
 } from "@/lib/booking/slots"
 import type {
@@ -86,16 +88,23 @@ async function executeCalendarTool(tool: string, arguments_: Record<string, unkn
   return unwrapComposioData(result)
 }
 
-function slotsFromFreeBusy(date: string, payload: unknown) {
-  return filterAvailableSlots(date, parseBusyIntervals(payload))
+function slotsFromFreeBusy(
+  date: string,
+  payload: unknown,
+  durationMinutes = bookingConfig.sqlDurationMinutes
+) {
+  return filterAvailableSlots(date, parseBusyIntervals(payload), durationMinutes)
 }
 
-export async function getDayAvailability(date: string): Promise<AvailabilityResponse> {
+export async function getDayAvailability(
+  date: string,
+  durationMinutes = bookingConfig.sqlDurationMinutes
+): Promise<AvailabilityResponse> {
   if (!isComposioConfigured()) {
     const [year, month, day] = date.split("-").map(Number)
     return {
       date,
-      slots: getMockSlotsForDay(day, year, month),
+      slots: getMockSlotsForDay(day, year, month, durationMinutes),
       source: "mock",
     }
   }
@@ -107,17 +116,33 @@ export async function getDayAvailability(date: string): Promise<AvailabilityResp
   })
   return {
     date,
-    slots: slotsFromFreeBusy(date, payload),
+    slots: slotsFromFreeBusy(date, payload, durationMinutes),
     source: "composio",
   }
 }
 
+async function getBusyIntervalsForDate(date: string) {
+  if (!isComposioConfigured()) return []
+
+  const dayRange = buildDayRange(date)
+  const payload = await executeCalendarTool("GOOGLECALENDAR_FIND_FREE_SLOTS", {
+    items: [bookingConfig.calendarId],
+    ...dayRange,
+  })
+  return parseBusyIntervals(payload)
+}
+
 export async function getMonthAvailability(
   year = BOOKING_YEAR,
-  month = BOOKING_MONTH
+  month = BOOKING_MONTH,
+  durationMinutes = bookingConfig.sqlDurationMinutes
 ): Promise<MonthAvailabilityResponse> {
   if (!isComposioConfigured()) {
-    const { slotsByDate, availableDays, unavailableDays } = buildMockMonthAvailability(year, month)
+    const { slotsByDate, availableDays, unavailableDays } = buildMockMonthAvailability(
+      year,
+      month,
+      durationMinutes
+    )
 
     return {
       year,
@@ -138,7 +163,8 @@ export async function getMonthAvailability(
   const { slotsByDate, availableDays, unavailableDays } = buildMonthAvailabilityMaps(
     year,
     month,
-    busy
+    busy,
+    durationMinutes
   )
 
   return {
@@ -231,20 +257,20 @@ function pickCalendarEventRecord(payload: unknown): Record<string, unknown> {
   return asRecord(payload) ?? {}
 }
 
-export async function assertSlotIsAvailable(date: string, slotStart: string) {
-  if (!isSlotOpenForBooking(slotStart)) {
+export async function assertSlotIsAvailable(
+  date: string,
+  slotStart: string,
+  durationMinutes = bookingConfig.sqlDurationMinutes
+) {
+  if (!isSlotOpenForBooking(slotStart) || !meetingFitsWorkHours(slotStart, durationMinutes)) {
     throw new Error("El horario seleccionado ya no está disponible")
   }
 
-  const availability = await getDayAvailability(date)
-  const isAvailable = availability.slots.some((slot) => slot.start === slotStart && slot.available)
-
-  if (!isAvailable) {
+  const busy = await getBusyIntervalsForDate(date)
+  if (!isMeetingWindowFree(slotStart, durationMinutes, busy)) {
     throw new Error("El horario seleccionado ya no está disponible")
   }
 }
-
-const DEMO_DURATION_MINUTES = 60
 
 export async function createMeetingEvent(input: {
   summary: string
@@ -307,12 +333,15 @@ export async function createDemoEvent(input: {
     summary: `Demo con ${input.fullName}`,
     description: `Dolor principal: ${input.painPoint}`,
     start: input.start,
-    durationMinutes: DEMO_DURATION_MINUTES,
+    durationMinutes: bookingConfig.demoDurationMinutes,
     attendeeEmail: input.email,
   })
 }
 
-export async function createBooking(payload: BookingFormPayload): Promise<BookingCreateResponse> {
+export async function createBooking(
+  payload: BookingFormPayload,
+  durationMinutes = bookingConfig.mqlDurationMinutes
+): Promise<BookingCreateResponse> {
   const slotStart = normalizeSlotStart(payload.date, payload.slotStart)
 
   if (!isComposioConfigured()) {
@@ -322,7 +351,7 @@ export async function createBooking(payload: BookingFormPayload): Promise<Bookin
     }
   }
 
-  await assertSlotIsAvailable(payload.date, slotStart)
+  await assertSlotIsAvailable(payload.date, slotStart, durationMinutes)
 
   const answers = formatBookingAnswersForDescription({
     usesPms: payload.usesPms,
@@ -347,7 +376,7 @@ export async function createBooking(payload: BookingFormPayload): Promise<Bookin
     summary: `Reunión con ${payload.fullName}`,
     description: description || undefined,
     start,
-    durationMinutes: bookingConfig.slotMinutes,
+    durationMinutes,
     attendeeEmail: payload.email,
   })
 }
@@ -426,5 +455,5 @@ export function dayToBookingDate(year: number, month: number, day: number) {
 }
 
 export function isValidSlot(date: string, slotStart: string) {
-  return generateCandidateSlotStarts(date).includes(slotStart) && isSlotOpenForBooking(slotStart)
+  return isPlausibleSlotStart(date, slotStart) && isSlotOpenForBooking(slotStart)
 }

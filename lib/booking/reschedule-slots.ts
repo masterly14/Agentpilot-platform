@@ -1,5 +1,6 @@
 import { addDays, format } from "date-fns"
 import { getDayAvailability } from "@/lib/booking/composio-calendar"
+import { bookingConfig } from "@/lib/booking/config"
 import { getBookingToday, isBookableDay } from "@/lib/booking/rules"
 import type { BookingSlot } from "@/lib/booking/types"
 
@@ -11,6 +12,7 @@ export type NearbySlotsInput = {
   avoidWindow?: ReschedulePreference
   excludeStarts?: string[]
   daysToSearch?: number
+  durationMinutes?: number
 }
 
 function preferenceMatches(slot: BookingSlot, preference: ReschedulePreference) {
@@ -25,12 +27,13 @@ export async function findNearbyRescheduleSlots(input: NearbySlotsInput = {}) {
   const preference = input.preference ?? "any"
   const avoid = input.avoidWindow
   const days = input.daysToSearch ?? 14
+  const durationMinutes = input.durationMinutes ?? bookingConfig.sqlDurationMinutes
   const candidates: BookingSlot[] = []
 
   for (let offset = 0; offset < days && candidates.length < 3; offset += 1) {
     const date = format(addDays(new Date(`${start}T12:00:00`), offset), "yyyy-MM-dd")
     if (!isBookableDay(date)) continue
-    const { slots } = await getDayAvailability(date)
+    const { slots } = await getDayAvailability(date, durationMinutes)
     const available = slots.filter((slot) => slot.available && !excluded.has(slot.start))
     const preferred = available.filter((slot) => preferenceMatches(slot, preference))
     const nonAvoided = preferred.filter((slot) => !avoid || !preferenceMatches(slot, avoid))

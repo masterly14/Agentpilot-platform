@@ -599,6 +599,7 @@ export function BookingWidgetLight({
   const bookingWidgetRef = useRef<HTMLDivElement>(null)
   const calendarViewedRef = useRef(false)
   const existingLead = Boolean(leadToken)
+  const calendarKind = "sql" as const
   const { getToken, sync, flush, clear } = usePartialSubmission({
     entrySource: "DIAGNOSIS",
     bookingFlow: "DIAGNOSIS_PUBLIC",
@@ -668,7 +669,7 @@ export function BookingWidgetLight({
     setCalendarError(null)
 
     try {
-      const response = await fetch(`/api/booking/month?year=${viewYear}&month=${viewMonth}`)
+      const response = await fetch(`/api/booking/month?year=${viewYear}&month=${viewMonth}&kind=${calendarKind}`)
       if (!response.ok) throw new Error("No se pudo cargar el calendario")
 
       const data = (await response.json()) as MonthAvailabilityResponse
@@ -684,7 +685,7 @@ export function BookingWidgetLight({
     } finally {
       setIsLoadingCalendar(false)
     }
-  }, [viewMonth, viewYear])
+  }, [calendarKind, viewMonth, viewYear])
 
   useEffect(() => {
     loadMonthAvailability()
@@ -739,7 +740,7 @@ export function BookingWidgetLight({
       const dateKey = toBookingDate(resolved.year, resolved.month, resolved.day)
 
       try {
-        const response = await fetch(`/api/booking/availability?date=${dateKey}`)
+        const response = await fetch(`/api/booking/availability?date=${dateKey}&kind=${calendarKind}`)
         if (!response.ok) throw new Error("No se pudieron cargar los horarios")
 
         const data = (await response.json()) as { slots: BookingSlot[] }
@@ -752,7 +753,7 @@ export function BookingWidgetLight({
         setStep("error")
       }
     },
-    [clearLoadTimeout, currentMonth, isLoadingCalendar, unavailableDays, viewMonth, viewYear]
+    [calendarKind, clearLoadTimeout, currentMonth, isLoadingCalendar, unavailableDays, viewMonth, viewYear]
   )
 
   const handleSelectTime = useCallback(
@@ -898,7 +899,7 @@ export function BookingWidgetLight({
           <div className="space-y-2.5 text-sm text-zinc-600">
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 shrink-0" />
-              <span>{leadMode ? SQL_DIAGNOSIS_HERO.durationLabel : `${bookingConfig.slotMinutes}m`}</span>
+              <span>{leadMode ? SQL_DIAGNOSIS_HERO.durationLabel : `${bookingConfig.mqlDurationMinutes}–${bookingConfig.sqlDurationMinutes}m`}</span>
             </div>
             <div className="flex items-center gap-2">
               <GoogleMeetIcon className="h-4 w-4 shrink-0" />

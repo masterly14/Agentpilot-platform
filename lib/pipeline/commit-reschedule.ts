@@ -3,6 +3,7 @@ import {
   buildCalendarEventCopy,
   updateCalendarEventTime,
 } from "@/lib/booking/composio-calendar"
+import { meetingDurationMinutes, meetingKindForPipeline } from "@/lib/booking/duration"
 import { getBookingDateTimeParts } from "@/lib/booking/rules"
 import { prisma } from "@/lib/prisma"
 import { rescheduleMeeting } from "@/lib/pipeline/engine"
@@ -14,9 +15,26 @@ export async function commitMeetingReschedule(input: {
 }) {
   const current = await prisma.leadPipeline.findUniqueOrThrow({
     where: { contactId: input.contactId },
-    include: { contact: true },
+    include: {
+      contact: {
+        include: {
+          submissions: {
+            orderBy: { createdAt: "desc" },
+            take: 1,
+            select: { qualification: true },
+          },
+        },
+      },
+    },
   })
   const isDemo = current.currentStage === "PRE_DEMO"
+  const durationMinutes = meetingDurationMinutes(
+    meetingKindForPipeline({
+      currentStage: current.currentStage,
+      funnelOrigin: current.funnelOrigin,
+      qualification: current.contact.submissions[0]?.qualification,
+    })
+  )
   const copy = buildCalendarEventCopy({
     fullName: current.contact.fullName,
     kind: isDemo ? "demo" : "meeting",
@@ -27,11 +45,11 @@ export async function commitMeetingReschedule(input: {
 
   if (current.meetingId) {
     const { date, time } = getBookingDateTimeParts(input.meetingTime)
-    await assertSlotIsAvailable(date, `${date}T${time}`)
+    await assertSlotIsAvailable(date, `${date}T${time}`, durationMinutes)
     const calendar = await updateCalendarEventTime({
       eventId: current.meetingId,
       meetingTime: input.meetingTime,
-      durationMinutes: isDemo ? 60 : undefined,
+      durationMinutes,
       summary: copy.summary,
       description: copy.description,
       attendeeEmail: current.contact.email,

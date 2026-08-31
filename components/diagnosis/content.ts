@@ -9,7 +9,7 @@ export const SQL_DIAGNOSIS_HERO = {
   titleAccent: "No te dice cuánto te está costando a ti no hacerlo.",
   subtitle: "Eso solo sale mirando tu operación. Es lo que hacemos en el diagnóstico.",
   description:
-    "En 45 minutos desarmamos tu operación proceso por proceso: comunicación con huéspedes, limpieza, gastos, reportes a propietarios. Al final tienes un número: cuánto se te va al año en tiempo y costos que hoy nadie está midiendo. Te llevas ese documento trabajemos juntos o no.",
+    "En 70 minutos desarmamos tu operación proceso por proceso: comunicación con huéspedes, limpieza, gastos, reportes a propietarios. Al final tienes un número: cuánto se te va al año en tiempo y costos que hoy nadie está midiendo. Te llevas ese documento trabajemos juntos o no.",
   callAgendaTitle: "Qué pasa en la llamada",
   callAgenda: [
     "No hay presentación de producto ni propuesta comercial",
@@ -18,11 +18,11 @@ export const SQL_DIAGNOSIS_HERO = {
   ],
   cta: "Agendar mi diagnóstico",
   ctaHref: "#booking",
-  ctaMeta: "45 minutos · Sin costo · Para operadores desde 10 propiedades",
+  ctaMeta: "70 minutos · Sin costo · Para operadores desde 10 propiedades",
   widgetTitle: "Diagnóstico",
   widgetBody:
-    "En 45 minutos desarmamos tu operación proceso por proceso. Te llevas el documento, trabajemos juntos o no.",
-  durationLabel: "45 min",
+    "En 70 minutos desarmamos tu operación proceso por proceso. Te llevas el documento, trabajemos juntos o no.",
+  durationLabel: "70 min",
 } as const
 
 export const DIAGNOSIS_HERO = {
@@ -83,7 +83,7 @@ export const DIAGNOSIS_BOOKING = {
   recommendationsTitle: "Recomendaciones para la llamada",
   recommendations: [
     "Esta llamada tiene como objetivo analizar la operación de tu empresa, y evaluar si tiene sentido implementar nuestro sistema para ayudarte a escalar tu negocio con infraestructura de IA y nuestro método.",
-    "La reunión dura aproximadamente 60 minutos. Elige un día y horario en el que puedas estar 100% presente, ya que vamos a trabajar juntos en entender tus objetivos y si somos el equipo indicado para ayudarte a lograrlos.",
+    "La reunión dura 40 minutos si es una primera conversación y 70 minutos si el perfil ya está calificado. Entre una reunión y otra queda un receso, así que elige un día y horario en el que puedas estar 100% presente.",
     "Te pedimos que te conectes desde una computadora, en un lugar tranquilo y sin interrupciones, para que podamos aprovechar el tiempo al máximo y enfocarnos en lo importante: generar resultados concretos para tus alojamientos.",
   ],
 }

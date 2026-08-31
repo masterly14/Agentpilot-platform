@@ -530,6 +530,7 @@ export function BookingWidget({
   const bookingWidgetRef = useRef<HTMLDivElement>(null)
   const calendarViewedRef = useRef(false)
   const existingLead = Boolean(leadToken)
+  const calendarKind = existingLead ? ("mql" as const) : ("sql" as const)
   const { getToken, sync, flush, clear } = usePartialSubmission({
     entrySource: "DIRECT_BOOKING",
     bookingFlow: "DIRECT_BOOKING",
@@ -599,7 +600,7 @@ export function BookingWidget({
     setCalendarError(null)
 
     try {
-      const response = await fetch(`/api/booking/month?year=${viewYear}&month=${viewMonth}`)
+      const response = await fetch(`/api/booking/month?year=${viewYear}&month=${viewMonth}&kind=${calendarKind}`)
       if (!response.ok) throw new Error("No se pudo cargar el calendario")
 
       const data = (await response.json()) as MonthAvailabilityResponse
@@ -615,7 +616,7 @@ export function BookingWidget({
     } finally {
       setIsLoadingCalendar(false)
     }
-  }, [viewMonth, viewYear])
+  }, [calendarKind, viewMonth, viewYear])
 
   useEffect(() => {
     loadMonthAvailability()
@@ -670,7 +671,7 @@ export function BookingWidget({
       const dateKey = toBookingDate(resolved.year, resolved.month, resolved.day)
 
       try {
-        const response = await fetch(`/api/booking/availability?date=${dateKey}`)
+        const response = await fetch(`/api/booking/availability?date=${dateKey}&kind=${calendarKind}`)
         if (!response.ok) throw new Error("No se pudieron cargar los horarios")
 
         const data = (await response.json()) as { slots: BookingSlot[] }
@@ -683,7 +684,7 @@ export function BookingWidget({
         setStep("error")
       }
     },
-    [clearLoadTimeout, currentMonth, isLoadingCalendar, unavailableDays, viewMonth, viewYear]
+    [calendarKind, clearLoadTimeout, currentMonth, isLoadingCalendar, unavailableDays, viewMonth, viewYear]
   )
 
   const handleSelectTime = useCallback(
@@ -822,7 +823,11 @@ export function BookingWidget({
           <div className="space-y-2.5 text-sm text-zinc-400">
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 shrink-0" />
-              <span>{bookingConfig.slotMinutes}m</span>
+              <span>
+                {existingLead
+                  ? `${bookingConfig.mqlDurationMinutes}m`
+                  : `${bookingConfig.mqlDurationMinutes}–${bookingConfig.sqlDurationMinutes}m`}
+              </span>
             </div>
             <div className="flex items-center gap-2">
               <GoogleMeetIcon className="h-4 w-4 shrink-0" />
