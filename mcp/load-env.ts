@@ -1,5 +1,21 @@
 import { existsSync, readFileSync } from "node:fs"
 import path from "node:path"
+import { fileURLToPath } from "node:url"
+
+function mcpDir() {
+  if (typeof import.meta !== "undefined" && import.meta.url) {
+    return path.dirname(fileURLToPath(import.meta.url))
+  }
+  const entry = process.argv[1] ? path.resolve(process.argv[1]) : ""
+  if (entry && path.basename(path.dirname(entry)) === "mcp") {
+    return path.dirname(entry)
+  }
+  return path.resolve(process.cwd(), "mcp")
+}
+
+export function projectRoot() {
+  return path.resolve(mcpDir(), "..")
+}
 
 function applyEnvFile(filePath: string) {
   if (!existsSync(filePath)) return false
@@ -23,7 +39,9 @@ function applyEnvFile(filePath: string) {
 }
 
 export function loadMcpEnv() {
-  const root = process.cwd()
+  const root = projectRoot()
+  if (process.cwd() !== root) process.chdir(root)
+
   const loaded = [".env", ".env.local"]
     .map((file) => applyEnvFile(path.resolve(root, file)))
     .some(Boolean)

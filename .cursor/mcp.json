@@ -1,8 +1,11 @@
 {
   "mcpServers": {
     "crm-leads": {
-      "command": "node",
-      "args": ["--import", "tsx", "mcp/index.ts"]
+      "url": "https://agentpilot.cloud/api/mcp",
+      "type": "http",
+      "headers": {
+        "Authorization": "Bearer ${env:MCP_API_KEY}"
+      }
     }
   }
 }
