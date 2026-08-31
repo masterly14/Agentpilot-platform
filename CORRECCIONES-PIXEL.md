@@ -34,7 +34,7 @@ La incorporación de `test_event_code` ahora depende de que `NODE_ENV` no sea `p
 
 ```diff
 -const testCode = process.env.META_TEST_EVENT_CODE?.trim()
-+const testCode = process.env.NODE_ENV !== "production" ? process.env.META_TEST_EVENT_CODE?.trim() : ""
++const testCode = process.env.NODE_ENV !== "production" ? process.envMETA_TEST_EVENT_CODE?.trim() : ""
  if (testCode) payload.test_event_code = testCode
 ```
 

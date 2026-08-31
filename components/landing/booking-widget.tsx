@@ -25,6 +25,7 @@ import {
   bookingMonthName,
   toBookingDate,
 } from "@/lib/booking/config"
+import { buildMonthWeeks, isCalendarCellUnavailable, isSameCalendarDate, type CalendarCell } from "@/lib/booking/month-grid"
 import { getCurrentBookingYearMonth, getUnbookableDaysInMonth, isMonthInBookingWindow } from "@/lib/booking/rules"
 import { applyLiveSlotRules, filterPastSlots } from "@/lib/booking/slots"
 import {
@@ -40,22 +41,6 @@ import { cn } from "@/lib/utils"
 
 const CEO_PHOTO_URL =
   "https://3auasoi81o.ucarecd.net/bb605086-50c5-4a5c-bdc0-cf5cba44620b/IMG_0758.png"
-
-function buildMonthWeeks(year: number, month: number) {
-  const firstWeekday = new Date(year, month - 1, 1).getDay()
-  const daysInMonth = new Date(year, month, 0).getDate()
-  const cells: Array<number | null> = [
-    ...Array.from({ length: firstWeekday }, () => null),
-    ...Array.from({ length: daysInMonth }, (_, index) => index + 1),
-  ]
-  while (cells.length % 7 !== 0) cells.push(null)
-
-  const weeks: Array<Array<number | null>> = []
-  for (let index = 0; index < cells.length; index += 7) {
-    weeks.push(cells.slice(index, index + 7))
-  }
-  return weeks
-}
 
 const DAY_LABELS = ["DOM", "LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB"]
 const DAY_NAMES = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"]
@@ -122,28 +107,26 @@ function NoSlotsPanel() {
 }
 
 function CalendarDay({
-  day,
-  monthName,
+  cell,
   isSelected,
   isUnavailable,
   isDisabled,
   onSelect,
 }: {
-  day: number | null
-  monthName: string
+  cell: CalendarCell
   isSelected: boolean
   isUnavailable: boolean
   isDisabled?: boolean
-  onSelect: (day: number) => void
+  onSelect: (cell: CalendarCell) => void
 }) {
-  if (day === null) {
-    return <div className="aspect-square w-full" aria-hidden="true" />
-  }
+  const monthName = bookingMonthName(cell.month)
 
   if (isUnavailable || isDisabled) {
     return (
       <div className="flex aspect-square w-full items-center justify-center">
-        <span className="text-sm text-zinc-500">{day}</span>
+        <span className={cn("text-sm", cell.isOutside ? "text-zinc-700" : "text-zinc-500")}>
+          {cell.day}
+        </span>
       </div>
     )
   }
@@ -151,17 +134,19 @@ function CalendarDay({
   return (
     <button
       type="button"
-      onClick={() => onSelect(day)}
-      aria-label={`Seleccionar ${day} de ${monthName}`}
+      onClick={() => onSelect(cell)}
+      aria-label={`Seleccionar ${cell.day} de ${monthName}`}
       aria-pressed={isSelected}
       className={cn(
         "flex aspect-square w-full flex-col items-center justify-center rounded-xl transition-colors lg:rounded-lg",
         isSelected
           ? "bg-white text-black"
-          : "bg-zinc-800/80 text-zinc-200 hover:bg-zinc-700/80"
+          : cell.isOutside
+            ? "text-zinc-500 hover:bg-zinc-800/80 hover:text-zinc-200"
+            : "bg-zinc-800/80 text-zinc-200 hover:bg-zinc-700/80"
       )}
     >
-      <span className="text-sm font-medium leading-none">{day}</span>
+      <span className="text-sm font-medium leading-none">{cell.day}</span>
       {isSelected && <span className="mt-0.5 h-1 w-1 rounded-full bg-black" />}
     </button>
   )
@@ -527,7 +512,7 @@ export function BookingWidget({
   const [viewYear, setViewYear] = useState(BOOKING_YEAR)
   const [viewMonth, setViewMonth] = useState(BOOKING_MONTH)
   const [currentMonth, setCurrentMonth] = useState({ year: BOOKING_YEAR, month: BOOKING_MONTH })
-  const [selectedDay, setSelectedDay] = useState<number | null>(null)
+  const [selectedDate, setSelectedDate] = useState<Pick<CalendarCell, "year" | "month" | "day"> | null>(null)
   const [selectedSlotStart, setSelectedSlotStart] = useState<string | null>(null)
   const [step, setStep] = useState<BookingStep>("idle")
   const [timeSlots, setTimeSlots] = useState<BookingSlot[]>([])
@@ -598,7 +583,7 @@ export function BookingWidget({
   }, [])
 
   const resetSelection = useCallback(() => {
-    setSelectedDay(null)
+    setSelectedDate(null)
     setSelectedSlotStart(null)
     setTimeSlots([])
     setMeetLink(null)
@@ -653,7 +638,7 @@ export function BookingWidget({
   )
 
   useEffect(() => {
-    if (selectedDay === null) return
+    if (selectedDate === null) return
     if (!window.matchMedia("(max-width: 1023px)").matches) return
 
     requestAnimationFrame(() => {
@@ -661,20 +646,26 @@ export function BookingWidget({
         scrollToElement(mobileTimesPanelRef.current, 700)
       }
     })
-  }, [selectedDay])
+  }, [selectedDate])
 
   const handleSelectDay = useCallback(
-    async (day: number) => {
-      if (isLoadingCalendar || unavailableDays.has(day)) return
+    async (cell: Pick<CalendarCell, "year" | "month" | "day">) => {
+      const resolved: CalendarCell = {
+        year: cell.year,
+        month: cell.month,
+        day: cell.day,
+        isOutside: cell.year !== viewYear || cell.month !== viewMonth,
+      }
+      if (isLoadingCalendar || isCalendarCellUnavailable(resolved, currentMonth, unavailableDays)) return
 
       clearLoadTimeout()
-      setSelectedDay(day)
+      setSelectedDate(resolved)
       setSelectedSlotStart(null)
       setMeetLink(null)
       setErrorMessage(null)
       setStep("loading-times")
 
-      const dateKey = toBookingDate(viewYear, viewMonth, day)
+      const dateKey = toBookingDate(resolved.year, resolved.month, resolved.day)
 
       try {
         const response = await fetch(`/api/booking/availability?date=${dateKey}`)
@@ -690,7 +681,7 @@ export function BookingWidget({
         setStep("error")
       }
     },
-    [clearLoadTimeout, isLoadingCalendar, unavailableDays, viewMonth, viewYear]
+    [clearLoadTimeout, currentMonth, isLoadingCalendar, unavailableDays, viewMonth, viewYear]
   )
 
   const handleSelectTime = useCallback(
@@ -722,7 +713,7 @@ export function BookingWidget({
   )
 
   const handleFormSubmit = useCallback(async () => {
-    if (!selectedDay || !selectedSlotStart) return
+    if (!selectedDate || !selectedSlotStart) return
 
     setStep("submitting")
     setErrorMessage(null)
@@ -735,7 +726,7 @@ export function BookingWidget({
         body: JSON.stringify(
           leadToken
             ? {
-                date: toBookingDate(viewYear, viewMonth, selectedDay),
+                date: toBookingDate(selectedDate.year, selectedDate.month, selectedDate.day),
                 slotStart: selectedSlotStart,
                 visitorTimezone: timeZone,
                 leadToken,
@@ -743,7 +734,7 @@ export function BookingWidget({
                 attribution: collectAttribution(),
               }
             : {
-                date: toBookingDate(viewYear, viewMonth, selectedDay),
+                date: toBookingDate(selectedDate.year, selectedDate.month, selectedDate.day),
                 slotStart: selectedSlotStart,
                 visitorTimezone: timeZone,
                 ...formData,
@@ -774,10 +765,10 @@ export function BookingWidget({
       setErrorMessage(error instanceof Error ? error.message : "No se pudo confirmar la reunión")
       setStep("form")
     }
-  }, [clear, flush, formData, getToken, leadEmail, leadName, leadToken, selectedDay, selectedSlotStart, timeZone, viewMonth, viewYear])
+  }, [clear, flush, formData, getToken, leadEmail, leadName, leadToken, selectedDate, selectedSlotStart, timeZone])
 
   const isFormActive = step === "form" || step === "submitting" || step === "submitted"
-  const showMobilePanel = selectedDay !== null
+  const showMobilePanel = selectedDate !== null
   const leadMode = leadToken && leadName && leadEmail ? { name: leadName, email: leadEmail } : undefined
   const attendeeEmail = leadEmail || formData.email
   const selectedTimeLabel = selectedSlotStart
@@ -785,8 +776,8 @@ export function BookingWidget({
     : null
   const selectedDateLabel = selectedSlotStart
     ? formatSlotDateLabel(selectedSlotStart, timeZone)
-    : selectedDay
-      ? formatSelectedDate(viewYear, viewMonth, selectedDay)
+    : selectedDate
+      ? formatSelectedDate(selectedDate.year, selectedDate.month, selectedDate.day)
       : null
   const hostTimeHint =
     selectedSlotStart && timeZone !== bookingConfig.timezone
@@ -905,13 +896,12 @@ export function BookingWidget({
             <div className="space-y-1.5 md:space-y-1">
               {monthWeeks.map((week, weekIndex) => (
                 <div key={weekIndex} className="grid grid-cols-7 gap-1.5 md:gap-1">
-                  {week.map((day, dayIndex) => (
+                  {week.map((cell) => (
                     <CalendarDay
-                      key={`${viewYear}-${viewMonth}-${weekIndex}-${dayIndex}`}
-                      day={day}
-                      monthName={bookingMonthName(viewMonth)}
-                      isSelected={day === selectedDay}
-                      isUnavailable={day !== null && unavailableDays.has(day)}
+                      key={`${cell.year}-${cell.month}-${cell.day}`}
+                      cell={cell}
+                      isSelected={isSameCalendarDate(selectedDate, cell)}
+                      isUnavailable={isCalendarCellUnavailable(cell, currentMonth, unavailableDays)}
                       isDisabled={isLoadingCalendar}
                       onSelect={handleSelectDay}
                     />
@@ -930,9 +920,9 @@ export function BookingWidget({
         >
           <BookingSidePanel
             step={step}
-            selectedDay={selectedDay}
-            viewYear={viewYear}
-            viewMonth={viewMonth}
+            selectedDay={selectedDate?.day ?? null}
+            viewYear={selectedDate?.year ?? viewYear}
+            viewMonth={selectedDate?.month ?? viewMonth}
             selectedSlotStart={selectedSlotStart}
             selectedDateLabel={selectedDateLabel}
             selectedTimeLabel={selectedTimeLabel}
@@ -952,7 +942,7 @@ export function BookingWidget({
             onFormStepChange={setFormStep}
             onFormSubmit={handleFormSubmit}
             onBackToTimes={handleBackToTimes}
-            onRetry={selectedDay ? () => handleSelectDay(selectedDay) : undefined}
+            onRetry={selectedDate ? () => handleSelectDay(selectedDate) : undefined}
             onFieldBlur={() => {
               void flush()
             }}
@@ -970,9 +960,9 @@ export function BookingWidget({
           >
             <BookingSidePanel
               step={step}
-              selectedDay={selectedDay}
-              viewYear={viewYear}
-              viewMonth={viewMonth}
+              selectedDay={selectedDate?.day ?? null}
+              viewYear={selectedDate?.year ?? viewYear}
+              viewMonth={selectedDate?.month ?? viewMonth}
               selectedSlotStart={selectedSlotStart}
               selectedDateLabel={selectedDateLabel}
               selectedTimeLabel={selectedTimeLabel}
@@ -992,7 +982,7 @@ export function BookingWidget({
               onFormStepChange={setFormStep}
               onFormSubmit={handleFormSubmit}
               onBackToTimes={handleBackToTimes}
-              onRetry={selectedDay ? () => handleSelectDay(selectedDay) : undefined}
+              onRetry={selectedDate ? () => handleSelectDay(selectedDate) : undefined}
               onFieldBlur={() => {
                 void flush()
               }}
