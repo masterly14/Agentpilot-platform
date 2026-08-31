@@ -45,7 +45,8 @@ const LANDING_META: Record<
   },
 }
 
-const AD_SOURCES = new Set(["facebook", "fb", "ig", "instagram", "meta"])
+export const META_CAMPAIGN_SOURCES = ["facebook", "fb", "ig", "instagram", "meta"] as const
+const AD_SOURCES = new Set<string>(META_CAMPAIGN_SOURCES)
 const AD_MEDIA = new Set(["cpc", "ppc", "paid", "paid_social", "paidsocial"])
 
 export function isAdLandingPath(value: string): value is AdLandingPath {

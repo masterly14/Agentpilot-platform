@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "crm-leads": {
+      "command": "node",
+      "args": ["--import", "tsx", "mcp/index.ts"]
+    }
+  }
+}
