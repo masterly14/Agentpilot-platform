@@ -62,9 +62,15 @@ export function isSlotOpenForBooking(slotStart: string, now = new Date()): boole
   return !isPastBookingSlotStart(slotStart, now) && !isWithinMinNotice(slotStart, now)
 }
 
-export function isSunday(date: string): boolean {
+const CLOSED_BOOKING_WEEKDAYS = new Set([1, 2])
+
+export function weekdayForBookingDate(date: string): number {
   const [year, month, day] = date.split("-").map(Number)
-  return new Date(year, month - 1, day).getDay() === 0
+  return new Date(year, month - 1, day).getDay()
+}
+
+export function isClosedBookingWeekday(date: string): boolean {
+  return CLOSED_BOOKING_WEEKDAYS.has(weekdayForBookingDate(date))
 }
 
 export function isPastBookingDay(date: string): boolean {
@@ -72,7 +78,7 @@ export function isPastBookingDay(date: string): boolean {
 }
 
 export function isBookableDay(date: string): boolean {
-  return !isSunday(date) && !isPastBookingDay(date)
+  return !isClosedBookingWeekday(date) && !isPastBookingDay(date)
 }
 
 export function getUnbookableDaysInMonth(year: number, month: number): number[] {
