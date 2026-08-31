@@ -51,6 +51,7 @@ export const PIPELINE_STATE_LABEL: Record<PipelineState, string> = {
   REMINDER_24H: "Recordatorio 24h",
   REMINDER_8AM_DAY_OF: "Recordatorio 8am",
   REMINDER_30MIN: "Recordatorio 30 min",
+  NEED_RESCHEDULE: "Reprogramando",
   ATTENDED: "Asistió",
   NO_SHOW: "No-show",
   RESCHEDULE_OFFERED: "Reagendamiento ofrecido",

@@ -173,6 +173,7 @@ model LeadPipeline {
   meetingTime          DateTime?
   meetLink             String?
   visitorTimezone      String?
+  rescheduleContext    Json?
   createdAt            DateTime       @default(now())
   updatedAt            DateTime       @updatedAt
   jobs                 PipelineJob[]
@@ -336,6 +337,7 @@ enum PipelineState {
   REMINDER_24H
   REMINDER_8AM_DAY_OF
   REMINDER_30MIN
+  NEED_RESCHEDULE
   ATTENDED
   NO_SHOW
   RESCHEDULE_OFFERED

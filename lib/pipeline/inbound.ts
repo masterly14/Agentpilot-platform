@@ -20,6 +20,8 @@ import {
 import { hasLowPropertyFit, parseQualificationAnswers } from "@/lib/pipeline/qualify-mql"
 import { sendWhatsAppText } from "@/lib/whatsapp/send-template"
 import { PIPELINE_INBOUND_TYPES } from "@/lib/whatsapp/webhook"
+import { isRescheduleMessage, processRescheduleTurn } from "@/lib/pipeline/reschedule-agent"
+import { getPipelineBaseUrl, getQstashClient, isQstashConfigured } from "@/lib/qstash/client"
 
 type InboundMessage = {
   waId: string
@@ -76,7 +78,36 @@ export async function handleInboundWhatsApp(message: InboundMessage) {
   const pipeline = await prisma.leadPipeline.findUnique({
     where: { contactId: contact.id },
   })
-  if (!pipeline || pipeline.currentStage !== "NURTURING") return saved
+  if (!pipeline) return saved
+
+  const rescheduleSession =
+    pipeline.currentState === "NEED_RESCHEDULE" &&
+    pipeline.rescheduleContext &&
+    typeof pipeline.rescheduleContext === "object"
+  const rescheduleEligible =
+    pipeline.currentStage === "PRE_MEETING" || pipeline.currentStage === "PRE_DEMO"
+  if (rescheduleEligible && (rescheduleSession || isRescheduleMessage(message.body, message.buttonId))) {
+    if (pipeline.currentState !== "NEED_RESCHEDULE") {
+      await transitionPipeline({
+        contactId: contact.id,
+        toState: "NEED_RESCHEDULE",
+        extra: { rescheduleContext: { status: "active" } },
+      })
+    }
+    const payload = { contactId: contact.id, body: message.body, buttonId: message.buttonId }
+    if (isQstashConfigured()) {
+      const qstash = getQstashClient()
+      await qstash?.publishJSON({
+        url: `${getPipelineBaseUrl()}/api/pipeline/reschedule-agent`,
+        body: payload,
+      })
+    } else {
+      await processRescheduleTurn(payload)
+    }
+    return saved
+  }
+
+  if (pipeline.currentStage !== "NURTURING") return saved
 
   const action = message.buttonId
     ? normalizeButtonAction(message.buttonId)

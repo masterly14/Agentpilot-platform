@@ -22,6 +22,7 @@ export const WHATSAPP_PARAM_EXAMPLES: Record<WhatsAppNamedParam, string> = {
   hora: "10:00 a. m.",
   link: "https://santiagovaron.com/agendar",
   dolor: "el seguimiento manual de reservas",
+  resumen: "Empresa: Example PM · 16 propiedades · Usa PMS",
 }
 
 const NAMED_PARAM_RE = /\{\{([a-z][a-z0-9_]*)\}\}/g
@@ -39,6 +40,24 @@ function defineWhatsAppTemplates<const T extends Record<string, WhatsAppTemplate
 }
 
 export const whatsappTemplates = defineWhatsAppTemplates({
+  ap_owner_meeting_rescheduled: {
+    name: "ap_owner_meeting_rescheduled",
+    category: "UTILITY",
+    language: WHATSAPP_TEMPLATE_LANGUAGE,
+    pipeline: undefined,
+    state: "NEED_RESCHEDULE",
+    funnelOrigin: "ANY",
+    triggerType: "EVENT",
+    params: ["nombre", "fecha", "hora", "resumen"],
+    buttons: [],
+    body: lines(
+      "Se reprogramó la reunión con {{nombre}} para el {{fecha}} a las {{hora}}.",
+      "",
+      "Resumen: {{resumen}}.",
+      "",
+      "Revisa el calendario para los detalles.",
+    ),
+  },
   ap_confirmation_sent1: {
     name: "ap_confirmation_sent1",
     category: "UTILITY",

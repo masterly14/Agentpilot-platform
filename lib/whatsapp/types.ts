@@ -14,7 +14,7 @@ export type WhatsAppTemplateCategory = "AUTHENTICATION" | "MARKETING" | "UTILITY
 
 export type WhatsAppParameterFormat = "NAMED" | "POSITIONAL" | "named" | "positional"
 
-export type WhatsAppNamedParam = "nombre" | "fecha" | "hora" | "link" | "dolor"
+export type WhatsAppNamedParam = "nombre" | "fecha" | "hora" | "link" | "dolor" | "resumen"
 
 export type WhatsAppQuickReplyButton = {
   type: "QUICK_REPLY"

@@ -249,6 +249,7 @@ exports.Prisma.LeadPipelineScalarFieldEnum = {
   meetingTime: 'meetingTime',
   meetLink: 'meetLink',
   visitorTimezone: 'visitorTimezone',
+  rescheduleContext: 'rescheduleContext',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -601,6 +602,7 @@ exports.PipelineState = exports.$Enums.PipelineState = {
   REMINDER_24H: 'REMINDER_24H',
   REMINDER_8AM_DAY_OF: 'REMINDER_8AM_DAY_OF',
   REMINDER_30MIN: 'REMINDER_30MIN',
+  NEED_RESCHEDULE: 'NEED_RESCHEDULE',
   ATTENDED: 'ATTENDED',
   NO_SHOW: 'NO_SHOW',
   RESCHEDULE_OFFERED: 'RESCHEDULE_OFFERED',

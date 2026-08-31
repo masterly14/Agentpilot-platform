@@ -14,6 +14,8 @@
     "test:funnel": "node --experimental-strip-types scripts/run-funnel-tests.ts",
     "pipeline:sim-sql": "node --experimental-strip-types scripts/sim-sql-nurture.ts",
     "pipeline:sim-mql": "node --experimental-strip-types scripts/sim-mql-nurture.ts",
+    "test:reschedule-agent": "node --experimental-strip-types scripts/test-reschedule-agent.ts",
+    "verify:reschedule-agent": "node --experimental-strip-types scripts/verify-reschedule-agent.ts",
     "airbnb:import": "node --experimental-strip-types scripts/import-airbnb-leads.ts",
     "airbnb:verify": "node --experimental-strip-types scripts/verify-airbnb-import.ts",
     "airbnb:cutover-env": "node --experimental-strip-types scripts/cutover-airbnb-env.ts"

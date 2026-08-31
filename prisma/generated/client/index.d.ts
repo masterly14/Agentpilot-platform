@@ -256,6 +256,7 @@ export const PipelineState: {
   REMINDER_24H: 'REMINDER_24H',
   REMINDER_8AM_DAY_OF: 'REMINDER_8AM_DAY_OF',
   REMINDER_30MIN: 'REMINDER_30MIN',
+  NEED_RESCHEDULE: 'NEED_RESCHEDULE',
   ATTENDED: 'ATTENDED',
   NO_SHOW: 'NO_SHOW',
   RESCHEDULE_OFFERED: 'RESCHEDULE_OFFERED',
@@ -9756,6 +9757,7 @@ export namespace Prisma {
     meetingTime: number
     meetLink: number
     visitorTimezone: number
+    rescheduleContext: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -9819,6 +9821,7 @@ export namespace Prisma {
     meetingTime?: true
     meetLink?: true
     visitorTimezone?: true
+    rescheduleContext?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -9913,6 +9916,7 @@ export namespace Prisma {
     meetingTime: Date | null
     meetLink: string | null
     visitorTimezone: string | null
+    rescheduleContext: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: LeadPipelineCountAggregateOutputType | null
@@ -9951,6 +9955,7 @@ export namespace Prisma {
     meetingTime?: boolean
     meetLink?: boolean
     visitorTimezone?: boolean
+    rescheduleContext?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     contact?: boolean | ContactDefaultArgs<ExtArgs>
@@ -9975,6 +9980,7 @@ export namespace Prisma {
     meetingTime?: boolean
     meetLink?: boolean
     visitorTimezone?: boolean
+    rescheduleContext?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     contact?: boolean | ContactDefaultArgs<ExtArgs>
@@ -9997,6 +10003,7 @@ export namespace Prisma {
     meetingTime?: boolean
     meetLink?: boolean
     visitorTimezone?: boolean
+    rescheduleContext?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     contact?: boolean | ContactDefaultArgs<ExtArgs>
@@ -10019,11 +10026,12 @@ export namespace Prisma {
     meetingTime?: boolean
     meetLink?: boolean
     visitorTimezone?: boolean
+    rescheduleContext?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type LeadPipelineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contactId" | "funnelOrigin" | "currentStage" | "currentState" | "scheduledJobId" | "scheduledJobDedupKey" | "videoWatched" | "utmSource" | "pixelFiredAt" | "painPoint" | "qualificationAnswers" | "meetingId" | "meetingTime" | "meetLink" | "visitorTimezone" | "createdAt" | "updatedAt", ExtArgs["result"]["leadPipeline"]>
+  export type LeadPipelineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contactId" | "funnelOrigin" | "currentStage" | "currentState" | "scheduledJobId" | "scheduledJobDedupKey" | "videoWatched" | "utmSource" | "pixelFiredAt" | "painPoint" | "qualificationAnswers" | "meetingId" | "meetingTime" | "meetLink" | "visitorTimezone" | "rescheduleContext" | "createdAt" | "updatedAt", ExtArgs["result"]["leadPipeline"]>
   export type LeadPipelineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     contact?: boolean | ContactDefaultArgs<ExtArgs>
     jobs?: boolean | LeadPipeline$jobsArgs<ExtArgs>
@@ -10059,6 +10067,7 @@ export namespace Prisma {
       meetingTime: Date | null
       meetLink: string | null
       visitorTimezone: string | null
+      rescheduleContext: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["leadPipeline"]>
@@ -10502,6 +10511,7 @@ export namespace Prisma {
     readonly meetingTime: FieldRef<"LeadPipeline", 'DateTime'>
     readonly meetLink: FieldRef<"LeadPipeline", 'String'>
     readonly visitorTimezone: FieldRef<"LeadPipeline", 'String'>
+    readonly rescheduleContext: FieldRef<"LeadPipeline", 'Json'>
     readonly createdAt: FieldRef<"LeadPipeline", 'DateTime'>
     readonly updatedAt: FieldRef<"LeadPipeline", 'DateTime'>
   }
@@ -27209,6 +27219,7 @@ export namespace Prisma {
     meetingTime: 'meetingTime',
     meetLink: 'meetLink',
     visitorTimezone: 'visitorTimezone',
+    rescheduleContext: 'rescheduleContext',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -28652,6 +28663,7 @@ export namespace Prisma {
     meetingTime?: DateTimeNullableFilter<"LeadPipeline"> | Date | string | null
     meetLink?: StringNullableFilter<"LeadPipeline"> | string | null
     visitorTimezone?: StringNullableFilter<"LeadPipeline"> | string | null
+    rescheduleContext?: JsonNullableFilter<"LeadPipeline">
     createdAt?: DateTimeFilter<"LeadPipeline"> | Date | string
     updatedAt?: DateTimeFilter<"LeadPipeline"> | Date | string
     contact?: XOR<ContactScalarRelationFilter, ContactWhereInput>
@@ -28675,6 +28687,7 @@ export namespace Prisma {
     meetingTime?: SortOrderInput | SortOrder
     meetLink?: SortOrderInput | SortOrder
     visitorTimezone?: SortOrderInput | SortOrder
+    rescheduleContext?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     contact?: ContactOrderByWithRelationInput
@@ -28701,6 +28714,7 @@ export namespace Prisma {
     meetingTime?: DateTimeNullableFilter<"LeadPipeline"> | Date | string | null
     meetLink?: StringNullableFilter<"LeadPipeline"> | string | null
     visitorTimezone?: StringNullableFilter<"LeadPipeline"> | string | null
+    rescheduleContext?: JsonNullableFilter<"LeadPipeline">
     createdAt?: DateTimeFilter<"LeadPipeline"> | Date | string
     updatedAt?: DateTimeFilter<"LeadPipeline"> | Date | string
     contact?: XOR<ContactScalarRelationFilter, ContactWhereInput>
@@ -28724,6 +28738,7 @@ export namespace Prisma {
     meetingTime?: SortOrderInput | SortOrder
     meetLink?: SortOrderInput | SortOrder
     visitorTimezone?: SortOrderInput | SortOrder
+    rescheduleContext?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: LeadPipelineCountOrderByAggregateInput
@@ -28751,6 +28766,7 @@ export namespace Prisma {
     meetingTime?: DateTimeNullableWithAggregatesFilter<"LeadPipeline"> | Date | string | null
     meetLink?: StringNullableWithAggregatesFilter<"LeadPipeline"> | string | null
     visitorTimezone?: StringNullableWithAggregatesFilter<"LeadPipeline"> | string | null
+    rescheduleContext?: JsonNullableWithAggregatesFilter<"LeadPipeline">
     createdAt?: DateTimeWithAggregatesFilter<"LeadPipeline"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"LeadPipeline"> | Date | string
   }
@@ -30738,6 +30754,7 @@ export namespace Prisma {
     meetingTime?: Date | string | null
     meetLink?: string | null
     visitorTimezone?: string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     contact: ContactCreateNestedOneWithoutPipelineInput
@@ -30761,6 +30778,7 @@ export namespace Prisma {
     meetingTime?: Date | string | null
     meetLink?: string | null
     visitorTimezone?: string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: PipelineJobUncheckedCreateNestedManyWithoutPipelineInput
@@ -30782,6 +30800,7 @@ export namespace Prisma {
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
     visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contact?: ContactUpdateOneRequiredWithoutPipelineNestedInput
@@ -30805,6 +30824,7 @@ export namespace Prisma {
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
     visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: PipelineJobUncheckedUpdateManyWithoutPipelineNestedInput
@@ -30827,6 +30847,7 @@ export namespace Prisma {
     meetingTime?: Date | string | null
     meetLink?: string | null
     visitorTimezone?: string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -30847,6 +30868,7 @@ export namespace Prisma {
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
     visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -30868,6 +30890,7 @@ export namespace Prisma {
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
     visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -33205,6 +33228,7 @@ export namespace Prisma {
     meetingTime?: SortOrder
     meetLink?: SortOrder
     visitorTimezone?: SortOrder
+    rescheduleContext?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -36225,6 +36249,7 @@ export namespace Prisma {
     meetingTime?: Date | string | null
     meetLink?: string | null
     visitorTimezone?: string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: PipelineJobCreateNestedManyWithoutPipelineInput
@@ -36246,6 +36271,7 @@ export namespace Prisma {
     meetingTime?: Date | string | null
     meetLink?: string | null
     visitorTimezone?: string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: PipelineJobUncheckedCreateNestedManyWithoutPipelineInput
@@ -36444,6 +36470,7 @@ export namespace Prisma {
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
     visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: PipelineJobUpdateManyWithoutPipelineNestedInput
@@ -36465,6 +36492,7 @@ export namespace Prisma {
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
     visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: PipelineJobUncheckedUpdateManyWithoutPipelineNestedInput
@@ -37541,6 +37569,7 @@ export namespace Prisma {
     meetingTime?: Date | string | null
     meetLink?: string | null
     visitorTimezone?: string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     contact: ContactCreateNestedOneWithoutPipelineInput
@@ -37563,6 +37592,7 @@ export namespace Prisma {
     meetingTime?: Date | string | null
     meetLink?: string | null
     visitorTimezone?: string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -37599,6 +37629,7 @@ export namespace Prisma {
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
     visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contact?: ContactUpdateOneRequiredWithoutPipelineNestedInput
@@ -37621,6 +37652,7 @@ export namespace Prisma {
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     meetLink?: NullableStringFieldUpdateOperationsInput | string | null
     visitorTimezone?: NullableStringFieldUpdateOperationsInput | string | null
+    rescheduleContext?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

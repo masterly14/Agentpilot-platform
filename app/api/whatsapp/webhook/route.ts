@@ -3,7 +3,7 @@ import { parseWhatsAppWebhook, verifyWhatsAppSignature } from "@/lib/whatsapp/we
 import { handleInboundWhatsApp, handleWhatsAppStatus } from "@/lib/pipeline/inbound"
 
 export const runtime = "nodejs"
-export const maxDuration = 30
+export const maxDuration = 60
 
 export async function GET(request: Request) {
   const url = new URL(request.url)

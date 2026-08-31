@@ -419,6 +419,7 @@ export async function rescheduleMeeting(input: {
   await cancelPendingPipelineJobs(existing.id)
 
   const rewindPreMeeting = existing.currentStage === "PRE_MEETING"
+  const restartPreDemo = existing.currentStage === "PRE_DEMO" && existing.currentState === "NEED_RESCHEDULE"
   const updated = await prisma.leadPipeline.update({
     where: { id: existing.id },
     data: {
@@ -427,7 +428,9 @@ export async function rescheduleMeeting(input: {
             currentStage: "PRE_MEETING" as const,
             currentState: preMeetingStateAfterReschedule(existing.currentState),
           }
-        : {}),
+        : restartPreDemo
+          ? { currentState: "DEMO_CONFIRMATION_SENT" as const }
+          : {}),
       meetingId: input.meetingId !== undefined ? input.meetingId : existing.meetingId,
       meetingTime: input.meetingTime,
       meetLink: input.meetLink !== undefined ? input.meetLink : existing.meetLink,

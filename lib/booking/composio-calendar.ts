@@ -231,7 +231,7 @@ function pickCalendarEventRecord(payload: unknown): Record<string, unknown> {
   return asRecord(payload) ?? {}
 }
 
-async function assertSlotIsAvailable(date: string, slotStart: string) {
+export async function assertSlotIsAvailable(date: string, slotStart: string) {
   if (!isSlotOpenForBooking(slotStart)) {
     throw new Error("El horario seleccionado ya no está disponible")
   }

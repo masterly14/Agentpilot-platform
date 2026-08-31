@@ -75,7 +75,7 @@ export const ALLOWED_FROM: Partial<Record<PipelineState, PipelineState[]>> = {
     "COLD_CALL_QUEUED",
     "LEAD_MAGNET_DOWNLOADED",
   ],
-  CONFIRMATION_SENT: ["MEETING_SCHEDULED", "RESCHEDULE_OFFERED"],
+  CONFIRMATION_SENT: ["MEETING_SCHEDULED", "RESCHEDULE_OFFERED", "NEED_RESCHEDULE"],
   REMINDER_48H: ["CONFIRMATION_SENT"],
   REMINDER_24H: ["CONFIRMATION_SENT", "REMINDER_48H"],
   REMINDER_8AM_DAY_OF: ["CONFIRMATION_SENT", "REMINDER_48H", "REMINDER_24H"],
@@ -93,6 +93,20 @@ export const ALLOWED_FROM: Partial<Record<PipelineState, PipelineState[]>> = {
     "DEMO_REMINDER_30MIN",
   ],
   RESCHEDULE_OFFERED: ["NO_SHOW"],
+  NEED_RESCHEDULE: [
+    "CONFIRMATION_SENT",
+    "REMINDER_48H",
+    "REMINDER_24H",
+    "REMINDER_8AM_DAY_OF",
+    "REMINDER_30MIN",
+    "NO_SHOW",
+    "RESCHEDULE_OFFERED",
+    "DEMO_CONFIRMATION_SENT",
+    "DEMO_REMINDER_48H",
+    "DEMO_REMINDER_24H",
+    "DEMO_REMINDER_8AM",
+    "DEMO_REMINDER_30MIN",
+  ],
   ATTENDED: ["CONFIRMATION_SENT", "REMINDER_48H", "REMINDER_24H", "REMINDER_8AM_DAY_OF", "REMINDER_30MIN"],
   DISCOVERY_COMPLETED: [
     "ATTENDED",
@@ -142,7 +156,7 @@ export function stageForState(state: PipelineState, currentStage: PipelineStage)
   if (isPostDemoState(state)) return "POST_DEMO"
   if (
     currentStage === "PRE_DEMO" &&
-    (state === "NO_SHOW" || state === "RESCHEDULE_OFFERED" || state === "ATTENDED")
+    (state === "NO_SHOW" || state === "RESCHEDULE_OFFERED" || state === "NEED_RESCHEDULE" || state === "ATTENDED")
   ) {
     return "PRE_DEMO"
   }
@@ -206,6 +220,7 @@ const PRE_MEETING_RESTART_STATES = new Set<PipelineState>([
   "MEETING_SCHEDULED",
   "NO_SHOW",
   "RESCHEDULE_OFFERED",
+  "NEED_RESCHEDULE",
   "ATTENDED",
   "LONG_TERM_NURTURE",
   "LOST",

@@ -132,6 +132,60 @@ export async function sendWhatsAppText(input: {
   }
 }
 
+export async function sendWhatsAppInteractiveButtons(input: {
+  contact: Contact
+  body: string
+  buttons: Array<{ id: string; title: string }>
+  pipelineState?: PipelineState | null
+}) {
+  if (input.buttons.length < 1 || input.buttons.length > 3) {
+    throw new Error("WhatsApp interactive requiere entre 1 y 3 botones")
+  }
+  if (input.buttons.some((button) => button.title.length > 20)) {
+    throw new Error("Los botones interactivos de WhatsApp permiten máximo 20 caracteres")
+  }
+
+  const payload = {
+    messaging_product: "whatsapp",
+    recipient_type: "individual",
+    to: input.contact.phoneE164,
+    type: "interactive",
+    interactive: {
+      type: "button",
+      body: { text: input.body },
+      action: {
+        buttons: input.buttons.map((button) => ({
+          type: "reply",
+          reply: button,
+        })),
+      },
+    },
+  }
+
+  const result = await sendWhatsAppGraphMessage(payload)
+  await persistConversationMessage({
+    contactId: input.contact.id,
+    direction: "OUTBOUND",
+    type: "INTERACTIVE",
+    body: input.body,
+    buttonId: input.buttons.map((button) => button.id).join(","),
+    waMessageId: result.messageId,
+    pipelineState: input.pipelineState ?? null,
+    status: "SENT",
+    rawPayload: payload,
+  })
+  return { messageId: result.messageId }
+}
+
+export async function sendWhatsAppTemplateToNumber<Name extends WhatsAppTemplateName>(
+  name: Name,
+  to: string,
+  vars: import("@/lib/whatsapp/templates").WhatsAppTemplateVars<Name>,
+) {
+  const payload = buildWhatsAppSendPayload(name, to, vars)
+  return sendWhatsAppGraphMessage(payload)
+}
+
 export async function sendWhatsAppDocument(input: {
   contact: Contact
   bytes: Uint8Array
