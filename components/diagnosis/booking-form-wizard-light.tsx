@@ -1,14 +1,16 @@
 "use client"
 
-import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react"
+import { useRef } from "react"
+import { ChevronLeft, Loader2 } from "lucide-react"
 import {
   BOOKING_FORM_STEPS,
-  INDUSTRY_TIME_OPTIONS,
+  CONTACT_PROMPT_DIAGNOSIS,
   INITIAL_BOOKING_FORM,
   isValidOptionalUrl,
   PMS_OPTIONS,
   PROPERTY_OPTIONS,
   REVENUE_OPTIONS,
+  TEAM_SIZE_OPTIONS,
   YES_NO_OPTIONS,
 } from "@/lib/booking/form-options"
 import {
@@ -16,6 +18,7 @@ import {
   PHONE_COUNTRY_OPTIONS,
 } from "@/lib/booking/phone-countries"
 import type { BookingFormData } from "@/lib/booking/types"
+import { FormProgressBar, FormStepTransition } from "@/components/qualification/form-progress"
 import { cn } from "@/lib/utils"
 
 export type { BookingFormData }
@@ -142,9 +145,9 @@ function stepIsComplete(stepId: (typeof BOOKING_FORM_STEPS)[number]["id"], formD
   if (stepId === "propertyCount") return Boolean(formData.propertyCount)
   if (stepId === "revenueRange") return Boolean(formData.revenueRange)
   if (stepId === "isTodero") return Boolean(formData.isTodero)
+  if (stepId === "teamSize") return Boolean(formData.teamSize)
   if (stepId === "wantsToScale") return Boolean(formData.wantsToScale)
   if (stepId === "usesAi") return Boolean(formData.usesAi)
-  if (stepId === "industryTime") return Boolean(formData.industryTime)
   if (stepId === "contact") {
     return (
       formData.fullName.trim().length > 0 &&
@@ -183,63 +186,80 @@ export function BookingFormWizardLight({
   onSubmit: () => void
   onFieldBlur?: () => void
 }) {
+  const directionRef = useRef(1)
   const step = BOOKING_FORM_STEPS[formStep]
   const isLastStep = formStep === BOOKING_FORM_STEPS.length - 1
   const isFirstStep = formStep === 0
   const canContinue = step ? stepIsComplete(step.id, formData) : false
+
+  const goTo = (next: number) => {
+    directionRef.current = next > formStep ? 1 : -1
+    onStepChange(next)
+  }
 
   const handleBack = () => {
     if (isFirstStep) {
       onBackToTimes()
       return
     }
-    onStepChange(formStep - 1)
+    goTo(formStep - 1)
   }
 
-  const handleContinue = () => {
-    if (!canContinue || isSubmitting) return
-    if (isLastStep) {
-      onSubmit()
-      return
-    }
-    onStepChange(formStep + 1)
+  const selectAndAdvance = (field: keyof BookingFormData, value: string) => {
+    onChange(field, value)
+    if (isSubmitting) return
+    goTo(formStep + 1)
   }
 
   return (
     <div className="flex min-h-[320px] flex-col lg:min-h-[420px]">
-      <div className="mb-5 flex items-center gap-3">
+      <FormProgressBar
+        stepIndex={formStep}
+        totalSteps={BOOKING_FORM_STEPS.length}
+        tone="light"
+      />
+      <div className="mb-5 mt-4 flex items-center gap-2.5">
         <button
           type="button"
           onClick={handleBack}
           disabled={isSubmitting}
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 disabled:opacity-50"
+          className="-ml-1 flex h-6 w-6 shrink-0 items-center justify-center text-zinc-400 transition-colors hover:text-zinc-900 disabled:opacity-40"
           aria-label={isFirstStep ? "Volver a horarios" : "Pregunta anterior"}
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ChevronLeft className="h-3.5 w-3.5" strokeWidth={1.75} />
         </button>
         <div className="min-w-0">
           <p className="truncate text-xs text-zinc-500">
             {selectedDateLabel} · {selectedTimeLabel}
           </p>
           {hostTimeHint ? <p className="truncate text-[11px] text-zinc-400">{hostTimeHint}</p> : null}
-          <p className="text-[11px] text-zinc-400">
-            Paso {formStep + 1} de {BOOKING_FORM_STEPS.length}
+          <p className="text-[11px] leading-snug text-zinc-400">
+            Ayúdanos a entender mejor tu situación antes de nuestra llamada
           </p>
         </div>
       </div>
 
-      <h3 className="mb-5 text-lg font-semibold leading-snug text-zinc-900 md:text-xl">
-        {step?.question}
-      </h3>
+      <FormStepTransition stepKey={step?.id ?? "step"} direction={directionRef.current}>
+        <h3
+          className={cn(
+            "text-lg font-semibold leading-snug text-zinc-900 md:text-xl",
+            step?.id === "contact" ? "mb-2" : "mb-5"
+          )}
+        >
+          {step?.question}
+        </h3>
+        {step?.id === "contact" ? (
+          <p className="mb-5 text-sm leading-relaxed text-zinc-500">{CONTACT_PROMPT_DIAGNOSIS}</p>
+        ) : null}
 
-      <div className="flex-1 space-y-2.5">
+        <div className="space-y-2.5">
         {step?.id === "usesPms" &&
           PMS_OPTIONS.map((option) => (
             <CalOption
               key={option.value}
               label={option.label}
               selected={formData.usesPms === option.value}
-              onSelect={() => onChange("usesPms", option.value)}
+              onSelect={() => selectAndAdvance("usesPms", option.value)}
             />
           ))}
 
@@ -249,7 +269,7 @@ export function BookingFormWizardLight({
               key={option.value}
               label={option.label}
               selected={formData.propertyCount === option.value}
-              onSelect={() => onChange("propertyCount", option.value)}
+              onSelect={() => selectAndAdvance("propertyCount", option.value)}
             />
           ))}
 
@@ -259,7 +279,7 @@ export function BookingFormWizardLight({
               key={option.value}
               label={option.label}
               selected={formData.revenueRange === option.value}
-              onSelect={() => onChange("revenueRange", option.value)}
+              onSelect={() => selectAndAdvance("revenueRange", option.value)}
             />
           ))}
 
@@ -269,7 +289,17 @@ export function BookingFormWizardLight({
               key={option.value}
               label={option.label}
               selected={formData.isTodero === option.value}
-              onSelect={() => onChange("isTodero", option.value)}
+              onSelect={() => selectAndAdvance("isTodero", option.value)}
+            />
+          ))}
+
+        {step?.id === "teamSize" &&
+          TEAM_SIZE_OPTIONS.map((option) => (
+            <CalOption
+              key={option.value}
+              label={option.label}
+              selected={formData.teamSize === option.value}
+              onSelect={() => selectAndAdvance("teamSize", option.value)}
             />
           ))}
 
@@ -279,7 +309,7 @@ export function BookingFormWizardLight({
               key={option.value}
               label={option.label}
               selected={formData.wantsToScale === option.value}
-              onSelect={() => onChange("wantsToScale", option.value)}
+              onSelect={() => selectAndAdvance("wantsToScale", option.value)}
             />
           ))}
 
@@ -289,17 +319,7 @@ export function BookingFormWizardLight({
               key={option.value}
               label={option.label}
               selected={formData.usesAi === option.value}
-              onSelect={() => onChange("usesAi", option.value)}
-            />
-          ))}
-
-        {step?.id === "industryTime" &&
-          INDUSTRY_TIME_OPTIONS.map((option) => (
-            <CalOption
-              key={option.value}
-              label={option.label}
-              selected={formData.industryTime === option.value}
-              onSelect={() => onChange("industryTime", option.value)}
+              onSelect={() => selectAndAdvance("usesAi", option.value)}
             />
           ))}
 
@@ -367,39 +387,40 @@ export function BookingFormWizardLight({
             </p>
           </div>
         )}
-      </div>
+        </div>
+      </FormStepTransition>
 
       {errorMessage && (
         <p className="mt-4 text-sm text-red-500">{errorMessage}</p>
       )}
 
-      <div className="mt-6 border-t border-zinc-200 pt-4">
-        <button
-          type="button"
-          onClick={handleContinue}
-          disabled={!canContinue || isSubmitting}
-          className={cn(
-            "flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium transition-colors",
-            canContinue && !isSubmitting
-              ? "bg-zinc-900 text-white hover:bg-zinc-800"
-              : "cursor-not-allowed bg-zinc-100 text-zinc-400"
-          )}
-        >
-          {isSubmitting ? (
-            <>
-              <Loader2 className="h-4 w-4 animate-spin" />
-              Confirmando...
-            </>
-          ) : isLastStep ? (
-            "Confirmar"
-          ) : (
-            <>
-              Continuar
-              <ArrowRight className="h-4 w-4" />
-            </>
-          )}
-        </button>
-      </div>
+      {isLastStep ? (
+        <div className="mt-6 border-t border-zinc-200 pt-4">
+          <button
+            type="button"
+            onClick={() => {
+              if (!canContinue || isSubmitting) return
+              onSubmit()
+            }}
+            disabled={!canContinue || isSubmitting}
+            className={cn(
+              "flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium transition-colors",
+              canContinue && !isSubmitting
+                ? "bg-zinc-900 text-white hover:bg-zinc-800"
+                : "cursor-not-allowed bg-zinc-100 text-zinc-400"
+            )}
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Confirmando...
+              </>
+            ) : (
+              "Confirmar"
+            )}
+          </button>
+        </div>
+      ) : null}
     </div>
   )
 }

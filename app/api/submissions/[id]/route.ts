@@ -64,3 +64,24 @@ export async function PATCH(
   const submission = await getLeadRecord(id)
   return NextResponse.json({ submission })
 }
+
+export async function DELETE(
+  _request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  if (!(await isAdminAuthenticated())) {
+    return unauthorizedResponse()
+  }
+
+  const { id } = await params
+  const existing = await prisma.formSubmission.findUnique({
+    where: { id },
+    select: { id: true },
+  })
+  if (!existing) {
+    return NextResponse.json({ error: "Lead no encontrado" }, { status: 404 })
+  }
+
+  await prisma.formSubmission.delete({ where: { id } })
+  return NextResponse.json({ success: true })
+}

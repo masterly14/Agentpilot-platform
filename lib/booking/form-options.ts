@@ -6,6 +6,7 @@ export const INITIAL_BOOKING_FORM: BookingFormData = {
   propertyCount: "",
   revenueRange: "",
   isTodero: "",
+  teamSize: "",
   usesAi: "",
   wantsToScale: "",
   industryTime: "",
@@ -43,6 +44,12 @@ export const YES_NO_OPTIONS = [
   { value: "no", label: "No" },
 ] as const
 
+export const TEAM_SIZE_OPTIONS = [
+  { value: "one", label: "Solo yo" },
+  { value: "two", label: "2 personas" },
+  { value: "three-or-more", label: "3 o más personas" },
+] as const
+
 export const INDUSTRY_TIME_OPTIONS = [
   { value: "under-5", label: "Menos de 5 años" },
   { value: "5-10", label: "Entre 5 y 10 años" },
@@ -74,6 +81,12 @@ export const YES_NO_DB = {
   no: "NO",
 } as const
 
+export const TEAM_SIZE_DB = {
+  one: "ONE",
+  two: "TWO",
+  "three-or-more": "THREE_OR_MORE",
+} as const
+
 export const INDUSTRY_TIME_DB = {
   "under-5": "UNDER_5",
   "5-10": "FIVE_TO_TEN",
@@ -90,6 +103,7 @@ export const PROPERTY_COUNT_FORM = invertOptionMap(PROPERTY_COUNT_DB)
 export const REVENUE_RANGE_FORM = invertOptionMap(REVENUE_RANGE_DB)
 export const PMS_USAGE_FORM = invertOptionMap(PMS_USAGE_DB)
 export const YES_NO_FORM = invertOptionMap(YES_NO_DB)
+export const TEAM_SIZE_FORM = invertOptionMap(TEAM_SIZE_DB)
 export const INDUSTRY_TIME_FORM = invertOptionMap(INDUSTRY_TIME_DB)
 
 export type FormOption = { readonly value: string; readonly label: string }
@@ -131,16 +145,26 @@ export function normalizeInstagram(value: string) {
   return trimmed.replace(/^@/, "")
 }
 
+export const CONTACT_SURVEY_THANKS = "Gracias por llenar la encuesta."
+export const CONTACT_PROMPT_DIAGNOSIS = "Déjanos tus datos para confirmar el Diagnóstico"
+export const CONTACT_PROMPT_EBOOK = "Haznos saber a dónde te enviamos el Ebook"
+
 export const BOOKING_FORM_STEPS = [
   { id: "propertyCount", question: "¿Con cuántas propiedades trabajas?" },
-  { id: "revenueRange", question: "¿Cuál es tu rango de facturación actual?" },
   { id: "usesPms", question: "¿Usas actualmente un PMS?" },
   { id: "isTodero", question: "¿Sientes que eres el todero del negocio o que todo depende de ti?" },
+  { id: "teamSize", question: "¿Tienes un equipo que trabaja contigo en la operación diaria?" },
   { id: "wantsToScale", question: "¿Quieres escalar el número de propiedades que operas?" },
-  { id: "usesAi", question: "¿Usas ChatGPT u otra IA para tareas del negocio?" },
-  { id: "industryTime", question: "¿Cuánto tiempo llevas en la industria?" },
-  { id: "contact", question: "Ingresa tus datos" },
+  { id: "usesAi", question: "¿Tienes procesos implementados que son ejecutados por software e IA?" },
+  { id: "revenueRange", question: "¿Cuál es tu rango de facturación actual?" },
+  { id: "contact", question: CONTACT_SURVEY_THANKS },
 ] as const
+
+export function formProgressPercent(stepIndex: number, totalSteps: number) {
+  if (totalSteps <= 0) return 0
+  const t = Math.min(1, Math.max(0, (stepIndex + 1) / totalSteps))
+  return (1 - (1 - t) ** 2.15) * 100
+}
 
 export type BookingFormStepId = (typeof BOOKING_FORM_STEPS)[number]["id"]
 
@@ -149,6 +173,7 @@ export type LeadQualificationAnswers = {
   propertyCount: string
   revenueRange: string
   isTodero: string
+  teamSize: string
   usesAi: string
   wantsToScale: string
   industryTime: string
@@ -163,13 +188,16 @@ export type LeadQualificationAnswers = {
 export function formatBookingAnswersForDescription(answers: LeadQualificationAnswers) {
   const lines = [
     `Propiedades: ${getOptionLabel(PROPERTY_OPTIONS, answers.propertyCount)}`,
-    `Facturación: ${getOptionLabel(REVENUE_OPTIONS, answers.revenueRange)}`,
     `PMS: ${getOptionLabel(PMS_OPTIONS, answers.usesPms)}`,
     `Todero / todo depende de él: ${getOptionLabel(YES_NO_OPTIONS, answers.isTodero)}`,
+    `Equipo de operación: ${getOptionLabel(TEAM_SIZE_OPTIONS, answers.teamSize)}`,
     `Quiere escalar propiedades: ${getOptionLabel(YES_NO_OPTIONS, answers.wantsToScale)}`,
-    `Usa IA en el negocio: ${getOptionLabel(YES_NO_OPTIONS, answers.usesAi)}`,
-    `Tiempo en la industria: ${getOptionLabel(INDUSTRY_TIME_OPTIONS, answers.industryTime)}`,
+    `Procesos con software e IA: ${getOptionLabel(YES_NO_OPTIONS, answers.usesAi)}`,
+    `Facturación: ${getOptionLabel(REVENUE_OPTIONS, answers.revenueRange)}`,
   ]
+  if (answers.industryTime) {
+    lines.push(`Tiempo en la industria: ${getOptionLabel(INDUSTRY_TIME_OPTIONS, answers.industryTime)}`)
+  }
 
   const phoneDigits = answers.phoneNumber?.replace(/\D/g, "") ?? ""
   if (phoneDigits) {

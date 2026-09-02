@@ -17,8 +17,6 @@ export type ReplyIntent =
   | "book_now"
   | "not_now"
   | "watched_video"
-  | "qualify_now"
-  | "book_direct"
   | "unknown"
 
 export type ReplyEffect = "none" | "lost" | "video_watched" | "notify"
@@ -41,8 +39,6 @@ const NURTURE_REPLY_STATES = new Set<PipelineState>([
   "CTA_SENT_SAW_VIDEO",
   "CTA_SENT_NO_VIDEO",
   "LAST_NURTURE_SENT",
-  "FIT_CONFIRMED",
-  "DISQUALIFIED",
   "COLD_CALL_QUEUED",
 ])
 
@@ -53,11 +49,9 @@ const REPLY_INTENT_SET = new Set<ReplyIntent>([
   "book_now",
   "not_now",
   "watched_video",
-  "qualify_now",
-  "book_direct",
 ])
 
-const INTENT_PATTERNS: Array<[Exclude<ReplyIntent, "unknown" | "qualify_now" | "book_direct">, RegExp]> = [
+const INTENT_PATTERNS: Array<[Exclude<ReplyIntent, "unknown">, RegExp]> = [
   ["not_now", /\b(no es el momento|no me interesa|deja de (escribir|escribirme)|no te escribas|stop|baja)\b/i],
   ["watched_video", /\b(ya lo vi|vi el video|vi el v[ií]deo|acabo de ver(lo| el video))\b/i],
   ["guide_missing", /\b(no me lleg[oó]|no la recib[ií]|reenv[ií]a(r|me)?|no me ha llegado)\b/i],
@@ -133,10 +127,6 @@ export function buildNurtureReply(input: {
       return replyCta(input.intent, input.vars, false)
     case "LAST_NURTURE_SENT":
       return replyLastNurture(input.intent, input.vars)
-    case "FIT_CONFIRMED":
-      return replyFitConfirmed(input.intent, input.vars)
-    case "DISQUALIFIED":
-      return replyDisqualified()
     case "COLD_CALL_QUEUED":
       return replyColdCall(input.intent, input.vars)
     default:
@@ -248,26 +238,6 @@ function replyLastNurture(intent: ReplyIntent, vars: NurtureReplyVars): NurtureR
   }
   return {
     body: `Si te sirve, aquí el link: ${vars.bookingLink}\n\nSi no es el momento, dímelo y no te escribo más por aquí.`,
-    effect: "none",
-  }
-}
-
-function replyFitConfirmed(intent: ReplyIntent, vars: NurtureReplyVars): NurtureReply {
-  if (intent === "not_now") {
-    return {
-      body: `Tranquilo. Te dejo el link por si cambias de idea, y en un rato te mando un video corto por si te sirve verlo primero: ${vars.bookingLink}`,
-      effect: "none",
-    }
-  }
-  return {
-    body: `Cuando te quede mejor, aquí puedes agendar: ${vars.bookingLink}`,
-    effect: "none",
-  }
-}
-
-function replyDisqualified(): NurtureReply {
-  return {
-    body: `Por ahora no creo que seamos el mejor fit. Si tu operación crece, escríbeme y lo vemos. ¡Éxitos!`,
     effect: "none",
   }
 }

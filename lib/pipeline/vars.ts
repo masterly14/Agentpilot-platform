@@ -77,7 +77,6 @@ export async function buildTemplateVars(
     state === "CTA_SENT_SAW_VIDEO" ||
     state === "CTA_SENT_NO_VIDEO" ||
     state === "LAST_NURTURE_SENT" ||
-    state === "FIT_CONFIRMED" ||
     state === "RESCHEDULE_OFFERED"
   ) {
     values.link = bookingLink

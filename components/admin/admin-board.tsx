@@ -10,14 +10,15 @@ import { SubmissionsKanban } from "@/components/admin/submissions-kanban"
 import type { AirbnbLeadRecord } from "@/lib/admin/airbnb-lead-record"
 import { AIRBNB_STAGE_LABEL } from "@/lib/admin/airbnb-funnel"
 import type { SubmissionRecord } from "@/lib/submission-display"
-import { FUNNEL_STAGE_LABEL } from "@/lib/marketing/funnel-ui"
+import { FUNNEL_STAGE_LABEL, hasInboxContact, isInboxLead } from "@/lib/marketing/funnel-ui"
 import { getSubmissionTitle } from "@/lib/submission-display"
 import { cn } from "@/lib/utils"
 
-export type AdminBoardId = "inbound" | "airbnb" | "all"
+export type AdminBoardId = "inbound" | "mql" | "airbnb" | "all"
 
 const BOARDS: Array<{ id: AdminBoardId; label: string }> = [
   { id: "inbound", label: "Inbound" },
+  { id: "mql", label: "MQL" },
   { id: "airbnb", label: "Airbnb" },
   { id: "all", label: "Todo" },
 ]
@@ -92,7 +93,9 @@ export function AdminBoard({
   }
 
   const rows = useMemo<UnifiedRow[]>(() => {
-    const inbound = submissions.map((submission) => ({
+    const inbound = submissions
+      .filter((submission) => !isInboxLead(submission) || hasInboxContact(submission))
+      .map((submission) => ({
       id: submission.id,
       origin: "inbound" as const,
       title: getSubmissionTitle(submission),
@@ -142,8 +145,8 @@ export function AdminBoard({
         : "Confirma show-up y cierres. Las primeras columnas se mueven solas."
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
-      <div className="mb-6 flex flex-col gap-4">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className="mb-4 flex shrink-0 flex-col gap-4">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight">Pipeline</h1>
@@ -174,19 +177,23 @@ export function AdminBoard({
         </div>
       </div>
 
-      {board === "inbound" ? (
+      {board === "inbound" || board === "mql" ? (
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
         <SubmissionsKanban
           initialSubmissions={submissions}
+          initialFilter={board === "mql" ? "MQL" : "all"}
           initialSelectedId={inboundSelectedId}
           onSelectedIdChange={(id) => {
             setInboundSelectedId(id)
-            syncUrl({ board: "inbound", leadId: id, airbnbLeadId: null })
+            syncUrl({ board, leadId: id, airbnbLeadId: null })
           }}
           showTitle={false}
         />
+        </div>
       ) : null}
 
       {board === "airbnb" ? (
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
         <AirbnbKanban
           initialLeads={airbnbLeads}
           initialSelectedId={airbnbSelectedId}
@@ -195,10 +202,11 @@ export function AdminBoard({
             syncUrl({ board: "airbnb", leadId: null, airbnbLeadId: id })
           }}
         />
+        </div>
       ) : null}
 
       {board === "all" ? (
-        <div className="space-y-3">
+        <div className="min-h-0 flex-1 space-y-3 overflow-y-auto">
           <Input
             value={query}
             onChange={(event) => setQuery(event.target.value)}

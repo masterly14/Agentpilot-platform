@@ -1,4 +1,4 @@
-import type { Contact, LeadPipeline, MessageType, PipelineState, Prisma } from "@/prisma/generated/client"
+import type { Contact, LeadPipeline, MessageType, Prisma } from "@/prisma/generated/client"
 import { prisma } from "@/lib/prisma"
 import { persistConversationMessage, updateMessageStatus } from "@/lib/pipeline/conversation"
 import { findContactByWaId, linkContactWaId } from "@/lib/pipeline/contact"
@@ -13,11 +13,6 @@ import {
   detectReplyIntent,
   loadNurtureReplyVars,
 } from "@/lib/pipeline/replies"
-import {
-  mergeQualificationAnswer,
-  normalizeButtonAction,
-} from "@/lib/pipeline/transitions"
-import { hasLowPropertyFit, parseQualificationAnswers } from "@/lib/pipeline/qualify-mql"
 import { sendWhatsAppText } from "@/lib/whatsapp/send-template"
 import { PIPELINE_INBOUND_TYPES } from "@/lib/whatsapp/webhook"
 import { isRescheduleMessage, processRescheduleTurn } from "@/lib/pipeline/reschedule-agent"
@@ -109,33 +104,6 @@ export async function handleInboundWhatsApp(message: InboundMessage) {
 
   if (pipeline.currentStage !== "NURTURING") return saved
 
-  const action = message.buttonId
-    ? normalizeButtonAction(message.buttonId)
-    : message.body
-      ? normalizeButtonAction(message.body)
-      : null
-
-  if (pipeline.currentState === "QUALIFICATION_OFFERED" && action === "qualify_now") {
-    await transitionPipeline({ contactId: contact.id, toState: "QUALIFYING_Q1" })
-    return saved
-  }
-
-  if (pipeline.currentState === "QUALIFICATION_OFFERED" && action === "book_direct") {
-    await transitionPipeline({ contactId: contact.id, toState: "FIT_CONFIRMED" })
-    return saved
-  }
-
-  if (
-    pipeline.currentState === "QUALIFYING_Q1" ||
-    pipeline.currentState === "QUALIFYING_Q2" ||
-    pipeline.currentState === "QUALIFYING_Q3"
-  ) {
-    const answer = message.body?.trim()
-    if (!answer) return saved
-    await handleQualificationReply(contact.id, pipeline.currentState, answer)
-    return saved
-  }
-
   await handleNurtureReply(contact, pipeline, message.buttonId, message.body)
   return saved
 }
@@ -186,40 +154,6 @@ async function handleNurtureReply(
       message: body ?? null,
     })
   }
-}
-
-async function handleQualificationReply(
-  contactId: string,
-  state: PipelineState,
-  answer: string,
-) {
-  const pipeline = await prisma.leadPipeline.findUniqueOrThrow({
-    where: { contactId },
-  })
-  const current = parseQualificationAnswers(pipeline.qualificationAnswers)
-  const nextAnswers = mergeQualificationAnswer(current, state, answer)
-
-  await prisma.leadPipeline.update({
-    where: { id: pipeline.id },
-    data: { qualificationAnswers: nextAnswers },
-  })
-
-  if (state === "QUALIFYING_Q1") {
-    await transitionPipeline({ contactId, toState: "QUALIFYING_Q2" })
-    return
-  }
-  if (state === "QUALIFYING_Q2") {
-    await transitionPipeline({ contactId, toState: "QUALIFYING_Q3" })
-    return
-  }
-
-  const properties = nextAnswers.properties ?? ""
-  if (hasLowPropertyFit(properties)) {
-    await transitionPipeline({ contactId, toState: "DISQUALIFIED" })
-    return
-  }
-
-  await transitionPipeline({ contactId, toState: "FIT_CONFIRMED" })
 }
 
 const STATUS_MAP = {

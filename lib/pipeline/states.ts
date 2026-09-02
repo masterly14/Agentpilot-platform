@@ -60,12 +60,6 @@ export type PostDemoState =
 
 export type AnyPipelineState = PipelineState
 
-export type QualificationAnswers = {
-  properties?: string
-  biggestTimeSink?: string
-  hasSystem?: string
-}
-
 export const NURTURING_STATES = [
   "LEAD_MAGNET_DOWNLOADED",
   "AWAITING_CONFIRMATION",
@@ -138,17 +132,7 @@ export const TERMINAL_STATES = [
   "WON",
 ] as const satisfies readonly PipelineState[]
 
-export const MQL_ONLY_STATES = [
-  "QUALIFICATION_OFFERED",
-  "QUALIFYING_Q1",
-  "QUALIFYING_Q2",
-  "QUALIFYING_Q3",
-  "FIT_CONFIRMED",
-  "DISQUALIFIED",
-] as const satisfies readonly NurturingState[]
-
 const TERMINAL_STATE_SET = new Set<PipelineState>(TERMINAL_STATES)
-const MQL_ONLY_STATE_SET = new Set<PipelineState>(MQL_ONLY_STATES)
 
 export function isNurturingState(state: PipelineState): state is NurturingState {
   return (NURTURING_STATES as readonly PipelineState[]).includes(state)
@@ -172,10 +156,6 @@ export function isStateInStage(stage: PipelineStage, state: PipelineState) {
 
 export function isTerminalState(state: PipelineState) {
   return TERMINAL_STATE_SET.has(state)
-}
-
-export function isMqlOnlyState(state: PipelineState) {
-  return MQL_ONLY_STATE_SET.has(state)
 }
 
 export function initialPipelineForOrigin(funnelOrigin: FunnelOrigin): {

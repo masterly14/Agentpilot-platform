@@ -152,6 +152,7 @@ exports.Prisma.FormSubmissionScalarFieldEnum = {
   usesAi: 'usesAi',
   wantsToScale: 'wantsToScale',
   industryTime: 'industryTime',
+  teamSize: 'teamSize',
   pdfToken: 'pdfToken',
   qualification: 'qualification',
   qualificationScore: 'qualificationScore',
@@ -498,6 +499,12 @@ exports.IndustryTime = exports.$Enums.IndustryTime = {
   OVER_10: 'OVER_10'
 };
 
+exports.TeamSize = exports.$Enums.TeamSize = {
+  ONE: 'ONE',
+  TWO: 'TWO',
+  THREE_OR_MORE: 'THREE_OR_MORE'
+};
+
 exports.LeadQualification = exports.$Enums.LeadQualification = {
   SQL: 'SQL',
   MQL: 'MQL',
@@ -536,6 +543,7 @@ exports.SubmissionStatus = exports.$Enums.SubmissionStatus = {
 exports.MarketingFunnelStage = exports.$Enums.MarketingFunnelStage = {
   LEAD_MAGNET_SENT: 'LEAD_MAGNET_SENT',
   VIDEO_SENT: 'VIDEO_SENT',
+  PENDING_CALL: 'PENDING_CALL',
   SCHEDULED: 'SCHEDULED',
   SHOWED_UP: 'SHOWED_UP',
   NO_SHOW: 'NO_SHOW',

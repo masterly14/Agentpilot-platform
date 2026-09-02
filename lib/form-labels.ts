@@ -4,6 +4,7 @@ import {
   PMS_OPTIONS,
   PROPERTY_OPTIONS,
   REVENUE_OPTIONS,
+  TEAM_SIZE_OPTIONS,
   YES_NO_OPTIONS,
 } from "@/lib/booking/form-options"
 import type { LeadFormPayload } from "@/lib/booking/types"
@@ -25,13 +26,19 @@ export function formatLeadFormDataForEmail(data: LeadFormPayload): string {
 
   lines.push(
     `<li><strong>Propiedades:</strong> ${getOptionLabel(PROPERTY_OPTIONS, data.propertyCount)}</li>`,
-    `<li><strong>Facturación:</strong> ${getOptionLabel(REVENUE_OPTIONS, data.revenueRange)}</li>`,
     `<li><strong>PMS:</strong> ${getOptionLabel(PMS_OPTIONS, data.usesPms)}</li>`,
     `<li><strong>Todero / todo depende de él:</strong> ${getOptionLabel(YES_NO_OPTIONS, data.isTodero)}</li>`,
+    `<li><strong>Equipo de operación:</strong> ${getOptionLabel(TEAM_SIZE_OPTIONS, data.teamSize)}</li>`,
     `<li><strong>Quiere escalar propiedades:</strong> ${getOptionLabel(YES_NO_OPTIONS, data.wantsToScale)}</li>`,
-    `<li><strong>Usa IA en el negocio:</strong> ${getOptionLabel(YES_NO_OPTIONS, data.usesAi)}</li>`,
-    `<li><strong>Tiempo en la industria:</strong> ${getOptionLabel(INDUSTRY_TIME_OPTIONS, data.industryTime)}</li>`
+    `<li><strong>Procesos con software e IA:</strong> ${getOptionLabel(YES_NO_OPTIONS, data.usesAi)}</li>`,
+    `<li><strong>Facturación:</strong> ${getOptionLabel(REVENUE_OPTIONS, data.revenueRange)}</li>`,
   )
+
+  if (data.industryTime) {
+    lines.push(
+      `<li><strong>Tiempo en la industria:</strong> ${getOptionLabel(INDUSTRY_TIME_OPTIONS, data.industryTime)}</li>`
+    )
+  }
 
   if (data.instagramUrl.trim()) {
     lines.push(`<li><strong>Instagram:</strong> ${data.instagramUrl}</li>`)

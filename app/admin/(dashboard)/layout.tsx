@@ -12,10 +12,10 @@ export default function AdminDashboardLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="flex min-h-screen flex-col md:h-screen md:flex-row">
+    <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden md:flex-row">
       <AdminSidebar />
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-background">
-        <main className="flex min-h-0 flex-1 flex-col">{children}</main>
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-background">
+        <main className="flex min-h-0 flex-1 flex-col overflow-hidden">{children}</main>
       </div>
       <Toaster theme="light" position="bottom-right" />
     </div>

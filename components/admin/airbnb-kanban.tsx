@@ -19,9 +19,9 @@ import { Calendar, GripVertical } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { CloseDealDialog } from "@/components/admin/close-deal-dialog"
 import { AirbnbLeadSheet } from "@/components/admin/airbnb-lead-sheet"
+import { DeleteLeadDialog, KanbanCardMenu } from "@/components/admin/kanban-card-menu"
 import { KanbanColumn, formatMeetingLabel } from "@/components/admin/kanban-parts"
 import type { AirbnbLeadRecord } from "@/lib/admin/airbnb-lead-record"
 import {
@@ -50,6 +50,7 @@ function AirbnbKanbanCard({
   onShowUp,
   onNoShow,
   onCloseDeal,
+  onDelete,
 }: {
   lead: AirbnbLeadRecord
   isUpdating: boolean
@@ -57,6 +58,7 @@ function AirbnbKanbanCard({
   onShowUp: () => void
   onNoShow: () => void
   onCloseDeal: () => void
+  onDelete: () => void
 }) {
   const draggable = isAirbnbCardDraggable(lead.stage)
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
@@ -88,17 +90,24 @@ function AirbnbKanbanCard({
             </p>
           </span>
         </button>
-        {draggable ? (
-          <button
-            type="button"
-            className="rounded p-1 text-muted-foreground hover:bg-muted"
-            aria-label="Arrastrar tarjeta"
-            {...listeners}
-            {...attributes}
-          >
-            <GripVertical className="h-4 w-4" />
-          </button>
-        ) : null}
+        <div
+          className="flex shrink-0 items-center"
+          onPointerDown={(event) => event.stopPropagation()}
+          onClick={(event) => event.stopPropagation()}
+        >
+          {draggable ? (
+            <button
+              type="button"
+              className="rounded p-1 text-muted-foreground hover:bg-muted"
+              aria-label="Arrastrar tarjeta"
+              {...listeners}
+              {...attributes}
+            >
+              <GripVertical className="h-4 w-4" />
+            </button>
+          ) : null}
+          <KanbanCardMenu disabled={isUpdating} onUpdate={onOpen} onDelete={onDelete} />
+        </div>
       </div>
       <button type="button" onClick={onOpen} className="mb-3 flex w-full flex-wrap items-center gap-2 text-left">
         {lead.status === "HUMAN_TAKEOVER" ? (
@@ -153,6 +162,7 @@ export function AirbnbKanban({
   )
   const [updatingId, setUpdatingId] = useState<string | null>(null)
   const [closeLeadId, setCloseLeadId] = useState<string | null>(null)
+  const [deleteLeadId, setDeleteLeadId] = useState<string | null>(null)
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }))
 
@@ -186,6 +196,7 @@ export function AirbnbKanban({
 
   const selected = selectedId ? leads.find((lead) => lead.id === selectedId) ?? null : null
   const closing = closeLeadId ? leads.find((lead) => lead.id === closeLeadId) ?? null : null
+  const deleting = deleteLeadId ? leads.find((lead) => lead.id === deleteLeadId) ?? null : null
   const active = activeId ? leads.find((lead) => lead.id === activeId) ?? null : null
 
   function applyLead(next: AirbnbLeadRecord) {
@@ -207,6 +218,23 @@ export function AirbnbKanban({
       if (payload?.lead) applyLead(payload.lead)
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "No se pudo actualizar")
+    } finally {
+      setUpdatingId(null)
+    }
+  }
+
+  async function deleteLead(id: string) {
+    setUpdatingId(id)
+    try {
+      const res = await fetch(`/api/admin/airbnb/${id}`, { method: "DELETE" })
+      const payload = (await res.json().catch(() => null)) as { error?: string } | null
+      if (!res.ok) throw new Error(payload?.error ?? "No se pudo eliminar")
+      setLeads((current) => current.filter((lead) => lead.id !== id))
+      if (selectedId === id) setSelectedId(null)
+      setDeleteLeadId(null)
+      toast.success("Lead eliminado")
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "No se pudo eliminar")
     } finally {
       setUpdatingId(null)
     }
@@ -236,8 +264,8 @@ export function AirbnbKanban({
   }
 
   return (
-    <>
-      <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className="mb-4 flex shrink-0 flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-1 flex-col gap-2 sm:flex-row">
           <Input
             value={query}
@@ -286,8 +314,7 @@ export function AirbnbKanban({
         onDragStart={(event: DragStartEvent) => setActiveId(String(event.active.id))}
         onDragEnd={handleDragEnd}
       >
-        <ScrollArea className="w-full whitespace-nowrap">
-          <div className="flex min-h-[70vh] gap-4 pb-4">
+        <div className="flex min-h-0 flex-1 gap-4 overflow-x-auto overflow-y-hidden pb-2">
             {AIRBNB_COLUMNS.map((column) => (
               <KanbanColumn
                 key={column.id}
@@ -303,13 +330,12 @@ export function AirbnbKanban({
                     onShowUp={() => void postStage("/api/admin/airbnb/attend", lead.id).then(() => toast.success("Marcado como show-up"))}
                     onNoShow={() => void postStage("/api/admin/airbnb/no-show", lead.id).then(() => toast.success("Marcado como no-show"))}
                     onCloseDeal={() => setCloseLeadId(lead.id)}
+                    onDelete={() => setDeleteLeadId(lead.id)}
                   />
                 ))}
               </KanbanColumn>
             ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+        </div>
         <DragOverlay>
           {active ? (
             <div className="w-[280px] rounded-xl border bg-white p-4 shadow-lg">
@@ -347,6 +373,16 @@ export function AirbnbKanban({
           toast.success("Trato cerrado")
         }}
       />
-    </>
+
+      <DeleteLeadDialog
+        open={deleting !== null}
+        leadName={deleting?.name ?? "este host"}
+        isSubmitting={Boolean(deleteLeadId && updatingId === deleteLeadId)}
+        onOpenChange={(open) => {
+          if (!open) setDeleteLeadId(null)
+        }}
+        onConfirm={() => (deleteLeadId ? deleteLead(deleteLeadId) : Promise.resolve())}
+      />
+    </div>
   )
 }

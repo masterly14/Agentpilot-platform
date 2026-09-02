@@ -1,19 +1,14 @@
 import type { FunnelOrigin, LeadPipeline, PipelineStage, PipelineState } from "@/prisma/generated/client"
+import { nextMqlNurtureState } from "@/lib/pipeline/nurture-mql"
 import {
   isNurturingState,
   isPostDemoState,
   isPreMeetingState,
   isTerminalState,
-  type QualificationAnswers,
 } from "@/lib/pipeline/states"
 
 export const NURTURE_TIMEOUT_SECONDS: Partial<Record<PipelineState, number>> = {
   AWAITING_CONFIRMATION: 24 * 60 * 60,
-  QUALIFICATION_OFFERED: 24 * 60 * 60,
-  QUALIFYING_Q1: 24 * 60 * 60,
-  QUALIFYING_Q2: 24 * 60 * 60,
-  QUALIFYING_Q3: 24 * 60 * 60,
-  FIT_CONFIRMED: 24 * 60 * 60,
   VIDEO_SENT: 24 * 60 * 60,
   CTA_SENT_SAW_VIDEO: 24 * 60 * 60,
   CTA_SENT_NO_VIDEO: 24 * 60 * 60,
@@ -42,20 +37,13 @@ export function preMeetingStateAfterReschedule(currentState: PipelineState): Pip
 
 export const ALLOWED_FROM: Partial<Record<PipelineState, PipelineState[]>> = {
   AWAITING_CONFIRMATION: ["LEAD_MAGNET_DOWNLOADED"],
-  QUALIFICATION_OFFERED: ["AWAITING_CONFIRMATION"],
-  QUALIFYING_Q1: ["QUALIFICATION_OFFERED"],
-  QUALIFYING_Q2: ["QUALIFYING_Q1"],
-  QUALIFYING_Q3: ["QUALIFYING_Q2"],
-  FIT_CONFIRMED: ["QUALIFYING_Q3", "QUALIFICATION_OFFERED"],
-  DISQUALIFIED: ["QUALIFYING_Q3"],
-  VIDEO_SENT: [
-    "AWAITING_CONFIRMATION",
-    "FIT_CONFIRMED",
-    "QUALIFICATION_OFFERED",
-    "QUALIFYING_Q1",
-    "QUALIFYING_Q2",
-    "QUALIFYING_Q3",
-  ],
+  QUALIFICATION_OFFERED: [],
+  QUALIFYING_Q1: [],
+  QUALIFYING_Q2: [],
+  QUALIFYING_Q3: [],
+  FIT_CONFIRMED: [],
+  DISQUALIFIED: [],
+  VIDEO_SENT: ["AWAITING_CONFIRMATION"],
   CTA_SENT_SAW_VIDEO: ["VIDEO_SENT"],
   CTA_SENT_NO_VIDEO: ["VIDEO_SENT"],
   LAST_NURTURE_SENT: ["CTA_SENT_SAW_VIDEO", "CTA_SENT_NO_VIDEO"],
@@ -177,18 +165,16 @@ export function stageForState(state: PipelineState, currentStage: PipelineStage)
 }
 
 export function nextNurtureState(pipeline: LeadPipeline): PipelineState | null {
-  const { currentState, funnelOrigin } = pipeline
+  const { currentState } = pipeline
+
+  if (pipeline.funnelOrigin === "MQL") {
+    return nextMqlNurtureState(pipeline)
+  }
 
   switch (currentState) {
     case "LEAD_MAGNET_DOWNLOADED":
       return "AWAITING_CONFIRMATION"
     case "AWAITING_CONFIRMATION":
-      return funnelOrigin === "MQL" ? "QUALIFICATION_OFFERED" : "VIDEO_SENT"
-    case "QUALIFICATION_OFFERED":
-    case "QUALIFYING_Q1":
-    case "QUALIFYING_Q2":
-    case "QUALIFYING_Q3":
-    case "FIT_CONFIRMED":
       return "VIDEO_SENT"
     case "VIDEO_SENT":
       return "CTA_SENT_SAW_VIDEO"
@@ -317,10 +303,6 @@ export const BUTTON_ACTIONS: Record<string, string> = {
   reenvia: "guide_missing",
   guide_questions: "guide_questions",
   "tengo dudas": "guide_questions",
-  qualify_now: "qualify_now",
-  "dale, pregunta": "qualify_now",
-  book_direct: "book_direct",
-  "prefiero agendar directo": "book_direct",
   book_now: "book_now",
   "sí, quiero agendar": "book_now",
   "si, quiero agendar": "book_now",
@@ -338,17 +320,6 @@ export const BUTTON_ACTIONS: Record<string, string> = {
 export function normalizeButtonAction(value: string) {
   const key = value.trim().toLowerCase()
   return BUTTON_ACTIONS[key] ?? BUTTON_ACTIONS[value] ?? null
-}
-
-export function mergeQualificationAnswer(
-  current: QualificationAnswers,
-  state: PipelineState,
-  answer: string,
-): QualificationAnswers {
-  if (state === "QUALIFYING_Q1") return { ...current, properties: answer }
-  if (state === "QUALIFYING_Q2") return { ...current, biggestTimeSink: answer }
-  if (state === "QUALIFYING_Q3") return { ...current, hasSystem: answer }
-  return current
 }
 
 export function originFromQualification(

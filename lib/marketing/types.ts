@@ -51,6 +51,7 @@ export const STAGE_EVENT: Partial<Record<MarketingFunnelStage, MarketingEventNam
 export const STAGE_RANK: Record<MarketingFunnelStage, number> = {
   LEAD_MAGNET_SENT: 1,
   VIDEO_SENT: 2,
+  PENDING_CALL: 3,
   SCHEDULED: 3,
   SHOWED_UP: 4,
   NO_SHOW: 4,
@@ -78,6 +79,9 @@ export function canAdvanceMarketingStage(
   if (current === "PURCHASED" || current === "DISCARDED") return false
   if (
     (current === "NO_SHOW" && next === "SHOWED_UP") ||
+    (current === "NO_SHOW" && next === "PENDING_CALL") ||
+    (current === "SCHEDULED" && next === "PENDING_CALL") ||
+    (current === "SHOWED_UP" && next === "PENDING_CALL") ||
     (current === "SHOWED_UP" && next === "NO_SHOW") ||
     ((current === "NO_SHOW" || current === "SHOWED_UP") && next === "SCHEDULED") ||
     (current === "SHOWED_UP" && (next === "DEMO_SCHEDULED" || next === "DISCARDED")) ||

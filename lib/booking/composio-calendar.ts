@@ -358,6 +358,7 @@ export async function createBooking(
     propertyCount: payload.propertyCount,
     revenueRange: payload.revenueRange,
     isTodero: payload.isTodero,
+    teamSize: payload.teamSize,
     usesAi: payload.usesAi,
     wantsToScale: payload.wantsToScale,
     industryTime: payload.industryTime,

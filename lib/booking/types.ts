@@ -10,6 +10,7 @@ export type BookingFormData = {
   propertyCount: string
   revenueRange: string
   isTodero: string
+  teamSize: string
   usesAi: string
   wantsToScale: string
   industryTime: string

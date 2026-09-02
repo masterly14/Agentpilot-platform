@@ -2,10 +2,10 @@ import { bookingConfig } from "@/lib/booking/config"
 import {
   formatBookingAnswersForDescription,
   getOptionLabel,
-  INDUSTRY_TIME_OPTIONS,
   PMS_OPTIONS,
   PROPERTY_OPTIONS,
   REVENUE_OPTIONS,
+  TEAM_SIZE_OPTIONS,
   YES_NO_OPTIONS,
 } from "@/lib/booking/form-options"
 import {
@@ -149,12 +149,12 @@ function buildBookingNotificationEmail(
 
         <p style="margin-top: 24px; color: #666; font-size: 13px;">
           Propiedades: ${escapeHtml(getOptionLabel(PROPERTY_OPTIONS, payload.propertyCount))}<br />
-          Facturación: ${escapeHtml(getOptionLabel(REVENUE_OPTIONS, payload.revenueRange))}<br />
           PMS: ${escapeHtml(getOptionLabel(PMS_OPTIONS, payload.usesPms))}<br />
           Todero: ${escapeHtml(getOptionLabel(YES_NO_OPTIONS, payload.isTodero))}<br />
+          Equipo: ${escapeHtml(getOptionLabel(TEAM_SIZE_OPTIONS, payload.teamSize))}<br />
           Quiere escalar: ${escapeHtml(getOptionLabel(YES_NO_OPTIONS, payload.wantsToScale))}<br />
-          Usa IA: ${escapeHtml(getOptionLabel(YES_NO_OPTIONS, payload.usesAi))}<br />
-          Industria: ${escapeHtml(getOptionLabel(INDUSTRY_TIME_OPTIONS, payload.industryTime))}
+          Procesos con software e IA: ${escapeHtml(getOptionLabel(YES_NO_OPTIONS, payload.usesAi))}<br />
+          Facturación: ${escapeHtml(getOptionLabel(REVENUE_OPTIONS, payload.revenueRange))}
         </p>
       </div>
     `,

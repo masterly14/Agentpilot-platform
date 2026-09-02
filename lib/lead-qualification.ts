@@ -6,22 +6,27 @@ import type {
 export const QUALIFICATION_SCORE = {
   propertyCount: {
     "under-5": 0,
-    "5-15": 20,
-    "16-25": 30,
-    "25+": 35,
+    "5-15": 15,
+    "16-25": 20,
+    "25+": 25,
   },
   revenueRange: {
     "under-10m": 0,
-    "10m-20m": 20,
-    "21m-50m": 30,
-    "50m+": 35,
+    "10m-20m": 15,
+    "21m-50m": 20,
+    "50m+": 25,
   },
   isTodero: {
-    yes: 15,
+    yes: 25,
     no: 0,
   },
+  teamSize: {
+    one: 0,
+    two: 0,
+    "three-or-more": 15,
+  },
   wantsToScale: {
-    yes: 10,
+    yes: 5,
     no: 0,
   },
   usesAi: {
@@ -39,11 +44,12 @@ export type QualifyLeadInput = {
   propertyCount?: string
   revenueRange?: string
   isTodero?: string
+  teamSize?: string
   usesAi?: string
   wantsToScale?: string
 }
 
-const SCORING_FIELDS = ["propertyCount", "revenueRange", "isTodero", "usesAi", "wantsToScale"] as const
+const SCORING_FIELDS = ["propertyCount", "revenueRange", "isTodero", "teamSize", "usesAi", "wantsToScale"] as const
 
 export function canClassifyLead(input: QualifyLeadInput) {
   if (input.revenueRange === "under-10m") return true
@@ -54,6 +60,7 @@ export type QualificationScoreBreakdown = {
   propertyCount: number
   revenueRange: number
   isTodero: number
+  teamSize: number
   wantsToScale: number
   usesAi: number
   total: number
@@ -85,6 +92,7 @@ export function classifyLead(input: QualifyLeadInput): LeadClassification {
     propertyCount: scoreOf(QUALIFICATION_SCORE.propertyCount, input.propertyCount),
     revenueRange: scoreOf(QUALIFICATION_SCORE.revenueRange, input.revenueRange),
     isTodero: scoreOf(QUALIFICATION_SCORE.isTodero, input.isTodero),
+    teamSize: scoreOf(QUALIFICATION_SCORE.teamSize, input.teamSize),
     wantsToScale: scoreOf(QUALIFICATION_SCORE.wantsToScale, input.wantsToScale),
     usesAi: scoreOf(QUALIFICATION_SCORE.usesAi, input.usesAi),
     total: 0,
@@ -93,6 +101,7 @@ export function classifyLead(input: QualifyLeadInput): LeadClassification {
     scoreBreakdown.propertyCount +
     scoreBreakdown.revenueRange +
     scoreBreakdown.isTodero +
+    scoreBreakdown.teamSize +
     scoreBreakdown.wantsToScale +
     scoreBreakdown.usesAi
 

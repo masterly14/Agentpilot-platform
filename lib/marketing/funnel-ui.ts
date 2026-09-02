@@ -32,6 +32,14 @@ export const FUNNEL_COLUMNS: FunnelColumn<FunnelColumnId>[] = [
     accent: "bg-[#8c4fff]",
   },
   {
+    id: "PENDING_CALL",
+    label: "Pendiente por llamar",
+    description: "Gestionar diagnóstico o descualificar",
+    droppable: true,
+    automatic: false,
+    accent: "bg-[#b45309]",
+  },
+  {
     id: "SCHEDULED",
     label: "Agendado",
     description: "Reunión confirmada",
@@ -85,6 +93,7 @@ export const FUNNEL_COLUMNS: FunnelColumn<FunnelColumnId>[] = [
 export const FUNNEL_STAGE_LABEL: Record<MarketingFunnelStage, string> = {
   LEAD_MAGNET_SENT: "Guía enviada",
   VIDEO_SENT: "Video enviado",
+  PENDING_CALL: "Pendiente por llamar",
   SCHEDULED: "Agendado",
   SHOWED_UP: "Show-up",
   NO_SHOW: "No-show",
@@ -96,9 +105,10 @@ export const FUNNEL_STAGE_LABEL: Record<MarketingFunnelStage, string> = {
 const ALLOWED_DROPS: Record<MarketingFunnelStage, MarketingFunnelStage[]> = {
   LEAD_MAGNET_SENT: [],
   VIDEO_SENT: [],
-  SCHEDULED: ["SHOWED_UP", "NO_SHOW", "PURCHASED"],
-  SHOWED_UP: ["NO_SHOW", "DEMO_SCHEDULED", "DISCARDED", "PURCHASED"],
-  NO_SHOW: ["SHOWED_UP"],
+  PENDING_CALL: ["SCHEDULED", "DISCARDED"],
+  SCHEDULED: ["SHOWED_UP", "NO_SHOW", "PENDING_CALL", "PURCHASED"],
+  SHOWED_UP: ["NO_SHOW", "PENDING_CALL", "DEMO_SCHEDULED", "DISCARDED", "PURCHASED"],
+  NO_SHOW: ["SHOWED_UP", "PENDING_CALL"],
   DEMO_SCHEDULED: ["PURCHASED", "DISCARDED"],
   DISCARDED: [],
   PURCHASED: [],
@@ -121,6 +131,30 @@ export function isInboxLead(input: {
   marketingFunnelStage: MarketingFunnelStage | null
 }) {
   return input.status === "PARTIAL" || !input.marketingFunnelStage
+}
+
+export function hasInboxContact(input: {
+  email?: string | null
+  phoneNumber?: string | null
+}) {
+  return Boolean(input.email?.trim() || input.phoneNumber?.replace(/\D/g, ""))
+}
+
+export function compareInboxLeads<T extends {
+  email?: string | null
+  phoneNumber?: string | null
+  updatedAt: string
+}>(a: T, b: T) {
+  const rank = inboxContactScore(b) - inboxContactScore(a)
+  if (rank !== 0) return rank
+  return b.updatedAt.localeCompare(a.updatedAt)
+}
+
+function inboxContactScore(input: {
+  email?: string | null
+  phoneNumber?: string | null
+}) {
+  return Number(Boolean(input.phoneNumber?.replace(/\D/g, ""))) + Number(Boolean(input.email?.trim()))
 }
 
 export const PLAN_OPTIONS: Array<{

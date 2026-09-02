@@ -5,6 +5,7 @@ import { CSS } from "@dnd-kit/utilities"
 import { Calendar, GripVertical, Mail } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { KanbanCardMenu } from "@/components/admin/kanban-card-menu"
 import type { FunnelColumn } from "@/lib/marketing/funnel-ui"
 import { isFunnelCardDraggable } from "@/lib/marketing/funnel-ui"
 import type { SubmissionRecord } from "@/lib/submission-display"
@@ -48,6 +49,7 @@ export function LeadStageActions({
   onCloseDeal,
   onScheduleDemo,
   onDiscard,
+  onOpen,
 }: {
   submission: SubmissionRecord
   disabled: boolean
@@ -57,6 +59,7 @@ export function LeadStageActions({
   onCloseDeal: () => void
   onScheduleDemo?: () => void
   onDiscard?: () => void
+  onOpen?: () => void
 }) {
   const stage = submission.marketingFunnelStage
   if (stage === "SCHEDULED") {
@@ -101,6 +104,19 @@ export function LeadStageActions({
     )
   }
 
+  if (stage === "PENDING_CALL") {
+    return (
+      <div className={cn("grid gap-2", compact ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-2")}>
+        <Button type="button" size="sm" disabled={disabled} onClick={onOpen}>
+          Programar diagnóstico
+        </Button>
+        <Button type="button" size="sm" variant="outline" disabled={disabled} onClick={onDiscard}>
+          Descualificar
+        </Button>
+      </div>
+    )
+  }
+
   return null
 }
 
@@ -122,11 +138,11 @@ export function KanbanColumn({
     <div
       ref={setNodeRef}
       className={cn(
-        "flex w-[280px] shrink-0 flex-col rounded-2xl bg-muted/70 p-3",
+        "flex h-full w-[280px] shrink-0 flex-col rounded-2xl bg-muted/70 p-3",
         column.droppable && isOver && "ring-2 ring-primary/30",
       )}
     >
-      <div className="mb-3">
+      <div className="mb-3 shrink-0">
         <div className="inline-flex max-w-full items-center gap-2 rounded-full bg-white px-3 py-1.5 shadow-sm">
           <span className={cn("size-2 shrink-0 rounded-full", column.accent)} />
           <h2 className="truncate text-sm font-semibold">{column.label}</h2>
@@ -139,7 +155,7 @@ export function KanbanColumn({
           </p>
         ) : null}
       </div>
-      <div className="flex min-h-[420px] flex-1 flex-col gap-3">{children}</div>
+      <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto pr-0.5">{children}</div>
     </div>
   )
 }
@@ -153,6 +169,7 @@ export function KanbanCard({
   onCloseDeal,
   onScheduleDemo,
   onDiscard,
+  onDelete,
 }: {
   submission: SubmissionRecord
   isUpdating: boolean
@@ -162,6 +179,7 @@ export function KanbanCard({
   onCloseDeal: () => void
   onScheduleDemo?: () => void
   onDiscard?: () => void
+  onDelete: () => void
 }) {
   const draggable = isFunnelCardDraggable(submission.marketingFunnelStage)
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
@@ -192,17 +210,28 @@ export function KanbanCard({
             <p className="truncate text-xs text-muted-foreground">{getSubmissionSubtitle(submission)}</p>
           </span>
         </button>
-        {draggable ? (
-          <button
-            type="button"
-            className="rounded p-1 text-muted-foreground hover:bg-muted"
-            aria-label="Arrastrar tarjeta"
-            {...listeners}
-            {...attributes}
-          >
-            <GripVertical className="h-4 w-4" />
-          </button>
-        ) : null}
+        <div
+          className="flex shrink-0 items-center"
+          onPointerDown={(event) => event.stopPropagation()}
+          onClick={(event) => event.stopPropagation()}
+        >
+          {draggable ? (
+            <button
+              type="button"
+              className="rounded p-1 text-muted-foreground hover:bg-muted"
+              aria-label="Arrastrar tarjeta"
+              {...listeners}
+              {...attributes}
+            >
+              <GripVertical className="h-4 w-4" />
+            </button>
+          ) : null}
+          <KanbanCardMenu
+            disabled={isUpdating}
+            onUpdate={onOpen}
+            onDelete={onDelete}
+          />
+        </div>
       </div>
 
       <button type="button" onClick={onOpen} className="w-full text-left">
@@ -241,6 +270,7 @@ export function KanbanCard({
           onCloseDeal={onCloseDeal}
           onScheduleDemo={onScheduleDemo}
           onDiscard={onDiscard}
+          onOpen={onOpen}
         />
       </div>
     </div>

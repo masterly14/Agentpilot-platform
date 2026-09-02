@@ -9,6 +9,7 @@ const CHOICE_FIELDS = new Set([
   "propertyCount",
   "revenueRange",
   "isTodero",
+  "teamSize",
   "usesAi",
   "wantsToScale",
   "industryTime",

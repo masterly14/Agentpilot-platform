@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react"
+import { createContext, useCallback, useContext, useMemo, useRef, useState, type ReactNode } from "react"
 import { ArrowLeft, Check, Loader2, Lock, ShieldCheck, X } from "lucide-react"
 import {
   Dialog,
@@ -9,12 +9,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import {
-  INDUSTRY_TIME_OPTIONS,
+  BOOKING_FORM_STEPS,
+  CONTACT_PROMPT_EBOOK,
+  CONTACT_SURVEY_THANKS,
   INITIAL_BOOKING_FORM,
   isValidOptionalUrl,
   PMS_OPTIONS,
   PROPERTY_OPTIONS,
   REVENUE_OPTIONS,
+  TEAM_SIZE_OPTIONS,
   YES_NO_OPTIONS,
 } from "@/lib/booking/form-options"
 import {
@@ -22,16 +25,13 @@ import {
   isValidPhoneNumber,
   PHONE_COUNTRY_OPTIONS,
 } from "@/lib/booking/phone-countries"
+import { FormProgressBar, FormStepTransition } from "@/components/qualification/form-progress"
 import { trackEbookLead } from "@/lib/facebook-pixel"
 import { collectAttribution } from "@/lib/marketing/attribution-client"
 import { usePartialSubmission } from "@/hooks/use-partial-submission"
 import { getVisitorId } from "@/lib/visitor-id"
 import type { LeadFormPayload } from "@/lib/booking/types"
 import { cn } from "@/lib/utils"
-
-const TOTAL_STEPS = 2
-const STEP_CONTACT = 1
-const STEP_QUESTIONS = 2
 
 const TRUST_POINTS = [
   "Sin spam",
@@ -125,6 +125,31 @@ function FieldHint({ children }: { children: ReactNode }) {
   return <p className="mt-1.5 text-[11px] leading-snug text-zinc-500">{children}</p>
 }
 
+function LeadOption({
+  label,
+  selected,
+  onSelect,
+}: {
+  label: string
+  selected: boolean
+  onSelect: () => void
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={cn(
+        "w-full rounded-lg border px-4 py-3.5 text-left text-sm transition-all",
+        selected
+          ? "border-white bg-zinc-800 text-white shadow-sm"
+          : "border-zinc-700 bg-zinc-900/40 text-zinc-200 hover:border-zinc-500 hover:bg-zinc-800/40"
+      )}
+    >
+      {label}
+    </button>
+  )
+}
+
 function LeadInput({
   id,
   label,
@@ -161,52 +186,6 @@ function LeadInput({
         onBlur={onBlur}
         className={inputClassName}
       />
-      {hint ? <FieldHint>{hint}</FieldHint> : null}
-    </div>
-  )
-}
-
-function LeadSelect({
-  id,
-  label,
-  value,
-  placeholder,
-  options,
-  required,
-  hint,
-  onChange,
-}: {
-  id: string
-  label: string
-  value: string
-  placeholder: string
-  options: readonly { value: string; label: string }[]
-  required?: boolean
-  hint?: string
-  onChange: (value: string) => void
-}) {
-  return (
-    <div>
-      <FieldLabel htmlFor={id} required={required}>
-        {label}
-      </FieldLabel>
-      <select
-        id={id}
-        required={required}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className={cn(selectClassName, !value && "text-zinc-500")}
-        style={ChevronBg()}
-      >
-        <option value="" disabled>
-          {placeholder}
-        </option>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
       {hint ? <FieldHint>{hint}</FieldHint> : null}
     </div>
   )
@@ -274,7 +253,8 @@ function EbookLeadModal({
   open: boolean
   onOpenChange: (open: boolean) => void
 }) {
-  const [step, setStep] = useState(1)
+  const [formStep, setFormStep] = useState(0)
+  const directionRef = useRef(1)
   const [form, setForm] = useState<LeadFormPayload>(INITIAL_BOOKING_FORM)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -283,6 +263,10 @@ function EbookLeadModal({
     entrySource: "EBOOK",
     enabled: open && !submitted,
   })
+
+  const step = BOOKING_FORM_STEPS[formStep]
+  const isLastStep = formStep === BOOKING_FORM_STEPS.length - 1
+  const isFirstStep = formStep === 0
 
   const update = useCallback(
     <K extends keyof LeadFormPayload>(field: K, value: LeadFormPayload[K]) => {
@@ -293,8 +277,13 @@ function EbookLeadModal({
     [form, sync]
   )
 
+  const goTo = useCallback((next: number) => {
+    directionRef.current = next > formStep ? 1 : -1
+    setFormStep(next)
+  }, [formStep])
+
   const reset = useCallback(() => {
-    setStep(1)
+    setFormStep(0)
     setForm(INITIAL_BOOKING_FORM)
     setIsSubmitting(false)
     setErrorMessage(null)
@@ -320,22 +309,29 @@ function EbookLeadModal({
     form.companyName.trim().length > 0 &&
     isValidPhoneNumber(form.phoneNumber)
 
-  const canSubmitQuestions =
+  const questionsComplete =
     Boolean(form.propertyCount) &&
     Boolean(form.revenueRange) &&
     Boolean(form.usesPms) &&
     Boolean(form.isTodero) &&
+    Boolean(form.teamSize) &&
     Boolean(form.wantsToScale) &&
     Boolean(form.usesAi) &&
-    Boolean(form.industryTime) &&
     isValidOptionalUrl(form.websiteUrl)
 
   const canAdvance =
-    (step === STEP_CONTACT && canContinueContact) ||
-    (step === STEP_QUESTIONS && canSubmitQuestions && !isSubmitting)
+    step?.id === "contact"
+      ? canContinueContact && questionsComplete && !isSubmitting
+      : Boolean(step)
+
+  const selectAndAdvance = (field: keyof LeadFormPayload, value: string) => {
+    update(field, value)
+    if (isSubmitting || isLastStep) return
+    goTo(formStep + 1)
+  }
 
   const handleSubmit = useCallback(async () => {
-    if (!canSubmitQuestions || isSubmitting) return
+    if (!questionsComplete || !canContinueContact || isSubmitting) return
 
     setIsSubmitting(true)
     setErrorMessage(null)
@@ -397,7 +393,7 @@ function EbookLeadModal({
     } finally {
       setIsSubmitting(false)
     }
-  }, [canSubmitQuestions, clear, flush, form, getToken, isSubmitting])
+  }, [canContinueContact, clear, flush, form, getToken, isSubmitting, questionsComplete])
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -435,256 +431,238 @@ function EbookLeadModal({
           </div>
         ) : (
           <>
-            <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/35 px-5 py-5 pr-8 text-center sm:px-6">
-              <DialogTitle className="bg-gradient-to-br from-zinc-100 via-zinc-300 to-zinc-500 bg-clip-text text-2xl font-light leading-tight tracking-tight text-transparent sm:text-3xl">
-                {step === STEP_CONTACT ? (
-                  <>
-                    Descarga la{" "}
-                    <span className="font-serif italic font-normal text-white">guía gratis</span>
-                  </>
-                ) : (
-                  "Para que la guía te sirva de verdad"
-                )}
-              </DialogTitle>
-              <DialogDescription className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-zinc-400">
-                {step === STEP_CONTACT
-                  ? "Los 10 pilares llegan a tu email en segundos. Pedimos tu contacto solo para enviártela: no hacemos spam, no vendemos tus datos y nadie te va a llamar a venderte."
-                  : "No es un filtro comercial ni una calificación. Con estas respuestas sabemos qué pilares aterrizar a tu operación. Toma menos de un minuto y la descarga empieza al instante."}
-              </DialogDescription>
-              {step === STEP_CONTACT ? (
-                <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[11px] text-zinc-500">
-                  {TRUST_POINTS.map((point) => (
-                    <li key={point} className="inline-flex items-center gap-1.5">
-                      <ShieldCheck className="h-3.5 w-3.5 text-cyan-400/80" strokeWidth={2} />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="mt-3 inline-flex items-center justify-center gap-1.5 text-[11px] text-zinc-500">
-                  <Lock className="h-3.5 w-3.5" />
-                  Tus respuestas quedan entre nosotros. Nunca las compartimos.
-                </p>
-              )}
-            </div>
-
-            <div className="mt-5 flex items-center justify-center gap-2">
-              {Array.from({ length: TOTAL_STEPS }, (_, index) => (
-                <span
-                  key={index}
-                  className={cn(
-                    "h-2.5 w-2.5 rounded-full",
-                    step === index + 1 ? "bg-cyan-400" : "bg-zinc-700"
-                  )}
-                />
-              ))}
-              <span className="ml-1 text-xs font-medium text-zinc-500">
-                Paso {step} de {TOTAL_STEPS}
-              </span>
-            </div>
-
-            {step === STEP_CONTACT ? (
-              <div className="mt-6 space-y-4">
-                <LeadInput
-                  id="lead-name"
-                  label="Nombre completo"
-                  type="text"
-                  required
-                  value={form.fullName}
-                  placeholder="Ej: María García"
-                  onChange={(value) => update("fullName", value)}
-                  onBlur={() => {
-                    void flush()
-                  }}
-                />
-                <LeadInput
-                  id="lead-email"
-                  label="Email profesional"
-                  type="email"
-                  required
-                  value={form.email}
-                  placeholder="Ej: maria@tuinmobiliaria.es"
-                  hint="Ahí te enviamos la guía y el enlace por si quieres volver a descargarla."
-                  onChange={(value) => update("email", value)}
-                  onBlur={() => {
-                    void flush()
-                  }}
-                />
-                <LeadInput
-                  id="lead-company"
-                  label="Nombre de tu empresa"
-                  type="text"
-                  required
-                  value={form.companyName}
-                  placeholder="Ej: Inmobiliaria Sol"
-                  onChange={(value) => update("companyName", value)}
-                  onBlur={() => {
-                    void flush()
-                  }}
-                />
-                <LeadPhoneInput
-                  countryCode={form.phoneCountryCode || DEFAULT_PHONE_COUNTRY_CODE}
-                  phoneNumber={form.phoneNumber}
-                  onCountryCodeChange={(value) => update("phoneCountryCode", value)}
-                  onPhoneNumberChange={(value) => update("phoneNumber", value)}
-                  onBlur={() => {
-                    void flush()
-                  }}
-                />
-              </div>
-            ) : (
-              <div className="mt-6 space-y-7">
-                <FormSection
-                  title="Tu operación"
-                  description="Sirven para aterrizar los 10 pilares a cómo trabajas hoy."
-                >
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <LeadSelect
-                      id="lead-properties"
-                      label="¿Con cuántas propiedades trabajas?"
-                      value={form.propertyCount}
-                      placeholder="Selecciona"
-                      options={PROPERTY_OPTIONS}
-                      onChange={(value) => update("propertyCount", value)}
-                    />
-                    <LeadSelect
-                      id="lead-pms"
-                      label="¿Tienes implementado un PMS?"
-                      value={form.usesPms}
-                      placeholder="Selecciona"
-                      options={PMS_OPTIONS}
-                      onChange={(value) => update("usesPms", value)}
-                    />
-                    <LeadSelect
-                      id="lead-industry"
-                      label="¿Cuánto tiempo llevas en la industria?"
-                      value={form.industryTime}
-                      placeholder="Selecciona"
-                      options={INDUSTRY_TIME_OPTIONS}
-                      onChange={(value) => update("industryTime", value)}
-                    />
-                    <LeadSelect
-                      id="lead-ai"
-                      label="¿Usas ChatGPT u otra IA para tareas de tu negocio?"
-                      value={form.usesAi}
-                      placeholder="Selecciona"
-                      options={YES_NO_OPTIONS}
-                      onChange={(value) => update("usesAi", value)}
-                    />
-                    <LeadSelect
-                      id="lead-todero"
-                      label="¿Te consideras el todero o coordinador del negocio?"
-                      value={form.isTodero}
-                      placeholder="Selecciona"
-                      options={YES_NO_OPTIONS}
-                      onChange={(value) => update("isTodero", value)}
-                    />
-                    <LeadSelect
-                      id="lead-scale"
-                      label="¿Quieres escalar el número de propiedades que operas?"
-                      value={form.wantsToScale}
-                      placeholder="Selecciona"
-                      options={YES_NO_OPTIONS}
-                      onChange={(value) => update("wantsToScale", value)}
-                    />
-                  </div>
-                  <LeadSelect
-                    id="lead-revenue"
-                    label="¿Cuál es tu rango de facturación mensual?"
-                    value={form.revenueRange}
-                    placeholder="Selecciona un rango"
-                    options={REVENUE_OPTIONS}
-                    hint="Rango aproximado. Solo lo usamos internamente para dimensionar ejemplos. Nadie más lo ve."
-                    onChange={(value) => update("revenueRange", value)}
-                  />
-                </FormSection>
-
-                <FormSection
-                  title="Redes sociales"
-                  description="Opcional. Si las dejas, nos ayuda a entender tu marca. Si no, igual descargas la guía."
-                >
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <LeadInput
-                      id="lead-instagram"
-                      label="Instagram (opcional)"
-                      type="text"
-                      value={form.instagramUrl}
-                      placeholder="@tuempresa"
-                      onChange={(value) => update("instagramUrl", value)}
-                    />
-                    <LeadInput
-                      id="lead-website"
-                      label="Sitio web (opcional)"
-                      type="url"
-                      value={form.websiteUrl}
-                      placeholder="https://tuempresa.com"
-                      onChange={(value) => update("websiteUrl", value)}
-                    />
-                  </div>
-                </FormSection>
-              </div>
-            )}
-
-            {errorMessage ? <p className="mt-4 text-center text-sm text-red-400">{errorMessage}</p> : null}
-
-            <div className="mt-6 flex items-center gap-3">
-              {step === STEP_QUESTIONS ? (
-                <button
-                  type="button"
-                  onClick={() => setStep(STEP_CONTACT)}
-                  disabled={isSubmitting}
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/40 text-zinc-300 transition-colors hover:border-zinc-500 hover:bg-zinc-800 hover:text-white disabled:opacity-50"
-                  aria-label="Volver"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                </button>
-              ) : null}
-
+            <DialogTitle className="sr-only">Descarga la guía gratis</DialogTitle>
+            <DialogDescription className="sr-only">
+              Responde unas preguntas y déjanos tus datos para enviarte el Ebook.
+            </DialogDescription>
+            <FormProgressBar
+              stepIndex={formStep}
+              totalSteps={BOOKING_FORM_STEPS.length}
+              tone="dark"
+            />
+            <div className="mt-5 flex items-center gap-2.5">
               <button
                 type="button"
                 onClick={() => {
-                  if (step === STEP_CONTACT) {
-                    if (canContinueContact) setStep(STEP_QUESTIONS)
-                    return
-                  }
-                  void handleSubmit()
+                  if (isFirstStep) return
+                  goTo(formStep - 1)
                 }}
-                disabled={!canAdvance}
+                disabled={isSubmitting || isFirstStep}
+                className="-ml-1 flex h-6 w-6 shrink-0 items-center justify-center text-zinc-500 transition-colors hover:text-white disabled:opacity-40"
+                aria-label="Pregunta anterior"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+              </button>
+              <p className="text-[11px] leading-snug text-zinc-500">
+                Entendamos si el Ebook te servirá y no perderás tiempo, responde estas preguntas antes
+              </p>
+            </div>
+
+            <FormStepTransition stepKey={step?.id ?? "step"} direction={directionRef.current}>
+              <h3
                 className={cn(
-                  "group relative flex min-h-14 min-w-0 flex-1 flex-col items-center justify-center overflow-hidden rounded-full py-3 transition-all",
-                  canAdvance
-                    ? "bg-white text-black hover:shadow-[0_0_40px_-8px_rgba(255,255,255,0.45)]"
-                    : "cursor-not-allowed bg-zinc-800 text-zinc-500"
+                  "mt-5 text-lg font-semibold leading-snug text-white md:text-xl",
+                  step?.id === "contact" ? "mb-2" : "mb-5"
                 )}
               >
-                {canAdvance ? (
-                  <span
-                    aria-hidden
-                    className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-700 group-hover:translate-x-full"
-                  />
-                ) : null}
-                {isSubmitting ? (
-                  <span className="relative inline-flex items-center gap-2 text-sm font-medium tracking-wide">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Enviando...
-                  </span>
-                ) : step === STEP_CONTACT ? (
-                  <>
-                    <span className="relative text-sm font-medium tracking-wide">Siguiente</span>
-                    <span className="relative mt-0.5 text-[11px] font-normal text-zinc-600">
-                      Un paso más y descargas
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span className="relative text-sm font-medium tracking-wide">Enviar y descargar</span>
-                    <span className="relative mt-0.5 text-[11px] font-normal text-zinc-600">
-                      La guía llega a tu email al instante
-                    </span>
-                  </>
+                {step?.id === "contact" ? CONTACT_SURVEY_THANKS : step?.question}
+              </h3>
+              {step?.id === "contact" ? (
+                <p className="mb-5 text-sm leading-relaxed text-zinc-400">{CONTACT_PROMPT_EBOOK}</p>
+              ) : null}
+
+              <div className="space-y-2.5">
+                {step?.id === "propertyCount" &&
+                  PROPERTY_OPTIONS.map((option) => (
+                    <LeadOption
+                      key={option.value}
+                      label={option.label}
+                      selected={form.propertyCount === option.value}
+                      onSelect={() => selectAndAdvance("propertyCount", option.value)}
+                    />
+                  ))}
+
+                {step?.id === "usesPms" &&
+                  PMS_OPTIONS.map((option) => (
+                    <LeadOption
+                      key={option.value}
+                      label={option.label}
+                      selected={form.usesPms === option.value}
+                      onSelect={() => selectAndAdvance("usesPms", option.value)}
+                    />
+                  ))}
+
+                {step?.id === "isTodero" &&
+                  YES_NO_OPTIONS.map((option) => (
+                    <LeadOption
+                      key={option.value}
+                      label={option.label}
+                      selected={form.isTodero === option.value}
+                      onSelect={() => selectAndAdvance("isTodero", option.value)}
+                    />
+                  ))}
+
+                {step?.id === "teamSize" &&
+                  TEAM_SIZE_OPTIONS.map((option) => (
+                    <LeadOption
+                      key={option.value}
+                      label={option.label}
+                      selected={form.teamSize === option.value}
+                      onSelect={() => selectAndAdvance("teamSize", option.value)}
+                    />
+                  ))}
+
+                {step?.id === "wantsToScale" &&
+                  YES_NO_OPTIONS.map((option) => (
+                    <LeadOption
+                      key={option.value}
+                      label={option.label}
+                      selected={form.wantsToScale === option.value}
+                      onSelect={() => selectAndAdvance("wantsToScale", option.value)}
+                    />
+                  ))}
+
+                {step?.id === "usesAi" &&
+                  YES_NO_OPTIONS.map((option) => (
+                    <LeadOption
+                      key={option.value}
+                      label={option.label}
+                      selected={form.usesAi === option.value}
+                      onSelect={() => selectAndAdvance("usesAi", option.value)}
+                    />
+                  ))}
+
+                {step?.id === "revenueRange" &&
+                  REVENUE_OPTIONS.map((option) => (
+                    <LeadOption
+                      key={option.value}
+                      label={option.label}
+                      selected={form.revenueRange === option.value}
+                      onSelect={() => selectAndAdvance("revenueRange", option.value)}
+                    />
+                  ))}
+
+                {step?.id === "contact" && (
+                  <div className="space-y-4">
+                    <ul className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] text-zinc-500">
+                      {TRUST_POINTS.map((point) => (
+                        <li key={point} className="inline-flex items-center gap-1.5">
+                          <ShieldCheck className="h-3.5 w-3.5 text-cyan-400/80" strokeWidth={2} />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                    <LeadInput
+                      id="lead-name"
+                      label="Nombre completo"
+                      type="text"
+                      required
+                      value={form.fullName}
+                      placeholder="Ej: María García"
+                      onChange={(value) => update("fullName", value)}
+                      onBlur={() => {
+                        void flush()
+                      }}
+                    />
+                    <LeadInput
+                      id="lead-email"
+                      label="Email profesional"
+                      type="email"
+                      required
+                      value={form.email}
+                      placeholder="Ej: maria@tuinmobiliaria.es"
+                      hint="Ahí te enviamos la guía y el enlace por si quieres volver a descargarla."
+                      onChange={(value) => update("email", value)}
+                      onBlur={() => {
+                        void flush()
+                      }}
+                    />
+                    <LeadInput
+                      id="lead-company"
+                      label="Nombre de tu empresa"
+                      type="text"
+                      required
+                      value={form.companyName}
+                      placeholder="Ej: Inmobiliaria Sol"
+                      onChange={(value) => update("companyName", value)}
+                      onBlur={() => {
+                        void flush()
+                      }}
+                    />
+                    <LeadPhoneInput
+                      countryCode={form.phoneCountryCode || DEFAULT_PHONE_COUNTRY_CODE}
+                      phoneNumber={form.phoneNumber}
+                      onCountryCodeChange={(value) => update("phoneCountryCode", value)}
+                      onPhoneNumberChange={(value) => update("phoneNumber", value)}
+                      onBlur={() => {
+                        void flush()
+                      }}
+                    />
+                    <FormSection
+                      title="Redes sociales"
+                      description="Opcional. Si las dejas, nos ayuda a entender tu marca. Si no, igual descargas la guía."
+                    >
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <LeadInput
+                          id="lead-instagram"
+                          label="Instagram (opcional)"
+                          type="text"
+                          value={form.instagramUrl}
+                          placeholder="@tuempresa"
+                          onChange={(value) => update("instagramUrl", value)}
+                        />
+                        <LeadInput
+                          id="lead-website"
+                          label="Sitio web (opcional)"
+                          type="url"
+                          value={form.websiteUrl}
+                          placeholder="https://tuempresa.com"
+                          onChange={(value) => update("websiteUrl", value)}
+                        />
+                      </div>
+                    </FormSection>
+                  </div>
                 )}
-              </button>
-            </div>
+              </div>
+            </FormStepTransition>
+
+            {errorMessage ? <p className="mt-4 text-center text-sm text-red-400">{errorMessage}</p> : null}
+
+            {isLastStep ? (
+              <div className="mt-6 flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => void handleSubmit()}
+                  disabled={!canAdvance}
+                  className={cn(
+                    "group relative flex min-h-14 min-w-0 flex-1 flex-col items-center justify-center overflow-hidden rounded-full py-3 transition-all",
+                    canAdvance
+                      ? "bg-white text-black hover:shadow-[0_0_40px_-8px_rgba(255,255,255,0.45)]"
+                      : "cursor-not-allowed bg-zinc-800 text-zinc-500"
+                  )}
+                >
+                  {canAdvance ? (
+                    <span
+                      aria-hidden
+                      className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+                    />
+                  ) : null}
+                  {isSubmitting ? (
+                    <span className="relative inline-flex items-center gap-2 text-sm font-medium tracking-wide">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Enviando...
+                    </span>
+                  ) : (
+                    <>
+                      <span className="relative text-sm font-medium tracking-wide">Enviar y descargar</span>
+                      <span className="relative mt-0.5 text-[11px] font-normal text-zinc-600">
+                        La guía llega a tu email al instante
+                      </span>
+                    </>
+                  )}
+                </button>
+              </div>
+            ) : null}
 
             <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-zinc-500">
               <Lock className="h-3.5 w-3.5 text-zinc-500" />

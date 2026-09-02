@@ -14,8 +14,9 @@ import { cancelPendingPipelineJobs, schedulePipelineJob } from "@/lib/pipeline/s
 import { sendPipelineTemplate, sendWhatsAppText } from "@/lib/whatsapp/send-template"
 import { firstNameFromFullName } from "@/lib/whatsapp/phone"
 import { formatMeetingParts } from "@/lib/pipeline/vars"
-import { MQL_QUESTIONS } from "@/lib/pipeline/qualify-mql"
+import { nextMqlNurtureState } from "@/lib/pipeline/nurture-mql"
 import { isTerminalState } from "@/lib/pipeline/states"
+import { recordMarketingStage, MARKETING_TRIGGERED_BY } from "@/lib/marketing/events"
 
 const IMMEDIATE_FOLLOWUP: Partial<Record<PipelineState, PipelineState>> = {
   LEAD_MAGNET_DOWNLOADED: "AWAITING_CONFIRMATION",
@@ -34,7 +35,37 @@ async function loadPipeline(contactId: string) {
   })
 }
 
+async function hasManualOnlyNurture(pipeline: LeadPipeline) {
+  const submission = await prisma.formSubmission.findFirst({
+    where: { contactId: pipeline.contactId },
+    orderBy: { createdAt: "desc" },
+    select: { id: true, qualification: true, entrySource: true, bookedAt: true },
+  })
+  const disabled = submission?.qualification === "SQL" && !submission.bookedAt
+  return { disabled, submission }
+}
+
 async function scheduleFollowup(pipeline: LeadPipeline) {
+  const nurturePolicy = await hasManualOnlyNurture(pipeline)
+  if (nurturePolicy.disabled) {
+    if (
+      nurturePolicy.submission?.qualification === "SQL" &&
+      !nurturePolicy.submission.bookedAt &&
+      pipeline.currentState === "AWAITING_CONFIRMATION"
+    ) {
+      await prisma.leadPipeline.update({
+        where: { id: pipeline.id },
+        data: { currentState: "COLD_CALL_QUEUED" },
+      })
+      await recordMarketingStage({
+        submissionId: nurturePolicy.submission.id,
+        to: "PENDING_CALL",
+        triggeredBy: MARKETING_TRIGGERED_BY.system,
+      })
+    }
+    return
+  }
+
   if (isTerminalState(pipeline.currentState) && pipeline.currentState !== "SCHEDULED") {
     return
   }
@@ -101,20 +132,6 @@ async function deliverStateMessage(
     where: { id: pipeline.contactId },
   })
 
-  if (state === "QUALIFYING_Q1" || state === "QUALIFYING_Q2" || state === "QUALIFYING_Q3") {
-    try {
-      await sendWhatsAppText({
-        contact,
-        body: MQL_QUESTIONS[state],
-        pipelineState: state,
-      })
-    } catch (error) {
-      console.error("[pipeline] fallo envío WhatsApp texto", state, pipeline.contactId, error)
-      return { ok: false, awaitDeliveryReceipt: false }
-    }
-    return { ok: true, awaitDeliveryReceipt: true }
-  }
-
   if (state === "DEMO_CONFIRMATION_SENT" || state === "LOST") {
     return { ok: true, awaitDeliveryReceipt: false }
   }
@@ -177,6 +194,17 @@ export async function transitionPipeline(input: {
     },
     include: { contact: true },
   })
+  const nurturePolicy = await hasManualOnlyNurture(updated)
+  if (nurturePolicy.disabled && input.toState !== "AWAITING_CONFIRMATION") {
+    if (input.toState === "NO_SHOW" && nurturePolicy.submission) {
+      await recordMarketingStage({
+        submissionId: nurturePolicy.submission.id,
+        to: "PENDING_CALL",
+        triggeredBy: MARKETING_TRIGGERED_BY.system,
+      })
+    }
+    return updated
+  }
 
   const delivery = await deliverStateMessage(updated, input.toState)
 
@@ -283,7 +311,15 @@ export async function ensureNurturingPipeline(contactId: string, funnelOrigin: F
   })
 
   if (existing) {
-    if (existing.currentStage === "NURTURING" && existing.currentState === "LEAD_MAGNET_DOWNLOADED") {
+    if (
+      existing.currentStage === "NURTURING" &&
+      existing.currentState === "LEAD_MAGNET_DOWNLOADED"
+    ) {
+      if (funnelOrigin === "MQL") {
+        const next = nextMqlNurtureState(existing)
+        if (!next) return existing
+        return transitionPipeline({ contactId, toState: next })
+      }
       return transitionPipeline({ contactId, toState: "AWAITING_CONFIRMATION" })
     }
     return existing
@@ -298,6 +334,12 @@ export async function ensureNurturingPipeline(contactId: string, funnelOrigin: F
     },
   })
 
+  if (funnelOrigin === "MQL") {
+    const created = await prisma.leadPipeline.findUniqueOrThrow({ where: { contactId } })
+    const next = nextMqlNurtureState(created)
+    if (!next) return created
+    return transitionPipeline({ contactId, toState: next })
+  }
   return transitionPipeline({ contactId, toState: "AWAITING_CONFIRMATION" })
 }
 

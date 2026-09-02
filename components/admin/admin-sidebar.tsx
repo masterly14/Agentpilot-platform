@@ -58,7 +58,7 @@ export function AdminSidebar() {
 
   if (!open) {
     return (
-      <div className="flex shrink-0 items-center border-b border-sidebar-border bg-sidebar print:hidden md:h-screen md:flex-col md:border-b-0 md:border-r">
+      <div className="flex shrink-0 items-center border-b border-sidebar-border bg-sidebar print:hidden md:h-full md:flex-col md:border-b-0 md:border-r">
         <Button
           type="button"
           variant="ghost"
@@ -75,7 +75,7 @@ export function AdminSidebar() {
   }
 
   return (
-    <aside className="flex w-full shrink-0 flex-col border-b border-sidebar-border bg-sidebar print:hidden md:h-screen md:w-60 md:border-b-0 md:border-r">
+    <aside className="flex w-full shrink-0 flex-col border-b border-sidebar-border bg-sidebar print:hidden md:h-full md:w-60 md:border-b-0 md:border-r">
       <div className="flex items-center gap-2 px-3 py-3 md:px-4 md:py-4">
         <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
           SV

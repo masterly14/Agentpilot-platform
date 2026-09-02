@@ -4,6 +4,7 @@ import {
   PMS_USAGE_FORM,
   PROPERTY_COUNT_FORM,
   REVENUE_RANGE_FORM,
+  TEAM_SIZE_FORM,
   YES_NO_FORM,
 } from "@/lib/booking/form-options"
 import { DEFAULT_PHONE_COUNTRY_CODE } from "@/lib/booking/phone-countries"
@@ -22,6 +23,7 @@ export function bookingFormDataFromSubmission(submission: FormSubmission): Booki
     propertyCount: submission.propertyCount ? PROPERTY_COUNT_FORM[submission.propertyCount] : "",
     revenueRange: submission.revenueRange ? REVENUE_RANGE_FORM[submission.revenueRange] : "",
     isTodero: submission.isTodero ? YES_NO_FORM[submission.isTodero] : "",
+    teamSize: submission.teamSize ? TEAM_SIZE_FORM[submission.teamSize] : "",
     usesAi: submission.usesAi ? YES_NO_FORM[submission.usesAi] : "",
     wantsToScale: submission.wantsToScale ? YES_NO_FORM[submission.wantsToScale] : "",
     industryTime: submission.industryTime ? INDUSTRY_TIME_FORM[submission.industryTime] : "",

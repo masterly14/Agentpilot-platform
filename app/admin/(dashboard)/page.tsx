@@ -6,7 +6,7 @@ import { toLeadRecord } from "@/lib/admin/lead-record"
 import { AdminBoard, type AdminBoardId } from "@/components/admin/admin-board"
 
 function parseBoard(value: string | undefined, hasAirbnbLead: boolean): AdminBoardId {
-  if (value === "airbnb" || value === "all" || value === "inbound") return value
+  if (value === "airbnb" || value === "all" || value === "inbound" || value === "mql") return value
   if (hasAirbnbLead) return "airbnb"
   return "inbound"
 }
@@ -38,7 +38,7 @@ export default async function AdminDashboardPage({
   ])
 
   return (
-    <div className="mx-auto w-full max-w-[1600px] flex-1 px-4 py-6 md:px-8">
+    <div className="mx-auto flex h-full min-h-0 w-full max-w-[1600px] flex-1 flex-col overflow-hidden px-4 py-6 md:px-8">
       <AdminBoard
         submissions={submissions.map(toLeadRecord)}
         airbnbLeads={airbnbLeads}

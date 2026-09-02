@@ -5,6 +5,7 @@ import type {
   PmsUsage,
   PropertyCount,
   RevenueRange,
+  TeamSize,
   YesNo,
 } from "@/prisma/generated/client"
 import {
@@ -20,6 +21,8 @@ import {
   PROPERTY_OPTIONS,
   REVENUE_OPTIONS,
   REVENUE_RANGE_DB,
+  TEAM_SIZE_DB,
+  TEAM_SIZE_OPTIONS,
   YES_NO_DB,
   YES_NO_OPTIONS,
 } from "@/lib/booking/form-options"
@@ -43,6 +46,7 @@ export type LeadPrismaFields = {
   propertyCount?: PropertyCount
   revenueRange?: RevenueRange
   isTodero?: YesNo
+  teamSize?: TeamSize
   usesAi?: YesNo
   wantsToScale?: YesNo
   industryTime?: IndustryTime
@@ -113,6 +117,9 @@ export function leadFormToPrismaData(form: Partial<BookingFormData>): LeadPrisma
   if (isOptionValue(YES_NO_OPTIONS, readString(form.isTodero))) {
     data.isTodero = YES_NO_DB[form.isTodero as keyof typeof YES_NO_DB]
   }
+  if (isOptionValue(TEAM_SIZE_OPTIONS, readString(form.teamSize))) {
+    data.teamSize = TEAM_SIZE_DB[form.teamSize as keyof typeof TEAM_SIZE_DB]
+  }
   if (isOptionValue(YES_NO_OPTIONS, readString(form.usesAi))) {
     data.usesAi = YES_NO_DB[form.usesAi as keyof typeof YES_NO_DB]
   }
@@ -127,6 +134,7 @@ export function leadFormToPrismaData(form: Partial<BookingFormData>): LeadPrisma
     propertyCount: readString(form.propertyCount),
     revenueRange: readString(form.revenueRange),
     isTodero: readString(form.isTodero),
+    teamSize: readString(form.teamSize),
     usesAi: readString(form.usesAi),
     wantsToScale: readString(form.wantsToScale),
   }
@@ -163,6 +171,7 @@ export function parsePartialLeadFields(value: unknown): Partial<BookingFormData>
     "propertyCount",
     "revenueRange",
     "isTodero",
+    "teamSize",
     "usesAi",
     "wantsToScale",
     "industryTime",

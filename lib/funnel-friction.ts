@@ -10,11 +10,11 @@ import type {
 
 export const FUNNEL_FIELD_IDS = [
   "propertyCount",
-  "revenueRange",
   "usesPms",
   "isTodero",
   "wantsToScale",
   "usesAi",
+  "revenueRange",
   "industryTime",
   "fullName",
   "email",
@@ -78,12 +78,11 @@ export type FunnelSubmission = {
 
 const BOOKING_FUNNEL: FunnelFieldId[] = [
   "propertyCount",
-  "revenueRange",
   "usesPms",
   "isTodero",
   "wantsToScale",
   "usesAi",
-  "industryTime",
+  "revenueRange",
   "fullName",
   "email",
   "phoneNumber",
@@ -91,17 +90,16 @@ const BOOKING_FUNNEL: FunnelFieldId[] = [
 ]
 
 const EBOOK_FUNNEL: FunnelFieldId[] = [
-  "fullName",
-  "email",
-  "companyName",
-  "phoneNumber",
   "propertyCount",
-  "revenueRange",
   "usesPms",
   "isTodero",
   "wantsToScale",
   "usesAi",
-  "industryTime",
+  "revenueRange",
+  "fullName",
+  "email",
+  "companyName",
+  "phoneNumber",
   "submit",
 ]
 

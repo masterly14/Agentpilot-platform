@@ -60,7 +60,7 @@ export default async function AdminDashboardMetricsPage() {
   ])
 
   return (
-    <div className="mx-auto w-full max-w-[1600px] flex-1 space-y-8 px-4 py-6 md:px-8">
+    <div className="mx-auto min-h-0 w-full max-w-[1600px] flex-1 space-y-8 overflow-y-auto px-4 py-6 md:px-8">
       <AdLandingCard data={buildAdLandingReport(landingVisits)} />
       <VideoRetentionCard data={buildVideoRetention(videoSessions)} />
       <FunnelFrictionCard data={buildFunnelFriction(submissions)} />

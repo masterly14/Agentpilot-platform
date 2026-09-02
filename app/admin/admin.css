@@ -37,19 +37,33 @@ html.admin-light {
   --chart-5: #033160;
 }
 
+.admin-shell {
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #f2f3f3;
+  color: #16191f;
+  color-scheme: light;
+  font-family: var(--font-admin), "Open Sans", "Helvetica Neue", Roboto, Arial, sans-serif;
+}
+
 html.admin-light,
 html.admin-light body {
+  height: 100%;
+  overflow: hidden;
   background-color: #f2f3f3 !important;
   color: #16191f;
   color-scheme: light;
 }
 
-.admin-shell {
-  min-height: 100vh;
-  background: #f2f3f3;
-  color: #16191f;
-  color-scheme: light;
-  font-family: var(--font-admin), "Open Sans", "Helvetica Neue", Roboto, Arial, sans-serif;
+@media print {
+  .admin-shell,
+  html.admin-light,
+  html.admin-light body {
+    height: auto;
+    overflow: visible;
+  }
 }
 
 .admin-shell h1,

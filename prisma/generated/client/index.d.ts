@@ -164,6 +164,15 @@ export const IndustryTime: {
 export type IndustryTime = (typeof IndustryTime)[keyof typeof IndustryTime]
 
 
+export const TeamSize: {
+  ONE: 'ONE',
+  TWO: 'TWO',
+  THREE_OR_MORE: 'THREE_OR_MORE'
+};
+
+export type TeamSize = (typeof TeamSize)[keyof typeof TeamSize]
+
+
 export const SubmissionStatus: {
   PARTIAL: 'PARTIAL',
   NEW: 'NEW',
@@ -335,6 +344,7 @@ export type PipelineJobStatus = (typeof PipelineJobStatus)[keyof typeof Pipeline
 export const MarketingFunnelStage: {
   LEAD_MAGNET_SENT: 'LEAD_MAGNET_SENT',
   VIDEO_SENT: 'VIDEO_SENT',
+  PENDING_CALL: 'PENDING_CALL',
   SCHEDULED: 'SCHEDULED',
   SHOWED_UP: 'SHOWED_UP',
   NO_SHOW: 'NO_SHOW',
@@ -467,6 +477,10 @@ export const YesNo: typeof $Enums.YesNo
 export type IndustryTime = $Enums.IndustryTime
 
 export const IndustryTime: typeof $Enums.IndustryTime
+
+export type TeamSize = $Enums.TeamSize
+
+export const TeamSize: typeof $Enums.TeamSize
 
 export type SubmissionStatus = $Enums.SubmissionStatus
 
@@ -4557,6 +4571,7 @@ export namespace Prisma {
     usesAi: $Enums.YesNo | null
     wantsToScale: $Enums.YesNo | null
     industryTime: $Enums.IndustryTime | null
+    teamSize: $Enums.TeamSize | null
     pdfToken: string | null
     qualification: $Enums.LeadQualification | null
     qualificationScore: number | null
@@ -4599,6 +4614,7 @@ export namespace Prisma {
     usesAi: $Enums.YesNo | null
     wantsToScale: $Enums.YesNo | null
     industryTime: $Enums.IndustryTime | null
+    teamSize: $Enums.TeamSize | null
     pdfToken: string | null
     qualification: $Enums.LeadQualification | null
     qualificationScore: number | null
@@ -4641,6 +4657,7 @@ export namespace Prisma {
     usesAi: number
     wantsToScale: number
     industryTime: number
+    teamSize: number
     pdfToken: number
     qualification: number
     qualificationScore: number
@@ -4696,6 +4713,7 @@ export namespace Prisma {
     usesAi?: true
     wantsToScale?: true
     industryTime?: true
+    teamSize?: true
     pdfToken?: true
     qualification?: true
     qualificationScore?: true
@@ -4738,6 +4756,7 @@ export namespace Prisma {
     usesAi?: true
     wantsToScale?: true
     industryTime?: true
+    teamSize?: true
     pdfToken?: true
     qualification?: true
     qualificationScore?: true
@@ -4780,6 +4799,7 @@ export namespace Prisma {
     usesAi?: true
     wantsToScale?: true
     industryTime?: true
+    teamSize?: true
     pdfToken?: true
     qualification?: true
     qualificationScore?: true
@@ -4910,6 +4930,7 @@ export namespace Prisma {
     usesAi: $Enums.YesNo | null
     wantsToScale: $Enums.YesNo | null
     industryTime: $Enums.IndustryTime | null
+    teamSize: $Enums.TeamSize | null
     pdfToken: string
     qualification: $Enums.LeadQualification | null
     qualificationScore: number | null
@@ -4972,6 +4993,7 @@ export namespace Prisma {
     usesAi?: boolean
     wantsToScale?: boolean
     industryTime?: boolean
+    teamSize?: boolean
     pdfToken?: boolean
     qualification?: boolean
     qualificationScore?: boolean
@@ -5019,6 +5041,7 @@ export namespace Prisma {
     usesAi?: boolean
     wantsToScale?: boolean
     industryTime?: boolean
+    teamSize?: boolean
     pdfToken?: boolean
     qualification?: boolean
     qualificationScore?: boolean
@@ -5063,6 +5086,7 @@ export namespace Prisma {
     usesAi?: boolean
     wantsToScale?: boolean
     industryTime?: boolean
+    teamSize?: boolean
     pdfToken?: boolean
     qualification?: boolean
     qualificationScore?: boolean
@@ -5107,6 +5131,7 @@ export namespace Prisma {
     usesAi?: boolean
     wantsToScale?: boolean
     industryTime?: boolean
+    teamSize?: boolean
     pdfToken?: boolean
     qualification?: boolean
     qualificationScore?: boolean
@@ -5134,7 +5159,7 @@ export namespace Prisma {
     contactId?: boolean
   }
 
-  export type FormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "companyName" | "phoneCountryCode" | "phoneNumber" | "instagramUrl" | "websiteUrl" | "usesPms" | "propertyCount" | "revenueRange" | "isTodero" | "usesAi" | "wantsToScale" | "industryTime" | "pdfToken" | "qualification" | "qualificationScore" | "disqualificationReason" | "scoreBreakdown" | "entrySource" | "bookingFlow" | "bookedAt" | "status" | "fbclid" | "fbp" | "fbc" | "utmSource" | "utmMedium" | "utmCampaign" | "utmContent" | "utmTerm" | "landingPath" | "referrer" | "marketingFunnelStage" | "contractValueUsd" | "contractPlan" | "createdAt" | "updatedAt" | "contactId", ExtArgs["result"]["formSubmission"]>
+  export type FormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "companyName" | "phoneCountryCode" | "phoneNumber" | "instagramUrl" | "websiteUrl" | "usesPms" | "propertyCount" | "revenueRange" | "isTodero" | "usesAi" | "wantsToScale" | "industryTime" | "teamSize" | "pdfToken" | "qualification" | "qualificationScore" | "disqualificationReason" | "scoreBreakdown" | "entrySource" | "bookingFlow" | "bookedAt" | "status" | "fbclid" | "fbp" | "fbc" | "utmSource" | "utmMedium" | "utmCampaign" | "utmContent" | "utmTerm" | "landingPath" | "referrer" | "marketingFunnelStage" | "contractValueUsd" | "contractPlan" | "createdAt" | "updatedAt" | "contactId", ExtArgs["result"]["formSubmission"]>
   export type FormSubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     contact?: boolean | FormSubmission$contactArgs<ExtArgs>
     events?: boolean | FormSubmission$eventsArgs<ExtArgs>
@@ -5171,6 +5196,7 @@ export namespace Prisma {
       usesAi: $Enums.YesNo | null
       wantsToScale: $Enums.YesNo | null
       industryTime: $Enums.IndustryTime | null
+      teamSize: $Enums.TeamSize | null
       pdfToken: string
       qualification: $Enums.LeadQualification | null
       qualificationScore: number | null
@@ -5637,6 +5663,7 @@ export namespace Prisma {
     readonly usesAi: FieldRef<"FormSubmission", 'YesNo'>
     readonly wantsToScale: FieldRef<"FormSubmission", 'YesNo'>
     readonly industryTime: FieldRef<"FormSubmission", 'IndustryTime'>
+    readonly teamSize: FieldRef<"FormSubmission", 'TeamSize'>
     readonly pdfToken: FieldRef<"FormSubmission", 'String'>
     readonly qualification: FieldRef<"FormSubmission", 'LeadQualification'>
     readonly qualificationScore: FieldRef<"FormSubmission", 'Int'>
@@ -27110,6 +27137,7 @@ export namespace Prisma {
     usesAi: 'usesAi',
     wantsToScale: 'wantsToScale',
     industryTime: 'industryTime',
+    teamSize: 'teamSize',
     pdfToken: 'pdfToken',
     qualification: 'qualification',
     qualificationScore: 'qualificationScore',
@@ -27601,6 +27629,20 @@ export namespace Prisma {
    * Reference to a field of type 'IndustryTime[]'
    */
   export type ListEnumIndustryTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IndustryTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TeamSize'
+   */
+  export type EnumTeamSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TeamSize'>
+    
+
+
+  /**
+   * Reference to a field of type 'TeamSize[]'
+   */
+  export type ListEnumTeamSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TeamSize[]'>
     
 
 
@@ -28110,6 +28152,7 @@ export namespace Prisma {
     usesAi?: EnumYesNoNullableFilter<"FormSubmission"> | $Enums.YesNo | null
     wantsToScale?: EnumYesNoNullableFilter<"FormSubmission"> | $Enums.YesNo | null
     industryTime?: EnumIndustryTimeNullableFilter<"FormSubmission"> | $Enums.IndustryTime | null
+    teamSize?: EnumTeamSizeNullableFilter<"FormSubmission"> | $Enums.TeamSize | null
     pdfToken?: StringFilter<"FormSubmission"> | string
     qualification?: EnumLeadQualificationNullableFilter<"FormSubmission"> | $Enums.LeadQualification | null
     qualificationScore?: IntNullableFilter<"FormSubmission"> | number | null
@@ -28156,6 +28199,7 @@ export namespace Prisma {
     usesAi?: SortOrderInput | SortOrder
     wantsToScale?: SortOrderInput | SortOrder
     industryTime?: SortOrderInput | SortOrder
+    teamSize?: SortOrderInput | SortOrder
     pdfToken?: SortOrder
     qualification?: SortOrderInput | SortOrder
     qualificationScore?: SortOrderInput | SortOrder
@@ -28206,6 +28250,7 @@ export namespace Prisma {
     usesAi?: EnumYesNoNullableFilter<"FormSubmission"> | $Enums.YesNo | null
     wantsToScale?: EnumYesNoNullableFilter<"FormSubmission"> | $Enums.YesNo | null
     industryTime?: EnumIndustryTimeNullableFilter<"FormSubmission"> | $Enums.IndustryTime | null
+    teamSize?: EnumTeamSizeNullableFilter<"FormSubmission"> | $Enums.TeamSize | null
     qualification?: EnumLeadQualificationNullableFilter<"FormSubmission"> | $Enums.LeadQualification | null
     qualificationScore?: IntNullableFilter<"FormSubmission"> | number | null
     disqualificationReason?: EnumDisqualificationReasonNullableFilter<"FormSubmission"> | $Enums.DisqualificationReason | null
@@ -28251,6 +28296,7 @@ export namespace Prisma {
     usesAi?: SortOrderInput | SortOrder
     wantsToScale?: SortOrderInput | SortOrder
     industryTime?: SortOrderInput | SortOrder
+    teamSize?: SortOrderInput | SortOrder
     pdfToken?: SortOrder
     qualification?: SortOrderInput | SortOrder
     qualificationScore?: SortOrderInput | SortOrder
@@ -28302,6 +28348,7 @@ export namespace Prisma {
     usesAi?: EnumYesNoNullableWithAggregatesFilter<"FormSubmission"> | $Enums.YesNo | null
     wantsToScale?: EnumYesNoNullableWithAggregatesFilter<"FormSubmission"> | $Enums.YesNo | null
     industryTime?: EnumIndustryTimeNullableWithAggregatesFilter<"FormSubmission"> | $Enums.IndustryTime | null
+    teamSize?: EnumTeamSizeNullableWithAggregatesFilter<"FormSubmission"> | $Enums.TeamSize | null
     pdfToken?: StringWithAggregatesFilter<"FormSubmission"> | string
     qualification?: EnumLeadQualificationNullableWithAggregatesFilter<"FormSubmission"> | $Enums.LeadQualification | null
     qualificationScore?: IntNullableWithAggregatesFilter<"FormSubmission"> | number | null
@@ -30077,6 +30124,7 @@ export namespace Prisma {
     usesAi?: $Enums.YesNo | null
     wantsToScale?: $Enums.YesNo | null
     industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
     pdfToken: string
     qualification?: $Enums.LeadQualification | null
     qualificationScore?: number | null
@@ -30122,6 +30170,7 @@ export namespace Prisma {
     usesAi?: $Enums.YesNo | null
     wantsToScale?: $Enums.YesNo | null
     industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
     pdfToken: string
     qualification?: $Enums.LeadQualification | null
     qualificationScore?: number | null
@@ -30167,6 +30216,7 @@ export namespace Prisma {
     usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
     pdfToken?: StringFieldUpdateOperationsInput | string
     qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
     qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -30212,6 +30262,7 @@ export namespace Prisma {
     usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
     pdfToken?: StringFieldUpdateOperationsInput | string
     qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
     qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -30257,6 +30308,7 @@ export namespace Prisma {
     usesAi?: $Enums.YesNo | null
     wantsToScale?: $Enums.YesNo | null
     industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
     pdfToken: string
     qualification?: $Enums.LeadQualification | null
     qualificationScore?: number | null
@@ -30300,6 +30352,7 @@ export namespace Prisma {
     usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
     pdfToken?: StringFieldUpdateOperationsInput | string
     qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
     qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -30342,6 +30395,7 @@ export namespace Prisma {
     usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
     pdfToken?: StringFieldUpdateOperationsInput | string
     qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
     qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -32416,6 +32470,13 @@ export namespace Prisma {
     not?: NestedEnumIndustryTimeNullableFilter<$PrismaModel> | $Enums.IndustryTime | null
   }
 
+  export type EnumTeamSizeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.TeamSize | EnumTeamSizeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.TeamSize[] | ListEnumTeamSizeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.TeamSize[] | ListEnumTeamSizeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumTeamSizeNullableFilter<$PrismaModel> | $Enums.TeamSize | null
+  }
+
   export type EnumLeadQualificationNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.LeadQualification | EnumLeadQualificationFieldRefInput<$PrismaModel> | null
     in?: $Enums.LeadQualification[] | ListEnumLeadQualificationFieldRefInput<$PrismaModel> | null
@@ -32562,6 +32623,7 @@ export namespace Prisma {
     usesAi?: SortOrder
     wantsToScale?: SortOrder
     industryTime?: SortOrder
+    teamSize?: SortOrder
     pdfToken?: SortOrder
     qualification?: SortOrder
     qualificationScore?: SortOrder
@@ -32610,6 +32672,7 @@ export namespace Prisma {
     usesAi?: SortOrder
     wantsToScale?: SortOrder
     industryTime?: SortOrder
+    teamSize?: SortOrder
     pdfToken?: SortOrder
     qualification?: SortOrder
     qualificationScore?: SortOrder
@@ -32652,6 +32715,7 @@ export namespace Prisma {
     usesAi?: SortOrder
     wantsToScale?: SortOrder
     industryTime?: SortOrder
+    teamSize?: SortOrder
     pdfToken?: SortOrder
     qualification?: SortOrder
     qualificationScore?: SortOrder
@@ -32731,6 +32795,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumIndustryTimeNullableFilter<$PrismaModel>
     _max?: NestedEnumIndustryTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumTeamSizeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TeamSize | EnumTeamSizeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.TeamSize[] | ListEnumTeamSizeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.TeamSize[] | ListEnumTeamSizeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumTeamSizeNullableWithAggregatesFilter<$PrismaModel> | $Enums.TeamSize | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumTeamSizeNullableFilter<$PrismaModel>
+    _max?: NestedEnumTeamSizeNullableFilter<$PrismaModel>
   }
 
   export type EnumLeadQualificationNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -34459,6 +34533,10 @@ export namespace Prisma {
     set?: $Enums.IndustryTime | null
   }
 
+  export type NullableEnumTeamSizeFieldUpdateOperationsInput = {
+    set?: $Enums.TeamSize | null
+  }
+
   export type NullableEnumLeadQualificationFieldUpdateOperationsInput = {
     set?: $Enums.LeadQualification | null
   }
@@ -35485,6 +35563,13 @@ export namespace Prisma {
     not?: NestedEnumIndustryTimeNullableFilter<$PrismaModel> | $Enums.IndustryTime | null
   }
 
+  export type NestedEnumTeamSizeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.TeamSize | EnumTeamSizeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.TeamSize[] | ListEnumTeamSizeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.TeamSize[] | ListEnumTeamSizeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumTeamSizeNullableFilter<$PrismaModel> | $Enums.TeamSize | null
+  }
+
   export type NestedEnumLeadQualificationNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.LeadQualification | EnumLeadQualificationFieldRefInput<$PrismaModel> | null
     in?: $Enums.LeadQualification[] | ListEnumLeadQualificationFieldRefInput<$PrismaModel> | null
@@ -35604,6 +35689,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumIndustryTimeNullableFilter<$PrismaModel>
     _max?: NestedEnumIndustryTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTeamSizeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TeamSize | EnumTeamSizeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.TeamSize[] | ListEnumTeamSizeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.TeamSize[] | ListEnumTeamSizeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumTeamSizeNullableWithAggregatesFilter<$PrismaModel> | $Enums.TeamSize | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumTeamSizeNullableFilter<$PrismaModel>
+    _max?: NestedEnumTeamSizeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumLeadQualificationNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -36151,6 +36246,7 @@ export namespace Prisma {
     usesAi?: $Enums.YesNo | null
     wantsToScale?: $Enums.YesNo | null
     industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
     pdfToken: string
     qualification?: $Enums.LeadQualification | null
     qualificationScore?: number | null
@@ -36195,6 +36291,7 @@ export namespace Prisma {
     usesAi?: $Enums.YesNo | null
     wantsToScale?: $Enums.YesNo | null
     industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
     pdfToken: string
     qualification?: $Enums.LeadQualification | null
     qualificationScore?: number | null
@@ -36416,6 +36513,7 @@ export namespace Prisma {
     usesAi?: EnumYesNoNullableFilter<"FormSubmission"> | $Enums.YesNo | null
     wantsToScale?: EnumYesNoNullableFilter<"FormSubmission"> | $Enums.YesNo | null
     industryTime?: EnumIndustryTimeNullableFilter<"FormSubmission"> | $Enums.IndustryTime | null
+    teamSize?: EnumTeamSizeNullableFilter<"FormSubmission"> | $Enums.TeamSize | null
     pdfToken?: StringFilter<"FormSubmission"> | string
     qualification?: EnumLeadQualificationNullableFilter<"FormSubmission"> | $Enums.LeadQualification | null
     qualificationScore?: IntNullableFilter<"FormSubmission"> | number | null
@@ -36854,6 +36952,7 @@ export namespace Prisma {
     usesAi?: $Enums.YesNo | null
     wantsToScale?: $Enums.YesNo | null
     industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
     pdfToken: string
     qualification?: $Enums.LeadQualification | null
     qualificationScore?: number | null
@@ -36898,6 +36997,7 @@ export namespace Prisma {
     usesAi?: $Enums.YesNo | null
     wantsToScale?: $Enums.YesNo | null
     industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
     pdfToken: string
     qualification?: $Enums.LeadQualification | null
     qualificationScore?: number | null
@@ -37029,6 +37129,7 @@ export namespace Prisma {
     usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
     pdfToken?: StringFieldUpdateOperationsInput | string
     qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
     qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -37073,6 +37174,7 @@ export namespace Prisma {
     usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
     pdfToken?: StringFieldUpdateOperationsInput | string
     qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
     qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -39269,6 +39371,7 @@ export namespace Prisma {
     usesAi?: $Enums.YesNo | null
     wantsToScale?: $Enums.YesNo | null
     industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
     pdfToken: string
     qualification?: $Enums.LeadQualification | null
     qualificationScore?: number | null
@@ -39313,6 +39416,7 @@ export namespace Prisma {
     usesAi?: $Enums.YesNo | null
     wantsToScale?: $Enums.YesNo | null
     industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
     pdfToken: string
     qualification?: $Enums.LeadQualification | null
     qualificationScore?: number | null
@@ -39444,6 +39548,7 @@ export namespace Prisma {
     usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
     pdfToken?: StringFieldUpdateOperationsInput | string
     qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
     qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -39488,6 +39593,7 @@ export namespace Prisma {
     usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
     pdfToken?: StringFieldUpdateOperationsInput | string
     qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
     qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -39609,6 +39715,7 @@ export namespace Prisma {
     usesAi?: $Enums.YesNo | null
     wantsToScale?: $Enums.YesNo | null
     industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
     pdfToken: string
     qualification?: $Enums.LeadQualification | null
     qualificationScore?: number | null
@@ -39659,6 +39766,7 @@ export namespace Prisma {
     usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
     pdfToken?: StringFieldUpdateOperationsInput | string
     qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
     qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -39703,6 +39811,7 @@ export namespace Prisma {
     usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
     pdfToken?: StringFieldUpdateOperationsInput | string
     qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
     qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
@@ -39747,6 +39856,7 @@ export namespace Prisma {
     usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
     industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
     pdfToken?: StringFieldUpdateOperationsInput | string
     qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
     qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null

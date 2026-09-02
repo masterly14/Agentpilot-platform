@@ -49,6 +49,7 @@ model FormSubmission {
   usesAi                  YesNo?
   wantsToScale            YesNo?
   industryTime            IndustryTime?
+  teamSize                TeamSize?
   pdfToken                String                  @unique
   qualification           LeadQualification?
   qualificationScore      Int?
@@ -266,6 +267,12 @@ enum IndustryTime {
   OVER_10
 }
 
+enum TeamSize {
+  ONE
+  TWO
+  THREE_OR_MORE
+}
+
 enum SubmissionStatus {
   PARTIAL
   NEW
@@ -398,6 +405,7 @@ enum PipelineJobStatus {
 enum MarketingFunnelStage {
   LEAD_MAGNET_SENT
   VIDEO_SENT
+  PENDING_CALL
   SCHEDULED
   SHOWED_UP
   NO_SHOW

@@ -4,6 +4,7 @@ import type {
   PmsUsage,
   PropertyCount,
   RevenueRange,
+  TeamSize,
   YesNo,
 } from "@/prisma/generated/client"
 import { prisma } from "@/lib/prisma"
@@ -25,6 +26,8 @@ import {
   PROPERTY_OPTIONS,
   REVENUE_OPTIONS,
   REVENUE_RANGE_DB,
+  TEAM_SIZE_DB,
+  TEAM_SIZE_OPTIONS,
   YES_NO_DB,
   YES_NO_OPTIONS,
 } from "@/lib/booking/form-options"
@@ -62,9 +65,9 @@ function isValidPayload(body: unknown): body is LeadFormPayload {
     typeof record.propertyCount === "string" &&
     typeof record.revenueRange === "string" &&
     typeof record.isTodero === "string" &&
+    typeof record.teamSize === "string" &&
     typeof record.usesAi === "string" &&
     typeof record.wantsToScale === "string" &&
-    typeof record.industryTime === "string" &&
     record.fullName.trim().length > 0 &&
     isValidEmail(record.email.trim()) &&
     record.companyName.trim().length > 0 &&
@@ -74,9 +77,9 @@ function isValidPayload(body: unknown): body is LeadFormPayload {
     isOptionValue(PROPERTY_OPTIONS, record.propertyCount) &&
     isOptionValue(REVENUE_OPTIONS, record.revenueRange) &&
     isOptionValue(YES_NO_OPTIONS, record.isTodero) &&
+    isOptionValue(TEAM_SIZE_OPTIONS, record.teamSize) &&
     isOptionValue(YES_NO_OPTIONS, record.usesAi) &&
-    isOptionValue(YES_NO_OPTIONS, record.wantsToScale) &&
-    isOptionValue(INDUSTRY_TIME_OPTIONS, record.industryTime)
+    isOptionValue(YES_NO_OPTIONS, record.wantsToScale)
   )
 }
 
@@ -106,9 +109,10 @@ export async function POST(request: Request) {
       propertyCount: body.propertyCount,
       revenueRange: body.revenueRange,
       isTodero: body.isTodero,
+      teamSize: body.teamSize,
       usesAi: body.usesAi,
       wantsToScale: body.wantsToScale,
-      industryTime: body.industryTime,
+      industryTime: typeof body.industryTime === "string" ? body.industryTime : "",
     }
 
     const requestedTokenValue = (body as LeadFormPayload & { leadToken?: unknown }).leadToken
@@ -125,6 +129,7 @@ export async function POST(request: Request) {
       propertyCount: payload.propertyCount,
       revenueRange: payload.revenueRange,
       isTodero: payload.isTodero,
+      teamSize: payload.teamSize,
       usesAi: payload.usesAi,
       wantsToScale: payload.wantsToScale,
     })
@@ -151,9 +156,12 @@ export async function POST(request: Request) {
       propertyCount: PROPERTY_COUNT_DB[payload.propertyCount as keyof typeof PROPERTY_COUNT_DB] as PropertyCount,
       revenueRange: REVENUE_RANGE_DB[payload.revenueRange as keyof typeof REVENUE_RANGE_DB] as RevenueRange,
       isTodero: YES_NO_DB[payload.isTodero as keyof typeof YES_NO_DB] as YesNo,
+      teamSize: TEAM_SIZE_DB[payload.teamSize as keyof typeof TEAM_SIZE_DB] as TeamSize,
       usesAi: YES_NO_DB[payload.usesAi as keyof typeof YES_NO_DB] as YesNo,
       wantsToScale: YES_NO_DB[payload.wantsToScale as keyof typeof YES_NO_DB] as YesNo,
-      industryTime: INDUSTRY_TIME_DB[payload.industryTime as keyof typeof INDUSTRY_TIME_DB] as IndustryTime,
+      ...(isOptionValue(INDUSTRY_TIME_OPTIONS, payload.industryTime)
+        ? { industryTime: INDUSTRY_TIME_DB[payload.industryTime as keyof typeof INDUSTRY_TIME_DB] as IndustryTime }
+        : {}),
       qualification: classification.qualification,
       qualificationScore: classification.qualificationScore,
       disqualificationReason: classification.disqualificationReason,
@@ -176,6 +184,24 @@ export async function POST(request: Request) {
             },
           })
 
+    const marketing = await recordMarketingStage({
+      submissionId: submission.id,
+      to: "LEAD_MAGNET_SENT",
+      triggeredBy: MARKETING_TRIGGERED_BY.system,
+      eventSourceUrl: `${getAppUrl()}/ebook`,
+      attribution,
+      client,
+    })
+
+    if (classification.qualification === "SQL") {
+      await recordMarketingStage({
+        submissionId: submission.id,
+        to: "PENDING_CALL",
+        triggeredBy: MARKETING_TRIGGERED_BY.system,
+        eventSourceUrl: `${getAppUrl()}/ebook`,
+      })
+    }
+
     if (
       classification.qualification === "SQL" ||
       classification.qualification === "MQL"
@@ -186,15 +212,6 @@ export async function POST(request: Request) {
         console.error("[pipeline] no se pudo arrancar nutrición", error)
       }
     }
-
-    const marketing = await recordMarketingStage({
-      submissionId: submission.id,
-      to: "LEAD_MAGNET_SENT",
-      triggeredBy: MARKETING_TRIGGERED_BY.system,
-      eventSourceUrl: `${getAppUrl()}/ebook`,
-      attribution,
-      client,
-    })
 
     try {
       await markLandingConverted({
