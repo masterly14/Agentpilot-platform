@@ -28,6 +28,9 @@ const nextConfig = {
     ],
   },
   serverExternalPackages: ["@prisma/client", "prisma", "@mastra/core"],
+  experimental: {
+    proxyClientMaxBodySize: "20mb",
+  },
   outputFileTracingIncludes: {
     "/api/ebook/download": ["./content/ebook.pdf"],
   },

@@ -21,7 +21,8 @@
     "airbnb:import": "node --experimental-strip-types scripts/import-airbnb-leads.ts",
     "airbnb:verify": "node --experimental-strip-types scripts/verify-airbnb-import.ts",
     "airbnb:cutover-env": "node --experimental-strip-types scripts/cutover-airbnb-env.ts",
-    "mcp:leads": "tsx mcp/index.ts"
+    "mcp:leads": "tsx mcp/index.ts",
+    "cal:setup": "node --experimental-strip-types scripts/setup-cal-campaign.ts"
   },
   "dependencies": {
     "@cloudscape-design/global-styles": "^1.0.67",

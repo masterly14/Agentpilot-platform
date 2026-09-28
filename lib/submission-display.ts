@@ -100,6 +100,9 @@ export type SubmissionRecord = {
   meetLink: string | null
   visitorTimezone: string | null
   painPoint: string | null
+  videoOutreachAt: string | null
+  videoOutreachBookedAt: string | null
+  videoOutreachCalUid: string | null
   createdAt: string
   updatedAt: string
 }
@@ -113,9 +116,22 @@ export function serializeSubmission<T extends {
   meetLink?: string | null
   visitorTimezone?: string | null
   painPoint?: string | null
+  videoOutreachAt?: Date | null
+  videoOutreachBookedAt?: Date | null
 }>(submission: T) {
-  const { contractValueUsd, createdAt, updatedAt, bookedAt, meetingTime, meetLink, visitorTimezone, painPoint, ...rest } =
-    submission
+  const {
+    contractValueUsd,
+    createdAt,
+    updatedAt,
+    bookedAt,
+    meetingTime,
+    meetLink,
+    visitorTimezone,
+    painPoint,
+    videoOutreachAt,
+    videoOutreachBookedAt,
+    ...rest
+  } = submission
   return {
     ...rest,
     createdAt: createdAt.toISOString(),
@@ -125,6 +141,8 @@ export function serializeSubmission<T extends {
     meetLink: meetLink ?? null,
     visitorTimezone: visitorTimezone ?? null,
     painPoint: painPoint ?? null,
+    videoOutreachAt: videoOutreachAt ? videoOutreachAt.toISOString() : null,
+    videoOutreachBookedAt: videoOutreachBookedAt ? videoOutreachBookedAt.toISOString() : null,
     contractValueUsd: contractValueUsd == null ? null : String(contractValueUsd),
   }
 }
@@ -211,6 +229,30 @@ export function getSubmissionDetails(submission: SubmissionRecord) {
     submission.instagramUrl ? { label: "Instagram", value: submission.instagramUrl } : null,
     submission.websiteUrl ? { label: "Sitio web", value: submission.websiteUrl } : null,
     submission.painPoint ? { label: "Dolor", value: submission.painPoint } : null,
+    submission.videoOutreachAt
+      ? {
+          label: "Video outreach",
+          value: new Date(submission.videoOutreachAt)
+            .toLocaleString("es-CO", {
+              dateStyle: "medium",
+              timeStyle: "short",
+              timeZone: "America/Bogota",
+            })
+            .replace(/[\u00A0\u202F\u2009]/g, " "),
+        }
+      : null,
+    submission.videoOutreachBookedAt
+      ? {
+          label: "Agendó (Cal)",
+          value: new Date(submission.videoOutreachBookedAt)
+            .toLocaleString("es-CO", {
+              dateStyle: "medium",
+              timeStyle: "short",
+              timeZone: "America/Bogota",
+            })
+            .replace(/[\u00A0\u202F\u2009]/g, " "),
+        }
+      : null,
     submission.bookedAt
       ? {
           label: "Agendó",

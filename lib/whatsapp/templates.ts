@@ -18,6 +18,7 @@ export const WHATSAPP_TEMPLATE_LIMITS = {
 
 export const WHATSAPP_PARAM_EXAMPLES: Record<WhatsAppNamedParam, string> = {
   nombre: "Carlos",
+  first_name: "Carlos",
   fecha: "viernes 28 de agosto",
   hora: "10:00 a. m.",
   link: "https://santiagovaron.com/agendar",
@@ -448,6 +449,21 @@ export const whatsappTemplates = defineWhatsAppTemplates({
       { type: "QUICK_REPLY", text: "No es el momento", id: "not_now" },
     ],
   },
+  marketing_video2: {
+    name: "marketing_video2",
+    category: "MARKETING",
+    language: WHATSAPP_TEMPLATE_LANGUAGE,
+    funnelOrigin: "ANY",
+    triggerType: "EVENT",
+    header: { type: "VIDEO" },
+    params: ["nombre"],
+    buttons: [],
+    body: lines(
+      "Hola {{nombre}}, te dejo este video para que veas cómo se ve el sistema aplicado a un negocio de rentas cortas como el tuyo.",
+      "",
+      "Es mejor ver para creer. Cuando quieras te lo muestro en vivo.",
+    ),
+  },
 })
 
 export type WhatsAppTemplates = typeof whatsappTemplates
@@ -467,7 +483,7 @@ export function getWhatsAppTemplate<Name extends WhatsAppTemplateName>(name: Nam
   return whatsappTemplates[name]
 }
 
-export function listWhatsAppTemplates() {
+export function listWhatsAppTemplates(): WhatsAppTemplateDefinition[] {
   return Object.values(whatsappTemplates)
 }
 
@@ -481,7 +497,7 @@ export function findWhatsAppTemplate(query: {
   funnelOrigin?: FunnelOrigin | "ANY"
 }) {
   const matches = listWhatsAppTemplates().filter((template) => {
-    if (template.state !== query.state) return false
+    if (!template.state || template.state !== query.state) return false
     if (query.pipeline && template.pipeline !== query.pipeline) return false
     if (!query.funnelOrigin) return true
     return template.funnelOrigin === query.funnelOrigin || template.funnelOrigin === "ANY"
@@ -536,7 +552,7 @@ export function renderWhatsAppTemplate<Name extends WhatsAppTemplateName>(
   name: Name,
   vars: WhatsAppTemplateVars<Name>,
 ) {
-  const template = whatsappTemplates[name]
+  const template: WhatsAppTemplateDefinition = whatsappTemplates[name]
   return {
     name,
     language: template.language,
@@ -632,23 +648,27 @@ export function buildWhatsAppCreatePayload(
   const exampleValues = params.map((paramName) =>
     exampleValue(paramName, template, options?.examples),
   )
-  const components: WhatsAppCreateComponent[] = [
-    {
-      type: "BODY",
-      text: template.body,
-      ...(params.length
-        ? {
-            example: {
-              body_text: [exampleValues],
-              body_text_named_params: params.map((paramName, index) => ({
-                param_name: paramName,
-                example: exampleValues[index] ?? "",
-              })),
-            },
-          }
-        : {}),
-    },
-  ]
+  const components: WhatsAppCreateComponent[] = []
+
+  if (template.header?.type === "VIDEO") {
+    components.push({ type: "HEADER", format: "VIDEO" })
+  }
+
+  components.push({
+    type: "BODY",
+    text: template.body,
+    ...(params.length
+      ? {
+          example: {
+            body_text: [exampleValues],
+            body_text_named_params: params.map((paramName, index) => ({
+              param_name: paramName,
+              example: exampleValues[index] ?? "",
+            })),
+          },
+        }
+      : {}),
+  })
 
   if (template.footer) {
     components.push({ type: "FOOTER", text: template.footer })
@@ -685,10 +705,35 @@ export function buildWhatsAppSendPayload<Name extends WhatsAppTemplateName>(
   name: Name,
   to: string,
   vars: WhatsAppTemplateVars<Name>,
+  options?: { videoMediaId?: string },
 ): WhatsAppSendTemplateMessage {
-  const template = whatsappTemplates[name]
+  const template: WhatsAppTemplateDefinition = whatsappTemplates[name]
   const values = vars as Partial<Record<WhatsAppNamedParam, string>>
   interpolateWhatsAppBody(template.body, values)
+
+  if (template.header?.type === "VIDEO" && !options?.videoMediaId) {
+    throw new Error(`La plantilla ${template.name} requiere un video en el header.`)
+  }
+
+  const components: WhatsAppSendTemplateMessage["template"]["components"] = []
+
+  if (template.header?.type === "VIDEO" && options?.videoMediaId) {
+    components.push({
+      type: "header",
+      parameters: [{ type: "video", video: { id: options.videoMediaId } }],
+    })
+  }
+
+  if (template.params.length > 0) {
+    components.push({
+      type: "body",
+      parameters: template.params.map((paramName) => ({
+        type: "text" as const,
+        parameter_name: paramName,
+        text: values[paramName] ?? "",
+      })),
+    })
+  }
 
   return {
     messaging_product: "whatsapp",
@@ -698,19 +743,7 @@ export function buildWhatsAppSendPayload<Name extends WhatsAppTemplateName>(
     template: {
       name: template.name,
       language: { code: template.language },
-      components:
-        template.params.length > 0
-          ? [
-              {
-                type: "body",
-                parameters: template.params.map((paramName) => ({
-                  type: "text" as const,
-                  parameter_name: paramName,
-                  text: values[paramName] ?? "",
-                })),
-              },
-            ]
-          : [],
+      components,
     },
   }
 }

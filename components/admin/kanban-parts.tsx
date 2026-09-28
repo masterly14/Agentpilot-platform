@@ -242,6 +242,13 @@ export function KanbanCard({
               {submission.qualificationScore != null ? ` · ${submission.qualificationScore}` : ""}
             </Badge>
           ) : null}
+          {submission.videoOutreachBookedAt ? (
+            <Badge className="rounded-full text-[10px]">Agendó (Cal)</Badge>
+          ) : submission.videoOutreachAt ? (
+            <Badge variant="outline" className="rounded-full text-[10px]">
+              Video outreach
+            </Badge>
+          ) : null}
           {meeting ? (
             <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
               <Calendar className="h-3 w-3" />

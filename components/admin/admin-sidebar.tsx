@@ -12,6 +12,7 @@ import {
   MessageCircle,
   PanelLeft,
   PanelLeftClose,
+  Send,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -21,6 +22,7 @@ const SIDEBAR_STORAGE_KEY = "admin-sidebar"
 const LINKS = [
   { href: "/admin", label: "Pipeline", exact: true, icon: Columns3 },
   { href: "/admin/chat", label: "Chat", exact: false, icon: MessageCircle },
+  { href: "/admin/campanas/video", label: "Campaña video", exact: false, icon: Send },
   { href: "/admin/diagnostico", label: "Diagnóstico", exact: false, icon: ClipboardList },
   { href: "/admin/dashboard", label: "Dashboard", exact: false, icon: BarChart3 },
 ] as const

@@ -25,10 +25,11 @@ model Contact {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
-  submissions   FormSubmission[]
-  pipeline      LeadPipeline?
-  conversations Conversation[]
-  airbnbLead    AirbnbLead?
+  submissions    FormSubmission[]
+  pipeline       LeadPipeline?
+  conversations  Conversation[]
+  airbnbLead     AirbnbLead?
+  outreachSends  OutreachSend[]
 
   @@index([email])
 }
@@ -72,18 +73,24 @@ model FormSubmission {
   marketingFunnelStage    MarketingFunnelStage?
   contractValueUsd        Decimal?                @db.Decimal(12, 2)
   contractPlan            ContractPlan?
+  videoOutreachAt         DateTime?
+  videoOutreachBookedAt   DateTime?
+  videoOutreachCalUid     String?
   createdAt               DateTime                @default(now())
   updatedAt               DateTime                @updatedAt
   contactId               String?
   contact                 Contact?                @relation(fields: [contactId], references: [id], onDelete: SetNull)
   events                  LeadEvent[]
   diagnoses               OperationalDiagnosis[]
+  outreachSends           OutreachSend[]
 
   @@index([qualification])
   @@index([entrySource])
   @@index([bookingFlow])
   @@index([contactId])
   @@index([marketingFunnelStage])
+  @@index([videoOutreachAt])
+  @@index([videoOutreachCalUid])
 }
 
 model LeadEvent {
@@ -234,6 +241,38 @@ model PipelineJob {
   executedAt      DateTime?
 
   @@index([pipelineId, status])
+}
+
+model OutreachSend {
+  id               String              @id @default(cuid())
+  campaignKey      String
+  contactId        String
+  contact          Contact             @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  submissionId     String?
+  submission       FormSubmission?     @relation(fields: [submissionId], references: [id], onDelete: SetNull)
+  firstName        String
+  videoMediaId     String?
+  waMessageId      String?
+  waStatus         MessageStatus       @default(PENDING)
+  email            String?
+  emailStatus      OutreachEmailStatus @default(PENDING)
+  emailError       String?
+  qstashMessageId  String?
+  calPrivateLinkId String?
+  calBookingUrl    String
+  calBookingUid    String?
+  bookedAt         DateTime?
+  meetingTime      DateTime?
+  sentAt           DateTime            @default(now())
+  emailSentAt      DateTime?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  @@index([campaignKey, contactId])
+  @@index([submissionId])
+  @@index([calPrivateLinkId])
+  @@index([calBookingUid])
+  @@index([email])
 }
 
 enum PmsUsage {
@@ -400,6 +439,13 @@ enum PipelineJobStatus {
   EXECUTED
   STALE
   CANCELLED
+}
+
+enum OutreachEmailStatus {
+  PENDING
+  SENT
+  SKIPPED
+  FAILED
 }
 
 enum MarketingFunnelStage {

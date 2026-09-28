@@ -14,7 +14,16 @@ export type WhatsAppTemplateCategory = "AUTHENTICATION" | "MARKETING" | "UTILITY
 
 export type WhatsAppParameterFormat = "NAMED" | "POSITIONAL" | "named" | "positional"
 
-export type WhatsAppNamedParam = "nombre" | "fecha" | "hora" | "link" | "dolor" | "resumen"
+export type WhatsAppNamedParam =
+  | "nombre"
+  | "first_name"
+  | "fecha"
+  | "hora"
+  | "link"
+  | "dolor"
+  | "resumen"
+
+export type WhatsAppHeaderFormat = "VIDEO"
 
 export type WhatsAppQuickReplyButton = {
   type: "QUICK_REPLY"
@@ -47,10 +56,11 @@ export type WhatsAppTemplateDefinition<
   category: WhatsAppTemplateCategory
   language: string
   pipeline?: PipelineStage
-  state: AnyPipelineState
+  state?: AnyPipelineState
   funnelOrigin: FunnelOrigin | "ANY"
   triggerType: TemplateTriggerType
   delayFromAnchor?: TemplateDelayFromAnchor
+  header?: { type: WhatsAppHeaderFormat }
   body: string
   footer?: string
   buttons: readonly WhatsAppTemplateButton[]
@@ -86,7 +96,14 @@ export type WhatsAppCreateButtonsComponent = {
   >
 }
 
+export type WhatsAppCreateHeaderComponent = {
+  type: "HEADER"
+  format: WhatsAppHeaderFormat
+  example?: { header_handle: string[] }
+}
+
 export type WhatsAppCreateComponent =
+  | WhatsAppCreateHeaderComponent
   | WhatsAppCreateBodyComponent
   | WhatsAppCreateFooterComponent
   | WhatsAppCreateButtonsComponent
@@ -106,6 +123,21 @@ export type WhatsAppSendTextParameter = {
   text: string
 }
 
+export type WhatsAppSendHeaderVideoParameter = {
+  type: "video"
+  video: { id: string } | { link: string }
+}
+
+export type WhatsAppSendTemplateComponent =
+  | {
+      type: "header"
+      parameters: WhatsAppSendHeaderVideoParameter[]
+    }
+  | {
+      type: "body"
+      parameters: WhatsAppSendTextParameter[]
+    }
+
 export type WhatsAppSendTemplateMessage = {
   messaging_product: "whatsapp"
   recipient_type: "individual"
@@ -114,10 +146,7 @@ export type WhatsAppSendTemplateMessage = {
   template: {
     name: string
     language: { code: string }
-    components: Array<{
-      type: "body"
-      parameters: WhatsAppSendTextParameter[]
-    }>
+    components: WhatsAppSendTemplateComponent[]
   }
 }
 
@@ -134,8 +163,8 @@ export type WhatsAppRenderedTemplate<Name extends string = string> = {
   name: Name
   language: string
   category: WhatsAppTemplateCategory
-  pipeline: PipelineStage
-  state: AnyPipelineState
+  pipeline?: PipelineStage
+  state?: AnyPipelineState
   funnelOrigin: FunnelOrigin | "ANY"
   body: string
   buttons: readonly WhatsAppTemplateButton[]

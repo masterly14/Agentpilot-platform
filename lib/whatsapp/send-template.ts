@@ -3,6 +3,7 @@ import type { WhatsAppNamedParam } from "@/lib/whatsapp/types"
 import {
   buildWhatsAppSendPayload,
   findWhatsAppTemplate,
+  getWhatsAppTemplate,
   interpolateWhatsAppBody,
   type WhatsAppTemplateName,
 } from "@/lib/whatsapp/templates"
@@ -181,9 +182,56 @@ export async function sendWhatsAppTemplateToNumber<Name extends WhatsAppTemplate
   name: Name,
   to: string,
   vars: import("@/lib/whatsapp/templates").WhatsAppTemplateVars<Name>,
+  options?: { videoMediaId?: string },
 ) {
-  const payload = buildWhatsAppSendPayload(name, to, vars)
+  const payload = buildWhatsAppSendPayload(name, to, vars, options)
   return sendWhatsAppGraphMessage(payload)
+}
+
+export async function sendMarketingVideoTemplate(input: {
+  contact: Contact
+  firstName: string
+  videoMediaId: string
+}) {
+  const templateName = "marketing_video2" as const
+  const vars = { nombre: input.firstName }
+  const payload = buildWhatsAppSendPayload(templateName, input.contact.phoneE164, vars, {
+    videoMediaId: input.videoMediaId,
+  })
+  const body = interpolateWhatsAppBody(getWhatsAppTemplate(templateName).body, vars)
+
+  try {
+    const result = await sendWhatsAppGraphMessage(payload)
+    await persistConversationMessage({
+      contactId: input.contact.id,
+      direction: "OUTBOUND",
+      type: "TEMPLATE",
+      body,
+      templateName,
+      waMessageId: result.messageId,
+      status: "SENT",
+      mediaId: input.videoMediaId,
+      mimeType: "video/mp4",
+      rawPayload: payload as never,
+    })
+    return { messageId: result.messageId, body }
+  } catch (error) {
+    await persistConversationMessage({
+      contactId: input.contact.id,
+      direction: "OUTBOUND",
+      type: "TEMPLATE",
+      body,
+      templateName,
+      status: "FAILED",
+      mediaId: input.videoMediaId,
+      mimeType: "video/mp4",
+      rawPayload: {
+        payload,
+        error: error instanceof Error ? error.message : String(error),
+      },
+    })
+    throw error
+  }
 }
 
 export async function sendWhatsAppDocument(input: {

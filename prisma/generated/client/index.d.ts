@@ -59,6 +59,11 @@ export type ConversationMessage = $Result.DefaultSelection<Prisma.$ConversationM
  */
 export type PipelineJob = $Result.DefaultSelection<Prisma.$PipelineJobPayload>
 /**
+ * Model OutreachSend
+ * 
+ */
+export type OutreachSend = $Result.DefaultSelection<Prisma.$OutreachSendPayload>
+/**
  * Model AirbnbLead
  * 
  */
@@ -341,6 +346,16 @@ export const PipelineJobStatus: {
 export type PipelineJobStatus = (typeof PipelineJobStatus)[keyof typeof PipelineJobStatus]
 
 
+export const OutreachEmailStatus: {
+  PENDING: 'PENDING',
+  SENT: 'SENT',
+  SKIPPED: 'SKIPPED',
+  FAILED: 'FAILED'
+};
+
+export type OutreachEmailStatus = (typeof OutreachEmailStatus)[keyof typeof OutreachEmailStatus]
+
+
 export const MarketingFunnelStage: {
   LEAD_MAGNET_SENT: 'LEAD_MAGNET_SENT',
   VIDEO_SENT: 'VIDEO_SENT',
@@ -533,6 +548,10 @@ export const MessageStatus: typeof $Enums.MessageStatus
 export type PipelineJobStatus = $Enums.PipelineJobStatus
 
 export const PipelineJobStatus: typeof $Enums.PipelineJobStatus
+
+export type OutreachEmailStatus = $Enums.OutreachEmailStatus
+
+export const OutreachEmailStatus: typeof $Enums.OutreachEmailStatus
 
 export type MarketingFunnelStage = $Enums.MarketingFunnelStage
 
@@ -781,6 +800,16 @@ export class PrismaClient<
     * ```
     */
   get pipelineJob(): Prisma.PipelineJobDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.outreachSend`: Exposes CRUD operations for the **OutreachSend** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OutreachSends
+    * const outreachSends = await prisma.outreachSend.findMany()
+    * ```
+    */
+  get outreachSend(): Prisma.OutreachSendDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.airbnbLead`: Exposes CRUD operations for the **AirbnbLead** model.
@@ -1341,6 +1370,7 @@ export namespace Prisma {
     Conversation: 'Conversation',
     ConversationMessage: 'ConversationMessage',
     PipelineJob: 'PipelineJob',
+    OutreachSend: 'OutreachSend',
     AirbnbLead: 'AirbnbLead',
     AirbnbMessage: 'AirbnbMessage',
     SystemState: 'SystemState',
@@ -1370,7 +1400,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "contact" | "formSubmission" | "leadEvent" | "videoWatchSession" | "landingVisit" | "leadPipeline" | "conversation" | "conversationMessage" | "pipelineJob" | "airbnbLead" | "airbnbMessage" | "systemState" | "calBooking" | "prospectAccount" | "hostContact" | "leadIdentityAlias" | "dailyOutboundStats" | "accountBlockEvent" | "airbnbCommercial" | "operationalDiagnosis"
+      modelProps: "contact" | "formSubmission" | "leadEvent" | "videoWatchSession" | "landingVisit" | "leadPipeline" | "conversation" | "conversationMessage" | "pipelineJob" | "outreachSend" | "airbnbLead" | "airbnbMessage" | "systemState" | "calBooking" | "prospectAccount" | "hostContact" | "leadIdentityAlias" | "dailyOutboundStats" | "accountBlockEvent" | "airbnbCommercial" | "operationalDiagnosis"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2037,6 +2067,80 @@ export namespace Prisma {
           count: {
             args: Prisma.PipelineJobCountArgs<ExtArgs>
             result: $Utils.Optional<PipelineJobCountAggregateOutputType> | number
+          }
+        }
+      }
+      OutreachSend: {
+        payload: Prisma.$OutreachSendPayload<ExtArgs>
+        fields: Prisma.OutreachSendFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OutreachSendFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachSendPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OutreachSendFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachSendPayload>
+          }
+          findFirst: {
+            args: Prisma.OutreachSendFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachSendPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OutreachSendFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachSendPayload>
+          }
+          findMany: {
+            args: Prisma.OutreachSendFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachSendPayload>[]
+          }
+          create: {
+            args: Prisma.OutreachSendCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachSendPayload>
+          }
+          createMany: {
+            args: Prisma.OutreachSendCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OutreachSendCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachSendPayload>[]
+          }
+          delete: {
+            args: Prisma.OutreachSendDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachSendPayload>
+          }
+          update: {
+            args: Prisma.OutreachSendUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachSendPayload>
+          }
+          deleteMany: {
+            args: Prisma.OutreachSendDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OutreachSendUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OutreachSendUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachSendPayload>[]
+          }
+          upsert: {
+            args: Prisma.OutreachSendUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OutreachSendPayload>
+          }
+          aggregate: {
+            args: Prisma.OutreachSendAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOutreachSend>
+          }
+          groupBy: {
+            args: Prisma.OutreachSendGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OutreachSendGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OutreachSendCountArgs<ExtArgs>
+            result: $Utils.Optional<OutreachSendCountAggregateOutputType> | number
           }
         }
       }
@@ -2959,6 +3063,7 @@ export namespace Prisma {
     conversation?: ConversationOmit
     conversationMessage?: ConversationMessageOmit
     pipelineJob?: PipelineJobOmit
+    outreachSend?: OutreachSendOmit
     airbnbLead?: AirbnbLeadOmit
     airbnbMessage?: AirbnbMessageOmit
     systemState?: SystemStateOmit
@@ -3052,11 +3157,13 @@ export namespace Prisma {
   export type ContactCountOutputType = {
     submissions: number
     conversations: number
+    outreachSends: number
   }
 
   export type ContactCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     submissions?: boolean | ContactCountOutputTypeCountSubmissionsArgs
     conversations?: boolean | ContactCountOutputTypeCountConversationsArgs
+    outreachSends?: boolean | ContactCountOutputTypeCountOutreachSendsArgs
   }
 
   // Custom InputTypes
@@ -3084,6 +3191,13 @@ export namespace Prisma {
     where?: ConversationWhereInput
   }
 
+  /**
+   * ContactCountOutputType without action
+   */
+  export type ContactCountOutputTypeCountOutreachSendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OutreachSendWhereInput
+  }
+
 
   /**
    * Count Type FormSubmissionCountOutputType
@@ -3092,11 +3206,13 @@ export namespace Prisma {
   export type FormSubmissionCountOutputType = {
     events: number
     diagnoses: number
+    outreachSends: number
   }
 
   export type FormSubmissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     events?: boolean | FormSubmissionCountOutputTypeCountEventsArgs
     diagnoses?: boolean | FormSubmissionCountOutputTypeCountDiagnosesArgs
+    outreachSends?: boolean | FormSubmissionCountOutputTypeCountOutreachSendsArgs
   }
 
   // Custom InputTypes
@@ -3122,6 +3238,13 @@ export namespace Prisma {
    */
   export type FormSubmissionCountOutputTypeCountDiagnosesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OperationalDiagnosisWhereInput
+  }
+
+  /**
+   * FormSubmissionCountOutputType without action
+   */
+  export type FormSubmissionCountOutputTypeCountOutreachSendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OutreachSendWhereInput
   }
 
 
@@ -3522,6 +3645,7 @@ export namespace Prisma {
     pipeline?: boolean | Contact$pipelineArgs<ExtArgs>
     conversations?: boolean | Contact$conversationsArgs<ExtArgs>
     airbnbLead?: boolean | Contact$airbnbLeadArgs<ExtArgs>
+    outreachSends?: boolean | Contact$outreachSendsArgs<ExtArgs>
     _count?: boolean | ContactCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contact"]>
 
@@ -3576,6 +3700,7 @@ export namespace Prisma {
     pipeline?: boolean | Contact$pipelineArgs<ExtArgs>
     conversations?: boolean | Contact$conversationsArgs<ExtArgs>
     airbnbLead?: boolean | Contact$airbnbLeadArgs<ExtArgs>
+    outreachSends?: boolean | Contact$outreachSendsArgs<ExtArgs>
     _count?: boolean | ContactCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ContactIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3588,6 +3713,7 @@ export namespace Prisma {
       pipeline: Prisma.$LeadPipelinePayload<ExtArgs> | null
       conversations: Prisma.$ConversationPayload<ExtArgs>[]
       airbnbLead: Prisma.$AirbnbLeadPayload<ExtArgs> | null
+      outreachSends: Prisma.$OutreachSendPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4000,6 +4126,7 @@ export namespace Prisma {
     pipeline<T extends Contact$pipelineArgs<ExtArgs> = {}>(args?: Subset<T, Contact$pipelineArgs<ExtArgs>>): Prisma__LeadPipelineClient<$Result.GetResult<Prisma.$LeadPipelinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     conversations<T extends Contact$conversationsArgs<ExtArgs> = {}>(args?: Subset<T, Contact$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     airbnbLead<T extends Contact$airbnbLeadArgs<ExtArgs> = {}>(args?: Subset<T, Contact$airbnbLeadArgs<ExtArgs>>): Prisma__AirbnbLeadClient<$Result.GetResult<Prisma.$AirbnbLeadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    outreachSends<T extends Contact$outreachSendsArgs<ExtArgs> = {}>(args?: Subset<T, Contact$outreachSendsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4515,6 +4642,30 @@ export namespace Prisma {
   }
 
   /**
+   * Contact.outreachSends
+   */
+  export type Contact$outreachSendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendInclude<ExtArgs> | null
+    where?: OutreachSendWhereInput
+    orderBy?: OutreachSendOrderByWithRelationInput | OutreachSendOrderByWithRelationInput[]
+    cursor?: OutreachSendWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OutreachSendScalarFieldEnum | OutreachSendScalarFieldEnum[]
+  }
+
+  /**
    * Contact without action
    */
   export type ContactDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4593,6 +4744,9 @@ export namespace Prisma {
     marketingFunnelStage: $Enums.MarketingFunnelStage | null
     contractValueUsd: Decimal | null
     contractPlan: $Enums.ContractPlan | null
+    videoOutreachAt: Date | null
+    videoOutreachBookedAt: Date | null
+    videoOutreachCalUid: string | null
     createdAt: Date | null
     updatedAt: Date | null
     contactId: string | null
@@ -4636,6 +4790,9 @@ export namespace Prisma {
     marketingFunnelStage: $Enums.MarketingFunnelStage | null
     contractValueUsd: Decimal | null
     contractPlan: $Enums.ContractPlan | null
+    videoOutreachAt: Date | null
+    videoOutreachBookedAt: Date | null
+    videoOutreachCalUid: string | null
     createdAt: Date | null
     updatedAt: Date | null
     contactId: string | null
@@ -4680,6 +4837,9 @@ export namespace Prisma {
     marketingFunnelStage: number
     contractValueUsd: number
     contractPlan: number
+    videoOutreachAt: number
+    videoOutreachBookedAt: number
+    videoOutreachCalUid: number
     createdAt: number
     updatedAt: number
     contactId: number
@@ -4735,6 +4895,9 @@ export namespace Prisma {
     marketingFunnelStage?: true
     contractValueUsd?: true
     contractPlan?: true
+    videoOutreachAt?: true
+    videoOutreachBookedAt?: true
+    videoOutreachCalUid?: true
     createdAt?: true
     updatedAt?: true
     contactId?: true
@@ -4778,6 +4941,9 @@ export namespace Prisma {
     marketingFunnelStage?: true
     contractValueUsd?: true
     contractPlan?: true
+    videoOutreachAt?: true
+    videoOutreachBookedAt?: true
+    videoOutreachCalUid?: true
     createdAt?: true
     updatedAt?: true
     contactId?: true
@@ -4822,6 +4988,9 @@ export namespace Prisma {
     marketingFunnelStage?: true
     contractValueUsd?: true
     contractPlan?: true
+    videoOutreachAt?: true
+    videoOutreachBookedAt?: true
+    videoOutreachCalUid?: true
     createdAt?: true
     updatedAt?: true
     contactId?: true
@@ -4953,6 +5122,9 @@ export namespace Prisma {
     marketingFunnelStage: $Enums.MarketingFunnelStage | null
     contractValueUsd: Decimal | null
     contractPlan: $Enums.ContractPlan | null
+    videoOutreachAt: Date | null
+    videoOutreachBookedAt: Date | null
+    videoOutreachCalUid: string | null
     createdAt: Date
     updatedAt: Date
     contactId: string | null
@@ -5016,12 +5188,16 @@ export namespace Prisma {
     marketingFunnelStage?: boolean
     contractValueUsd?: boolean
     contractPlan?: boolean
+    videoOutreachAt?: boolean
+    videoOutreachBookedAt?: boolean
+    videoOutreachCalUid?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     contactId?: boolean
     contact?: boolean | FormSubmission$contactArgs<ExtArgs>
     events?: boolean | FormSubmission$eventsArgs<ExtArgs>
     diagnoses?: boolean | FormSubmission$diagnosesArgs<ExtArgs>
+    outreachSends?: boolean | FormSubmission$outreachSendsArgs<ExtArgs>
     _count?: boolean | FormSubmissionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formSubmission"]>
 
@@ -5064,6 +5240,9 @@ export namespace Prisma {
     marketingFunnelStage?: boolean
     contractValueUsd?: boolean
     contractPlan?: boolean
+    videoOutreachAt?: boolean
+    videoOutreachBookedAt?: boolean
+    videoOutreachCalUid?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     contactId?: boolean
@@ -5109,6 +5288,9 @@ export namespace Prisma {
     marketingFunnelStage?: boolean
     contractValueUsd?: boolean
     contractPlan?: boolean
+    videoOutreachAt?: boolean
+    videoOutreachBookedAt?: boolean
+    videoOutreachCalUid?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     contactId?: boolean
@@ -5154,16 +5336,20 @@ export namespace Prisma {
     marketingFunnelStage?: boolean
     contractValueUsd?: boolean
     contractPlan?: boolean
+    videoOutreachAt?: boolean
+    videoOutreachBookedAt?: boolean
+    videoOutreachCalUid?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     contactId?: boolean
   }
 
-  export type FormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "companyName" | "phoneCountryCode" | "phoneNumber" | "instagramUrl" | "websiteUrl" | "usesPms" | "propertyCount" | "revenueRange" | "isTodero" | "usesAi" | "wantsToScale" | "industryTime" | "teamSize" | "pdfToken" | "qualification" | "qualificationScore" | "disqualificationReason" | "scoreBreakdown" | "entrySource" | "bookingFlow" | "bookedAt" | "status" | "fbclid" | "fbp" | "fbc" | "utmSource" | "utmMedium" | "utmCampaign" | "utmContent" | "utmTerm" | "landingPath" | "referrer" | "marketingFunnelStage" | "contractValueUsd" | "contractPlan" | "createdAt" | "updatedAt" | "contactId", ExtArgs["result"]["formSubmission"]>
+  export type FormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "email" | "companyName" | "phoneCountryCode" | "phoneNumber" | "instagramUrl" | "websiteUrl" | "usesPms" | "propertyCount" | "revenueRange" | "isTodero" | "usesAi" | "wantsToScale" | "industryTime" | "teamSize" | "pdfToken" | "qualification" | "qualificationScore" | "disqualificationReason" | "scoreBreakdown" | "entrySource" | "bookingFlow" | "bookedAt" | "status" | "fbclid" | "fbp" | "fbc" | "utmSource" | "utmMedium" | "utmCampaign" | "utmContent" | "utmTerm" | "landingPath" | "referrer" | "marketingFunnelStage" | "contractValueUsd" | "contractPlan" | "videoOutreachAt" | "videoOutreachBookedAt" | "videoOutreachCalUid" | "createdAt" | "updatedAt" | "contactId", ExtArgs["result"]["formSubmission"]>
   export type FormSubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     contact?: boolean | FormSubmission$contactArgs<ExtArgs>
     events?: boolean | FormSubmission$eventsArgs<ExtArgs>
     diagnoses?: boolean | FormSubmission$diagnosesArgs<ExtArgs>
+    outreachSends?: boolean | FormSubmission$outreachSendsArgs<ExtArgs>
     _count?: boolean | FormSubmissionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FormSubmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5179,6 +5365,7 @@ export namespace Prisma {
       contact: Prisma.$ContactPayload<ExtArgs> | null
       events: Prisma.$LeadEventPayload<ExtArgs>[]
       diagnoses: Prisma.$OperationalDiagnosisPayload<ExtArgs>[]
+      outreachSends: Prisma.$OutreachSendPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5219,6 +5406,9 @@ export namespace Prisma {
       marketingFunnelStage: $Enums.MarketingFunnelStage | null
       contractValueUsd: Prisma.Decimal | null
       contractPlan: $Enums.ContractPlan | null
+      videoOutreachAt: Date | null
+      videoOutreachBookedAt: Date | null
+      videoOutreachCalUid: string | null
       createdAt: Date
       updatedAt: Date
       contactId: string | null
@@ -5619,6 +5809,7 @@ export namespace Prisma {
     contact<T extends FormSubmission$contactArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$contactArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     events<T extends FormSubmission$eventsArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     diagnoses<T extends FormSubmission$diagnosesArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$diagnosesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    outreachSends<T extends FormSubmission$outreachSendsArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$outreachSendsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5686,6 +5877,9 @@ export namespace Prisma {
     readonly marketingFunnelStage: FieldRef<"FormSubmission", 'MarketingFunnelStage'>
     readonly contractValueUsd: FieldRef<"FormSubmission", 'Decimal'>
     readonly contractPlan: FieldRef<"FormSubmission", 'ContractPlan'>
+    readonly videoOutreachAt: FieldRef<"FormSubmission", 'DateTime'>
+    readonly videoOutreachBookedAt: FieldRef<"FormSubmission", 'DateTime'>
+    readonly videoOutreachCalUid: FieldRef<"FormSubmission", 'String'>
     readonly createdAt: FieldRef<"FormSubmission", 'DateTime'>
     readonly updatedAt: FieldRef<"FormSubmission", 'DateTime'>
     readonly contactId: FieldRef<"FormSubmission", 'String'>
@@ -6149,6 +6343,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OperationalDiagnosisScalarFieldEnum | OperationalDiagnosisScalarFieldEnum[]
+  }
+
+  /**
+   * FormSubmission.outreachSends
+   */
+  export type FormSubmission$outreachSendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendInclude<ExtArgs> | null
+    where?: OutreachSendWhereInput
+    orderBy?: OutreachSendOrderByWithRelationInput | OutreachSendOrderByWithRelationInput[]
+    cursor?: OutreachSendWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OutreachSendScalarFieldEnum | OutreachSendScalarFieldEnum[]
   }
 
   /**
@@ -14384,6 +14602,1299 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PipelineJobInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OutreachSend
+   */
+
+  export type AggregateOutreachSend = {
+    _count: OutreachSendCountAggregateOutputType | null
+    _min: OutreachSendMinAggregateOutputType | null
+    _max: OutreachSendMaxAggregateOutputType | null
+  }
+
+  export type OutreachSendMinAggregateOutputType = {
+    id: string | null
+    campaignKey: string | null
+    contactId: string | null
+    submissionId: string | null
+    firstName: string | null
+    videoMediaId: string | null
+    waMessageId: string | null
+    waStatus: $Enums.MessageStatus | null
+    email: string | null
+    emailStatus: $Enums.OutreachEmailStatus | null
+    emailError: string | null
+    qstashMessageId: string | null
+    calPrivateLinkId: string | null
+    calBookingUrl: string | null
+    calBookingUid: string | null
+    bookedAt: Date | null
+    meetingTime: Date | null
+    sentAt: Date | null
+    emailSentAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OutreachSendMaxAggregateOutputType = {
+    id: string | null
+    campaignKey: string | null
+    contactId: string | null
+    submissionId: string | null
+    firstName: string | null
+    videoMediaId: string | null
+    waMessageId: string | null
+    waStatus: $Enums.MessageStatus | null
+    email: string | null
+    emailStatus: $Enums.OutreachEmailStatus | null
+    emailError: string | null
+    qstashMessageId: string | null
+    calPrivateLinkId: string | null
+    calBookingUrl: string | null
+    calBookingUid: string | null
+    bookedAt: Date | null
+    meetingTime: Date | null
+    sentAt: Date | null
+    emailSentAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OutreachSendCountAggregateOutputType = {
+    id: number
+    campaignKey: number
+    contactId: number
+    submissionId: number
+    firstName: number
+    videoMediaId: number
+    waMessageId: number
+    waStatus: number
+    email: number
+    emailStatus: number
+    emailError: number
+    qstashMessageId: number
+    calPrivateLinkId: number
+    calBookingUrl: number
+    calBookingUid: number
+    bookedAt: number
+    meetingTime: number
+    sentAt: number
+    emailSentAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type OutreachSendMinAggregateInputType = {
+    id?: true
+    campaignKey?: true
+    contactId?: true
+    submissionId?: true
+    firstName?: true
+    videoMediaId?: true
+    waMessageId?: true
+    waStatus?: true
+    email?: true
+    emailStatus?: true
+    emailError?: true
+    qstashMessageId?: true
+    calPrivateLinkId?: true
+    calBookingUrl?: true
+    calBookingUid?: true
+    bookedAt?: true
+    meetingTime?: true
+    sentAt?: true
+    emailSentAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OutreachSendMaxAggregateInputType = {
+    id?: true
+    campaignKey?: true
+    contactId?: true
+    submissionId?: true
+    firstName?: true
+    videoMediaId?: true
+    waMessageId?: true
+    waStatus?: true
+    email?: true
+    emailStatus?: true
+    emailError?: true
+    qstashMessageId?: true
+    calPrivateLinkId?: true
+    calBookingUrl?: true
+    calBookingUid?: true
+    bookedAt?: true
+    meetingTime?: true
+    sentAt?: true
+    emailSentAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OutreachSendCountAggregateInputType = {
+    id?: true
+    campaignKey?: true
+    contactId?: true
+    submissionId?: true
+    firstName?: true
+    videoMediaId?: true
+    waMessageId?: true
+    waStatus?: true
+    email?: true
+    emailStatus?: true
+    emailError?: true
+    qstashMessageId?: true
+    calPrivateLinkId?: true
+    calBookingUrl?: true
+    calBookingUid?: true
+    bookedAt?: true
+    meetingTime?: true
+    sentAt?: true
+    emailSentAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type OutreachSendAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OutreachSend to aggregate.
+     */
+    where?: OutreachSendWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OutreachSends to fetch.
+     */
+    orderBy?: OutreachSendOrderByWithRelationInput | OutreachSendOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OutreachSendWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OutreachSends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OutreachSends.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OutreachSends
+    **/
+    _count?: true | OutreachSendCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OutreachSendMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OutreachSendMaxAggregateInputType
+  }
+
+  export type GetOutreachSendAggregateType<T extends OutreachSendAggregateArgs> = {
+        [P in keyof T & keyof AggregateOutreachSend]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOutreachSend[P]>
+      : GetScalarType<T[P], AggregateOutreachSend[P]>
+  }
+
+
+
+
+  export type OutreachSendGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OutreachSendWhereInput
+    orderBy?: OutreachSendOrderByWithAggregationInput | OutreachSendOrderByWithAggregationInput[]
+    by: OutreachSendScalarFieldEnum[] | OutreachSendScalarFieldEnum
+    having?: OutreachSendScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OutreachSendCountAggregateInputType | true
+    _min?: OutreachSendMinAggregateInputType
+    _max?: OutreachSendMaxAggregateInputType
+  }
+
+  export type OutreachSendGroupByOutputType = {
+    id: string
+    campaignKey: string
+    contactId: string
+    submissionId: string | null
+    firstName: string
+    videoMediaId: string | null
+    waMessageId: string | null
+    waStatus: $Enums.MessageStatus
+    email: string | null
+    emailStatus: $Enums.OutreachEmailStatus
+    emailError: string | null
+    qstashMessageId: string | null
+    calPrivateLinkId: string | null
+    calBookingUrl: string
+    calBookingUid: string | null
+    bookedAt: Date | null
+    meetingTime: Date | null
+    sentAt: Date
+    emailSentAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: OutreachSendCountAggregateOutputType | null
+    _min: OutreachSendMinAggregateOutputType | null
+    _max: OutreachSendMaxAggregateOutputType | null
+  }
+
+  type GetOutreachSendGroupByPayload<T extends OutreachSendGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OutreachSendGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OutreachSendGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OutreachSendGroupByOutputType[P]>
+            : GetScalarType<T[P], OutreachSendGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OutreachSendSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignKey?: boolean
+    contactId?: boolean
+    submissionId?: boolean
+    firstName?: boolean
+    videoMediaId?: boolean
+    waMessageId?: boolean
+    waStatus?: boolean
+    email?: boolean
+    emailStatus?: boolean
+    emailError?: boolean
+    qstashMessageId?: boolean
+    calPrivateLinkId?: boolean
+    calBookingUrl?: boolean
+    calBookingUid?: boolean
+    bookedAt?: boolean
+    meetingTime?: boolean
+    sentAt?: boolean
+    emailSentAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    submission?: boolean | OutreachSend$submissionArgs<ExtArgs>
+  }, ExtArgs["result"]["outreachSend"]>
+
+  export type OutreachSendSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignKey?: boolean
+    contactId?: boolean
+    submissionId?: boolean
+    firstName?: boolean
+    videoMediaId?: boolean
+    waMessageId?: boolean
+    waStatus?: boolean
+    email?: boolean
+    emailStatus?: boolean
+    emailError?: boolean
+    qstashMessageId?: boolean
+    calPrivateLinkId?: boolean
+    calBookingUrl?: boolean
+    calBookingUid?: boolean
+    bookedAt?: boolean
+    meetingTime?: boolean
+    sentAt?: boolean
+    emailSentAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    submission?: boolean | OutreachSend$submissionArgs<ExtArgs>
+  }, ExtArgs["result"]["outreachSend"]>
+
+  export type OutreachSendSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    campaignKey?: boolean
+    contactId?: boolean
+    submissionId?: boolean
+    firstName?: boolean
+    videoMediaId?: boolean
+    waMessageId?: boolean
+    waStatus?: boolean
+    email?: boolean
+    emailStatus?: boolean
+    emailError?: boolean
+    qstashMessageId?: boolean
+    calPrivateLinkId?: boolean
+    calBookingUrl?: boolean
+    calBookingUid?: boolean
+    bookedAt?: boolean
+    meetingTime?: boolean
+    sentAt?: boolean
+    emailSentAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    submission?: boolean | OutreachSend$submissionArgs<ExtArgs>
+  }, ExtArgs["result"]["outreachSend"]>
+
+  export type OutreachSendSelectScalar = {
+    id?: boolean
+    campaignKey?: boolean
+    contactId?: boolean
+    submissionId?: boolean
+    firstName?: boolean
+    videoMediaId?: boolean
+    waMessageId?: boolean
+    waStatus?: boolean
+    email?: boolean
+    emailStatus?: boolean
+    emailError?: boolean
+    qstashMessageId?: boolean
+    calPrivateLinkId?: boolean
+    calBookingUrl?: boolean
+    calBookingUid?: boolean
+    bookedAt?: boolean
+    meetingTime?: boolean
+    sentAt?: boolean
+    emailSentAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type OutreachSendOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "campaignKey" | "contactId" | "submissionId" | "firstName" | "videoMediaId" | "waMessageId" | "waStatus" | "email" | "emailStatus" | "emailError" | "qstashMessageId" | "calPrivateLinkId" | "calBookingUrl" | "calBookingUid" | "bookedAt" | "meetingTime" | "sentAt" | "emailSentAt" | "createdAt" | "updatedAt", ExtArgs["result"]["outreachSend"]>
+  export type OutreachSendInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    submission?: boolean | OutreachSend$submissionArgs<ExtArgs>
+  }
+  export type OutreachSendIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    submission?: boolean | OutreachSend$submissionArgs<ExtArgs>
+  }
+  export type OutreachSendIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contact?: boolean | ContactDefaultArgs<ExtArgs>
+    submission?: boolean | OutreachSend$submissionArgs<ExtArgs>
+  }
+
+  export type $OutreachSendPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OutreachSend"
+    objects: {
+      contact: Prisma.$ContactPayload<ExtArgs>
+      submission: Prisma.$FormSubmissionPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      campaignKey: string
+      contactId: string
+      submissionId: string | null
+      firstName: string
+      videoMediaId: string | null
+      waMessageId: string | null
+      waStatus: $Enums.MessageStatus
+      email: string | null
+      emailStatus: $Enums.OutreachEmailStatus
+      emailError: string | null
+      qstashMessageId: string | null
+      calPrivateLinkId: string | null
+      calBookingUrl: string
+      calBookingUid: string | null
+      bookedAt: Date | null
+      meetingTime: Date | null
+      sentAt: Date
+      emailSentAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["outreachSend"]>
+    composites: {}
+  }
+
+  type OutreachSendGetPayload<S extends boolean | null | undefined | OutreachSendDefaultArgs> = $Result.GetResult<Prisma.$OutreachSendPayload, S>
+
+  type OutreachSendCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OutreachSendFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OutreachSendCountAggregateInputType | true
+    }
+
+  export interface OutreachSendDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OutreachSend'], meta: { name: 'OutreachSend' } }
+    /**
+     * Find zero or one OutreachSend that matches the filter.
+     * @param {OutreachSendFindUniqueArgs} args - Arguments to find a OutreachSend
+     * @example
+     * // Get one OutreachSend
+     * const outreachSend = await prisma.outreachSend.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OutreachSendFindUniqueArgs>(args: SelectSubset<T, OutreachSendFindUniqueArgs<ExtArgs>>): Prisma__OutreachSendClient<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OutreachSend that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OutreachSendFindUniqueOrThrowArgs} args - Arguments to find a OutreachSend
+     * @example
+     * // Get one OutreachSend
+     * const outreachSend = await prisma.outreachSend.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OutreachSendFindUniqueOrThrowArgs>(args: SelectSubset<T, OutreachSendFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OutreachSendClient<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OutreachSend that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachSendFindFirstArgs} args - Arguments to find a OutreachSend
+     * @example
+     * // Get one OutreachSend
+     * const outreachSend = await prisma.outreachSend.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OutreachSendFindFirstArgs>(args?: SelectSubset<T, OutreachSendFindFirstArgs<ExtArgs>>): Prisma__OutreachSendClient<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OutreachSend that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachSendFindFirstOrThrowArgs} args - Arguments to find a OutreachSend
+     * @example
+     * // Get one OutreachSend
+     * const outreachSend = await prisma.outreachSend.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OutreachSendFindFirstOrThrowArgs>(args?: SelectSubset<T, OutreachSendFindFirstOrThrowArgs<ExtArgs>>): Prisma__OutreachSendClient<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OutreachSends that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachSendFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OutreachSends
+     * const outreachSends = await prisma.outreachSend.findMany()
+     * 
+     * // Get first 10 OutreachSends
+     * const outreachSends = await prisma.outreachSend.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const outreachSendWithIdOnly = await prisma.outreachSend.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OutreachSendFindManyArgs>(args?: SelectSubset<T, OutreachSendFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OutreachSend.
+     * @param {OutreachSendCreateArgs} args - Arguments to create a OutreachSend.
+     * @example
+     * // Create one OutreachSend
+     * const OutreachSend = await prisma.outreachSend.create({
+     *   data: {
+     *     // ... data to create a OutreachSend
+     *   }
+     * })
+     * 
+     */
+    create<T extends OutreachSendCreateArgs>(args: SelectSubset<T, OutreachSendCreateArgs<ExtArgs>>): Prisma__OutreachSendClient<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OutreachSends.
+     * @param {OutreachSendCreateManyArgs} args - Arguments to create many OutreachSends.
+     * @example
+     * // Create many OutreachSends
+     * const outreachSend = await prisma.outreachSend.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OutreachSendCreateManyArgs>(args?: SelectSubset<T, OutreachSendCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OutreachSends and returns the data saved in the database.
+     * @param {OutreachSendCreateManyAndReturnArgs} args - Arguments to create many OutreachSends.
+     * @example
+     * // Create many OutreachSends
+     * const outreachSend = await prisma.outreachSend.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OutreachSends and only return the `id`
+     * const outreachSendWithIdOnly = await prisma.outreachSend.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OutreachSendCreateManyAndReturnArgs>(args?: SelectSubset<T, OutreachSendCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OutreachSend.
+     * @param {OutreachSendDeleteArgs} args - Arguments to delete one OutreachSend.
+     * @example
+     * // Delete one OutreachSend
+     * const OutreachSend = await prisma.outreachSend.delete({
+     *   where: {
+     *     // ... filter to delete one OutreachSend
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OutreachSendDeleteArgs>(args: SelectSubset<T, OutreachSendDeleteArgs<ExtArgs>>): Prisma__OutreachSendClient<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OutreachSend.
+     * @param {OutreachSendUpdateArgs} args - Arguments to update one OutreachSend.
+     * @example
+     * // Update one OutreachSend
+     * const outreachSend = await prisma.outreachSend.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OutreachSendUpdateArgs>(args: SelectSubset<T, OutreachSendUpdateArgs<ExtArgs>>): Prisma__OutreachSendClient<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OutreachSends.
+     * @param {OutreachSendDeleteManyArgs} args - Arguments to filter OutreachSends to delete.
+     * @example
+     * // Delete a few OutreachSends
+     * const { count } = await prisma.outreachSend.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OutreachSendDeleteManyArgs>(args?: SelectSubset<T, OutreachSendDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OutreachSends.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachSendUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OutreachSends
+     * const outreachSend = await prisma.outreachSend.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OutreachSendUpdateManyArgs>(args: SelectSubset<T, OutreachSendUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OutreachSends and returns the data updated in the database.
+     * @param {OutreachSendUpdateManyAndReturnArgs} args - Arguments to update many OutreachSends.
+     * @example
+     * // Update many OutreachSends
+     * const outreachSend = await prisma.outreachSend.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OutreachSends and only return the `id`
+     * const outreachSendWithIdOnly = await prisma.outreachSend.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OutreachSendUpdateManyAndReturnArgs>(args: SelectSubset<T, OutreachSendUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OutreachSend.
+     * @param {OutreachSendUpsertArgs} args - Arguments to update or create a OutreachSend.
+     * @example
+     * // Update or create a OutreachSend
+     * const outreachSend = await prisma.outreachSend.upsert({
+     *   create: {
+     *     // ... data to create a OutreachSend
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OutreachSend we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OutreachSendUpsertArgs>(args: SelectSubset<T, OutreachSendUpsertArgs<ExtArgs>>): Prisma__OutreachSendClient<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OutreachSends.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachSendCountArgs} args - Arguments to filter OutreachSends to count.
+     * @example
+     * // Count the number of OutreachSends
+     * const count = await prisma.outreachSend.count({
+     *   where: {
+     *     // ... the filter for the OutreachSends we want to count
+     *   }
+     * })
+    **/
+    count<T extends OutreachSendCountArgs>(
+      args?: Subset<T, OutreachSendCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OutreachSendCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OutreachSend.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachSendAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OutreachSendAggregateArgs>(args: Subset<T, OutreachSendAggregateArgs>): Prisma.PrismaPromise<GetOutreachSendAggregateType<T>>
+
+    /**
+     * Group by OutreachSend.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OutreachSendGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OutreachSendGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OutreachSendGroupByArgs['orderBy'] }
+        : { orderBy?: OutreachSendGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OutreachSendGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOutreachSendGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OutreachSend model
+   */
+  readonly fields: OutreachSendFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OutreachSend.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OutreachSendClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    contact<T extends ContactDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ContactDefaultArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    submission<T extends OutreachSend$submissionArgs<ExtArgs> = {}>(args?: Subset<T, OutreachSend$submissionArgs<ExtArgs>>): Prisma__FormSubmissionClient<$Result.GetResult<Prisma.$FormSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OutreachSend model
+   */
+  interface OutreachSendFieldRefs {
+    readonly id: FieldRef<"OutreachSend", 'String'>
+    readonly campaignKey: FieldRef<"OutreachSend", 'String'>
+    readonly contactId: FieldRef<"OutreachSend", 'String'>
+    readonly submissionId: FieldRef<"OutreachSend", 'String'>
+    readonly firstName: FieldRef<"OutreachSend", 'String'>
+    readonly videoMediaId: FieldRef<"OutreachSend", 'String'>
+    readonly waMessageId: FieldRef<"OutreachSend", 'String'>
+    readonly waStatus: FieldRef<"OutreachSend", 'MessageStatus'>
+    readonly email: FieldRef<"OutreachSend", 'String'>
+    readonly emailStatus: FieldRef<"OutreachSend", 'OutreachEmailStatus'>
+    readonly emailError: FieldRef<"OutreachSend", 'String'>
+    readonly qstashMessageId: FieldRef<"OutreachSend", 'String'>
+    readonly calPrivateLinkId: FieldRef<"OutreachSend", 'String'>
+    readonly calBookingUrl: FieldRef<"OutreachSend", 'String'>
+    readonly calBookingUid: FieldRef<"OutreachSend", 'String'>
+    readonly bookedAt: FieldRef<"OutreachSend", 'DateTime'>
+    readonly meetingTime: FieldRef<"OutreachSend", 'DateTime'>
+    readonly sentAt: FieldRef<"OutreachSend", 'DateTime'>
+    readonly emailSentAt: FieldRef<"OutreachSend", 'DateTime'>
+    readonly createdAt: FieldRef<"OutreachSend", 'DateTime'>
+    readonly updatedAt: FieldRef<"OutreachSend", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OutreachSend findUnique
+   */
+  export type OutreachSendFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendInclude<ExtArgs> | null
+    /**
+     * Filter, which OutreachSend to fetch.
+     */
+    where: OutreachSendWhereUniqueInput
+  }
+
+  /**
+   * OutreachSend findUniqueOrThrow
+   */
+  export type OutreachSendFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendInclude<ExtArgs> | null
+    /**
+     * Filter, which OutreachSend to fetch.
+     */
+    where: OutreachSendWhereUniqueInput
+  }
+
+  /**
+   * OutreachSend findFirst
+   */
+  export type OutreachSendFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendInclude<ExtArgs> | null
+    /**
+     * Filter, which OutreachSend to fetch.
+     */
+    where?: OutreachSendWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OutreachSends to fetch.
+     */
+    orderBy?: OutreachSendOrderByWithRelationInput | OutreachSendOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OutreachSends.
+     */
+    cursor?: OutreachSendWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OutreachSends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OutreachSends.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OutreachSends.
+     */
+    distinct?: OutreachSendScalarFieldEnum | OutreachSendScalarFieldEnum[]
+  }
+
+  /**
+   * OutreachSend findFirstOrThrow
+   */
+  export type OutreachSendFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendInclude<ExtArgs> | null
+    /**
+     * Filter, which OutreachSend to fetch.
+     */
+    where?: OutreachSendWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OutreachSends to fetch.
+     */
+    orderBy?: OutreachSendOrderByWithRelationInput | OutreachSendOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OutreachSends.
+     */
+    cursor?: OutreachSendWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OutreachSends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OutreachSends.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OutreachSends.
+     */
+    distinct?: OutreachSendScalarFieldEnum | OutreachSendScalarFieldEnum[]
+  }
+
+  /**
+   * OutreachSend findMany
+   */
+  export type OutreachSendFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendInclude<ExtArgs> | null
+    /**
+     * Filter, which OutreachSends to fetch.
+     */
+    where?: OutreachSendWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OutreachSends to fetch.
+     */
+    orderBy?: OutreachSendOrderByWithRelationInput | OutreachSendOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OutreachSends.
+     */
+    cursor?: OutreachSendWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OutreachSends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OutreachSends.
+     */
+    skip?: number
+    distinct?: OutreachSendScalarFieldEnum | OutreachSendScalarFieldEnum[]
+  }
+
+  /**
+   * OutreachSend create
+   */
+  export type OutreachSendCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OutreachSend.
+     */
+    data: XOR<OutreachSendCreateInput, OutreachSendUncheckedCreateInput>
+  }
+
+  /**
+   * OutreachSend createMany
+   */
+  export type OutreachSendCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OutreachSends.
+     */
+    data: OutreachSendCreateManyInput | OutreachSendCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OutreachSend createManyAndReturn
+   */
+  export type OutreachSendCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * The data used to create many OutreachSends.
+     */
+    data: OutreachSendCreateManyInput | OutreachSendCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OutreachSend update
+   */
+  export type OutreachSendUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OutreachSend.
+     */
+    data: XOR<OutreachSendUpdateInput, OutreachSendUncheckedUpdateInput>
+    /**
+     * Choose, which OutreachSend to update.
+     */
+    where: OutreachSendWhereUniqueInput
+  }
+
+  /**
+   * OutreachSend updateMany
+   */
+  export type OutreachSendUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OutreachSends.
+     */
+    data: XOR<OutreachSendUpdateManyMutationInput, OutreachSendUncheckedUpdateManyInput>
+    /**
+     * Filter which OutreachSends to update
+     */
+    where?: OutreachSendWhereInput
+    /**
+     * Limit how many OutreachSends to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OutreachSend updateManyAndReturn
+   */
+  export type OutreachSendUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * The data used to update OutreachSends.
+     */
+    data: XOR<OutreachSendUpdateManyMutationInput, OutreachSendUncheckedUpdateManyInput>
+    /**
+     * Filter which OutreachSends to update
+     */
+    where?: OutreachSendWhereInput
+    /**
+     * Limit how many OutreachSends to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OutreachSend upsert
+   */
+  export type OutreachSendUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OutreachSend to update in case it exists.
+     */
+    where: OutreachSendWhereUniqueInput
+    /**
+     * In case the OutreachSend found by the `where` argument doesn't exist, create a new OutreachSend with this data.
+     */
+    create: XOR<OutreachSendCreateInput, OutreachSendUncheckedCreateInput>
+    /**
+     * In case the OutreachSend was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OutreachSendUpdateInput, OutreachSendUncheckedUpdateInput>
+  }
+
+  /**
+   * OutreachSend delete
+   */
+  export type OutreachSendDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendInclude<ExtArgs> | null
+    /**
+     * Filter which OutreachSend to delete.
+     */
+    where: OutreachSendWhereUniqueInput
+  }
+
+  /**
+   * OutreachSend deleteMany
+   */
+  export type OutreachSendDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OutreachSends to delete
+     */
+    where?: OutreachSendWhereInput
+    /**
+     * Limit how many OutreachSends to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * OutreachSend.submission
+   */
+  export type OutreachSend$submissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormSubmission
+     */
+    select?: FormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FormSubmission
+     */
+    omit?: FormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormSubmissionInclude<ExtArgs> | null
+    where?: FormSubmissionWhereInput
+  }
+
+  /**
+   * OutreachSend without action
+   */
+  export type OutreachSendDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OutreachSend
+     */
+    select?: OutreachSendSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OutreachSend
+     */
+    omit?: OutreachSendOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OutreachSendInclude<ExtArgs> | null
   }
 
 
@@ -27160,6 +28671,9 @@ export namespace Prisma {
     marketingFunnelStage: 'marketingFunnelStage',
     contractValueUsd: 'contractValueUsd',
     contractPlan: 'contractPlan',
+    videoOutreachAt: 'videoOutreachAt',
+    videoOutreachBookedAt: 'videoOutreachBookedAt',
+    videoOutreachCalUid: 'videoOutreachCalUid',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     contactId: 'contactId'
@@ -27302,6 +28816,33 @@ export namespace Prisma {
   };
 
   export type PipelineJobScalarFieldEnum = (typeof PipelineJobScalarFieldEnum)[keyof typeof PipelineJobScalarFieldEnum]
+
+
+  export const OutreachSendScalarFieldEnum: {
+    id: 'id',
+    campaignKey: 'campaignKey',
+    contactId: 'contactId',
+    submissionId: 'submissionId',
+    firstName: 'firstName',
+    videoMediaId: 'videoMediaId',
+    waMessageId: 'waMessageId',
+    waStatus: 'waStatus',
+    email: 'email',
+    emailStatus: 'emailStatus',
+    emailError: 'emailError',
+    qstashMessageId: 'qstashMessageId',
+    calPrivateLinkId: 'calPrivateLinkId',
+    calBookingUrl: 'calBookingUrl',
+    calBookingUid: 'calBookingUid',
+    bookedAt: 'bookedAt',
+    meetingTime: 'meetingTime',
+    sentAt: 'sentAt',
+    emailSentAt: 'emailSentAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type OutreachSendScalarFieldEnum = (typeof OutreachSendScalarFieldEnum)[keyof typeof OutreachSendScalarFieldEnum]
 
 
   export const AirbnbLeadScalarFieldEnum: {
@@ -27934,6 +29475,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'OutreachEmailStatus'
+   */
+  export type EnumOutreachEmailStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OutreachEmailStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'OutreachEmailStatus[]'
+   */
+  export type ListEnumOutreachEmailStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OutreachEmailStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'IcpSkipReason'
    */
   export type EnumIcpSkipReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IcpSkipReason'>
@@ -28054,6 +29609,7 @@ export namespace Prisma {
     pipeline?: XOR<LeadPipelineNullableScalarRelationFilter, LeadPipelineWhereInput> | null
     conversations?: ConversationListRelationFilter
     airbnbLead?: XOR<AirbnbLeadNullableScalarRelationFilter, AirbnbLeadWhereInput> | null
+    outreachSends?: OutreachSendListRelationFilter
   }
 
   export type ContactOrderByWithRelationInput = {
@@ -28073,6 +29629,7 @@ export namespace Prisma {
     pipeline?: LeadPipelineOrderByWithRelationInput
     conversations?: ConversationOrderByRelationAggregateInput
     airbnbLead?: AirbnbLeadOrderByWithRelationInput
+    outreachSends?: OutreachSendOrderByRelationAggregateInput
   }
 
   export type ContactWhereUniqueInput = Prisma.AtLeast<{
@@ -28095,6 +29652,7 @@ export namespace Prisma {
     pipeline?: XOR<LeadPipelineNullableScalarRelationFilter, LeadPipelineWhereInput> | null
     conversations?: ConversationListRelationFilter
     airbnbLead?: XOR<AirbnbLeadNullableScalarRelationFilter, AirbnbLeadWhereInput> | null
+    outreachSends?: OutreachSendListRelationFilter
   }, "id" | "phoneE164" | "waId">
 
   export type ContactOrderByWithAggregationInput = {
@@ -28175,12 +29733,16 @@ export namespace Prisma {
     marketingFunnelStage?: EnumMarketingFunnelStageNullableFilter<"FormSubmission"> | $Enums.MarketingFunnelStage | null
     contractValueUsd?: DecimalNullableFilter<"FormSubmission"> | Decimal | DecimalJsLike | number | string | null
     contractPlan?: EnumContractPlanNullableFilter<"FormSubmission"> | $Enums.ContractPlan | null
+    videoOutreachAt?: DateTimeNullableFilter<"FormSubmission"> | Date | string | null
+    videoOutreachBookedAt?: DateTimeNullableFilter<"FormSubmission"> | Date | string | null
+    videoOutreachCalUid?: StringNullableFilter<"FormSubmission"> | string | null
     createdAt?: DateTimeFilter<"FormSubmission"> | Date | string
     updatedAt?: DateTimeFilter<"FormSubmission"> | Date | string
     contactId?: StringNullableFilter<"FormSubmission"> | string | null
     contact?: XOR<ContactNullableScalarRelationFilter, ContactWhereInput> | null
     events?: LeadEventListRelationFilter
     diagnoses?: OperationalDiagnosisListRelationFilter
+    outreachSends?: OutreachSendListRelationFilter
   }
 
   export type FormSubmissionOrderByWithRelationInput = {
@@ -28222,12 +29784,16 @@ export namespace Prisma {
     marketingFunnelStage?: SortOrderInput | SortOrder
     contractValueUsd?: SortOrderInput | SortOrder
     contractPlan?: SortOrderInput | SortOrder
+    videoOutreachAt?: SortOrderInput | SortOrder
+    videoOutreachBookedAt?: SortOrderInput | SortOrder
+    videoOutreachCalUid?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     contactId?: SortOrderInput | SortOrder
     contact?: ContactOrderByWithRelationInput
     events?: LeadEventOrderByRelationAggregateInput
     diagnoses?: OperationalDiagnosisOrderByRelationAggregateInput
+    outreachSends?: OutreachSendOrderByRelationAggregateInput
   }
 
   export type FormSubmissionWhereUniqueInput = Prisma.AtLeast<{
@@ -28272,12 +29838,16 @@ export namespace Prisma {
     marketingFunnelStage?: EnumMarketingFunnelStageNullableFilter<"FormSubmission"> | $Enums.MarketingFunnelStage | null
     contractValueUsd?: DecimalNullableFilter<"FormSubmission"> | Decimal | DecimalJsLike | number | string | null
     contractPlan?: EnumContractPlanNullableFilter<"FormSubmission"> | $Enums.ContractPlan | null
+    videoOutreachAt?: DateTimeNullableFilter<"FormSubmission"> | Date | string | null
+    videoOutreachBookedAt?: DateTimeNullableFilter<"FormSubmission"> | Date | string | null
+    videoOutreachCalUid?: StringNullableFilter<"FormSubmission"> | string | null
     createdAt?: DateTimeFilter<"FormSubmission"> | Date | string
     updatedAt?: DateTimeFilter<"FormSubmission"> | Date | string
     contactId?: StringNullableFilter<"FormSubmission"> | string | null
     contact?: XOR<ContactNullableScalarRelationFilter, ContactWhereInput> | null
     events?: LeadEventListRelationFilter
     diagnoses?: OperationalDiagnosisListRelationFilter
+    outreachSends?: OutreachSendListRelationFilter
   }, "id" | "pdfToken">
 
   export type FormSubmissionOrderByWithAggregationInput = {
@@ -28319,6 +29889,9 @@ export namespace Prisma {
     marketingFunnelStage?: SortOrderInput | SortOrder
     contractValueUsd?: SortOrderInput | SortOrder
     contractPlan?: SortOrderInput | SortOrder
+    videoOutreachAt?: SortOrderInput | SortOrder
+    videoOutreachBookedAt?: SortOrderInput | SortOrder
+    videoOutreachCalUid?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     contactId?: SortOrderInput | SortOrder
@@ -28371,6 +29944,9 @@ export namespace Prisma {
     marketingFunnelStage?: EnumMarketingFunnelStageNullableWithAggregatesFilter<"FormSubmission"> | $Enums.MarketingFunnelStage | null
     contractValueUsd?: DecimalNullableWithAggregatesFilter<"FormSubmission"> | Decimal | DecimalJsLike | number | string | null
     contractPlan?: EnumContractPlanNullableWithAggregatesFilter<"FormSubmission"> | $Enums.ContractPlan | null
+    videoOutreachAt?: DateTimeNullableWithAggregatesFilter<"FormSubmission"> | Date | string | null
+    videoOutreachBookedAt?: DateTimeNullableWithAggregatesFilter<"FormSubmission"> | Date | string | null
+    videoOutreachCalUid?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"FormSubmission"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"FormSubmission"> | Date | string
     contactId?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
@@ -29065,6 +30641,144 @@ export namespace Prisma {
     status?: EnumPipelineJobStatusWithAggregatesFilter<"PipelineJob"> | $Enums.PipelineJobStatus
     createdAt?: DateTimeWithAggregatesFilter<"PipelineJob"> | Date | string
     executedAt?: DateTimeNullableWithAggregatesFilter<"PipelineJob"> | Date | string | null
+  }
+
+  export type OutreachSendWhereInput = {
+    AND?: OutreachSendWhereInput | OutreachSendWhereInput[]
+    OR?: OutreachSendWhereInput[]
+    NOT?: OutreachSendWhereInput | OutreachSendWhereInput[]
+    id?: StringFilter<"OutreachSend"> | string
+    campaignKey?: StringFilter<"OutreachSend"> | string
+    contactId?: StringFilter<"OutreachSend"> | string
+    submissionId?: StringNullableFilter<"OutreachSend"> | string | null
+    firstName?: StringFilter<"OutreachSend"> | string
+    videoMediaId?: StringNullableFilter<"OutreachSend"> | string | null
+    waMessageId?: StringNullableFilter<"OutreachSend"> | string | null
+    waStatus?: EnumMessageStatusFilter<"OutreachSend"> | $Enums.MessageStatus
+    email?: StringNullableFilter<"OutreachSend"> | string | null
+    emailStatus?: EnumOutreachEmailStatusFilter<"OutreachSend"> | $Enums.OutreachEmailStatus
+    emailError?: StringNullableFilter<"OutreachSend"> | string | null
+    qstashMessageId?: StringNullableFilter<"OutreachSend"> | string | null
+    calPrivateLinkId?: StringNullableFilter<"OutreachSend"> | string | null
+    calBookingUrl?: StringFilter<"OutreachSend"> | string
+    calBookingUid?: StringNullableFilter<"OutreachSend"> | string | null
+    bookedAt?: DateTimeNullableFilter<"OutreachSend"> | Date | string | null
+    meetingTime?: DateTimeNullableFilter<"OutreachSend"> | Date | string | null
+    sentAt?: DateTimeFilter<"OutreachSend"> | Date | string
+    emailSentAt?: DateTimeNullableFilter<"OutreachSend"> | Date | string | null
+    createdAt?: DateTimeFilter<"OutreachSend"> | Date | string
+    updatedAt?: DateTimeFilter<"OutreachSend"> | Date | string
+    contact?: XOR<ContactScalarRelationFilter, ContactWhereInput>
+    submission?: XOR<FormSubmissionNullableScalarRelationFilter, FormSubmissionWhereInput> | null
+  }
+
+  export type OutreachSendOrderByWithRelationInput = {
+    id?: SortOrder
+    campaignKey?: SortOrder
+    contactId?: SortOrder
+    submissionId?: SortOrderInput | SortOrder
+    firstName?: SortOrder
+    videoMediaId?: SortOrderInput | SortOrder
+    waMessageId?: SortOrderInput | SortOrder
+    waStatus?: SortOrder
+    email?: SortOrderInput | SortOrder
+    emailStatus?: SortOrder
+    emailError?: SortOrderInput | SortOrder
+    qstashMessageId?: SortOrderInput | SortOrder
+    calPrivateLinkId?: SortOrderInput | SortOrder
+    calBookingUrl?: SortOrder
+    calBookingUid?: SortOrderInput | SortOrder
+    bookedAt?: SortOrderInput | SortOrder
+    meetingTime?: SortOrderInput | SortOrder
+    sentAt?: SortOrder
+    emailSentAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    contact?: ContactOrderByWithRelationInput
+    submission?: FormSubmissionOrderByWithRelationInput
+  }
+
+  export type OutreachSendWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OutreachSendWhereInput | OutreachSendWhereInput[]
+    OR?: OutreachSendWhereInput[]
+    NOT?: OutreachSendWhereInput | OutreachSendWhereInput[]
+    campaignKey?: StringFilter<"OutreachSend"> | string
+    contactId?: StringFilter<"OutreachSend"> | string
+    submissionId?: StringNullableFilter<"OutreachSend"> | string | null
+    firstName?: StringFilter<"OutreachSend"> | string
+    videoMediaId?: StringNullableFilter<"OutreachSend"> | string | null
+    waMessageId?: StringNullableFilter<"OutreachSend"> | string | null
+    waStatus?: EnumMessageStatusFilter<"OutreachSend"> | $Enums.MessageStatus
+    email?: StringNullableFilter<"OutreachSend"> | string | null
+    emailStatus?: EnumOutreachEmailStatusFilter<"OutreachSend"> | $Enums.OutreachEmailStatus
+    emailError?: StringNullableFilter<"OutreachSend"> | string | null
+    qstashMessageId?: StringNullableFilter<"OutreachSend"> | string | null
+    calPrivateLinkId?: StringNullableFilter<"OutreachSend"> | string | null
+    calBookingUrl?: StringFilter<"OutreachSend"> | string
+    calBookingUid?: StringNullableFilter<"OutreachSend"> | string | null
+    bookedAt?: DateTimeNullableFilter<"OutreachSend"> | Date | string | null
+    meetingTime?: DateTimeNullableFilter<"OutreachSend"> | Date | string | null
+    sentAt?: DateTimeFilter<"OutreachSend"> | Date | string
+    emailSentAt?: DateTimeNullableFilter<"OutreachSend"> | Date | string | null
+    createdAt?: DateTimeFilter<"OutreachSend"> | Date | string
+    updatedAt?: DateTimeFilter<"OutreachSend"> | Date | string
+    contact?: XOR<ContactScalarRelationFilter, ContactWhereInput>
+    submission?: XOR<FormSubmissionNullableScalarRelationFilter, FormSubmissionWhereInput> | null
+  }, "id">
+
+  export type OutreachSendOrderByWithAggregationInput = {
+    id?: SortOrder
+    campaignKey?: SortOrder
+    contactId?: SortOrder
+    submissionId?: SortOrderInput | SortOrder
+    firstName?: SortOrder
+    videoMediaId?: SortOrderInput | SortOrder
+    waMessageId?: SortOrderInput | SortOrder
+    waStatus?: SortOrder
+    email?: SortOrderInput | SortOrder
+    emailStatus?: SortOrder
+    emailError?: SortOrderInput | SortOrder
+    qstashMessageId?: SortOrderInput | SortOrder
+    calPrivateLinkId?: SortOrderInput | SortOrder
+    calBookingUrl?: SortOrder
+    calBookingUid?: SortOrderInput | SortOrder
+    bookedAt?: SortOrderInput | SortOrder
+    meetingTime?: SortOrderInput | SortOrder
+    sentAt?: SortOrder
+    emailSentAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: OutreachSendCountOrderByAggregateInput
+    _max?: OutreachSendMaxOrderByAggregateInput
+    _min?: OutreachSendMinOrderByAggregateInput
+  }
+
+  export type OutreachSendScalarWhereWithAggregatesInput = {
+    AND?: OutreachSendScalarWhereWithAggregatesInput | OutreachSendScalarWhereWithAggregatesInput[]
+    OR?: OutreachSendScalarWhereWithAggregatesInput[]
+    NOT?: OutreachSendScalarWhereWithAggregatesInput | OutreachSendScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OutreachSend"> | string
+    campaignKey?: StringWithAggregatesFilter<"OutreachSend"> | string
+    contactId?: StringWithAggregatesFilter<"OutreachSend"> | string
+    submissionId?: StringNullableWithAggregatesFilter<"OutreachSend"> | string | null
+    firstName?: StringWithAggregatesFilter<"OutreachSend"> | string
+    videoMediaId?: StringNullableWithAggregatesFilter<"OutreachSend"> | string | null
+    waMessageId?: StringNullableWithAggregatesFilter<"OutreachSend"> | string | null
+    waStatus?: EnumMessageStatusWithAggregatesFilter<"OutreachSend"> | $Enums.MessageStatus
+    email?: StringNullableWithAggregatesFilter<"OutreachSend"> | string | null
+    emailStatus?: EnumOutreachEmailStatusWithAggregatesFilter<"OutreachSend"> | $Enums.OutreachEmailStatus
+    emailError?: StringNullableWithAggregatesFilter<"OutreachSend"> | string | null
+    qstashMessageId?: StringNullableWithAggregatesFilter<"OutreachSend"> | string | null
+    calPrivateLinkId?: StringNullableWithAggregatesFilter<"OutreachSend"> | string | null
+    calBookingUrl?: StringWithAggregatesFilter<"OutreachSend"> | string
+    calBookingUid?: StringNullableWithAggregatesFilter<"OutreachSend"> | string | null
+    bookedAt?: DateTimeNullableWithAggregatesFilter<"OutreachSend"> | Date | string | null
+    meetingTime?: DateTimeNullableWithAggregatesFilter<"OutreachSend"> | Date | string | null
+    sentAt?: DateTimeWithAggregatesFilter<"OutreachSend"> | Date | string
+    emailSentAt?: DateTimeNullableWithAggregatesFilter<"OutreachSend"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"OutreachSend"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"OutreachSend"> | Date | string
   }
 
   export type AirbnbLeadWhereInput = {
@@ -30004,6 +31718,7 @@ export namespace Prisma {
     pipeline?: LeadPipelineCreateNestedOneWithoutContactInput
     conversations?: ConversationCreateNestedManyWithoutContactInput
     airbnbLead?: AirbnbLeadCreateNestedOneWithoutContactInput
+    outreachSends?: OutreachSendCreateNestedManyWithoutContactInput
   }
 
   export type ContactUncheckedCreateInput = {
@@ -30023,6 +31738,7 @@ export namespace Prisma {
     pipeline?: LeadPipelineUncheckedCreateNestedOneWithoutContactInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutContactInput
     airbnbLead?: AirbnbLeadUncheckedCreateNestedOneWithoutContactInput
+    outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutContactInput
   }
 
   export type ContactUpdateInput = {
@@ -30042,6 +31758,7 @@ export namespace Prisma {
     pipeline?: LeadPipelineUpdateOneWithoutContactNestedInput
     conversations?: ConversationUpdateManyWithoutContactNestedInput
     airbnbLead?: AirbnbLeadUpdateOneWithoutContactNestedInput
+    outreachSends?: OutreachSendUpdateManyWithoutContactNestedInput
   }
 
   export type ContactUncheckedUpdateInput = {
@@ -30061,6 +31778,7 @@ export namespace Prisma {
     pipeline?: LeadPipelineUncheckedUpdateOneWithoutContactNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutContactNestedInput
     airbnbLead?: AirbnbLeadUncheckedUpdateOneWithoutContactNestedInput
+    outreachSends?: OutreachSendUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type ContactCreateManyInput = {
@@ -30147,11 +31865,15 @@ export namespace Prisma {
     marketingFunnelStage?: $Enums.MarketingFunnelStage | null
     contractValueUsd?: Decimal | DecimalJsLike | number | string | null
     contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     contact?: ContactCreateNestedOneWithoutSubmissionsInput
     events?: LeadEventCreateNestedManyWithoutSubmissionInput
     diagnoses?: OperationalDiagnosisCreateNestedManyWithoutSubmissionInput
+    outreachSends?: OutreachSendCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateInput = {
@@ -30193,11 +31915,15 @@ export namespace Prisma {
     marketingFunnelStage?: $Enums.MarketingFunnelStage | null
     contractValueUsd?: Decimal | DecimalJsLike | number | string | null
     contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     contactId?: string | null
     events?: LeadEventUncheckedCreateNestedManyWithoutSubmissionInput
     diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput
+    outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUpdateInput = {
@@ -30239,11 +31965,15 @@ export namespace Prisma {
     marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
     contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contact?: ContactUpdateOneWithoutSubmissionsNestedInput
     events?: LeadEventUpdateManyWithoutSubmissionNestedInput
     diagnoses?: OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput
+    outreachSends?: OutreachSendUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateInput = {
@@ -30285,11 +32015,15 @@ export namespace Prisma {
     marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
     contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contactId?: NullableStringFieldUpdateOperationsInput | string | null
     events?: LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput
     diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput
+    outreachSends?: OutreachSendUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionCreateManyInput = {
@@ -30331,6 +32065,9 @@ export namespace Prisma {
     marketingFunnelStage?: $Enums.MarketingFunnelStage | null
     contractValueUsd?: Decimal | DecimalJsLike | number | string | null
     contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     contactId?: string | null
@@ -30375,6 +32112,9 @@ export namespace Prisma {
     marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
     contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -30418,6 +32158,9 @@ export namespace Prisma {
     marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
     contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contactId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -31228,6 +32971,172 @@ export namespace Prisma {
     status?: EnumPipelineJobStatusFieldUpdateOperationsInput | $Enums.PipelineJobStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     executedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OutreachSendCreateInput = {
+    id?: string
+    campaignKey: string
+    firstName: string
+    videoMediaId?: string | null
+    waMessageId?: string | null
+    waStatus?: $Enums.MessageStatus
+    email?: string | null
+    emailStatus?: $Enums.OutreachEmailStatus
+    emailError?: string | null
+    qstashMessageId?: string | null
+    calPrivateLinkId?: string | null
+    calBookingUrl: string
+    calBookingUid?: string | null
+    bookedAt?: Date | string | null
+    meetingTime?: Date | string | null
+    sentAt?: Date | string
+    emailSentAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact: ContactCreateNestedOneWithoutOutreachSendsInput
+    submission?: FormSubmissionCreateNestedOneWithoutOutreachSendsInput
+  }
+
+  export type OutreachSendUncheckedCreateInput = {
+    id?: string
+    campaignKey: string
+    contactId: string
+    submissionId?: string | null
+    firstName: string
+    videoMediaId?: string | null
+    waMessageId?: string | null
+    waStatus?: $Enums.MessageStatus
+    email?: string | null
+    emailStatus?: $Enums.OutreachEmailStatus
+    emailError?: string | null
+    qstashMessageId?: string | null
+    calPrivateLinkId?: string | null
+    calBookingUrl: string
+    calBookingUid?: string | null
+    bookedAt?: Date | string | null
+    meetingTime?: Date | string | null
+    sentAt?: Date | string
+    emailSentAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutreachSendUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignKey?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    videoMediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    waMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    waStatus?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailStatus?: EnumOutreachEmailStatusFieldUpdateOperationsInput | $Enums.OutreachEmailStatus
+    emailError?: NullableStringFieldUpdateOperationsInput | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calPrivateLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    calBookingUrl?: StringFieldUpdateOperationsInput | string
+    calBookingUid?: NullableStringFieldUpdateOperationsInput | string | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: ContactUpdateOneRequiredWithoutOutreachSendsNestedInput
+    submission?: FormSubmissionUpdateOneWithoutOutreachSendsNestedInput
+  }
+
+  export type OutreachSendUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignKey?: StringFieldUpdateOperationsInput | string
+    contactId?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    videoMediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    waMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    waStatus?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailStatus?: EnumOutreachEmailStatusFieldUpdateOperationsInput | $Enums.OutreachEmailStatus
+    emailError?: NullableStringFieldUpdateOperationsInput | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calPrivateLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    calBookingUrl?: StringFieldUpdateOperationsInput | string
+    calBookingUid?: NullableStringFieldUpdateOperationsInput | string | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutreachSendCreateManyInput = {
+    id?: string
+    campaignKey: string
+    contactId: string
+    submissionId?: string | null
+    firstName: string
+    videoMediaId?: string | null
+    waMessageId?: string | null
+    waStatus?: $Enums.MessageStatus
+    email?: string | null
+    emailStatus?: $Enums.OutreachEmailStatus
+    emailError?: string | null
+    qstashMessageId?: string | null
+    calPrivateLinkId?: string | null
+    calBookingUrl: string
+    calBookingUid?: string | null
+    bookedAt?: Date | string | null
+    meetingTime?: Date | string | null
+    sentAt?: Date | string
+    emailSentAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutreachSendUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignKey?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    videoMediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    waMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    waStatus?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailStatus?: EnumOutreachEmailStatusFieldUpdateOperationsInput | $Enums.OutreachEmailStatus
+    emailError?: NullableStringFieldUpdateOperationsInput | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calPrivateLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    calBookingUrl?: StringFieldUpdateOperationsInput | string
+    calBookingUid?: NullableStringFieldUpdateOperationsInput | string | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutreachSendUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignKey?: StringFieldUpdateOperationsInput | string
+    contactId?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    videoMediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    waMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    waStatus?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailStatus?: EnumOutreachEmailStatusFieldUpdateOperationsInput | $Enums.OutreachEmailStatus
+    emailError?: NullableStringFieldUpdateOperationsInput | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calPrivateLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    calBookingUrl?: StringFieldUpdateOperationsInput | string
+    calBookingUid?: NullableStringFieldUpdateOperationsInput | string | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AirbnbLeadCreateInput = {
@@ -32327,6 +34236,12 @@ export namespace Prisma {
     isNot?: AirbnbLeadWhereInput | null
   }
 
+  export type OutreachSendListRelationFilter = {
+    every?: OutreachSendWhereInput
+    some?: OutreachSendWhereInput
+    none?: OutreachSendWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -32337,6 +34252,10 @@ export namespace Prisma {
   }
 
   export type ConversationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OutreachSendOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -32646,6 +34565,9 @@ export namespace Prisma {
     marketingFunnelStage?: SortOrder
     contractValueUsd?: SortOrder
     contractPlan?: SortOrder
+    videoOutreachAt?: SortOrder
+    videoOutreachBookedAt?: SortOrder
+    videoOutreachCalUid?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     contactId?: SortOrder
@@ -32694,6 +34616,9 @@ export namespace Prisma {
     marketingFunnelStage?: SortOrder
     contractValueUsd?: SortOrder
     contractPlan?: SortOrder
+    videoOutreachAt?: SortOrder
+    videoOutreachBookedAt?: SortOrder
+    videoOutreachCalUid?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     contactId?: SortOrder
@@ -32737,6 +34662,9 @@ export namespace Prisma {
     marketingFunnelStage?: SortOrder
     contractValueUsd?: SortOrder
     contractPlan?: SortOrder
+    videoOutreachAt?: SortOrder
+    videoOutreachBookedAt?: SortOrder
+    videoOutreachCalUid?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     contactId?: SortOrder
@@ -33622,6 +35550,95 @@ export namespace Prisma {
     _max?: NestedEnumPipelineJobStatusFilter<$PrismaModel>
   }
 
+  export type EnumOutreachEmailStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.OutreachEmailStatus | EnumOutreachEmailStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OutreachEmailStatus[] | ListEnumOutreachEmailStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OutreachEmailStatus[] | ListEnumOutreachEmailStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOutreachEmailStatusFilter<$PrismaModel> | $Enums.OutreachEmailStatus
+  }
+
+  export type OutreachSendCountOrderByAggregateInput = {
+    id?: SortOrder
+    campaignKey?: SortOrder
+    contactId?: SortOrder
+    submissionId?: SortOrder
+    firstName?: SortOrder
+    videoMediaId?: SortOrder
+    waMessageId?: SortOrder
+    waStatus?: SortOrder
+    email?: SortOrder
+    emailStatus?: SortOrder
+    emailError?: SortOrder
+    qstashMessageId?: SortOrder
+    calPrivateLinkId?: SortOrder
+    calBookingUrl?: SortOrder
+    calBookingUid?: SortOrder
+    bookedAt?: SortOrder
+    meetingTime?: SortOrder
+    sentAt?: SortOrder
+    emailSentAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OutreachSendMaxOrderByAggregateInput = {
+    id?: SortOrder
+    campaignKey?: SortOrder
+    contactId?: SortOrder
+    submissionId?: SortOrder
+    firstName?: SortOrder
+    videoMediaId?: SortOrder
+    waMessageId?: SortOrder
+    waStatus?: SortOrder
+    email?: SortOrder
+    emailStatus?: SortOrder
+    emailError?: SortOrder
+    qstashMessageId?: SortOrder
+    calPrivateLinkId?: SortOrder
+    calBookingUrl?: SortOrder
+    calBookingUid?: SortOrder
+    bookedAt?: SortOrder
+    meetingTime?: SortOrder
+    sentAt?: SortOrder
+    emailSentAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OutreachSendMinOrderByAggregateInput = {
+    id?: SortOrder
+    campaignKey?: SortOrder
+    contactId?: SortOrder
+    submissionId?: SortOrder
+    firstName?: SortOrder
+    videoMediaId?: SortOrder
+    waMessageId?: SortOrder
+    waStatus?: SortOrder
+    email?: SortOrder
+    emailStatus?: SortOrder
+    emailError?: SortOrder
+    qstashMessageId?: SortOrder
+    calPrivateLinkId?: SortOrder
+    calBookingUrl?: SortOrder
+    calBookingUid?: SortOrder
+    bookedAt?: SortOrder
+    meetingTime?: SortOrder
+    sentAt?: SortOrder
+    emailSentAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumOutreachEmailStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OutreachEmailStatus | EnumOutreachEmailStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OutreachEmailStatus[] | ListEnumOutreachEmailStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OutreachEmailStatus[] | ListEnumOutreachEmailStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOutreachEmailStatusWithAggregatesFilter<$PrismaModel> | $Enums.OutreachEmailStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOutreachEmailStatusFilter<$PrismaModel>
+    _max?: NestedEnumOutreachEmailStatusFilter<$PrismaModel>
+  }
+
   export type EnumIcpSkipReasonNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.IcpSkipReason | EnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
     in?: $Enums.IcpSkipReason[] | ListEnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
@@ -34345,6 +36362,13 @@ export namespace Prisma {
     connect?: AirbnbLeadWhereUniqueInput
   }
 
+  export type OutreachSendCreateNestedManyWithoutContactInput = {
+    create?: XOR<OutreachSendCreateWithoutContactInput, OutreachSendUncheckedCreateWithoutContactInput> | OutreachSendCreateWithoutContactInput[] | OutreachSendUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: OutreachSendCreateOrConnectWithoutContactInput | OutreachSendCreateOrConnectWithoutContactInput[]
+    createMany?: OutreachSendCreateManyContactInputEnvelope
+    connect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+  }
+
   export type FormSubmissionUncheckedCreateNestedManyWithoutContactInput = {
     create?: XOR<FormSubmissionCreateWithoutContactInput, FormSubmissionUncheckedCreateWithoutContactInput> | FormSubmissionCreateWithoutContactInput[] | FormSubmissionUncheckedCreateWithoutContactInput[]
     connectOrCreate?: FormSubmissionCreateOrConnectWithoutContactInput | FormSubmissionCreateOrConnectWithoutContactInput[]
@@ -34369,6 +36393,13 @@ export namespace Prisma {
     create?: XOR<AirbnbLeadCreateWithoutContactInput, AirbnbLeadUncheckedCreateWithoutContactInput>
     connectOrCreate?: AirbnbLeadCreateOrConnectWithoutContactInput
     connect?: AirbnbLeadWhereUniqueInput
+  }
+
+  export type OutreachSendUncheckedCreateNestedManyWithoutContactInput = {
+    create?: XOR<OutreachSendCreateWithoutContactInput, OutreachSendUncheckedCreateWithoutContactInput> | OutreachSendCreateWithoutContactInput[] | OutreachSendUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: OutreachSendCreateOrConnectWithoutContactInput | OutreachSendCreateOrConnectWithoutContactInput[]
+    createMany?: OutreachSendCreateManyContactInputEnvelope
+    connect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -34431,6 +36462,20 @@ export namespace Prisma {
     update?: XOR<XOR<AirbnbLeadUpdateToOneWithWhereWithoutContactInput, AirbnbLeadUpdateWithoutContactInput>, AirbnbLeadUncheckedUpdateWithoutContactInput>
   }
 
+  export type OutreachSendUpdateManyWithoutContactNestedInput = {
+    create?: XOR<OutreachSendCreateWithoutContactInput, OutreachSendUncheckedCreateWithoutContactInput> | OutreachSendCreateWithoutContactInput[] | OutreachSendUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: OutreachSendCreateOrConnectWithoutContactInput | OutreachSendCreateOrConnectWithoutContactInput[]
+    upsert?: OutreachSendUpsertWithWhereUniqueWithoutContactInput | OutreachSendUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: OutreachSendCreateManyContactInputEnvelope
+    set?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    disconnect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    delete?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    connect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    update?: OutreachSendUpdateWithWhereUniqueWithoutContactInput | OutreachSendUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: OutreachSendUpdateManyWithWhereWithoutContactInput | OutreachSendUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: OutreachSendScalarWhereInput | OutreachSendScalarWhereInput[]
+  }
+
   export type FormSubmissionUncheckedUpdateManyWithoutContactNestedInput = {
     create?: XOR<FormSubmissionCreateWithoutContactInput, FormSubmissionUncheckedCreateWithoutContactInput> | FormSubmissionCreateWithoutContactInput[] | FormSubmissionUncheckedCreateWithoutContactInput[]
     connectOrCreate?: FormSubmissionCreateOrConnectWithoutContactInput | FormSubmissionCreateOrConnectWithoutContactInput[]
@@ -34479,6 +36524,20 @@ export namespace Prisma {
     update?: XOR<XOR<AirbnbLeadUpdateToOneWithWhereWithoutContactInput, AirbnbLeadUpdateWithoutContactInput>, AirbnbLeadUncheckedUpdateWithoutContactInput>
   }
 
+  export type OutreachSendUncheckedUpdateManyWithoutContactNestedInput = {
+    create?: XOR<OutreachSendCreateWithoutContactInput, OutreachSendUncheckedCreateWithoutContactInput> | OutreachSendCreateWithoutContactInput[] | OutreachSendUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: OutreachSendCreateOrConnectWithoutContactInput | OutreachSendCreateOrConnectWithoutContactInput[]
+    upsert?: OutreachSendUpsertWithWhereUniqueWithoutContactInput | OutreachSendUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: OutreachSendCreateManyContactInputEnvelope
+    set?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    disconnect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    delete?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    connect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    update?: OutreachSendUpdateWithWhereUniqueWithoutContactInput | OutreachSendUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: OutreachSendUpdateManyWithWhereWithoutContactInput | OutreachSendUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: OutreachSendScalarWhereInput | OutreachSendScalarWhereInput[]
+  }
+
   export type ContactCreateNestedOneWithoutSubmissionsInput = {
     create?: XOR<ContactCreateWithoutSubmissionsInput, ContactUncheckedCreateWithoutSubmissionsInput>
     connectOrCreate?: ContactCreateOrConnectWithoutSubmissionsInput
@@ -34499,6 +36558,13 @@ export namespace Prisma {
     connect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
   }
 
+  export type OutreachSendCreateNestedManyWithoutSubmissionInput = {
+    create?: XOR<OutreachSendCreateWithoutSubmissionInput, OutreachSendUncheckedCreateWithoutSubmissionInput> | OutreachSendCreateWithoutSubmissionInput[] | OutreachSendUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: OutreachSendCreateOrConnectWithoutSubmissionInput | OutreachSendCreateOrConnectWithoutSubmissionInput[]
+    createMany?: OutreachSendCreateManySubmissionInputEnvelope
+    connect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+  }
+
   export type LeadEventUncheckedCreateNestedManyWithoutSubmissionInput = {
     create?: XOR<LeadEventCreateWithoutSubmissionInput, LeadEventUncheckedCreateWithoutSubmissionInput> | LeadEventCreateWithoutSubmissionInput[] | LeadEventUncheckedCreateWithoutSubmissionInput[]
     connectOrCreate?: LeadEventCreateOrConnectWithoutSubmissionInput | LeadEventCreateOrConnectWithoutSubmissionInput[]
@@ -34511,6 +36577,13 @@ export namespace Prisma {
     connectOrCreate?: OperationalDiagnosisCreateOrConnectWithoutSubmissionInput | OperationalDiagnosisCreateOrConnectWithoutSubmissionInput[]
     createMany?: OperationalDiagnosisCreateManySubmissionInputEnvelope
     connect?: OperationalDiagnosisWhereUniqueInput | OperationalDiagnosisWhereUniqueInput[]
+  }
+
+  export type OutreachSendUncheckedCreateNestedManyWithoutSubmissionInput = {
+    create?: XOR<OutreachSendCreateWithoutSubmissionInput, OutreachSendUncheckedCreateWithoutSubmissionInput> | OutreachSendCreateWithoutSubmissionInput[] | OutreachSendUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: OutreachSendCreateOrConnectWithoutSubmissionInput | OutreachSendCreateOrConnectWithoutSubmissionInput[]
+    createMany?: OutreachSendCreateManySubmissionInputEnvelope
+    connect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
   }
 
   export type NullableEnumPmsUsageFieldUpdateOperationsInput = {
@@ -34623,6 +36696,20 @@ export namespace Prisma {
     deleteMany?: OperationalDiagnosisScalarWhereInput | OperationalDiagnosisScalarWhereInput[]
   }
 
+  export type OutreachSendUpdateManyWithoutSubmissionNestedInput = {
+    create?: XOR<OutreachSendCreateWithoutSubmissionInput, OutreachSendUncheckedCreateWithoutSubmissionInput> | OutreachSendCreateWithoutSubmissionInput[] | OutreachSendUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: OutreachSendCreateOrConnectWithoutSubmissionInput | OutreachSendCreateOrConnectWithoutSubmissionInput[]
+    upsert?: OutreachSendUpsertWithWhereUniqueWithoutSubmissionInput | OutreachSendUpsertWithWhereUniqueWithoutSubmissionInput[]
+    createMany?: OutreachSendCreateManySubmissionInputEnvelope
+    set?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    disconnect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    delete?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    connect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    update?: OutreachSendUpdateWithWhereUniqueWithoutSubmissionInput | OutreachSendUpdateWithWhereUniqueWithoutSubmissionInput[]
+    updateMany?: OutreachSendUpdateManyWithWhereWithoutSubmissionInput | OutreachSendUpdateManyWithWhereWithoutSubmissionInput[]
+    deleteMany?: OutreachSendScalarWhereInput | OutreachSendScalarWhereInput[]
+  }
+
   export type LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput = {
     create?: XOR<LeadEventCreateWithoutSubmissionInput, LeadEventUncheckedCreateWithoutSubmissionInput> | LeadEventCreateWithoutSubmissionInput[] | LeadEventUncheckedCreateWithoutSubmissionInput[]
     connectOrCreate?: LeadEventCreateOrConnectWithoutSubmissionInput | LeadEventCreateOrConnectWithoutSubmissionInput[]
@@ -34649,6 +36736,20 @@ export namespace Prisma {
     update?: OperationalDiagnosisUpdateWithWhereUniqueWithoutSubmissionInput | OperationalDiagnosisUpdateWithWhereUniqueWithoutSubmissionInput[]
     updateMany?: OperationalDiagnosisUpdateManyWithWhereWithoutSubmissionInput | OperationalDiagnosisUpdateManyWithWhereWithoutSubmissionInput[]
     deleteMany?: OperationalDiagnosisScalarWhereInput | OperationalDiagnosisScalarWhereInput[]
+  }
+
+  export type OutreachSendUncheckedUpdateManyWithoutSubmissionNestedInput = {
+    create?: XOR<OutreachSendCreateWithoutSubmissionInput, OutreachSendUncheckedCreateWithoutSubmissionInput> | OutreachSendCreateWithoutSubmissionInput[] | OutreachSendUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: OutreachSendCreateOrConnectWithoutSubmissionInput | OutreachSendCreateOrConnectWithoutSubmissionInput[]
+    upsert?: OutreachSendUpsertWithWhereUniqueWithoutSubmissionInput | OutreachSendUpsertWithWhereUniqueWithoutSubmissionInput[]
+    createMany?: OutreachSendCreateManySubmissionInputEnvelope
+    set?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    disconnect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    delete?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    connect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+    update?: OutreachSendUpdateWithWhereUniqueWithoutSubmissionInput | OutreachSendUpdateWithWhereUniqueWithoutSubmissionInput[]
+    updateMany?: OutreachSendUpdateManyWithWhereWithoutSubmissionInput | OutreachSendUpdateManyWithWhereWithoutSubmissionInput[]
+    deleteMany?: OutreachSendScalarWhereInput | OutreachSendScalarWhereInput[]
   }
 
   export type FormSubmissionCreateNestedOneWithoutEventsInput = {
@@ -34885,6 +36986,40 @@ export namespace Prisma {
     upsert?: LeadPipelineUpsertWithoutJobsInput
     connect?: LeadPipelineWhereUniqueInput
     update?: XOR<XOR<LeadPipelineUpdateToOneWithWhereWithoutJobsInput, LeadPipelineUpdateWithoutJobsInput>, LeadPipelineUncheckedUpdateWithoutJobsInput>
+  }
+
+  export type ContactCreateNestedOneWithoutOutreachSendsInput = {
+    create?: XOR<ContactCreateWithoutOutreachSendsInput, ContactUncheckedCreateWithoutOutreachSendsInput>
+    connectOrCreate?: ContactCreateOrConnectWithoutOutreachSendsInput
+    connect?: ContactWhereUniqueInput
+  }
+
+  export type FormSubmissionCreateNestedOneWithoutOutreachSendsInput = {
+    create?: XOR<FormSubmissionCreateWithoutOutreachSendsInput, FormSubmissionUncheckedCreateWithoutOutreachSendsInput>
+    connectOrCreate?: FormSubmissionCreateOrConnectWithoutOutreachSendsInput
+    connect?: FormSubmissionWhereUniqueInput
+  }
+
+  export type EnumOutreachEmailStatusFieldUpdateOperationsInput = {
+    set?: $Enums.OutreachEmailStatus
+  }
+
+  export type ContactUpdateOneRequiredWithoutOutreachSendsNestedInput = {
+    create?: XOR<ContactCreateWithoutOutreachSendsInput, ContactUncheckedCreateWithoutOutreachSendsInput>
+    connectOrCreate?: ContactCreateOrConnectWithoutOutreachSendsInput
+    upsert?: ContactUpsertWithoutOutreachSendsInput
+    connect?: ContactWhereUniqueInput
+    update?: XOR<XOR<ContactUpdateToOneWithWhereWithoutOutreachSendsInput, ContactUpdateWithoutOutreachSendsInput>, ContactUncheckedUpdateWithoutOutreachSendsInput>
+  }
+
+  export type FormSubmissionUpdateOneWithoutOutreachSendsNestedInput = {
+    create?: XOR<FormSubmissionCreateWithoutOutreachSendsInput, FormSubmissionUncheckedCreateWithoutOutreachSendsInput>
+    connectOrCreate?: FormSubmissionCreateOrConnectWithoutOutreachSendsInput
+    upsert?: FormSubmissionUpsertWithoutOutreachSendsInput
+    disconnect?: FormSubmissionWhereInput | boolean
+    delete?: FormSubmissionWhereInput | boolean
+    connect?: FormSubmissionWhereUniqueInput
+    update?: XOR<XOR<FormSubmissionUpdateToOneWithWhereWithoutOutreachSendsInput, FormSubmissionUpdateWithoutOutreachSendsInput>, FormSubmissionUncheckedUpdateWithoutOutreachSendsInput>
   }
 
   export type ContactCreateNestedOneWithoutAirbnbLeadInput = {
@@ -36105,6 +38240,23 @@ export namespace Prisma {
     _max?: NestedEnumPipelineJobStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumOutreachEmailStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.OutreachEmailStatus | EnumOutreachEmailStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OutreachEmailStatus[] | ListEnumOutreachEmailStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OutreachEmailStatus[] | ListEnumOutreachEmailStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOutreachEmailStatusFilter<$PrismaModel> | $Enums.OutreachEmailStatus
+  }
+
+  export type NestedEnumOutreachEmailStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OutreachEmailStatus | EnumOutreachEmailStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.OutreachEmailStatus[] | ListEnumOutreachEmailStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OutreachEmailStatus[] | ListEnumOutreachEmailStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumOutreachEmailStatusWithAggregatesFilter<$PrismaModel> | $Enums.OutreachEmailStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOutreachEmailStatusFilter<$PrismaModel>
+    _max?: NestedEnumOutreachEmailStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumIcpSkipReasonNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.IcpSkipReason | EnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
     in?: $Enums.IcpSkipReason[] | ListEnumIcpSkipReasonFieldRefInput<$PrismaModel> | null
@@ -36269,10 +38421,14 @@ export namespace Prisma {
     marketingFunnelStage?: $Enums.MarketingFunnelStage | null
     contractValueUsd?: Decimal | DecimalJsLike | number | string | null
     contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     events?: LeadEventCreateNestedManyWithoutSubmissionInput
     diagnoses?: OperationalDiagnosisCreateNestedManyWithoutSubmissionInput
+    outreachSends?: OutreachSendCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateWithoutContactInput = {
@@ -36314,10 +38470,14 @@ export namespace Prisma {
     marketingFunnelStage?: $Enums.MarketingFunnelStage | null
     contractValueUsd?: Decimal | DecimalJsLike | number | string | null
     contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     events?: LeadEventUncheckedCreateNestedManyWithoutSubmissionInput
     diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput
+    outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionCreateOrConnectWithoutContactInput = {
@@ -36478,6 +38638,62 @@ export namespace Prisma {
     create: XOR<AirbnbLeadCreateWithoutContactInput, AirbnbLeadUncheckedCreateWithoutContactInput>
   }
 
+  export type OutreachSendCreateWithoutContactInput = {
+    id?: string
+    campaignKey: string
+    firstName: string
+    videoMediaId?: string | null
+    waMessageId?: string | null
+    waStatus?: $Enums.MessageStatus
+    email?: string | null
+    emailStatus?: $Enums.OutreachEmailStatus
+    emailError?: string | null
+    qstashMessageId?: string | null
+    calPrivateLinkId?: string | null
+    calBookingUrl: string
+    calBookingUid?: string | null
+    bookedAt?: Date | string | null
+    meetingTime?: Date | string | null
+    sentAt?: Date | string
+    emailSentAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    submission?: FormSubmissionCreateNestedOneWithoutOutreachSendsInput
+  }
+
+  export type OutreachSendUncheckedCreateWithoutContactInput = {
+    id?: string
+    campaignKey: string
+    submissionId?: string | null
+    firstName: string
+    videoMediaId?: string | null
+    waMessageId?: string | null
+    waStatus?: $Enums.MessageStatus
+    email?: string | null
+    emailStatus?: $Enums.OutreachEmailStatus
+    emailError?: string | null
+    qstashMessageId?: string | null
+    calPrivateLinkId?: string | null
+    calBookingUrl: string
+    calBookingUid?: string | null
+    bookedAt?: Date | string | null
+    meetingTime?: Date | string | null
+    sentAt?: Date | string
+    emailSentAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutreachSendCreateOrConnectWithoutContactInput = {
+    where: OutreachSendWhereUniqueInput
+    create: XOR<OutreachSendCreateWithoutContactInput, OutreachSendUncheckedCreateWithoutContactInput>
+  }
+
+  export type OutreachSendCreateManyContactInputEnvelope = {
+    data: OutreachSendCreateManyContactInput | OutreachSendCreateManyContactInput[]
+    skipDuplicates?: boolean
+  }
+
   export type FormSubmissionUpsertWithWhereUniqueWithoutContactInput = {
     where: FormSubmissionWhereUniqueInput
     update: XOR<FormSubmissionUpdateWithoutContactInput, FormSubmissionUncheckedUpdateWithoutContactInput>
@@ -36536,6 +38752,9 @@ export namespace Prisma {
     marketingFunnelStage?: EnumMarketingFunnelStageNullableFilter<"FormSubmission"> | $Enums.MarketingFunnelStage | null
     contractValueUsd?: DecimalNullableFilter<"FormSubmission"> | Decimal | DecimalJsLike | number | string | null
     contractPlan?: EnumContractPlanNullableFilter<"FormSubmission"> | $Enums.ContractPlan | null
+    videoOutreachAt?: DateTimeNullableFilter<"FormSubmission"> | Date | string | null
+    videoOutreachBookedAt?: DateTimeNullableFilter<"FormSubmission"> | Date | string | null
+    videoOutreachCalUid?: StringNullableFilter<"FormSubmission"> | string | null
     createdAt?: DateTimeFilter<"FormSubmission"> | Date | string
     updatedAt?: DateTimeFilter<"FormSubmission"> | Date | string
     contactId?: StringNullableFilter<"FormSubmission"> | string | null
@@ -36701,6 +38920,49 @@ export namespace Prisma {
     diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutAirbnbLeadNestedInput
   }
 
+  export type OutreachSendUpsertWithWhereUniqueWithoutContactInput = {
+    where: OutreachSendWhereUniqueInput
+    update: XOR<OutreachSendUpdateWithoutContactInput, OutreachSendUncheckedUpdateWithoutContactInput>
+    create: XOR<OutreachSendCreateWithoutContactInput, OutreachSendUncheckedCreateWithoutContactInput>
+  }
+
+  export type OutreachSendUpdateWithWhereUniqueWithoutContactInput = {
+    where: OutreachSendWhereUniqueInput
+    data: XOR<OutreachSendUpdateWithoutContactInput, OutreachSendUncheckedUpdateWithoutContactInput>
+  }
+
+  export type OutreachSendUpdateManyWithWhereWithoutContactInput = {
+    where: OutreachSendScalarWhereInput
+    data: XOR<OutreachSendUpdateManyMutationInput, OutreachSendUncheckedUpdateManyWithoutContactInput>
+  }
+
+  export type OutreachSendScalarWhereInput = {
+    AND?: OutreachSendScalarWhereInput | OutreachSendScalarWhereInput[]
+    OR?: OutreachSendScalarWhereInput[]
+    NOT?: OutreachSendScalarWhereInput | OutreachSendScalarWhereInput[]
+    id?: StringFilter<"OutreachSend"> | string
+    campaignKey?: StringFilter<"OutreachSend"> | string
+    contactId?: StringFilter<"OutreachSend"> | string
+    submissionId?: StringNullableFilter<"OutreachSend"> | string | null
+    firstName?: StringFilter<"OutreachSend"> | string
+    videoMediaId?: StringNullableFilter<"OutreachSend"> | string | null
+    waMessageId?: StringNullableFilter<"OutreachSend"> | string | null
+    waStatus?: EnumMessageStatusFilter<"OutreachSend"> | $Enums.MessageStatus
+    email?: StringNullableFilter<"OutreachSend"> | string | null
+    emailStatus?: EnumOutreachEmailStatusFilter<"OutreachSend"> | $Enums.OutreachEmailStatus
+    emailError?: StringNullableFilter<"OutreachSend"> | string | null
+    qstashMessageId?: StringNullableFilter<"OutreachSend"> | string | null
+    calPrivateLinkId?: StringNullableFilter<"OutreachSend"> | string | null
+    calBookingUrl?: StringFilter<"OutreachSend"> | string
+    calBookingUid?: StringNullableFilter<"OutreachSend"> | string | null
+    bookedAt?: DateTimeNullableFilter<"OutreachSend"> | Date | string | null
+    meetingTime?: DateTimeNullableFilter<"OutreachSend"> | Date | string | null
+    sentAt?: DateTimeFilter<"OutreachSend"> | Date | string
+    emailSentAt?: DateTimeNullableFilter<"OutreachSend"> | Date | string | null
+    createdAt?: DateTimeFilter<"OutreachSend"> | Date | string
+    updatedAt?: DateTimeFilter<"OutreachSend"> | Date | string
+  }
+
   export type ContactCreateWithoutSubmissionsInput = {
     id?: string
     fullName: string
@@ -36717,6 +38979,7 @@ export namespace Prisma {
     pipeline?: LeadPipelineCreateNestedOneWithoutContactInput
     conversations?: ConversationCreateNestedManyWithoutContactInput
     airbnbLead?: AirbnbLeadCreateNestedOneWithoutContactInput
+    outreachSends?: OutreachSendCreateNestedManyWithoutContactInput
   }
 
   export type ContactUncheckedCreateWithoutSubmissionsInput = {
@@ -36735,6 +38998,7 @@ export namespace Prisma {
     pipeline?: LeadPipelineUncheckedCreateNestedOneWithoutContactInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutContactInput
     airbnbLead?: AirbnbLeadUncheckedCreateNestedOneWithoutContactInput
+    outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutContactInput
   }
 
   export type ContactCreateOrConnectWithoutSubmissionsInput = {
@@ -36820,6 +39084,62 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OutreachSendCreateWithoutSubmissionInput = {
+    id?: string
+    campaignKey: string
+    firstName: string
+    videoMediaId?: string | null
+    waMessageId?: string | null
+    waStatus?: $Enums.MessageStatus
+    email?: string | null
+    emailStatus?: $Enums.OutreachEmailStatus
+    emailError?: string | null
+    qstashMessageId?: string | null
+    calPrivateLinkId?: string | null
+    calBookingUrl: string
+    calBookingUid?: string | null
+    bookedAt?: Date | string | null
+    meetingTime?: Date | string | null
+    sentAt?: Date | string
+    emailSentAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact: ContactCreateNestedOneWithoutOutreachSendsInput
+  }
+
+  export type OutreachSendUncheckedCreateWithoutSubmissionInput = {
+    id?: string
+    campaignKey: string
+    contactId: string
+    firstName: string
+    videoMediaId?: string | null
+    waMessageId?: string | null
+    waStatus?: $Enums.MessageStatus
+    email?: string | null
+    emailStatus?: $Enums.OutreachEmailStatus
+    emailError?: string | null
+    qstashMessageId?: string | null
+    calPrivateLinkId?: string | null
+    calBookingUrl: string
+    calBookingUid?: string | null
+    bookedAt?: Date | string | null
+    meetingTime?: Date | string | null
+    sentAt?: Date | string
+    emailSentAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutreachSendCreateOrConnectWithoutSubmissionInput = {
+    where: OutreachSendWhereUniqueInput
+    create: XOR<OutreachSendCreateWithoutSubmissionInput, OutreachSendUncheckedCreateWithoutSubmissionInput>
+  }
+
+  export type OutreachSendCreateManySubmissionInputEnvelope = {
+    data: OutreachSendCreateManySubmissionInput | OutreachSendCreateManySubmissionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ContactUpsertWithoutSubmissionsInput = {
     update: XOR<ContactUpdateWithoutSubmissionsInput, ContactUncheckedUpdateWithoutSubmissionsInput>
     create: XOR<ContactCreateWithoutSubmissionsInput, ContactUncheckedCreateWithoutSubmissionsInput>
@@ -36847,6 +39167,7 @@ export namespace Prisma {
     pipeline?: LeadPipelineUpdateOneWithoutContactNestedInput
     conversations?: ConversationUpdateManyWithoutContactNestedInput
     airbnbLead?: AirbnbLeadUpdateOneWithoutContactNestedInput
+    outreachSends?: OutreachSendUpdateManyWithoutContactNestedInput
   }
 
   export type ContactUncheckedUpdateWithoutSubmissionsInput = {
@@ -36865,6 +39186,7 @@ export namespace Prisma {
     pipeline?: LeadPipelineUncheckedUpdateOneWithoutContactNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutContactNestedInput
     airbnbLead?: AirbnbLeadUncheckedUpdateOneWithoutContactNestedInput
+    outreachSends?: OutreachSendUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type LeadEventUpsertWithWhereUniqueWithoutSubmissionInput = {
@@ -36936,6 +39258,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"OperationalDiagnosis"> | Date | string
   }
 
+  export type OutreachSendUpsertWithWhereUniqueWithoutSubmissionInput = {
+    where: OutreachSendWhereUniqueInput
+    update: XOR<OutreachSendUpdateWithoutSubmissionInput, OutreachSendUncheckedUpdateWithoutSubmissionInput>
+    create: XOR<OutreachSendCreateWithoutSubmissionInput, OutreachSendUncheckedCreateWithoutSubmissionInput>
+  }
+
+  export type OutreachSendUpdateWithWhereUniqueWithoutSubmissionInput = {
+    where: OutreachSendWhereUniqueInput
+    data: XOR<OutreachSendUpdateWithoutSubmissionInput, OutreachSendUncheckedUpdateWithoutSubmissionInput>
+  }
+
+  export type OutreachSendUpdateManyWithWhereWithoutSubmissionInput = {
+    where: OutreachSendScalarWhereInput
+    data: XOR<OutreachSendUpdateManyMutationInput, OutreachSendUncheckedUpdateManyWithoutSubmissionInput>
+  }
+
   export type FormSubmissionCreateWithoutEventsInput = {
     id?: string
     fullName?: string | null
@@ -36975,10 +39313,14 @@ export namespace Prisma {
     marketingFunnelStage?: $Enums.MarketingFunnelStage | null
     contractValueUsd?: Decimal | DecimalJsLike | number | string | null
     contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     contact?: ContactCreateNestedOneWithoutSubmissionsInput
     diagnoses?: OperationalDiagnosisCreateNestedManyWithoutSubmissionInput
+    outreachSends?: OutreachSendCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateWithoutEventsInput = {
@@ -37020,10 +39362,14 @@ export namespace Prisma {
     marketingFunnelStage?: $Enums.MarketingFunnelStage | null
     contractValueUsd?: Decimal | DecimalJsLike | number | string | null
     contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     contactId?: string | null
     diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput
+    outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionCreateOrConnectWithoutEventsInput = {
@@ -37152,10 +39498,14 @@ export namespace Prisma {
     marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
     contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contact?: ContactUpdateOneWithoutSubmissionsNestedInput
     diagnoses?: OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput
+    outreachSends?: OutreachSendUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateWithoutEventsInput = {
@@ -37197,10 +39547,14 @@ export namespace Prisma {
     marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
     contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contactId?: NullableStringFieldUpdateOperationsInput | string | null
     diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput
+    outreachSends?: OutreachSendUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type AirbnbLeadUpsertWithoutEventsInput = {
@@ -37296,6 +39650,7 @@ export namespace Prisma {
     submissions?: FormSubmissionCreateNestedManyWithoutContactInput
     conversations?: ConversationCreateNestedManyWithoutContactInput
     airbnbLead?: AirbnbLeadCreateNestedOneWithoutContactInput
+    outreachSends?: OutreachSendCreateNestedManyWithoutContactInput
   }
 
   export type ContactUncheckedCreateWithoutPipelineInput = {
@@ -37314,6 +39669,7 @@ export namespace Prisma {
     submissions?: FormSubmissionUncheckedCreateNestedManyWithoutContactInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutContactInput
     airbnbLead?: AirbnbLeadUncheckedCreateNestedOneWithoutContactInput
+    outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutContactInput
   }
 
   export type ContactCreateOrConnectWithoutPipelineInput = {
@@ -37378,6 +39734,7 @@ export namespace Prisma {
     submissions?: FormSubmissionUpdateManyWithoutContactNestedInput
     conversations?: ConversationUpdateManyWithoutContactNestedInput
     airbnbLead?: AirbnbLeadUpdateOneWithoutContactNestedInput
+    outreachSends?: OutreachSendUpdateManyWithoutContactNestedInput
   }
 
   export type ContactUncheckedUpdateWithoutPipelineInput = {
@@ -37396,6 +39753,7 @@ export namespace Prisma {
     submissions?: FormSubmissionUncheckedUpdateManyWithoutContactNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutContactNestedInput
     airbnbLead?: AirbnbLeadUncheckedUpdateOneWithoutContactNestedInput
+    outreachSends?: OutreachSendUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type PipelineJobUpsertWithWhereUniqueWithoutPipelineInput = {
@@ -37444,6 +39802,7 @@ export namespace Prisma {
     submissions?: FormSubmissionCreateNestedManyWithoutContactInput
     pipeline?: LeadPipelineCreateNestedOneWithoutContactInput
     airbnbLead?: AirbnbLeadCreateNestedOneWithoutContactInput
+    outreachSends?: OutreachSendCreateNestedManyWithoutContactInput
   }
 
   export type ContactUncheckedCreateWithoutConversationsInput = {
@@ -37462,6 +39821,7 @@ export namespace Prisma {
     submissions?: FormSubmissionUncheckedCreateNestedManyWithoutContactInput
     pipeline?: LeadPipelineUncheckedCreateNestedOneWithoutContactInput
     airbnbLead?: AirbnbLeadUncheckedCreateNestedOneWithoutContactInput
+    outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutContactInput
   }
 
   export type ContactCreateOrConnectWithoutConversationsInput = {
@@ -37544,6 +39904,7 @@ export namespace Prisma {
     submissions?: FormSubmissionUpdateManyWithoutContactNestedInput
     pipeline?: LeadPipelineUpdateOneWithoutContactNestedInput
     airbnbLead?: AirbnbLeadUpdateOneWithoutContactNestedInput
+    outreachSends?: OutreachSendUpdateManyWithoutContactNestedInput
   }
 
   export type ContactUncheckedUpdateWithoutConversationsInput = {
@@ -37562,6 +39923,7 @@ export namespace Prisma {
     submissions?: FormSubmissionUncheckedUpdateManyWithoutContactNestedInput
     pipeline?: LeadPipelineUncheckedUpdateOneWithoutContactNestedInput
     airbnbLead?: AirbnbLeadUncheckedUpdateOneWithoutContactNestedInput
+    outreachSends?: OutreachSendUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type ConversationMessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -37759,6 +40121,310 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ContactCreateWithoutOutreachSendsInput = {
+    id?: string
+    fullName: string
+    email?: string | null
+    phoneE164: string
+    waId?: string | null
+    phoneCountryCode: string
+    phoneNumber: string
+    companyName?: string | null
+    websiteUrl?: string | null
+    instagramUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    submissions?: FormSubmissionCreateNestedManyWithoutContactInput
+    pipeline?: LeadPipelineCreateNestedOneWithoutContactInput
+    conversations?: ConversationCreateNestedManyWithoutContactInput
+    airbnbLead?: AirbnbLeadCreateNestedOneWithoutContactInput
+  }
+
+  export type ContactUncheckedCreateWithoutOutreachSendsInput = {
+    id?: string
+    fullName: string
+    email?: string | null
+    phoneE164: string
+    waId?: string | null
+    phoneCountryCode: string
+    phoneNumber: string
+    companyName?: string | null
+    websiteUrl?: string | null
+    instagramUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    submissions?: FormSubmissionUncheckedCreateNestedManyWithoutContactInput
+    pipeline?: LeadPipelineUncheckedCreateNestedOneWithoutContactInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutContactInput
+    airbnbLead?: AirbnbLeadUncheckedCreateNestedOneWithoutContactInput
+  }
+
+  export type ContactCreateOrConnectWithoutOutreachSendsInput = {
+    where: ContactWhereUniqueInput
+    create: XOR<ContactCreateWithoutOutreachSendsInput, ContactUncheckedCreateWithoutOutreachSendsInput>
+  }
+
+  export type FormSubmissionCreateWithoutOutreachSendsInput = {
+    id?: string
+    fullName?: string | null
+    email?: string | null
+    companyName?: string | null
+    phoneCountryCode?: string | null
+    phoneNumber?: string | null
+    instagramUrl?: string | null
+    websiteUrl?: string | null
+    usesPms?: $Enums.PmsUsage | null
+    propertyCount?: $Enums.PropertyCount | null
+    revenueRange?: $Enums.RevenueRange | null
+    isTodero?: $Enums.YesNo | null
+    usesAi?: $Enums.YesNo | null
+    wantsToScale?: $Enums.YesNo | null
+    industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
+    pdfToken: string
+    qualification?: $Enums.LeadQualification | null
+    qualificationScore?: number | null
+    disqualificationReason?: $Enums.DisqualificationReason | null
+    scoreBreakdown?: NullableJsonNullValueInput | InputJsonValue
+    entrySource?: $Enums.LeadEntrySource
+    bookingFlow?: $Enums.BookingFlow | null
+    bookedAt?: Date | string | null
+    status?: $Enums.SubmissionStatus
+    fbclid?: string | null
+    fbp?: string | null
+    fbc?: string | null
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    landingPath?: string | null
+    referrer?: string | null
+    marketingFunnelStage?: $Enums.MarketingFunnelStage | null
+    contractValueUsd?: Decimal | DecimalJsLike | number | string | null
+    contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact?: ContactCreateNestedOneWithoutSubmissionsInput
+    events?: LeadEventCreateNestedManyWithoutSubmissionInput
+    diagnoses?: OperationalDiagnosisCreateNestedManyWithoutSubmissionInput
+  }
+
+  export type FormSubmissionUncheckedCreateWithoutOutreachSendsInput = {
+    id?: string
+    fullName?: string | null
+    email?: string | null
+    companyName?: string | null
+    phoneCountryCode?: string | null
+    phoneNumber?: string | null
+    instagramUrl?: string | null
+    websiteUrl?: string | null
+    usesPms?: $Enums.PmsUsage | null
+    propertyCount?: $Enums.PropertyCount | null
+    revenueRange?: $Enums.RevenueRange | null
+    isTodero?: $Enums.YesNo | null
+    usesAi?: $Enums.YesNo | null
+    wantsToScale?: $Enums.YesNo | null
+    industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
+    pdfToken: string
+    qualification?: $Enums.LeadQualification | null
+    qualificationScore?: number | null
+    disqualificationReason?: $Enums.DisqualificationReason | null
+    scoreBreakdown?: NullableJsonNullValueInput | InputJsonValue
+    entrySource?: $Enums.LeadEntrySource
+    bookingFlow?: $Enums.BookingFlow | null
+    bookedAt?: Date | string | null
+    status?: $Enums.SubmissionStatus
+    fbclid?: string | null
+    fbp?: string | null
+    fbc?: string | null
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    landingPath?: string | null
+    referrer?: string | null
+    marketingFunnelStage?: $Enums.MarketingFunnelStage | null
+    contractValueUsd?: Decimal | DecimalJsLike | number | string | null
+    contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contactId?: string | null
+    events?: LeadEventUncheckedCreateNestedManyWithoutSubmissionInput
+    diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput
+  }
+
+  export type FormSubmissionCreateOrConnectWithoutOutreachSendsInput = {
+    where: FormSubmissionWhereUniqueInput
+    create: XOR<FormSubmissionCreateWithoutOutreachSendsInput, FormSubmissionUncheckedCreateWithoutOutreachSendsInput>
+  }
+
+  export type ContactUpsertWithoutOutreachSendsInput = {
+    update: XOR<ContactUpdateWithoutOutreachSendsInput, ContactUncheckedUpdateWithoutOutreachSendsInput>
+    create: XOR<ContactCreateWithoutOutreachSendsInput, ContactUncheckedCreateWithoutOutreachSendsInput>
+    where?: ContactWhereInput
+  }
+
+  export type ContactUpdateToOneWithWhereWithoutOutreachSendsInput = {
+    where?: ContactWhereInput
+    data: XOR<ContactUpdateWithoutOutreachSendsInput, ContactUncheckedUpdateWithoutOutreachSendsInput>
+  }
+
+  export type ContactUpdateWithoutOutreachSendsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneE164?: StringFieldUpdateOperationsInput | string
+    waId?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneCountryCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    websiteUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submissions?: FormSubmissionUpdateManyWithoutContactNestedInput
+    pipeline?: LeadPipelineUpdateOneWithoutContactNestedInput
+    conversations?: ConversationUpdateManyWithoutContactNestedInput
+    airbnbLead?: AirbnbLeadUpdateOneWithoutContactNestedInput
+  }
+
+  export type ContactUncheckedUpdateWithoutOutreachSendsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneE164?: StringFieldUpdateOperationsInput | string
+    waId?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneCountryCode?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    websiteUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submissions?: FormSubmissionUncheckedUpdateManyWithoutContactNestedInput
+    pipeline?: LeadPipelineUncheckedUpdateOneWithoutContactNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutContactNestedInput
+    airbnbLead?: AirbnbLeadUncheckedUpdateOneWithoutContactNestedInput
+  }
+
+  export type FormSubmissionUpsertWithoutOutreachSendsInput = {
+    update: XOR<FormSubmissionUpdateWithoutOutreachSendsInput, FormSubmissionUncheckedUpdateWithoutOutreachSendsInput>
+    create: XOR<FormSubmissionCreateWithoutOutreachSendsInput, FormSubmissionUncheckedCreateWithoutOutreachSendsInput>
+    where?: FormSubmissionWhereInput
+  }
+
+  export type FormSubmissionUpdateToOneWithWhereWithoutOutreachSendsInput = {
+    where?: FormSubmissionWhereInput
+    data: XOR<FormSubmissionUpdateWithoutOutreachSendsInput, FormSubmissionUncheckedUpdateWithoutOutreachSendsInput>
+  }
+
+  export type FormSubmissionUpdateWithoutOutreachSendsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneCountryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    websiteUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    usesPms?: NullableEnumPmsUsageFieldUpdateOperationsInput | $Enums.PmsUsage | null
+    propertyCount?: NullableEnumPropertyCountFieldUpdateOperationsInput | $Enums.PropertyCount | null
+    revenueRange?: NullableEnumRevenueRangeFieldUpdateOperationsInput | $Enums.RevenueRange | null
+    isTodero?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
+    pdfToken?: StringFieldUpdateOperationsInput | string
+    qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
+    qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
+    disqualificationReason?: NullableEnumDisqualificationReasonFieldUpdateOperationsInput | $Enums.DisqualificationReason | null
+    scoreBreakdown?: NullableJsonNullValueInput | InputJsonValue
+    entrySource?: EnumLeadEntrySourceFieldUpdateOperationsInput | $Enums.LeadEntrySource
+    bookingFlow?: NullableEnumBookingFlowFieldUpdateOperationsInput | $Enums.BookingFlow | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+    fbclid?: NullableStringFieldUpdateOperationsInput | string | null
+    fbp?: NullableStringFieldUpdateOperationsInput | string | null
+    fbc?: NullableStringFieldUpdateOperationsInput | string | null
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    landingPath?: NullableStringFieldUpdateOperationsInput | string | null
+    referrer?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
+    contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: ContactUpdateOneWithoutSubmissionsNestedInput
+    events?: LeadEventUpdateManyWithoutSubmissionNestedInput
+    diagnoses?: OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput
+  }
+
+  export type FormSubmissionUncheckedUpdateWithoutOutreachSendsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneCountryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    websiteUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    usesPms?: NullableEnumPmsUsageFieldUpdateOperationsInput | $Enums.PmsUsage | null
+    propertyCount?: NullableEnumPropertyCountFieldUpdateOperationsInput | $Enums.PropertyCount | null
+    revenueRange?: NullableEnumRevenueRangeFieldUpdateOperationsInput | $Enums.RevenueRange | null
+    isTodero?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
+    pdfToken?: StringFieldUpdateOperationsInput | string
+    qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
+    qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
+    disqualificationReason?: NullableEnumDisqualificationReasonFieldUpdateOperationsInput | $Enums.DisqualificationReason | null
+    scoreBreakdown?: NullableJsonNullValueInput | InputJsonValue
+    entrySource?: EnumLeadEntrySourceFieldUpdateOperationsInput | $Enums.LeadEntrySource
+    bookingFlow?: NullableEnumBookingFlowFieldUpdateOperationsInput | $Enums.BookingFlow | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+    fbclid?: NullableStringFieldUpdateOperationsInput | string | null
+    fbp?: NullableStringFieldUpdateOperationsInput | string | null
+    fbc?: NullableStringFieldUpdateOperationsInput | string | null
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    landingPath?: NullableStringFieldUpdateOperationsInput | string | null
+    referrer?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
+    contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    events?: LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput
+    diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput
+  }
+
   export type ContactCreateWithoutAirbnbLeadInput = {
     id?: string
     fullName: string
@@ -37775,6 +40441,7 @@ export namespace Prisma {
     submissions?: FormSubmissionCreateNestedManyWithoutContactInput
     pipeline?: LeadPipelineCreateNestedOneWithoutContactInput
     conversations?: ConversationCreateNestedManyWithoutContactInput
+    outreachSends?: OutreachSendCreateNestedManyWithoutContactInput
   }
 
   export type ContactUncheckedCreateWithoutAirbnbLeadInput = {
@@ -37793,6 +40460,7 @@ export namespace Prisma {
     submissions?: FormSubmissionUncheckedCreateNestedManyWithoutContactInput
     pipeline?: LeadPipelineUncheckedCreateNestedOneWithoutContactInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutContactInput
+    outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutContactInput
   }
 
   export type ContactCreateOrConnectWithoutAirbnbLeadInput = {
@@ -38023,6 +40691,7 @@ export namespace Prisma {
     submissions?: FormSubmissionUpdateManyWithoutContactNestedInput
     pipeline?: LeadPipelineUpdateOneWithoutContactNestedInput
     conversations?: ConversationUpdateManyWithoutContactNestedInput
+    outreachSends?: OutreachSendUpdateManyWithoutContactNestedInput
   }
 
   export type ContactUncheckedUpdateWithoutAirbnbLeadInput = {
@@ -38041,6 +40710,7 @@ export namespace Prisma {
     submissions?: FormSubmissionUncheckedUpdateManyWithoutContactNestedInput
     pipeline?: LeadPipelineUncheckedUpdateOneWithoutContactNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutContactNestedInput
+    outreachSends?: OutreachSendUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type AirbnbMessageUpsertWithWhereUniqueWithoutLeadInput = {
@@ -39394,10 +42064,14 @@ export namespace Prisma {
     marketingFunnelStage?: $Enums.MarketingFunnelStage | null
     contractValueUsd?: Decimal | DecimalJsLike | number | string | null
     contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     contact?: ContactCreateNestedOneWithoutSubmissionsInput
     events?: LeadEventCreateNestedManyWithoutSubmissionInput
+    outreachSends?: OutreachSendCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateWithoutDiagnosesInput = {
@@ -39439,10 +42113,14 @@ export namespace Prisma {
     marketingFunnelStage?: $Enums.MarketingFunnelStage | null
     contractValueUsd?: Decimal | DecimalJsLike | number | string | null
     contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     contactId?: string | null
     events?: LeadEventUncheckedCreateNestedManyWithoutSubmissionInput
+    outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionCreateOrConnectWithoutDiagnosesInput = {
@@ -39571,10 +42249,14 @@ export namespace Prisma {
     marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
     contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contact?: ContactUpdateOneWithoutSubmissionsNestedInput
     events?: LeadEventUpdateManyWithoutSubmissionNestedInput
+    outreachSends?: OutreachSendUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateWithoutDiagnosesInput = {
@@ -39616,10 +42298,14 @@ export namespace Prisma {
     marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
     contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contactId?: NullableStringFieldUpdateOperationsInput | string | null
     events?: LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput
+    outreachSends?: OutreachSendUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type AirbnbLeadUpsertWithoutDiagnosesInput = {
@@ -39738,6 +42424,9 @@ export namespace Prisma {
     marketingFunnelStage?: $Enums.MarketingFunnelStage | null
     contractValueUsd?: Decimal | DecimalJsLike | number | string | null
     contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -39746,6 +42435,29 @@ export namespace Prisma {
     id?: string
     channel?: $Enums.ConversationChannel
     waPhoneNumberId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutreachSendCreateManyContactInput = {
+    id?: string
+    campaignKey: string
+    submissionId?: string | null
+    firstName: string
+    videoMediaId?: string | null
+    waMessageId?: string | null
+    waStatus?: $Enums.MessageStatus
+    email?: string | null
+    emailStatus?: $Enums.OutreachEmailStatus
+    emailError?: string | null
+    qstashMessageId?: string | null
+    calPrivateLinkId?: string | null
+    calBookingUrl: string
+    calBookingUid?: string | null
+    bookedAt?: Date | string | null
+    meetingTime?: Date | string | null
+    sentAt?: Date | string
+    emailSentAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -39789,10 +42501,14 @@ export namespace Prisma {
     marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
     contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     events?: LeadEventUpdateManyWithoutSubmissionNestedInput
     diagnoses?: OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput
+    outreachSends?: OutreachSendUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateWithoutContactInput = {
@@ -39834,10 +42550,14 @@ export namespace Prisma {
     marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
     contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     events?: LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput
     diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput
+    outreachSends?: OutreachSendUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateManyWithoutContactInput = {
@@ -39879,6 +42599,9 @@ export namespace Prisma {
     marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
     contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39909,6 +42632,75 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OutreachSendUpdateWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignKey?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    videoMediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    waMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    waStatus?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailStatus?: EnumOutreachEmailStatusFieldUpdateOperationsInput | $Enums.OutreachEmailStatus
+    emailError?: NullableStringFieldUpdateOperationsInput | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calPrivateLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    calBookingUrl?: StringFieldUpdateOperationsInput | string
+    calBookingUid?: NullableStringFieldUpdateOperationsInput | string | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submission?: FormSubmissionUpdateOneWithoutOutreachSendsNestedInput
+  }
+
+  export type OutreachSendUncheckedUpdateWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignKey?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    videoMediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    waMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    waStatus?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailStatus?: EnumOutreachEmailStatusFieldUpdateOperationsInput | $Enums.OutreachEmailStatus
+    emailError?: NullableStringFieldUpdateOperationsInput | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calPrivateLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    calBookingUrl?: StringFieldUpdateOperationsInput | string
+    calBookingUid?: NullableStringFieldUpdateOperationsInput | string | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutreachSendUncheckedUpdateManyWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignKey?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    videoMediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    waMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    waStatus?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailStatus?: EnumOutreachEmailStatusFieldUpdateOperationsInput | $Enums.OutreachEmailStatus
+    emailError?: NullableStringFieldUpdateOperationsInput | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calPrivateLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    calBookingUrl?: StringFieldUpdateOperationsInput | string
+    calBookingUid?: NullableStringFieldUpdateOperationsInput | string | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LeadEventCreateManySubmissionInput = {
     id: string
     airbnbLeadId?: string | null
@@ -39934,6 +42726,29 @@ export namespace Prisma {
     payload: JsonNullValueInput | InputJsonValue
     airbnbLeadId?: string | null
     meetingTime?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OutreachSendCreateManySubmissionInput = {
+    id?: string
+    campaignKey: string
+    contactId: string
+    firstName: string
+    videoMediaId?: string | null
+    waMessageId?: string | null
+    waStatus?: $Enums.MessageStatus
+    email?: string | null
+    emailStatus?: $Enums.OutreachEmailStatus
+    emailError?: string | null
+    qstashMessageId?: string | null
+    calPrivateLinkId?: string | null
+    calBookingUrl: string
+    calBookingUid?: string | null
+    bookedAt?: Date | string | null
+    meetingTime?: Date | string | null
+    sentAt?: Date | string
+    emailSentAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -40021,6 +42836,75 @@ export namespace Prisma {
     payload?: JsonNullValueInput | InputJsonValue
     airbnbLeadId?: NullableStringFieldUpdateOperationsInput | string | null
     meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutreachSendUpdateWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignKey?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    videoMediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    waMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    waStatus?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailStatus?: EnumOutreachEmailStatusFieldUpdateOperationsInput | $Enums.OutreachEmailStatus
+    emailError?: NullableStringFieldUpdateOperationsInput | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calPrivateLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    calBookingUrl?: StringFieldUpdateOperationsInput | string
+    calBookingUid?: NullableStringFieldUpdateOperationsInput | string | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: ContactUpdateOneRequiredWithoutOutreachSendsNestedInput
+  }
+
+  export type OutreachSendUncheckedUpdateWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignKey?: StringFieldUpdateOperationsInput | string
+    contactId?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    videoMediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    waMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    waStatus?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailStatus?: EnumOutreachEmailStatusFieldUpdateOperationsInput | $Enums.OutreachEmailStatus
+    emailError?: NullableStringFieldUpdateOperationsInput | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calPrivateLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    calBookingUrl?: StringFieldUpdateOperationsInput | string
+    calBookingUid?: NullableStringFieldUpdateOperationsInput | string | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OutreachSendUncheckedUpdateManyWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campaignKey?: StringFieldUpdateOperationsInput | string
+    contactId?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    videoMediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    waMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    waStatus?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailStatus?: EnumOutreachEmailStatusFieldUpdateOperationsInput | $Enums.OutreachEmailStatus
+    emailError?: NullableStringFieldUpdateOperationsInput | string | null
+    qstashMessageId?: NullableStringFieldUpdateOperationsInput | string | null
+    calPrivateLinkId?: NullableStringFieldUpdateOperationsInput | string | null
+    calBookingUrl?: StringFieldUpdateOperationsInput | string
+    calBookingUid?: NullableStringFieldUpdateOperationsInput | string | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    meetingTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

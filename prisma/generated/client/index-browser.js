@@ -175,6 +175,9 @@ exports.Prisma.FormSubmissionScalarFieldEnum = {
   marketingFunnelStage: 'marketingFunnelStage',
   contractValueUsd: 'contractValueUsd',
   contractPlan: 'contractPlan',
+  videoOutreachAt: 'videoOutreachAt',
+  videoOutreachBookedAt: 'videoOutreachBookedAt',
+  videoOutreachCalUid: 'videoOutreachCalUid',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   contactId: 'contactId'
@@ -293,6 +296,30 @@ exports.Prisma.PipelineJobScalarFieldEnum = {
   status: 'status',
   createdAt: 'createdAt',
   executedAt: 'executedAt'
+};
+
+exports.Prisma.OutreachSendScalarFieldEnum = {
+  id: 'id',
+  campaignKey: 'campaignKey',
+  contactId: 'contactId',
+  submissionId: 'submissionId',
+  firstName: 'firstName',
+  videoMediaId: 'videoMediaId',
+  waMessageId: 'waMessageId',
+  waStatus: 'waStatus',
+  email: 'email',
+  emailStatus: 'emailStatus',
+  emailError: 'emailError',
+  qstashMessageId: 'qstashMessageId',
+  calPrivateLinkId: 'calPrivateLinkId',
+  calBookingUrl: 'calBookingUrl',
+  calBookingUid: 'calBookingUid',
+  bookedAt: 'bookedAt',
+  meetingTime: 'meetingTime',
+  sentAt: 'sentAt',
+  emailSentAt: 'emailSentAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.AirbnbLeadScalarFieldEnum = {
@@ -668,6 +695,13 @@ exports.PipelineJobStatus = exports.$Enums.PipelineJobStatus = {
   CANCELLED: 'CANCELLED'
 };
 
+exports.OutreachEmailStatus = exports.$Enums.OutreachEmailStatus = {
+  PENDING: 'PENDING',
+  SENT: 'SENT',
+  SKIPPED: 'SKIPPED',
+  FAILED: 'FAILED'
+};
+
 exports.IcpSkipReason = exports.$Enums.IcpSkipReason = {
   below_min: 'below_min',
   above_max: 'above_max',
@@ -730,6 +764,7 @@ exports.Prisma.ModelName = {
   Conversation: 'Conversation',
   ConversationMessage: 'ConversationMessage',
   PipelineJob: 'PipelineJob',
+  OutreachSend: 'OutreachSend',
   AirbnbLead: 'AirbnbLead',
   AirbnbMessage: 'AirbnbMessage',
   SystemState: 'SystemState',

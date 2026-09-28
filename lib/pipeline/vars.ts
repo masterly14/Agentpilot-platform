@@ -63,6 +63,7 @@ export async function buildTemplateVars(
     : null
   const values: Partial<Record<WhatsAppNamedParam, string>> = {
     nombre: firstNameFromFullName(contact.fullName),
+    first_name: firstNameFromFullName(contact.fullName),
     fecha: meeting?.fecha,
     hora: meeting?.hora,
     link: pipeline.meetLink || bookingLink,

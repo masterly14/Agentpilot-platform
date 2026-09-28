@@ -76,6 +76,11 @@ export function SubmissionDetailSheet({
         </SheetHeader>
 
         <div className="mt-6 space-y-6 px-1">
+          {submission.videoOutreachBookedAt ? (
+            <Badge>Agendó (Cal)</Badge>
+          ) : submission.videoOutreachAt ? (
+            <Badge variant="secondary">Video outreach</Badge>
+          ) : null}
           <LeadStageActions
             submission={submission}
             disabled={isUpdating}
