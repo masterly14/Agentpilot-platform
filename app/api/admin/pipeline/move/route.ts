@@ -35,7 +35,7 @@ export async function POST(request: Request) {
   if (!current) {
     return NextResponse.json({ error: "Lead no encontrado" }, { status: 404 })
   }
-  if (!canDropOnFunnelStage(current.marketingFunnelStage ?? "PENDING_CALL", to)) {
+  if (current.marketingFunnelStage && !canDropOnFunnelStage(current.marketingFunnelStage, to)) {
     return NextResponse.json({ error: "Movimiento no permitido" }, { status: 409 })
   }
 

@@ -126,7 +126,8 @@ export function isInboxLead(input: {
   status: string
   marketingFunnelStage: MarketingFunnelStage | null
 }) {
-  return input.status === "PARTIAL" || !input.marketingFunnelStage
+  // Un formulario parcial deja la bandeja en cuanto se le asigna una etapa a mano.
+  return !input.marketingFunnelStage
 }
 
 export function hasInboxContact(input: {

@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge"
 import { CloseDealDialog } from "@/components/admin/close-deal-dialog"
 import { PostAttendDialog } from "@/components/admin/post-attend-dialog"
 import { SubmissionDetailSheet } from "@/components/admin/submission-detail-sheet"
-import { KanbanCard, KanbanColumn, type CallAction } from "@/components/admin/kanban-parts"
+import { CallTracker, KanbanCard, KanbanColumn, type CallAction } from "@/components/admin/kanban-parts"
 import { DeleteLeadDialog, KanbanCardMenu } from "@/components/admin/kanban-card-menu"
 import type { MeetingReschedulePayload } from "@/components/admin/meeting-reschedule-form"
 import {
@@ -559,8 +559,9 @@ export function SubmissionsKanban({
             {inbox.map((submission) => (
               <div
                 key={submission.id}
-                className="flex w-[220px] shrink-0 items-start justify-between gap-1 rounded-xl border border-border bg-muted/40 p-3"
+                className="w-[220px] shrink-0 rounded-xl border border-border bg-muted/40 p-3"
               >
+                <div className="flex items-start justify-between gap-1">
                 <button
                   type="button"
                   onClick={() => setSelectedId(submission.id)}
@@ -578,6 +579,31 @@ export function SubmissionsKanban({
                   onUpdate={() => setSelectedId(submission.id)}
                   onDelete={() => setDeleteLeadId(submission.id)}
                 />
+                </div>
+                <CallTracker
+                  submission={submission}
+                  disabled={updatingId === submission.id}
+                  onCall={(action) => void handleCall(submission.id, action)}
+                />
+                <select
+                  value=""
+                  disabled={updatingId === submission.id}
+                  onChange={(event) => {
+                    const to = event.target.value as MarketingFunnelStage
+                    if (to) void moveLead(submission.id, to)
+                  }}
+                  className="mt-2 w-full rounded-md border border-border bg-white px-2 py-1 text-xs"
+                  aria-label="Mover a una columna"
+                >
+                  <option value="">Mover a…</option>
+                  {FUNNEL_COLUMNS.filter(
+                    (column) => column.id !== "PURCHASED" && column.id !== "DEMO_SCHEDULED",
+                  ).map((column) => (
+                    <option key={column.id} value={column.id}>
+                      {column.label}
+                    </option>
+                  ))}
+                </select>
               </div>
             ))}
           </div>
