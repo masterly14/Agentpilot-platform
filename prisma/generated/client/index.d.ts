@@ -24,6 +24,11 @@ export type Contact = $Result.DefaultSelection<Prisma.$ContactPayload>
  */
 export type FormSubmission = $Result.DefaultSelection<Prisma.$FormSubmissionPayload>
 /**
+ * Model LeadCall
+ * 
+ */
+export type LeadCall = $Result.DefaultSelection<Prisma.$LeadCallPayload>
+/**
  * Model LeadEvent
  * 
  */
@@ -123,7 +128,16 @@ export type OperationalDiagnosis = $Result.DefaultSelection<Prisma.$OperationalD
  * Enums
  */
 export namespace $Enums {
-  export const PmsUsage: {
+  export const CallOutcome: {
+  CALLING: 'CALLING',
+  NO_ANSWER: 'NO_ANSWER',
+  ANSWERED: 'ANSWERED'
+};
+
+export type CallOutcome = (typeof CallOutcome)[keyof typeof CallOutcome]
+
+
+export const PmsUsage: {
   YES: 'YES',
   NO: 'NO',
   EVALUATING: 'EVALUATING'
@@ -473,6 +487,10 @@ export type AirbnbCommercialStage = (typeof AirbnbCommercialStage)[keyof typeof 
 
 }
 
+export type CallOutcome = $Enums.CallOutcome
+
+export const CallOutcome: typeof $Enums.CallOutcome
+
 export type PmsUsage = $Enums.PmsUsage
 
 export const PmsUsage: typeof $Enums.PmsUsage
@@ -730,6 +748,16 @@ export class PrismaClient<
     * ```
     */
   get formSubmission(): Prisma.FormSubmissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.leadCall`: Exposes CRUD operations for the **LeadCall** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LeadCalls
+    * const leadCalls = await prisma.leadCall.findMany()
+    * ```
+    */
+  get leadCall(): Prisma.LeadCallDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.leadEvent`: Exposes CRUD operations for the **LeadEvent** model.
@@ -1363,6 +1391,7 @@ export namespace Prisma {
   export const ModelName: {
     Contact: 'Contact',
     FormSubmission: 'FormSubmission',
+    LeadCall: 'LeadCall',
     LeadEvent: 'LeadEvent',
     VideoWatchSession: 'VideoWatchSession',
     LandingVisit: 'LandingVisit',
@@ -1400,7 +1429,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "contact" | "formSubmission" | "leadEvent" | "videoWatchSession" | "landingVisit" | "leadPipeline" | "conversation" | "conversationMessage" | "pipelineJob" | "outreachSend" | "airbnbLead" | "airbnbMessage" | "systemState" | "calBooking" | "prospectAccount" | "hostContact" | "leadIdentityAlias" | "dailyOutboundStats" | "accountBlockEvent" | "airbnbCommercial" | "operationalDiagnosis"
+      modelProps: "contact" | "formSubmission" | "leadCall" | "leadEvent" | "videoWatchSession" | "landingVisit" | "leadPipeline" | "conversation" | "conversationMessage" | "pipelineJob" | "outreachSend" | "airbnbLead" | "airbnbMessage" | "systemState" | "calBooking" | "prospectAccount" | "hostContact" | "leadIdentityAlias" | "dailyOutboundStats" | "accountBlockEvent" | "airbnbCommercial" | "operationalDiagnosis"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1549,6 +1578,80 @@ export namespace Prisma {
           count: {
             args: Prisma.FormSubmissionCountArgs<ExtArgs>
             result: $Utils.Optional<FormSubmissionCountAggregateOutputType> | number
+          }
+        }
+      }
+      LeadCall: {
+        payload: Prisma.$LeadCallPayload<ExtArgs>
+        fields: Prisma.LeadCallFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LeadCallFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadCallPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LeadCallFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadCallPayload>
+          }
+          findFirst: {
+            args: Prisma.LeadCallFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadCallPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LeadCallFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadCallPayload>
+          }
+          findMany: {
+            args: Prisma.LeadCallFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadCallPayload>[]
+          }
+          create: {
+            args: Prisma.LeadCallCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadCallPayload>
+          }
+          createMany: {
+            args: Prisma.LeadCallCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LeadCallCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadCallPayload>[]
+          }
+          delete: {
+            args: Prisma.LeadCallDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadCallPayload>
+          }
+          update: {
+            args: Prisma.LeadCallUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadCallPayload>
+          }
+          deleteMany: {
+            args: Prisma.LeadCallDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LeadCallUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LeadCallUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadCallPayload>[]
+          }
+          upsert: {
+            args: Prisma.LeadCallUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadCallPayload>
+          }
+          aggregate: {
+            args: Prisma.LeadCallAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLeadCall>
+          }
+          groupBy: {
+            args: Prisma.LeadCallGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LeadCallGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LeadCallCountArgs<ExtArgs>
+            result: $Utils.Optional<LeadCallCountAggregateOutputType> | number
           }
         }
       }
@@ -3056,6 +3159,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     contact?: ContactOmit
     formSubmission?: FormSubmissionOmit
+    leadCall?: LeadCallOmit
     leadEvent?: LeadEventOmit
     videoWatchSession?: VideoWatchSessionOmit
     landingVisit?: LandingVisitOmit
@@ -3207,12 +3311,14 @@ export namespace Prisma {
     events: number
     diagnoses: number
     outreachSends: number
+    calls: number
   }
 
   export type FormSubmissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     events?: boolean | FormSubmissionCountOutputTypeCountEventsArgs
     diagnoses?: boolean | FormSubmissionCountOutputTypeCountDiagnosesArgs
     outreachSends?: boolean | FormSubmissionCountOutputTypeCountOutreachSendsArgs
+    calls?: boolean | FormSubmissionCountOutputTypeCountCallsArgs
   }
 
   // Custom InputTypes
@@ -3245,6 +3351,13 @@ export namespace Prisma {
    */
   export type FormSubmissionCountOutputTypeCountOutreachSendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OutreachSendWhereInput
+  }
+
+  /**
+   * FormSubmissionCountOutputType without action
+   */
+  export type FormSubmissionCountOutputTypeCountCallsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeadCallWhereInput
   }
 
 
@@ -5198,6 +5311,7 @@ export namespace Prisma {
     events?: boolean | FormSubmission$eventsArgs<ExtArgs>
     diagnoses?: boolean | FormSubmission$diagnosesArgs<ExtArgs>
     outreachSends?: boolean | FormSubmission$outreachSendsArgs<ExtArgs>
+    calls?: boolean | FormSubmission$callsArgs<ExtArgs>
     _count?: boolean | FormSubmissionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formSubmission"]>
 
@@ -5350,6 +5464,7 @@ export namespace Prisma {
     events?: boolean | FormSubmission$eventsArgs<ExtArgs>
     diagnoses?: boolean | FormSubmission$diagnosesArgs<ExtArgs>
     outreachSends?: boolean | FormSubmission$outreachSendsArgs<ExtArgs>
+    calls?: boolean | FormSubmission$callsArgs<ExtArgs>
     _count?: boolean | FormSubmissionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FormSubmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5366,6 +5481,7 @@ export namespace Prisma {
       events: Prisma.$LeadEventPayload<ExtArgs>[]
       diagnoses: Prisma.$OperationalDiagnosisPayload<ExtArgs>[]
       outreachSends: Prisma.$OutreachSendPayload<ExtArgs>[]
+      calls: Prisma.$LeadCallPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5810,6 +5926,7 @@ export namespace Prisma {
     events<T extends FormSubmission$eventsArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     diagnoses<T extends FormSubmission$diagnosesArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$diagnosesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OperationalDiagnosisPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     outreachSends<T extends FormSubmission$outreachSendsArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$outreachSendsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OutreachSendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    calls<T extends FormSubmission$callsArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmission$callsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadCallPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6370,6 +6487,30 @@ export namespace Prisma {
   }
 
   /**
+   * FormSubmission.calls
+   */
+  export type FormSubmission$callsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallInclude<ExtArgs> | null
+    where?: LeadCallWhereInput
+    orderBy?: LeadCallOrderByWithRelationInput | LeadCallOrderByWithRelationInput[]
+    cursor?: LeadCallWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LeadCallScalarFieldEnum | LeadCallScalarFieldEnum[]
+  }
+
+  /**
    * FormSubmission without action
    */
   export type FormSubmissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6385,6 +6526,1051 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: FormSubmissionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LeadCall
+   */
+
+  export type AggregateLeadCall = {
+    _count: LeadCallCountAggregateOutputType | null
+    _min: LeadCallMinAggregateOutputType | null
+    _max: LeadCallMaxAggregateOutputType | null
+  }
+
+  export type LeadCallMinAggregateOutputType = {
+    id: string | null
+    submissionId: string | null
+    outcome: $Enums.CallOutcome | null
+    createdAt: Date | null
+  }
+
+  export type LeadCallMaxAggregateOutputType = {
+    id: string | null
+    submissionId: string | null
+    outcome: $Enums.CallOutcome | null
+    createdAt: Date | null
+  }
+
+  export type LeadCallCountAggregateOutputType = {
+    id: number
+    submissionId: number
+    outcome: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type LeadCallMinAggregateInputType = {
+    id?: true
+    submissionId?: true
+    outcome?: true
+    createdAt?: true
+  }
+
+  export type LeadCallMaxAggregateInputType = {
+    id?: true
+    submissionId?: true
+    outcome?: true
+    createdAt?: true
+  }
+
+  export type LeadCallCountAggregateInputType = {
+    id?: true
+    submissionId?: true
+    outcome?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type LeadCallAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LeadCall to aggregate.
+     */
+    where?: LeadCallWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadCalls to fetch.
+     */
+    orderBy?: LeadCallOrderByWithRelationInput | LeadCallOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LeadCallWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadCalls from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadCalls.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LeadCalls
+    **/
+    _count?: true | LeadCallCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LeadCallMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LeadCallMaxAggregateInputType
+  }
+
+  export type GetLeadCallAggregateType<T extends LeadCallAggregateArgs> = {
+        [P in keyof T & keyof AggregateLeadCall]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLeadCall[P]>
+      : GetScalarType<T[P], AggregateLeadCall[P]>
+  }
+
+
+
+
+  export type LeadCallGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeadCallWhereInput
+    orderBy?: LeadCallOrderByWithAggregationInput | LeadCallOrderByWithAggregationInput[]
+    by: LeadCallScalarFieldEnum[] | LeadCallScalarFieldEnum
+    having?: LeadCallScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LeadCallCountAggregateInputType | true
+    _min?: LeadCallMinAggregateInputType
+    _max?: LeadCallMaxAggregateInputType
+  }
+
+  export type LeadCallGroupByOutputType = {
+    id: string
+    submissionId: string
+    outcome: $Enums.CallOutcome
+    createdAt: Date
+    _count: LeadCallCountAggregateOutputType | null
+    _min: LeadCallMinAggregateOutputType | null
+    _max: LeadCallMaxAggregateOutputType | null
+  }
+
+  type GetLeadCallGroupByPayload<T extends LeadCallGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LeadCallGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LeadCallGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LeadCallGroupByOutputType[P]>
+            : GetScalarType<T[P], LeadCallGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LeadCallSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    submissionId?: boolean
+    outcome?: boolean
+    createdAt?: boolean
+    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["leadCall"]>
+
+  export type LeadCallSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    submissionId?: boolean
+    outcome?: boolean
+    createdAt?: boolean
+    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["leadCall"]>
+
+  export type LeadCallSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    submissionId?: boolean
+    outcome?: boolean
+    createdAt?: boolean
+    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["leadCall"]>
+
+  export type LeadCallSelectScalar = {
+    id?: boolean
+    submissionId?: boolean
+    outcome?: boolean
+    createdAt?: boolean
+  }
+
+  export type LeadCallOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "submissionId" | "outcome" | "createdAt", ExtArgs["result"]["leadCall"]>
+  export type LeadCallInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+  }
+  export type LeadCallIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+  }
+  export type LeadCallIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submission?: boolean | FormSubmissionDefaultArgs<ExtArgs>
+  }
+
+  export type $LeadCallPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LeadCall"
+    objects: {
+      submission: Prisma.$FormSubmissionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      submissionId: string
+      outcome: $Enums.CallOutcome
+      createdAt: Date
+    }, ExtArgs["result"]["leadCall"]>
+    composites: {}
+  }
+
+  type LeadCallGetPayload<S extends boolean | null | undefined | LeadCallDefaultArgs> = $Result.GetResult<Prisma.$LeadCallPayload, S>
+
+  type LeadCallCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LeadCallFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LeadCallCountAggregateInputType | true
+    }
+
+  export interface LeadCallDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LeadCall'], meta: { name: 'LeadCall' } }
+    /**
+     * Find zero or one LeadCall that matches the filter.
+     * @param {LeadCallFindUniqueArgs} args - Arguments to find a LeadCall
+     * @example
+     * // Get one LeadCall
+     * const leadCall = await prisma.leadCall.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LeadCallFindUniqueArgs>(args: SelectSubset<T, LeadCallFindUniqueArgs<ExtArgs>>): Prisma__LeadCallClient<$Result.GetResult<Prisma.$LeadCallPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LeadCall that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LeadCallFindUniqueOrThrowArgs} args - Arguments to find a LeadCall
+     * @example
+     * // Get one LeadCall
+     * const leadCall = await prisma.leadCall.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LeadCallFindUniqueOrThrowArgs>(args: SelectSubset<T, LeadCallFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LeadCallClient<$Result.GetResult<Prisma.$LeadCallPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LeadCall that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadCallFindFirstArgs} args - Arguments to find a LeadCall
+     * @example
+     * // Get one LeadCall
+     * const leadCall = await prisma.leadCall.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LeadCallFindFirstArgs>(args?: SelectSubset<T, LeadCallFindFirstArgs<ExtArgs>>): Prisma__LeadCallClient<$Result.GetResult<Prisma.$LeadCallPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LeadCall that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadCallFindFirstOrThrowArgs} args - Arguments to find a LeadCall
+     * @example
+     * // Get one LeadCall
+     * const leadCall = await prisma.leadCall.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LeadCallFindFirstOrThrowArgs>(args?: SelectSubset<T, LeadCallFindFirstOrThrowArgs<ExtArgs>>): Prisma__LeadCallClient<$Result.GetResult<Prisma.$LeadCallPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LeadCalls that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadCallFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LeadCalls
+     * const leadCalls = await prisma.leadCall.findMany()
+     * 
+     * // Get first 10 LeadCalls
+     * const leadCalls = await prisma.leadCall.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const leadCallWithIdOnly = await prisma.leadCall.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LeadCallFindManyArgs>(args?: SelectSubset<T, LeadCallFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadCallPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LeadCall.
+     * @param {LeadCallCreateArgs} args - Arguments to create a LeadCall.
+     * @example
+     * // Create one LeadCall
+     * const LeadCall = await prisma.leadCall.create({
+     *   data: {
+     *     // ... data to create a LeadCall
+     *   }
+     * })
+     * 
+     */
+    create<T extends LeadCallCreateArgs>(args: SelectSubset<T, LeadCallCreateArgs<ExtArgs>>): Prisma__LeadCallClient<$Result.GetResult<Prisma.$LeadCallPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LeadCalls.
+     * @param {LeadCallCreateManyArgs} args - Arguments to create many LeadCalls.
+     * @example
+     * // Create many LeadCalls
+     * const leadCall = await prisma.leadCall.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LeadCallCreateManyArgs>(args?: SelectSubset<T, LeadCallCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LeadCalls and returns the data saved in the database.
+     * @param {LeadCallCreateManyAndReturnArgs} args - Arguments to create many LeadCalls.
+     * @example
+     * // Create many LeadCalls
+     * const leadCall = await prisma.leadCall.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LeadCalls and only return the `id`
+     * const leadCallWithIdOnly = await prisma.leadCall.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LeadCallCreateManyAndReturnArgs>(args?: SelectSubset<T, LeadCallCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadCallPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LeadCall.
+     * @param {LeadCallDeleteArgs} args - Arguments to delete one LeadCall.
+     * @example
+     * // Delete one LeadCall
+     * const LeadCall = await prisma.leadCall.delete({
+     *   where: {
+     *     // ... filter to delete one LeadCall
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LeadCallDeleteArgs>(args: SelectSubset<T, LeadCallDeleteArgs<ExtArgs>>): Prisma__LeadCallClient<$Result.GetResult<Prisma.$LeadCallPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LeadCall.
+     * @param {LeadCallUpdateArgs} args - Arguments to update one LeadCall.
+     * @example
+     * // Update one LeadCall
+     * const leadCall = await prisma.leadCall.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LeadCallUpdateArgs>(args: SelectSubset<T, LeadCallUpdateArgs<ExtArgs>>): Prisma__LeadCallClient<$Result.GetResult<Prisma.$LeadCallPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LeadCalls.
+     * @param {LeadCallDeleteManyArgs} args - Arguments to filter LeadCalls to delete.
+     * @example
+     * // Delete a few LeadCalls
+     * const { count } = await prisma.leadCall.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LeadCallDeleteManyArgs>(args?: SelectSubset<T, LeadCallDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LeadCalls.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadCallUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LeadCalls
+     * const leadCall = await prisma.leadCall.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LeadCallUpdateManyArgs>(args: SelectSubset<T, LeadCallUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LeadCalls and returns the data updated in the database.
+     * @param {LeadCallUpdateManyAndReturnArgs} args - Arguments to update many LeadCalls.
+     * @example
+     * // Update many LeadCalls
+     * const leadCall = await prisma.leadCall.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LeadCalls and only return the `id`
+     * const leadCallWithIdOnly = await prisma.leadCall.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LeadCallUpdateManyAndReturnArgs>(args: SelectSubset<T, LeadCallUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadCallPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LeadCall.
+     * @param {LeadCallUpsertArgs} args - Arguments to update or create a LeadCall.
+     * @example
+     * // Update or create a LeadCall
+     * const leadCall = await prisma.leadCall.upsert({
+     *   create: {
+     *     // ... data to create a LeadCall
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LeadCall we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LeadCallUpsertArgs>(args: SelectSubset<T, LeadCallUpsertArgs<ExtArgs>>): Prisma__LeadCallClient<$Result.GetResult<Prisma.$LeadCallPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LeadCalls.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadCallCountArgs} args - Arguments to filter LeadCalls to count.
+     * @example
+     * // Count the number of LeadCalls
+     * const count = await prisma.leadCall.count({
+     *   where: {
+     *     // ... the filter for the LeadCalls we want to count
+     *   }
+     * })
+    **/
+    count<T extends LeadCallCountArgs>(
+      args?: Subset<T, LeadCallCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LeadCallCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LeadCall.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadCallAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LeadCallAggregateArgs>(args: Subset<T, LeadCallAggregateArgs>): Prisma.PrismaPromise<GetLeadCallAggregateType<T>>
+
+    /**
+     * Group by LeadCall.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadCallGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LeadCallGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LeadCallGroupByArgs['orderBy'] }
+        : { orderBy?: LeadCallGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LeadCallGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLeadCallGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LeadCall model
+   */
+  readonly fields: LeadCallFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LeadCall.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LeadCallClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    submission<T extends FormSubmissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FormSubmissionDefaultArgs<ExtArgs>>): Prisma__FormSubmissionClient<$Result.GetResult<Prisma.$FormSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LeadCall model
+   */
+  interface LeadCallFieldRefs {
+    readonly id: FieldRef<"LeadCall", 'String'>
+    readonly submissionId: FieldRef<"LeadCall", 'String'>
+    readonly outcome: FieldRef<"LeadCall", 'CallOutcome'>
+    readonly createdAt: FieldRef<"LeadCall", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LeadCall findUnique
+   */
+  export type LeadCallFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadCall to fetch.
+     */
+    where: LeadCallWhereUniqueInput
+  }
+
+  /**
+   * LeadCall findUniqueOrThrow
+   */
+  export type LeadCallFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadCall to fetch.
+     */
+    where: LeadCallWhereUniqueInput
+  }
+
+  /**
+   * LeadCall findFirst
+   */
+  export type LeadCallFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadCall to fetch.
+     */
+    where?: LeadCallWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadCalls to fetch.
+     */
+    orderBy?: LeadCallOrderByWithRelationInput | LeadCallOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LeadCalls.
+     */
+    cursor?: LeadCallWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadCalls from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadCalls.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeadCalls.
+     */
+    distinct?: LeadCallScalarFieldEnum | LeadCallScalarFieldEnum[]
+  }
+
+  /**
+   * LeadCall findFirstOrThrow
+   */
+  export type LeadCallFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadCall to fetch.
+     */
+    where?: LeadCallWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadCalls to fetch.
+     */
+    orderBy?: LeadCallOrderByWithRelationInput | LeadCallOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LeadCalls.
+     */
+    cursor?: LeadCallWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadCalls from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadCalls.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeadCalls.
+     */
+    distinct?: LeadCallScalarFieldEnum | LeadCallScalarFieldEnum[]
+  }
+
+  /**
+   * LeadCall findMany
+   */
+  export type LeadCallFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadCalls to fetch.
+     */
+    where?: LeadCallWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadCalls to fetch.
+     */
+    orderBy?: LeadCallOrderByWithRelationInput | LeadCallOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LeadCalls.
+     */
+    cursor?: LeadCallWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadCalls from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadCalls.
+     */
+    skip?: number
+    distinct?: LeadCallScalarFieldEnum | LeadCallScalarFieldEnum[]
+  }
+
+  /**
+   * LeadCall create
+   */
+  export type LeadCallCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LeadCall.
+     */
+    data: XOR<LeadCallCreateInput, LeadCallUncheckedCreateInput>
+  }
+
+  /**
+   * LeadCall createMany
+   */
+  export type LeadCallCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LeadCalls.
+     */
+    data: LeadCallCreateManyInput | LeadCallCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LeadCall createManyAndReturn
+   */
+  export type LeadCallCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * The data used to create many LeadCalls.
+     */
+    data: LeadCallCreateManyInput | LeadCallCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LeadCall update
+   */
+  export type LeadCallUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LeadCall.
+     */
+    data: XOR<LeadCallUpdateInput, LeadCallUncheckedUpdateInput>
+    /**
+     * Choose, which LeadCall to update.
+     */
+    where: LeadCallWhereUniqueInput
+  }
+
+  /**
+   * LeadCall updateMany
+   */
+  export type LeadCallUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LeadCalls.
+     */
+    data: XOR<LeadCallUpdateManyMutationInput, LeadCallUncheckedUpdateManyInput>
+    /**
+     * Filter which LeadCalls to update
+     */
+    where?: LeadCallWhereInput
+    /**
+     * Limit how many LeadCalls to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeadCall updateManyAndReturn
+   */
+  export type LeadCallUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * The data used to update LeadCalls.
+     */
+    data: XOR<LeadCallUpdateManyMutationInput, LeadCallUncheckedUpdateManyInput>
+    /**
+     * Filter which LeadCalls to update
+     */
+    where?: LeadCallWhereInput
+    /**
+     * Limit how many LeadCalls to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LeadCall upsert
+   */
+  export type LeadCallUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LeadCall to update in case it exists.
+     */
+    where: LeadCallWhereUniqueInput
+    /**
+     * In case the LeadCall found by the `where` argument doesn't exist, create a new LeadCall with this data.
+     */
+    create: XOR<LeadCallCreateInput, LeadCallUncheckedCreateInput>
+    /**
+     * In case the LeadCall was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LeadCallUpdateInput, LeadCallUncheckedUpdateInput>
+  }
+
+  /**
+   * LeadCall delete
+   */
+  export type LeadCallDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallInclude<ExtArgs> | null
+    /**
+     * Filter which LeadCall to delete.
+     */
+    where: LeadCallWhereUniqueInput
+  }
+
+  /**
+   * LeadCall deleteMany
+   */
+  export type LeadCallDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LeadCalls to delete
+     */
+    where?: LeadCallWhereInput
+    /**
+     * Limit how many LeadCalls to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeadCall without action
+   */
+  export type LeadCallDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadCall
+     */
+    select?: LeadCallSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadCall
+     */
+    omit?: LeadCallOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadCallInclude<ExtArgs> | null
   }
 
 
@@ -28682,6 +29868,16 @@ export namespace Prisma {
   export type FormSubmissionScalarFieldEnum = (typeof FormSubmissionScalarFieldEnum)[keyof typeof FormSubmissionScalarFieldEnum]
 
 
+  export const LeadCallScalarFieldEnum: {
+    id: 'id',
+    submissionId: 'submissionId',
+    outcome: 'outcome',
+    createdAt: 'createdAt'
+  };
+
+  export type LeadCallScalarFieldEnum = (typeof LeadCallScalarFieldEnum)[keyof typeof LeadCallScalarFieldEnum]
+
+
   export const LeadEventScalarFieldEnum: {
     id: 'id',
     submissionId: 'submissionId',
@@ -29328,6 +30524,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'CallOutcome'
+   */
+  export type EnumCallOutcomeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CallOutcome'>
+    
+
+
+  /**
+   * Reference to a field of type 'CallOutcome[]'
+   */
+  export type ListEnumCallOutcomeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CallOutcome[]'>
+    
+
+
+  /**
    * Reference to a field of type 'MarketingEventName'
    */
   export type EnumMarketingEventNameFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MarketingEventName'>
@@ -29743,6 +30953,7 @@ export namespace Prisma {
     events?: LeadEventListRelationFilter
     diagnoses?: OperationalDiagnosisListRelationFilter
     outreachSends?: OutreachSendListRelationFilter
+    calls?: LeadCallListRelationFilter
   }
 
   export type FormSubmissionOrderByWithRelationInput = {
@@ -29794,6 +31005,7 @@ export namespace Prisma {
     events?: LeadEventOrderByRelationAggregateInput
     diagnoses?: OperationalDiagnosisOrderByRelationAggregateInput
     outreachSends?: OutreachSendOrderByRelationAggregateInput
+    calls?: LeadCallOrderByRelationAggregateInput
   }
 
   export type FormSubmissionWhereUniqueInput = Prisma.AtLeast<{
@@ -29848,6 +31060,7 @@ export namespace Prisma {
     events?: LeadEventListRelationFilter
     diagnoses?: OperationalDiagnosisListRelationFilter
     outreachSends?: OutreachSendListRelationFilter
+    calls?: LeadCallListRelationFilter
   }, "id" | "pdfToken">
 
   export type FormSubmissionOrderByWithAggregationInput = {
@@ -29950,6 +31163,56 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"FormSubmission"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"FormSubmission"> | Date | string
     contactId?: StringNullableWithAggregatesFilter<"FormSubmission"> | string | null
+  }
+
+  export type LeadCallWhereInput = {
+    AND?: LeadCallWhereInput | LeadCallWhereInput[]
+    OR?: LeadCallWhereInput[]
+    NOT?: LeadCallWhereInput | LeadCallWhereInput[]
+    id?: StringFilter<"LeadCall"> | string
+    submissionId?: StringFilter<"LeadCall"> | string
+    outcome?: EnumCallOutcomeFilter<"LeadCall"> | $Enums.CallOutcome
+    createdAt?: DateTimeFilter<"LeadCall"> | Date | string
+    submission?: XOR<FormSubmissionScalarRelationFilter, FormSubmissionWhereInput>
+  }
+
+  export type LeadCallOrderByWithRelationInput = {
+    id?: SortOrder
+    submissionId?: SortOrder
+    outcome?: SortOrder
+    createdAt?: SortOrder
+    submission?: FormSubmissionOrderByWithRelationInput
+  }
+
+  export type LeadCallWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LeadCallWhereInput | LeadCallWhereInput[]
+    OR?: LeadCallWhereInput[]
+    NOT?: LeadCallWhereInput | LeadCallWhereInput[]
+    submissionId?: StringFilter<"LeadCall"> | string
+    outcome?: EnumCallOutcomeFilter<"LeadCall"> | $Enums.CallOutcome
+    createdAt?: DateTimeFilter<"LeadCall"> | Date | string
+    submission?: XOR<FormSubmissionScalarRelationFilter, FormSubmissionWhereInput>
+  }, "id">
+
+  export type LeadCallOrderByWithAggregationInput = {
+    id?: SortOrder
+    submissionId?: SortOrder
+    outcome?: SortOrder
+    createdAt?: SortOrder
+    _count?: LeadCallCountOrderByAggregateInput
+    _max?: LeadCallMaxOrderByAggregateInput
+    _min?: LeadCallMinOrderByAggregateInput
+  }
+
+  export type LeadCallScalarWhereWithAggregatesInput = {
+    AND?: LeadCallScalarWhereWithAggregatesInput | LeadCallScalarWhereWithAggregatesInput[]
+    OR?: LeadCallScalarWhereWithAggregatesInput[]
+    NOT?: LeadCallScalarWhereWithAggregatesInput | LeadCallScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LeadCall"> | string
+    submissionId?: StringWithAggregatesFilter<"LeadCall"> | string
+    outcome?: EnumCallOutcomeWithAggregatesFilter<"LeadCall"> | $Enums.CallOutcome
+    createdAt?: DateTimeWithAggregatesFilter<"LeadCall"> | Date | string
   }
 
   export type LeadEventWhereInput = {
@@ -31874,6 +33137,7 @@ export namespace Prisma {
     events?: LeadEventCreateNestedManyWithoutSubmissionInput
     diagnoses?: OperationalDiagnosisCreateNestedManyWithoutSubmissionInput
     outreachSends?: OutreachSendCreateNestedManyWithoutSubmissionInput
+    calls?: LeadCallCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateInput = {
@@ -31924,6 +33188,7 @@ export namespace Prisma {
     events?: LeadEventUncheckedCreateNestedManyWithoutSubmissionInput
     diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput
     outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutSubmissionInput
+    calls?: LeadCallUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUpdateInput = {
@@ -31974,6 +33239,7 @@ export namespace Prisma {
     events?: LeadEventUpdateManyWithoutSubmissionNestedInput
     diagnoses?: OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput
     outreachSends?: OutreachSendUpdateManyWithoutSubmissionNestedInput
+    calls?: LeadCallUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateInput = {
@@ -32024,6 +33290,7 @@ export namespace Prisma {
     events?: LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput
     diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput
     outreachSends?: OutreachSendUncheckedUpdateManyWithoutSubmissionNestedInput
+    calls?: LeadCallUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionCreateManyInput = {
@@ -32164,6 +33431,54 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contactId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LeadCallCreateInput = {
+    id?: string
+    outcome: $Enums.CallOutcome
+    createdAt?: Date | string
+    submission: FormSubmissionCreateNestedOneWithoutCallsInput
+  }
+
+  export type LeadCallUncheckedCreateInput = {
+    id?: string
+    submissionId: string
+    outcome: $Enums.CallOutcome
+    createdAt?: Date | string
+  }
+
+  export type LeadCallUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    outcome?: EnumCallOutcomeFieldUpdateOperationsInput | $Enums.CallOutcome
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submission?: FormSubmissionUpdateOneRequiredWithoutCallsNestedInput
+  }
+
+  export type LeadCallUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    submissionId?: StringFieldUpdateOperationsInput | string
+    outcome?: EnumCallOutcomeFieldUpdateOperationsInput | $Enums.CallOutcome
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadCallCreateManyInput = {
+    id?: string
+    submissionId: string
+    outcome: $Enums.CallOutcome
+    createdAt?: Date | string
+  }
+
+  export type LeadCallUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    outcome?: EnumCallOutcomeFieldUpdateOperationsInput | $Enums.CallOutcome
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadCallUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    submissionId?: StringFieldUpdateOperationsInput | string
+    outcome?: EnumCallOutcomeFieldUpdateOperationsInput | $Enums.CallOutcome
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LeadEventCreateInput = {
@@ -34518,11 +35833,21 @@ export namespace Prisma {
     none?: OperationalDiagnosisWhereInput
   }
 
+  export type LeadCallListRelationFilter = {
+    every?: LeadCallWhereInput
+    some?: LeadCallWhereInput
+    none?: LeadCallWhereInput
+  }
+
   export type LeadEventOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type OperationalDiagnosisOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LeadCallOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -34875,6 +36200,49 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumContractPlanNullableFilter<$PrismaModel>
     _max?: NestedEnumContractPlanNullableFilter<$PrismaModel>
+  }
+
+  export type EnumCallOutcomeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CallOutcome | EnumCallOutcomeFieldRefInput<$PrismaModel>
+    in?: $Enums.CallOutcome[] | ListEnumCallOutcomeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CallOutcome[] | ListEnumCallOutcomeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCallOutcomeFilter<$PrismaModel> | $Enums.CallOutcome
+  }
+
+  export type FormSubmissionScalarRelationFilter = {
+    is?: FormSubmissionWhereInput
+    isNot?: FormSubmissionWhereInput
+  }
+
+  export type LeadCallCountOrderByAggregateInput = {
+    id?: SortOrder
+    submissionId?: SortOrder
+    outcome?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LeadCallMaxOrderByAggregateInput = {
+    id?: SortOrder
+    submissionId?: SortOrder
+    outcome?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LeadCallMinOrderByAggregateInput = {
+    id?: SortOrder
+    submissionId?: SortOrder
+    outcome?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumCallOutcomeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CallOutcome | EnumCallOutcomeFieldRefInput<$PrismaModel>
+    in?: $Enums.CallOutcome[] | ListEnumCallOutcomeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CallOutcome[] | ListEnumCallOutcomeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCallOutcomeWithAggregatesFilter<$PrismaModel> | $Enums.CallOutcome
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCallOutcomeFilter<$PrismaModel>
+    _max?: NestedEnumCallOutcomeFilter<$PrismaModel>
   }
 
   export type EnumMarketingEventNameFilter<$PrismaModel = never> = {
@@ -36565,6 +37933,13 @@ export namespace Prisma {
     connect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
   }
 
+  export type LeadCallCreateNestedManyWithoutSubmissionInput = {
+    create?: XOR<LeadCallCreateWithoutSubmissionInput, LeadCallUncheckedCreateWithoutSubmissionInput> | LeadCallCreateWithoutSubmissionInput[] | LeadCallUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: LeadCallCreateOrConnectWithoutSubmissionInput | LeadCallCreateOrConnectWithoutSubmissionInput[]
+    createMany?: LeadCallCreateManySubmissionInputEnvelope
+    connect?: LeadCallWhereUniqueInput | LeadCallWhereUniqueInput[]
+  }
+
   export type LeadEventUncheckedCreateNestedManyWithoutSubmissionInput = {
     create?: XOR<LeadEventCreateWithoutSubmissionInput, LeadEventUncheckedCreateWithoutSubmissionInput> | LeadEventCreateWithoutSubmissionInput[] | LeadEventUncheckedCreateWithoutSubmissionInput[]
     connectOrCreate?: LeadEventCreateOrConnectWithoutSubmissionInput | LeadEventCreateOrConnectWithoutSubmissionInput[]
@@ -36584,6 +37959,13 @@ export namespace Prisma {
     connectOrCreate?: OutreachSendCreateOrConnectWithoutSubmissionInput | OutreachSendCreateOrConnectWithoutSubmissionInput[]
     createMany?: OutreachSendCreateManySubmissionInputEnvelope
     connect?: OutreachSendWhereUniqueInput | OutreachSendWhereUniqueInput[]
+  }
+
+  export type LeadCallUncheckedCreateNestedManyWithoutSubmissionInput = {
+    create?: XOR<LeadCallCreateWithoutSubmissionInput, LeadCallUncheckedCreateWithoutSubmissionInput> | LeadCallCreateWithoutSubmissionInput[] | LeadCallUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: LeadCallCreateOrConnectWithoutSubmissionInput | LeadCallCreateOrConnectWithoutSubmissionInput[]
+    createMany?: LeadCallCreateManySubmissionInputEnvelope
+    connect?: LeadCallWhereUniqueInput | LeadCallWhereUniqueInput[]
   }
 
   export type NullableEnumPmsUsageFieldUpdateOperationsInput = {
@@ -36710,6 +38092,20 @@ export namespace Prisma {
     deleteMany?: OutreachSendScalarWhereInput | OutreachSendScalarWhereInput[]
   }
 
+  export type LeadCallUpdateManyWithoutSubmissionNestedInput = {
+    create?: XOR<LeadCallCreateWithoutSubmissionInput, LeadCallUncheckedCreateWithoutSubmissionInput> | LeadCallCreateWithoutSubmissionInput[] | LeadCallUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: LeadCallCreateOrConnectWithoutSubmissionInput | LeadCallCreateOrConnectWithoutSubmissionInput[]
+    upsert?: LeadCallUpsertWithWhereUniqueWithoutSubmissionInput | LeadCallUpsertWithWhereUniqueWithoutSubmissionInput[]
+    createMany?: LeadCallCreateManySubmissionInputEnvelope
+    set?: LeadCallWhereUniqueInput | LeadCallWhereUniqueInput[]
+    disconnect?: LeadCallWhereUniqueInput | LeadCallWhereUniqueInput[]
+    delete?: LeadCallWhereUniqueInput | LeadCallWhereUniqueInput[]
+    connect?: LeadCallWhereUniqueInput | LeadCallWhereUniqueInput[]
+    update?: LeadCallUpdateWithWhereUniqueWithoutSubmissionInput | LeadCallUpdateWithWhereUniqueWithoutSubmissionInput[]
+    updateMany?: LeadCallUpdateManyWithWhereWithoutSubmissionInput | LeadCallUpdateManyWithWhereWithoutSubmissionInput[]
+    deleteMany?: LeadCallScalarWhereInput | LeadCallScalarWhereInput[]
+  }
+
   export type LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput = {
     create?: XOR<LeadEventCreateWithoutSubmissionInput, LeadEventUncheckedCreateWithoutSubmissionInput> | LeadEventCreateWithoutSubmissionInput[] | LeadEventUncheckedCreateWithoutSubmissionInput[]
     connectOrCreate?: LeadEventCreateOrConnectWithoutSubmissionInput | LeadEventCreateOrConnectWithoutSubmissionInput[]
@@ -36750,6 +38146,38 @@ export namespace Prisma {
     update?: OutreachSendUpdateWithWhereUniqueWithoutSubmissionInput | OutreachSendUpdateWithWhereUniqueWithoutSubmissionInput[]
     updateMany?: OutreachSendUpdateManyWithWhereWithoutSubmissionInput | OutreachSendUpdateManyWithWhereWithoutSubmissionInput[]
     deleteMany?: OutreachSendScalarWhereInput | OutreachSendScalarWhereInput[]
+  }
+
+  export type LeadCallUncheckedUpdateManyWithoutSubmissionNestedInput = {
+    create?: XOR<LeadCallCreateWithoutSubmissionInput, LeadCallUncheckedCreateWithoutSubmissionInput> | LeadCallCreateWithoutSubmissionInput[] | LeadCallUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: LeadCallCreateOrConnectWithoutSubmissionInput | LeadCallCreateOrConnectWithoutSubmissionInput[]
+    upsert?: LeadCallUpsertWithWhereUniqueWithoutSubmissionInput | LeadCallUpsertWithWhereUniqueWithoutSubmissionInput[]
+    createMany?: LeadCallCreateManySubmissionInputEnvelope
+    set?: LeadCallWhereUniqueInput | LeadCallWhereUniqueInput[]
+    disconnect?: LeadCallWhereUniqueInput | LeadCallWhereUniqueInput[]
+    delete?: LeadCallWhereUniqueInput | LeadCallWhereUniqueInput[]
+    connect?: LeadCallWhereUniqueInput | LeadCallWhereUniqueInput[]
+    update?: LeadCallUpdateWithWhereUniqueWithoutSubmissionInput | LeadCallUpdateWithWhereUniqueWithoutSubmissionInput[]
+    updateMany?: LeadCallUpdateManyWithWhereWithoutSubmissionInput | LeadCallUpdateManyWithWhereWithoutSubmissionInput[]
+    deleteMany?: LeadCallScalarWhereInput | LeadCallScalarWhereInput[]
+  }
+
+  export type FormSubmissionCreateNestedOneWithoutCallsInput = {
+    create?: XOR<FormSubmissionCreateWithoutCallsInput, FormSubmissionUncheckedCreateWithoutCallsInput>
+    connectOrCreate?: FormSubmissionCreateOrConnectWithoutCallsInput
+    connect?: FormSubmissionWhereUniqueInput
+  }
+
+  export type EnumCallOutcomeFieldUpdateOperationsInput = {
+    set?: $Enums.CallOutcome
+  }
+
+  export type FormSubmissionUpdateOneRequiredWithoutCallsNestedInput = {
+    create?: XOR<FormSubmissionCreateWithoutCallsInput, FormSubmissionUncheckedCreateWithoutCallsInput>
+    connectOrCreate?: FormSubmissionCreateOrConnectWithoutCallsInput
+    upsert?: FormSubmissionUpsertWithoutCallsInput
+    connect?: FormSubmissionWhereUniqueInput
+    update?: XOR<XOR<FormSubmissionUpdateToOneWithWhereWithoutCallsInput, FormSubmissionUpdateWithoutCallsInput>, FormSubmissionUncheckedUpdateWithoutCallsInput>
   }
 
   export type FormSubmissionCreateNestedOneWithoutEventsInput = {
@@ -37986,6 +39414,23 @@ export namespace Prisma {
     _max?: NestedEnumContractPlanNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumCallOutcomeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CallOutcome | EnumCallOutcomeFieldRefInput<$PrismaModel>
+    in?: $Enums.CallOutcome[] | ListEnumCallOutcomeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CallOutcome[] | ListEnumCallOutcomeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCallOutcomeFilter<$PrismaModel> | $Enums.CallOutcome
+  }
+
+  export type NestedEnumCallOutcomeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CallOutcome | EnumCallOutcomeFieldRefInput<$PrismaModel>
+    in?: $Enums.CallOutcome[] | ListEnumCallOutcomeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CallOutcome[] | ListEnumCallOutcomeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCallOutcomeWithAggregatesFilter<$PrismaModel> | $Enums.CallOutcome
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCallOutcomeFilter<$PrismaModel>
+    _max?: NestedEnumCallOutcomeFilter<$PrismaModel>
+  }
+
   export type NestedEnumMarketingEventNameFilter<$PrismaModel = never> = {
     equals?: $Enums.MarketingEventName | EnumMarketingEventNameFieldRefInput<$PrismaModel>
     in?: $Enums.MarketingEventName[] | ListEnumMarketingEventNameFieldRefInput<$PrismaModel>
@@ -38429,6 +39874,7 @@ export namespace Prisma {
     events?: LeadEventCreateNestedManyWithoutSubmissionInput
     diagnoses?: OperationalDiagnosisCreateNestedManyWithoutSubmissionInput
     outreachSends?: OutreachSendCreateNestedManyWithoutSubmissionInput
+    calls?: LeadCallCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateWithoutContactInput = {
@@ -38478,6 +39924,7 @@ export namespace Prisma {
     events?: LeadEventUncheckedCreateNestedManyWithoutSubmissionInput
     diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput
     outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutSubmissionInput
+    calls?: LeadCallUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionCreateOrConnectWithoutContactInput = {
@@ -39140,6 +40587,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LeadCallCreateWithoutSubmissionInput = {
+    id?: string
+    outcome: $Enums.CallOutcome
+    createdAt?: Date | string
+  }
+
+  export type LeadCallUncheckedCreateWithoutSubmissionInput = {
+    id?: string
+    outcome: $Enums.CallOutcome
+    createdAt?: Date | string
+  }
+
+  export type LeadCallCreateOrConnectWithoutSubmissionInput = {
+    where: LeadCallWhereUniqueInput
+    create: XOR<LeadCallCreateWithoutSubmissionInput, LeadCallUncheckedCreateWithoutSubmissionInput>
+  }
+
+  export type LeadCallCreateManySubmissionInputEnvelope = {
+    data: LeadCallCreateManySubmissionInput | LeadCallCreateManySubmissionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ContactUpsertWithoutSubmissionsInput = {
     update: XOR<ContactUpdateWithoutSubmissionsInput, ContactUncheckedUpdateWithoutSubmissionsInput>
     create: XOR<ContactCreateWithoutSubmissionsInput, ContactUncheckedCreateWithoutSubmissionsInput>
@@ -39274,6 +40743,248 @@ export namespace Prisma {
     data: XOR<OutreachSendUpdateManyMutationInput, OutreachSendUncheckedUpdateManyWithoutSubmissionInput>
   }
 
+  export type LeadCallUpsertWithWhereUniqueWithoutSubmissionInput = {
+    where: LeadCallWhereUniqueInput
+    update: XOR<LeadCallUpdateWithoutSubmissionInput, LeadCallUncheckedUpdateWithoutSubmissionInput>
+    create: XOR<LeadCallCreateWithoutSubmissionInput, LeadCallUncheckedCreateWithoutSubmissionInput>
+  }
+
+  export type LeadCallUpdateWithWhereUniqueWithoutSubmissionInput = {
+    where: LeadCallWhereUniqueInput
+    data: XOR<LeadCallUpdateWithoutSubmissionInput, LeadCallUncheckedUpdateWithoutSubmissionInput>
+  }
+
+  export type LeadCallUpdateManyWithWhereWithoutSubmissionInput = {
+    where: LeadCallScalarWhereInput
+    data: XOR<LeadCallUpdateManyMutationInput, LeadCallUncheckedUpdateManyWithoutSubmissionInput>
+  }
+
+  export type LeadCallScalarWhereInput = {
+    AND?: LeadCallScalarWhereInput | LeadCallScalarWhereInput[]
+    OR?: LeadCallScalarWhereInput[]
+    NOT?: LeadCallScalarWhereInput | LeadCallScalarWhereInput[]
+    id?: StringFilter<"LeadCall"> | string
+    submissionId?: StringFilter<"LeadCall"> | string
+    outcome?: EnumCallOutcomeFilter<"LeadCall"> | $Enums.CallOutcome
+    createdAt?: DateTimeFilter<"LeadCall"> | Date | string
+  }
+
+  export type FormSubmissionCreateWithoutCallsInput = {
+    id?: string
+    fullName?: string | null
+    email?: string | null
+    companyName?: string | null
+    phoneCountryCode?: string | null
+    phoneNumber?: string | null
+    instagramUrl?: string | null
+    websiteUrl?: string | null
+    usesPms?: $Enums.PmsUsage | null
+    propertyCount?: $Enums.PropertyCount | null
+    revenueRange?: $Enums.RevenueRange | null
+    isTodero?: $Enums.YesNo | null
+    usesAi?: $Enums.YesNo | null
+    wantsToScale?: $Enums.YesNo | null
+    industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
+    pdfToken: string
+    qualification?: $Enums.LeadQualification | null
+    qualificationScore?: number | null
+    disqualificationReason?: $Enums.DisqualificationReason | null
+    scoreBreakdown?: NullableJsonNullValueInput | InputJsonValue
+    entrySource?: $Enums.LeadEntrySource
+    bookingFlow?: $Enums.BookingFlow | null
+    bookedAt?: Date | string | null
+    status?: $Enums.SubmissionStatus
+    fbclid?: string | null
+    fbp?: string | null
+    fbc?: string | null
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    landingPath?: string | null
+    referrer?: string | null
+    marketingFunnelStage?: $Enums.MarketingFunnelStage | null
+    contractValueUsd?: Decimal | DecimalJsLike | number | string | null
+    contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact?: ContactCreateNestedOneWithoutSubmissionsInput
+    events?: LeadEventCreateNestedManyWithoutSubmissionInput
+    diagnoses?: OperationalDiagnosisCreateNestedManyWithoutSubmissionInput
+    outreachSends?: OutreachSendCreateNestedManyWithoutSubmissionInput
+  }
+
+  export type FormSubmissionUncheckedCreateWithoutCallsInput = {
+    id?: string
+    fullName?: string | null
+    email?: string | null
+    companyName?: string | null
+    phoneCountryCode?: string | null
+    phoneNumber?: string | null
+    instagramUrl?: string | null
+    websiteUrl?: string | null
+    usesPms?: $Enums.PmsUsage | null
+    propertyCount?: $Enums.PropertyCount | null
+    revenueRange?: $Enums.RevenueRange | null
+    isTodero?: $Enums.YesNo | null
+    usesAi?: $Enums.YesNo | null
+    wantsToScale?: $Enums.YesNo | null
+    industryTime?: $Enums.IndustryTime | null
+    teamSize?: $Enums.TeamSize | null
+    pdfToken: string
+    qualification?: $Enums.LeadQualification | null
+    qualificationScore?: number | null
+    disqualificationReason?: $Enums.DisqualificationReason | null
+    scoreBreakdown?: NullableJsonNullValueInput | InputJsonValue
+    entrySource?: $Enums.LeadEntrySource
+    bookingFlow?: $Enums.BookingFlow | null
+    bookedAt?: Date | string | null
+    status?: $Enums.SubmissionStatus
+    fbclid?: string | null
+    fbp?: string | null
+    fbc?: string | null
+    utmSource?: string | null
+    utmMedium?: string | null
+    utmCampaign?: string | null
+    utmContent?: string | null
+    utmTerm?: string | null
+    landingPath?: string | null
+    referrer?: string | null
+    marketingFunnelStage?: $Enums.MarketingFunnelStage | null
+    contractValueUsd?: Decimal | DecimalJsLike | number | string | null
+    contractPlan?: $Enums.ContractPlan | null
+    videoOutreachAt?: Date | string | null
+    videoOutreachBookedAt?: Date | string | null
+    videoOutreachCalUid?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contactId?: string | null
+    events?: LeadEventUncheckedCreateNestedManyWithoutSubmissionInput
+    diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput
+    outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutSubmissionInput
+  }
+
+  export type FormSubmissionCreateOrConnectWithoutCallsInput = {
+    where: FormSubmissionWhereUniqueInput
+    create: XOR<FormSubmissionCreateWithoutCallsInput, FormSubmissionUncheckedCreateWithoutCallsInput>
+  }
+
+  export type FormSubmissionUpsertWithoutCallsInput = {
+    update: XOR<FormSubmissionUpdateWithoutCallsInput, FormSubmissionUncheckedUpdateWithoutCallsInput>
+    create: XOR<FormSubmissionCreateWithoutCallsInput, FormSubmissionUncheckedCreateWithoutCallsInput>
+    where?: FormSubmissionWhereInput
+  }
+
+  export type FormSubmissionUpdateToOneWithWhereWithoutCallsInput = {
+    where?: FormSubmissionWhereInput
+    data: XOR<FormSubmissionUpdateWithoutCallsInput, FormSubmissionUncheckedUpdateWithoutCallsInput>
+  }
+
+  export type FormSubmissionUpdateWithoutCallsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneCountryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    websiteUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    usesPms?: NullableEnumPmsUsageFieldUpdateOperationsInput | $Enums.PmsUsage | null
+    propertyCount?: NullableEnumPropertyCountFieldUpdateOperationsInput | $Enums.PropertyCount | null
+    revenueRange?: NullableEnumRevenueRangeFieldUpdateOperationsInput | $Enums.RevenueRange | null
+    isTodero?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
+    pdfToken?: StringFieldUpdateOperationsInput | string
+    qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
+    qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
+    disqualificationReason?: NullableEnumDisqualificationReasonFieldUpdateOperationsInput | $Enums.DisqualificationReason | null
+    scoreBreakdown?: NullableJsonNullValueInput | InputJsonValue
+    entrySource?: EnumLeadEntrySourceFieldUpdateOperationsInput | $Enums.LeadEntrySource
+    bookingFlow?: NullableEnumBookingFlowFieldUpdateOperationsInput | $Enums.BookingFlow | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+    fbclid?: NullableStringFieldUpdateOperationsInput | string | null
+    fbp?: NullableStringFieldUpdateOperationsInput | string | null
+    fbc?: NullableStringFieldUpdateOperationsInput | string | null
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    landingPath?: NullableStringFieldUpdateOperationsInput | string | null
+    referrer?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
+    contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: ContactUpdateOneWithoutSubmissionsNestedInput
+    events?: LeadEventUpdateManyWithoutSubmissionNestedInput
+    diagnoses?: OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput
+    outreachSends?: OutreachSendUpdateManyWithoutSubmissionNestedInput
+  }
+
+  export type FormSubmissionUncheckedUpdateWithoutCallsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneCountryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    instagramUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    websiteUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    usesPms?: NullableEnumPmsUsageFieldUpdateOperationsInput | $Enums.PmsUsage | null
+    propertyCount?: NullableEnumPropertyCountFieldUpdateOperationsInput | $Enums.PropertyCount | null
+    revenueRange?: NullableEnumRevenueRangeFieldUpdateOperationsInput | $Enums.RevenueRange | null
+    isTodero?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    usesAi?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    wantsToScale?: NullableEnumYesNoFieldUpdateOperationsInput | $Enums.YesNo | null
+    industryTime?: NullableEnumIndustryTimeFieldUpdateOperationsInput | $Enums.IndustryTime | null
+    teamSize?: NullableEnumTeamSizeFieldUpdateOperationsInput | $Enums.TeamSize | null
+    pdfToken?: StringFieldUpdateOperationsInput | string
+    qualification?: NullableEnumLeadQualificationFieldUpdateOperationsInput | $Enums.LeadQualification | null
+    qualificationScore?: NullableIntFieldUpdateOperationsInput | number | null
+    disqualificationReason?: NullableEnumDisqualificationReasonFieldUpdateOperationsInput | $Enums.DisqualificationReason | null
+    scoreBreakdown?: NullableJsonNullValueInput | InputJsonValue
+    entrySource?: EnumLeadEntrySourceFieldUpdateOperationsInput | $Enums.LeadEntrySource
+    bookingFlow?: NullableEnumBookingFlowFieldUpdateOperationsInput | $Enums.BookingFlow | null
+    bookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumSubmissionStatusFieldUpdateOperationsInput | $Enums.SubmissionStatus
+    fbclid?: NullableStringFieldUpdateOperationsInput | string | null
+    fbp?: NullableStringFieldUpdateOperationsInput | string | null
+    fbc?: NullableStringFieldUpdateOperationsInput | string | null
+    utmSource?: NullableStringFieldUpdateOperationsInput | string | null
+    utmMedium?: NullableStringFieldUpdateOperationsInput | string | null
+    utmCampaign?: NullableStringFieldUpdateOperationsInput | string | null
+    utmContent?: NullableStringFieldUpdateOperationsInput | string | null
+    utmTerm?: NullableStringFieldUpdateOperationsInput | string | null
+    landingPath?: NullableStringFieldUpdateOperationsInput | string | null
+    referrer?: NullableStringFieldUpdateOperationsInput | string | null
+    marketingFunnelStage?: NullableEnumMarketingFunnelStageFieldUpdateOperationsInput | $Enums.MarketingFunnelStage | null
+    contractValueUsd?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    contractPlan?: NullableEnumContractPlanFieldUpdateOperationsInput | $Enums.ContractPlan | null
+    videoOutreachAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachBookedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    videoOutreachCalUid?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    events?: LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput
+    diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput
+    outreachSends?: OutreachSendUncheckedUpdateManyWithoutSubmissionNestedInput
+  }
+
   export type FormSubmissionCreateWithoutEventsInput = {
     id?: string
     fullName?: string | null
@@ -39321,6 +41032,7 @@ export namespace Prisma {
     contact?: ContactCreateNestedOneWithoutSubmissionsInput
     diagnoses?: OperationalDiagnosisCreateNestedManyWithoutSubmissionInput
     outreachSends?: OutreachSendCreateNestedManyWithoutSubmissionInput
+    calls?: LeadCallCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateWithoutEventsInput = {
@@ -39370,6 +41082,7 @@ export namespace Prisma {
     contactId?: string | null
     diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput
     outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutSubmissionInput
+    calls?: LeadCallUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionCreateOrConnectWithoutEventsInput = {
@@ -39506,6 +41219,7 @@ export namespace Prisma {
     contact?: ContactUpdateOneWithoutSubmissionsNestedInput
     diagnoses?: OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput
     outreachSends?: OutreachSendUpdateManyWithoutSubmissionNestedInput
+    calls?: LeadCallUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateWithoutEventsInput = {
@@ -39555,6 +41269,7 @@ export namespace Prisma {
     contactId?: NullableStringFieldUpdateOperationsInput | string | null
     diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput
     outreachSends?: OutreachSendUncheckedUpdateManyWithoutSubmissionNestedInput
+    calls?: LeadCallUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type AirbnbLeadUpsertWithoutEventsInput = {
@@ -40211,6 +41926,7 @@ export namespace Prisma {
     contact?: ContactCreateNestedOneWithoutSubmissionsInput
     events?: LeadEventCreateNestedManyWithoutSubmissionInput
     diagnoses?: OperationalDiagnosisCreateNestedManyWithoutSubmissionInput
+    calls?: LeadCallCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateWithoutOutreachSendsInput = {
@@ -40260,6 +41976,7 @@ export namespace Prisma {
     contactId?: string | null
     events?: LeadEventUncheckedCreateNestedManyWithoutSubmissionInput
     diagnoses?: OperationalDiagnosisUncheckedCreateNestedManyWithoutSubmissionInput
+    calls?: LeadCallUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionCreateOrConnectWithoutOutreachSendsInput = {
@@ -40374,6 +42091,7 @@ export namespace Prisma {
     contact?: ContactUpdateOneWithoutSubmissionsNestedInput
     events?: LeadEventUpdateManyWithoutSubmissionNestedInput
     diagnoses?: OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput
+    calls?: LeadCallUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateWithoutOutreachSendsInput = {
@@ -40423,6 +42141,7 @@ export namespace Prisma {
     contactId?: NullableStringFieldUpdateOperationsInput | string | null
     events?: LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput
     diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput
+    calls?: LeadCallUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type ContactCreateWithoutAirbnbLeadInput = {
@@ -42072,6 +43791,7 @@ export namespace Prisma {
     contact?: ContactCreateNestedOneWithoutSubmissionsInput
     events?: LeadEventCreateNestedManyWithoutSubmissionInput
     outreachSends?: OutreachSendCreateNestedManyWithoutSubmissionInput
+    calls?: LeadCallCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionUncheckedCreateWithoutDiagnosesInput = {
@@ -42121,6 +43841,7 @@ export namespace Prisma {
     contactId?: string | null
     events?: LeadEventUncheckedCreateNestedManyWithoutSubmissionInput
     outreachSends?: OutreachSendUncheckedCreateNestedManyWithoutSubmissionInput
+    calls?: LeadCallUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type FormSubmissionCreateOrConnectWithoutDiagnosesInput = {
@@ -42257,6 +43978,7 @@ export namespace Prisma {
     contact?: ContactUpdateOneWithoutSubmissionsNestedInput
     events?: LeadEventUpdateManyWithoutSubmissionNestedInput
     outreachSends?: OutreachSendUpdateManyWithoutSubmissionNestedInput
+    calls?: LeadCallUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateWithoutDiagnosesInput = {
@@ -42306,6 +44028,7 @@ export namespace Prisma {
     contactId?: NullableStringFieldUpdateOperationsInput | string | null
     events?: LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput
     outreachSends?: OutreachSendUncheckedUpdateManyWithoutSubmissionNestedInput
+    calls?: LeadCallUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type AirbnbLeadUpsertWithoutDiagnosesInput = {
@@ -42509,6 +44232,7 @@ export namespace Prisma {
     events?: LeadEventUpdateManyWithoutSubmissionNestedInput
     diagnoses?: OperationalDiagnosisUpdateManyWithoutSubmissionNestedInput
     outreachSends?: OutreachSendUpdateManyWithoutSubmissionNestedInput
+    calls?: LeadCallUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateWithoutContactInput = {
@@ -42558,6 +44282,7 @@ export namespace Prisma {
     events?: LeadEventUncheckedUpdateManyWithoutSubmissionNestedInput
     diagnoses?: OperationalDiagnosisUncheckedUpdateManyWithoutSubmissionNestedInput
     outreachSends?: OutreachSendUncheckedUpdateManyWithoutSubmissionNestedInput
+    calls?: LeadCallUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type FormSubmissionUncheckedUpdateManyWithoutContactInput = {
@@ -42753,6 +44478,12 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type LeadCallCreateManySubmissionInput = {
+    id?: string
+    outcome: $Enums.CallOutcome
+    createdAt?: Date | string
+  }
+
   export type LeadEventUpdateWithoutSubmissionInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: EnumMarketingEventNameFieldUpdateOperationsInput | $Enums.MarketingEventName
@@ -42907,6 +44638,24 @@ export namespace Prisma {
     emailSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadCallUpdateWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    outcome?: EnumCallOutcomeFieldUpdateOperationsInput | $Enums.CallOutcome
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadCallUncheckedUpdateWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    outcome?: EnumCallOutcomeFieldUpdateOperationsInput | $Enums.CallOutcome
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadCallUncheckedUpdateManyWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    outcome?: EnumCallOutcomeFieldUpdateOperationsInput | $Enums.CallOutcome
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PipelineJobCreateManyPipelineInput = {

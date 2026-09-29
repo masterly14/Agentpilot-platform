@@ -183,6 +183,13 @@ exports.Prisma.FormSubmissionScalarFieldEnum = {
   contactId: 'contactId'
 };
 
+exports.Prisma.LeadCallScalarFieldEnum = {
+  id: 'id',
+  submissionId: 'submissionId',
+  outcome: 'outcome',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.LeadEventScalarFieldEnum = {
   id: 'id',
   submissionId: 'submissionId',
@@ -585,6 +592,12 @@ exports.ContractPlan = exports.$Enums.ContractPlan = {
   OTHER: 'OTHER'
 };
 
+exports.CallOutcome = exports.$Enums.CallOutcome = {
+  CALLING: 'CALLING',
+  NO_ANSWER: 'NO_ANSWER',
+  ANSWERED: 'ANSWERED'
+};
+
 exports.MarketingEventName = exports.$Enums.MarketingEventName = {
   VIEW_CONTENT: 'VIEW_CONTENT',
   LEAD: 'LEAD',
@@ -757,6 +770,7 @@ exports.AirbnbCommercialStage = exports.$Enums.AirbnbCommercialStage = {
 exports.Prisma.ModelName = {
   Contact: 'Contact',
   FormSubmission: 'FormSubmission',
+  LeadCall: 'LeadCall',
   LeadEvent: 'LeadEvent',
   VideoWatchSession: 'VideoWatchSession',
   LandingVisit: 'LandingVisit',

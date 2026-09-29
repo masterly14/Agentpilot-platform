@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { isAdminAuthenticated, unauthorizedResponse } from "@/lib/admin-auth"
 import { prisma } from "@/lib/prisma"
-import { toLeadRecord } from "@/lib/admin/lead-record"
+import { toLeadRecords } from "@/lib/admin/lead-record"
 
 export async function GET() {
   if (!(await isAdminAuthenticated())) {
@@ -22,6 +22,6 @@ export async function GET() {
   })
 
   return NextResponse.json({
-    submissions: submissions.map(toLeadRecord),
+    submissions: await toLeadRecords(submissions),
   })
 }

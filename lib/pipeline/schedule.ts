@@ -1,5 +1,6 @@
 import type { PipelineState } from "@/prisma/generated/client"
 import { prisma } from "@/lib/prisma"
+import { isPipelineAutomationPaused } from "@/lib/pipeline/pause"
 import { getPipelineBaseUrl, getQstashClient, isQstashConfigured } from "@/lib/qstash/client"
 
 const EXECUTE_PATH = "/api/pipeline/execute"
@@ -73,6 +74,10 @@ export async function schedulePipelineJob(input: {
   delaySeconds?: number
   notBefore?: Date
 }) {
+  if (isPipelineAutomationPaused()) {
+    console.warn("[pipeline] automatización en pausa: se omite schedule de", input.expectedState)
+    return null
+  }
   if (!isQstashConfigured()) {
     console.warn("[qstash] no configurado: se omite schedule de", input.expectedState)
     return null

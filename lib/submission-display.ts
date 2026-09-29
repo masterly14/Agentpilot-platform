@@ -103,6 +103,10 @@ export type SubmissionRecord = {
   videoOutreachAt: string | null
   videoOutreachBookedAt: string | null
   videoOutreachCalUid: string | null
+  callStatus: "CALLING" | "NO_ANSWER" | "ANSWERED" | null
+  callAttempts: number
+  noAnswerCount: number
+  lastCallAt: string | null
   createdAt: string
   updatedAt: string
 }

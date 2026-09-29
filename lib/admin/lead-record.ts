@@ -1,6 +1,7 @@
 import type { FormSubmission, LeadPipeline } from "@/prisma/generated/client"
 import { prisma } from "@/lib/prisma"
 import { serializeSubmission, type SubmissionRecord } from "@/lib/submission-display"
+import { EMPTY_CALL_SUMMARY, getCallSummaries, type CallSummary } from "@/lib/admin/call-summary"
 
 type LeadWithPipeline = FormSubmission & {
   contact?: {
@@ -8,7 +9,10 @@ type LeadWithPipeline = FormSubmission & {
   } | null
 }
 
-export function toLeadRecord(submission: LeadWithPipeline): SubmissionRecord {
+export function toLeadRecord(
+  submission: LeadWithPipeline,
+  calls: CallSummary = EMPTY_CALL_SUMMARY,
+): SubmissionRecord {
   const { contact, ...fields } = submission
   return serializeSubmission({
     ...fields,
@@ -16,7 +20,13 @@ export function toLeadRecord(submission: LeadWithPipeline): SubmissionRecord {
     meetLink: contact?.pipeline?.meetLink ?? null,
     visitorTimezone: contact?.pipeline?.visitorTimezone ?? null,
     painPoint: contact?.pipeline?.painPoint ?? null,
+    ...calls,
   }) as SubmissionRecord
+}
+
+export async function toLeadRecords(submissions: LeadWithPipeline[]): Promise<SubmissionRecord[]> {
+  const summaries = await getCallSummaries(submissions.map((submission) => submission.id))
+  return submissions.map((submission) => toLeadRecord(submission, summaries.get(submission.id)))
 }
 
 export async function getLeadRecord(id: string): Promise<SubmissionRecord | null> {
@@ -34,5 +44,6 @@ export async function getLeadRecord(id: string): Promise<SubmissionRecord | null
   })
 
   if (!submission) return null
-  return toLeadRecord(submission)
+  const summaries = await getCallSummaries([id])
+  return toLeadRecord(submission, summaries.get(id))
 }

@@ -11,6 +11,7 @@ import {
   stageForState,
 } from "@/lib/pipeline/transitions"
 import { cancelPendingPipelineJobs, schedulePipelineJob } from "@/lib/pipeline/schedule"
+import { isPipelineAutomationPaused } from "@/lib/pipeline/pause"
 import { sendPipelineTemplate, sendWhatsAppText } from "@/lib/whatsapp/send-template"
 import { firstNameFromFullName } from "@/lib/whatsapp/phone"
 import { formatMeetingParts } from "@/lib/pipeline/vars"
@@ -230,6 +231,11 @@ export async function executeScheduledStep(input: {
   expectedState: PipelineState
   dedupKey: string
 }) {
+  if (isPipelineAutomationPaused()) {
+    // Jobs ya publicados en QStash antes de la pausa: no envían nada.
+    return { status: "paused" as const }
+  }
+
   const job = await prisma.pipelineJob.findUnique({
     where: { dedupKey: input.dedupKey },
   })

@@ -83,6 +83,7 @@ model FormSubmission {
   events                  LeadEvent[]
   diagnoses               OperationalDiagnosis[]
   outreachSends           OutreachSend[]
+  calls                   LeadCall[]
 
   @@index([qualification])
   @@index([entrySource])
@@ -91,6 +92,22 @@ model FormSubmission {
   @@index([marketingFunnelStage])
   @@index([videoOutreachAt])
   @@index([videoOutreachCalUid])
+}
+
+enum CallOutcome {
+  CALLING
+  NO_ANSWER
+  ANSWERED
+}
+
+model LeadCall {
+  id           String         @id @default(cuid())
+  submissionId String
+  submission   FormSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  outcome      CallOutcome
+  createdAt    DateTime       @default(now())
+
+  @@index([submissionId, createdAt])
 }
 
 model LeadEvent {

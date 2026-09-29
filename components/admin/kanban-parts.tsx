@@ -2,7 +2,7 @@
 
 import { useDraggable, useDroppable } from "@dnd-kit/core"
 import { CSS } from "@dnd-kit/utilities"
-import { Calendar, GripVertical, Mail } from "lucide-react"
+import { Calendar, GripVertical, Mail, Phone, PhoneMissed } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { KanbanCardMenu } from "@/components/admin/kanban-card-menu"
@@ -38,6 +38,80 @@ export function formatMeetingLabel(iso: string | null) {
       timeZone: "America/Bogota",
     })
     .replace(/[\u00A0\u202F\u2009]/g, " ")
+}
+
+export type CallAction = "start" | "no_answer" | "answered" | "scheduled"
+
+function formatCallAgo(iso: string | null) {
+  if (!iso) return null
+  const minutes = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60000))
+  if (minutes < 1) return "ahora"
+  if (minutes < 60) return `hace ${minutes} min`
+  const hours = Math.round(minutes / 60)
+  if (hours < 24) return `hace ${hours} h`
+  return `hace ${Math.round(hours / 24)} d`
+}
+
+/** Ciclo de llamada: Llamar → Llamando → (No contestó | Contestó | Agendó). */
+export function CallTracker({
+  submission,
+  disabled,
+  onCall,
+}: {
+  submission: SubmissionRecord
+  disabled: boolean
+  onCall: (action: CallAction) => void
+}) {
+  const { callStatus, noAnswerCount, lastCallAt } = submission
+  const ago = formatCallAgo(lastCallAt)
+
+  return (
+    <div className="mt-2 space-y-2">
+      {callStatus ? (
+        <p
+          className={cn(
+            "inline-flex items-center gap-1 text-[10px] font-medium",
+            callStatus === "CALLING" && "text-[#037f0c]",
+            callStatus === "NO_ANSWER" && "text-[#b45309]",
+            callStatus === "ANSWERED" && "text-muted-foreground",
+          )}
+        >
+          {callStatus === "NO_ANSWER" ? <PhoneMissed className="h-3 w-3" /> : <Phone className="h-3 w-3" />}
+          {callStatus === "CALLING"
+            ? "Llamando…"
+            : callStatus === "NO_ANSWER"
+              ? `No contestó${noAnswerCount > 1 ? ` ×${noAnswerCount}` : ""}`
+              : "Contestó"}
+          {ago ? <span className="font-normal text-muted-foreground">· {ago}</span> : null}
+        </p>
+      ) : null}
+      {callStatus === "CALLING" ? (
+        <div className="grid grid-cols-3 gap-1.5">
+          <Button type="button" size="sm" variant="outline" disabled={disabled} onClick={() => onCall("no_answer")}>
+            No contestó
+          </Button>
+          <Button type="button" size="sm" variant="outline" disabled={disabled} onClick={() => onCall("answered")}>
+            Contestó
+          </Button>
+          <Button type="button" size="sm" disabled={disabled} onClick={() => onCall("scheduled")}>
+            Agendó
+          </Button>
+        </div>
+      ) : (
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
+          className="w-full"
+          disabled={disabled}
+          onClick={() => onCall("start")}
+        >
+          <Phone className="h-3.5 w-3.5" />
+          {callStatus === "NO_ANSWER" ? "Volver a llamar" : "Llamar"}
+        </Button>
+      )}
+    </div>
+  )
 }
 
 export function LeadStageActions({
@@ -170,6 +244,7 @@ export function KanbanCard({
   onScheduleDemo,
   onDiscard,
   onDelete,
+  onCall,
 }: {
   submission: SubmissionRecord
   isUpdating: boolean
@@ -180,6 +255,7 @@ export function KanbanCard({
   onScheduleDemo?: () => void
   onDiscard?: () => void
   onDelete: () => void
+  onCall: (action: CallAction) => void
 }) {
   const draggable = isFunnelCardDraggable(submission.marketingFunnelStage)
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
@@ -279,6 +355,7 @@ export function KanbanCard({
           onDiscard={onDiscard}
           onOpen={onOpen}
         />
+        <CallTracker submission={submission} disabled={isUpdating} onCall={onCall} />
       </div>
     </div>
   )

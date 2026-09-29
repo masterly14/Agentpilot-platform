@@ -17,8 +17,8 @@ export const FUNNEL_COLUMNS: FunnelColumn<FunnelColumnId>[] = [
     id: "LEAD_MAGNET_SENT",
     label: "Guía enviada",
     description: "Descargó el lead magnet",
-    hint: "Se actualiza solo",
-    droppable: false,
+    hint: "Automático, también a mano",
+    droppable: true,
     automatic: true,
     accent: "bg-[#0972d3]",
   },
@@ -26,8 +26,8 @@ export const FUNNEL_COLUMNS: FunnelColumn<FunnelColumnId>[] = [
     id: "VIDEO_SENT",
     label: "Video enviado",
     description: "Abrió el video de nutrición",
-    hint: "Se actualiza solo",
-    droppable: false,
+    hint: "Automático, también a mano",
+    droppable: true,
     automatic: true,
     accent: "bg-[#8c4fff]",
   },
@@ -43,8 +43,8 @@ export const FUNNEL_COLUMNS: FunnelColumn<FunnelColumnId>[] = [
     id: "SCHEDULED",
     label: "Agendado",
     description: "Reunión confirmada",
-    hint: "Se actualiza solo",
-    droppable: false,
+    hint: "Automático, también a mano",
+    droppable: true,
     automatic: true,
     accent: "bg-[#ec7211]",
   },
@@ -102,16 +102,10 @@ export const FUNNEL_STAGE_LABEL: Record<MarketingFunnelStage, string> = {
   PURCHASED: "Comprado",
 }
 
-const ALLOWED_DROPS: Record<MarketingFunnelStage, MarketingFunnelStage[]> = {
-  LEAD_MAGNET_SENT: [],
-  VIDEO_SENT: [],
-  PENDING_CALL: ["SCHEDULED", "DISCARDED"],
+/** Columnas con reglas propias: las tarjetas en reunión agendada no se mueven libremente. */
+const RESTRICTED_DROPS: Partial<Record<MarketingFunnelStage, MarketingFunnelStage[]>> = {
   SCHEDULED: ["SHOWED_UP", "NO_SHOW", "PENDING_CALL", "PURCHASED"],
-  SHOWED_UP: ["NO_SHOW", "PENDING_CALL", "DEMO_SCHEDULED", "DISCARDED", "PURCHASED"],
-  NO_SHOW: ["SHOWED_UP", "PENDING_CALL"],
   DEMO_SCHEDULED: ["PURCHASED", "DISCARDED"],
-  DISCARDED: [],
-  PURCHASED: [],
 }
 
 export function canDropOnFunnelStage(
@@ -119,11 +113,13 @@ export function canDropOnFunnelStage(
   to: MarketingFunnelStage,
 ) {
   if (!from || from === to) return false
-  return ALLOWED_DROPS[from].includes(to)
+  const restricted = RESTRICTED_DROPS[from]
+  if (restricted) return restricted.includes(to)
+  return true
 }
 
 export function isFunnelCardDraggable(stage: MarketingFunnelStage | null | undefined) {
-  return Boolean(stage && ALLOWED_DROPS[stage].length > 0)
+  return Boolean(stage)
 }
 
 export function isInboxLead(input: {

@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge"
 import { CloseDealDialog } from "@/components/admin/close-deal-dialog"
 import { PostAttendDialog } from "@/components/admin/post-attend-dialog"
 import { SubmissionDetailSheet } from "@/components/admin/submission-detail-sheet"
-import { KanbanCard, KanbanColumn } from "@/components/admin/kanban-parts"
+import { KanbanCard, KanbanColumn, type CallAction } from "@/components/admin/kanban-parts"
 import { DeleteLeadDialog, KanbanCardMenu } from "@/components/admin/kanban-card-menu"
 import type { MeetingReschedulePayload } from "@/components/admin/meeting-reschedule-form"
 import {
@@ -377,6 +377,65 @@ export function SubmissionsKanban({
     }
   }
 
+  async function logCall(id: string, action: Exclude<CallAction, "scheduled">) {
+    setUpdatingId(id)
+    try {
+      const res = await fetch("/api/admin/pipeline/call", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ submissionId: id, action }),
+      })
+      const data = (await res.json().catch(() => null)) as {
+        submission?: SubmissionRecord
+        error?: string
+      } | null
+      if (!res.ok) throw new Error(data?.error ?? "No se pudo registrar la llamada")
+      if (data?.submission) applySubmission(data.submission)
+      if (action === "no_answer") toast.message("Marcado como no contestó")
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "No se pudo registrar la llamada")
+    } finally {
+      setUpdatingId(null)
+    }
+  }
+
+  async function moveLead(id: string, to: MarketingFunnelStage) {
+    const previous = submissions.find((item) => item.id === id)
+    if (!previous) return
+    setUpdatingId(id)
+    setSubmissions((current) =>
+      current.map((item) => (item.id === id ? { ...item, marketingFunnelStage: to } : item)),
+    )
+    try {
+      const res = await fetch("/api/admin/pipeline/move", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ submissionId: id, to }),
+      })
+      const data = (await res.json().catch(() => null)) as {
+        submission?: SubmissionRecord
+        error?: string
+      } | null
+      if (!res.ok) throw new Error(data?.error ?? "No se pudo mover el lead")
+      if (data?.submission) applySubmission(data.submission)
+    } catch (error) {
+      applySubmission(previous)
+      toast.error(error instanceof Error ? error.message : "No se pudo mover el lead")
+    } finally {
+      setUpdatingId(null)
+    }
+  }
+
+  async function handleCall(id: string, action: CallAction) {
+    if (action === "scheduled") {
+      await logCall(id, "answered")
+      await moveLead(id, "SCHEDULED")
+      toast.success("Movido a Agendado")
+      return
+    }
+    await logCall(id, action)
+  }
+
   function handleDragStart(event: DragStartEvent) {
     setActiveId(String(event.active.id))
   }
@@ -391,6 +450,14 @@ export function SubmissionsKanban({
     const submission = submissions.find((item) => item.id === submissionId)
     if (!submission) return
     if (!canDropOnFunnelStage(submission.marketingFunnelStage, nextStage)) return
+
+    const fromRestricted =
+      submission.marketingFunnelStage === "SCHEDULED" ||
+      submission.marketingFunnelStage === "DEMO_SCHEDULED"
+    if (!fromRestricted && nextStage !== "PURCHASED" && nextStage !== "DEMO_SCHEDULED") {
+      await moveLead(submissionId, nextStage)
+      return
+    }
 
     if (nextStage === "PURCHASED") {
       setCloseLeadId(submissionId)
@@ -545,6 +612,7 @@ export function SubmissionsKanban({
                     }}
                     onDiscard={() => void discardLead(submission.id)}
                     onDelete={() => setDeleteLeadId(submission.id)}
+                    onCall={(action) => void handleCall(submission.id, action)}
                   />
                 ))}
               </KanbanColumn>
