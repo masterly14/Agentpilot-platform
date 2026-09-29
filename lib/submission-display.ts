@@ -158,6 +158,27 @@ export function getSubmissionTitle(
   )
 }
 
+/** Coincide por nombre, empresa o teléfono (ignora espacios, guiones y "+"). */
+export function matchesSubmissionQuery(
+  submission: Pick<
+    SubmissionRecord,
+    "companyName" | "fullName" | "phoneCountryCode" | "phoneNumber"
+  >,
+  query: string
+) {
+  const needle = query.trim().toLowerCase()
+  if (!needle) return true
+
+  const names = [submission.fullName, submission.companyName]
+  if (names.some((name) => name?.toLowerCase().includes(needle))) return true
+
+  const needleDigits = needle.replace(/\D/g, "")
+  if (!needleDigits || !submission.phoneNumber) return false
+  const local = submission.phoneNumber.replace(/\D/g, "")
+  const full = `${submission.phoneCountryCode ?? ""}${submission.phoneNumber}`.replace(/\D/g, "")
+  return local.includes(needleDigits) || full.includes(needleDigits)
+}
+
 export function getSubmissionSubtitle(
   submission: Pick<SubmissionRecord, "companyName" | "fullName" | "email">
 ) {

@@ -11,7 +11,7 @@ import type { AirbnbLeadRecord } from "@/lib/admin/airbnb-lead-record"
 import { AIRBNB_STAGE_LABEL } from "@/lib/admin/airbnb-funnel"
 import type { SubmissionRecord } from "@/lib/submission-display"
 import { FUNNEL_STAGE_LABEL, hasInboxContact, isInboxLead } from "@/lib/marketing/funnel-ui"
-import { getSubmissionTitle } from "@/lib/submission-display"
+import { getSubmissionTitle, matchesSubmissionQuery } from "@/lib/submission-display"
 import { cn } from "@/lib/utils"
 
 export type AdminBoardId = "inbound" | "mql" | "airbnb" | "all"
@@ -114,6 +114,11 @@ export function AdminBoard({
     return [...inbound, ...airbnb].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
   }, [airbnbLeads, submissions])
 
+  const submissionsById = useMemo(
+    () => new Map(submissions.map((submission) => [submission.id, submission])),
+    [submissions],
+  )
+
   const visibleRows = useMemo(() => {
     const needle = query.trim().toLowerCase()
     if (!needle) return rows
@@ -121,9 +126,11 @@ export function AdminBoard({
       (row) =>
         row.title.toLowerCase().includes(needle) ||
         row.subtitle.toLowerCase().includes(needle) ||
-        row.stage.toLowerCase().includes(needle),
+        row.stage.toLowerCase().includes(needle) ||
+        (row.origin === "inbound" &&
+          matchesSubmissionQuery(submissionsById.get(row.id)!, needle)),
     )
-  }, [query, rows])
+  }, [query, rows, submissionsById])
 
   function openRow(row: UnifiedRow) {
     if (row.origin === "inbound") {
@@ -210,7 +217,7 @@ export function AdminBoard({
           <Input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Buscar por nombre, correo, mercado o etapa"
+            placeholder="Buscar por nombre, teléfono, correo, mercado o etapa"
             className="max-w-md bg-white"
           />
           <div className="overflow-hidden rounded-2xl border bg-white">

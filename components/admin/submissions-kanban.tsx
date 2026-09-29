@@ -28,7 +28,13 @@ import {
   isInboxLead,
 } from "@/lib/marketing/funnel-ui"
 import type { SubmissionRecord } from "@/lib/submission-display"
-import { ENTRY_SOURCE_LABEL, QUALIFICATION_LABEL, getSubmissionTitle } from "@/lib/submission-display"
+import {
+  ENTRY_SOURCE_LABEL,
+  QUALIFICATION_LABEL,
+  getSubmissionTitle,
+  matchesSubmissionQuery,
+} from "@/lib/submission-display"
+import { Input } from "@/components/ui/input"
 import type { ContractPlan, LeadEntrySource, LeadQualification, MarketingFunnelStage } from "@/prisma/generated/client"
 import { cn } from "@/lib/utils"
 
@@ -63,6 +69,7 @@ export function SubmissionsKanban({
 }: SubmissionsKanbanProps) {
   const [submissions, setSubmissions] = useState(initialSubmissions)
   const [filter, setFilter] = useState<BoardFilter>(initialFilter)
+  const [query, setQuery] = useState("")
   const [showInbox, setShowInbox] = useState(true)
   const [activeId, setActiveId] = useState<string | null>(null)
   const { selectedId, setSelectedId, onOpenChange } = useSheetSelection(
@@ -83,13 +90,14 @@ export function SubmissionsKanban({
 
   const visible = useMemo(() => {
     return submissions.filter((submission) => {
+      if (!matchesSubmissionQuery(submission, query)) return false
       if (filter === "all") return true
       if (filter === "SQL" || filter === "MQL" || filter === "DISQUALIFIED") {
         return submission.qualification === filter
       }
       return submission.entrySource === filter
     })
-  }, [filter, submissions])
+  }, [filter, query, submissions])
 
   const inbox = visible
     .filter((submission) => isInboxLead(submission) && hasInboxContact(submission))
@@ -432,6 +440,13 @@ export function SubmissionsKanban({
             </Badge>
           </div>
         )}
+
+        <Input
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Buscar por nombre o teléfono"
+          className="max-w-sm bg-white"
+        />
 
         <div className="flex flex-wrap gap-1.5">
           {FILTERS.map((item) => (
